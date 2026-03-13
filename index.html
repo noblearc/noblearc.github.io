@@ -327,6 +327,9 @@
     <p style="color:#9ca3af; font-size:14px; margin-bottom:24px;">결제 완료 즉시 라이선스 키가 화면에 표시됩니다.<br>반드시 저장해두세요.</p>
     <label style="font-size:13px; color:#d1d5db; display:block; margin-bottom:6px;">이메일 주소 <span style="color:#ef4444;">*</span></label>
     <input id="buyerEmail" type="email" placeholder="example@email.com"
+      style="width:100%; padding:12px 16px; background:#1f2937; border:1px solid #374151; border-radius:8px; color:#fff; font-size:14px; outline:none; margin-bottom:12px;">
+    <label style="font-size:13px; color:#d1d5db; display:block; margin-bottom:6px;">휴대폰 번호 <span style="color:#ef4444;">*</span></label>
+    <input id="buyerPhone" type="tel" placeholder="01012345678 (- 없이 입력)"
       style="width:100%; padding:12px 16px; background:#1f2937; border:1px solid #374151; border-radius:8px; color:#fff; font-size:14px; outline:none; margin-bottom:20px;">
     <div style="display:flex; gap:12px;">
       <button onclick="closeBuyModal()" style="flex:1; padding:12px; background:#1f2937; border:1px solid #374151; border-radius:8px; color:#9ca3af; cursor:pointer; font-size:14px;">취소</button>
@@ -499,8 +502,13 @@ async function saveToFirebase(collection, licKey, email, paymentId) {
 // ── 결제 시작 ─────────────────────────────────────────────────
 async function startPayment() {
   const email = document.getElementById('buyerEmail').value.trim();
+  const phone = document.getElementById('buyerPhone').value.trim().replace(/-/g,'');
   if (!email || !email.includes('@')) {
     document.getElementById('modalMsg').textContent = '올바른 이메일을 입력해주세요.';
+    return;
+  }
+  if (!phone || phone.length < 10) {
+    document.getElementById('modalMsg').textContent = '휴대폰 번호를 입력해주세요.';
     return;
   }
   const p = PRODUCTS[currentProduct];
@@ -520,7 +528,7 @@ async function startPayment() {
       totalAmount: p.amount,
       currency:   'KRW',
       payMethod:  'CARD',
-      customer: { email, fullName: '구매자' }
+      customer: { email, fullName: '구매자', phoneNumber: phone }
     });
 
     if (result && result.code !== undefined) {
