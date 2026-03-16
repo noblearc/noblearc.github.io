@@ -677,7 +677,10 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
   <div class="board-modal">
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
       <h3 id="postTitle" style="margin-bottom:0;flex:1;padding-right:16px;"></h3>
-      <button onclick="closePostModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);flex-shrink:0;">✕</button>
+      <div style="display:flex;gap:8px;flex-shrink:0;">
+        <button id="postDeleteBtn" onclick="deletePost()" style="display:none;padding:6px 14px;background:#fee2e2;color:#dc2626;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">삭제</button>
+        <button onclick="closePostModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);">✕</button>
+      </div>
     </div>
     <div class="post-author" id="postAuthor"></div>
     <div id="postImageWrap"></div>
@@ -1259,12 +1262,25 @@ async function openPost(id) {
     ? `<img class="post-image" src="${d.imageUrl}" alt="첨부 이미지" />`
     : '';
   document.getElementById('replyInputWrap').style.display = auth.currentUser ? 'flex' : 'none';
+  const isOwner = auth.currentUser && auth.currentUser.uid === d.uid;
+  document.getElementById('postDeleteBtn').style.display = isOwner ? 'block' : 'none';
   document.getElementById('replyInput').value = '';
   document.getElementById('postModal').style.display = 'flex';
   db.collection('posts').doc(id).update({ views: firebase.firestore.FieldValue.increment(1) }).catch(()=>{});
   loadReplies(id);
 }
 
+async function deletePost() {
+  if (!currentPostId || !auth.currentUser) return;
+  if (!confirm('게시글을 삭제하시겠습니까?')) return;
+  try {
+    await db.collection('posts').doc(currentPostId).delete();
+    closePostModal();
+    loadPosts(currentBoardType);
+  } catch(e) {
+    alert('삭제 실패: ' + e.message);
+  }
+}
 async function loadReplies(postId) {
   const container = document.getElementById('repliesList');
   try {
