@@ -8,6 +8,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-storage-compat.js"></script>
 <meta name="description" content="NOBLE ARC는 AI 기반 유튜브 롱폼/숏폼 콘텐츠 자동화 솔루션입니다.">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -297,6 +298,12 @@ nav{
 .reply-input-wrap input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;}
 .reply-input-wrap input:focus{border-color:var(--ac);}
 .btn-reply{padding:10px 16px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.img-attach-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:1.5px dashed var(--border);border-radius:8px;font-size:13px;color:var(--muted);cursor:pointer;background:var(--bg2);transition:border-color .2s;}
+.img-attach-btn:hover{border-color:var(--ac);color:var(--ac);}
+.img-preview{margin-top:10px;position:relative;display:inline-block;}
+.img-preview img{max-width:100%;max-height:200px;border-radius:10px;border:1.5px solid var(--border);}
+.img-preview-remove{position:absolute;top:-8px;right:-8px;width:22px;height:22px;background:#ef4444;color:#fff;border:none;border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+.post-image{width:100%;max-height:400px;object-fit:contain;border-radius:12px;margin-bottom:20px;border:1.5px solid var(--border);}
 
 /* ── CTA BAND ── */
 .cta-band{
@@ -655,6 +662,9 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
     </div>
     <input id="writeTitle" type="text" placeholder="제목을 입력하세요" maxlength="100" />
     <textarea id="writeContent" placeholder="내용을 입력하세요"></textarea>
+    <input type="file" id="writeImageInput" accept="image/*" style="display:none" onchange="previewImage(this)" />
+    <label for="writeImageInput" class="img-attach-btn">📷 이미지 첨부 (선택)</label>
+    <div id="writeImagePreview"></div>
     <div class="board-modal-actions">
       <button class="btn-board-cancel" onclick="closeWriteModal()">취소</button>
       <button class="btn-board-submit" onclick="submitPost()">등록</button>
@@ -671,6 +681,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
       <button onclick="closePostModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);flex-shrink:0;">✕</button>
     </div>
     <div class="post-author" id="postAuthor"></div>
+    <div id="postImageWrap"></div>
     <div class="post-content" id="postContent"></div>
     <div class="replies-section">
       <h4>댓글</h4>
@@ -1124,8 +1135,32 @@ function openWriteModal() {
   document.getElementById('writeTitle').value = '';
   document.getElementById('writeContent').value = '';
   document.getElementById('writeMsg').textContent = '';
+  document.getElementById('writeImageInput').value = '';
+  document.getElementById('writeImagePreview').innerHTML = '';
   selectPostType('review');
   document.getElementById('writeModal').style.display = 'flex';
+}
+function previewImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    alert('이미지는 5MB 이하만 첨부 가능합니다.');
+    input.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('writeImagePreview').innerHTML = `
+      <div class="img-preview">
+        <img src="${e.target.result}" />
+        <button class="img-preview-remove" onclick="removeImage()">✕</button>
+      </div>`;
+  };
+  reader.readAsDataURL(file);
+}
+function removeImage() {
+  document.getElementById('writeImageInput').value = '';
+  document.getElementById('writeImagePreview').innerHTML = '';
 }
 function closeWriteModal() { document.getElementById('writeModal').style.display = 'none'; }
 function closePostModal()  { document.getElementById('postModal').style.display = 'none'; }
@@ -1140,13 +1175,25 @@ async function submitPost() {
   const btn = document.querySelector('.btn-board-submit');
   btn.disabled = true; btn.textContent = '등록 중...';
   try {
+    // 이미지 업로드 (있는 경우)
+    let imageUrl = null;
+    const fileInput = document.getElementById('writeImageInput');
+    if (fileInput.files[0]) {
+      btn.textContent = '이미지 업로드 중...';
+      const file = fileInput.files[0];
+      const storage = firebase.storage();
+      const ref = storage.ref(`posts/${user.uid}/${Date.now()}_${file.name}`);
+      await ref.put(file);
+      imageUrl = await ref.getDownloadURL();
+    }
     await db.collection('posts').add({
       type: writePostType, title, content,
       authorEmail: user.email,
       authorName: user.email.split('@')[0],
       uid: user.uid,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      views: 0, replyCount: 0
+      views: 0, replyCount: 0,
+      ...(imageUrl && { imageUrl })
     });
     closeWriteModal();
     loadPosts(currentBoardType);
@@ -1201,6 +1248,9 @@ async function openPost(id) {
   document.getElementById('postTitle').textContent   = d.title;
   document.getElementById('postAuthor').textContent  = `${d.authorName} · ${date}`;
   document.getElementById('postContent').textContent = d.content;
+  document.getElementById('postImageWrap').innerHTML = d.imageUrl
+    ? `<img class="post-image" src="${d.imageUrl}" alt="첨부 이미지" />`
+    : '';
   document.getElementById('replyInputWrap').style.display = auth.currentUser ? 'flex' : 'none';
   document.getElementById('replyInput').value = '';
   document.getElementById('postModal').style.display = 'flex';
