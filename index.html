@@ -798,10 +798,12 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
 <!-- LICENSE MODAL -->
 <div class="modal" id="licenseModal">
   <div class="modal-box">
+    <button class="modal-close" onclick="closeLicenseModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1;">✕</button>
     <h3>라이선스 발급 완료</h3>
     <p class="modal-sub">아래 키를 프로그램에 입력하세요. 이메일로도 발송됩니다.</p>
     <div class="license-key-box" id="licenseKey"></div>
     <button id="copyBtn" onclick="copyLicense()">라이선스 키 복사</button>
+    <button class="btn-cancel-modal" onclick="closeLicenseModal()" style="width:100%;margin-top:8px;">닫기</button>
   </div>
 </div>
 
@@ -940,9 +942,10 @@ async function loadMyLicenses(email) {
       const snap = await db.collection(col).where('buyerEmail','==',email).get();
       snap.forEach(doc => {
         const d = doc.data();
-        const date    = d.activatedAt ? new Date(d.activatedAt).toLocaleDateString('ko-KR') : '';
+        const toDate  = v => v?.toDate ? v.toDate() : (v ? new Date(v) : null);
+        const date    = d.activatedAt ? toDate(d.activatedAt)?.toLocaleDateString('ko-KR') : '';
         const typeTxt = d.type === 'lifetime' ? '영구' : (d.months ? `${d.months}개월 구독` : '구독');
-        const expTxt  = d.expiresAt ? ` · ${new Date(d.expiresAt).toLocaleDateString('ko-KR')} 만료` : '';
+        const expTxt  = d.expiresAt ? ` · ${toDate(d.expiresAt)?.toLocaleDateString('ko-KR')} 만료` : '';
         const machineBtn = d.machineId
           ? `<button class="btn-reset-machine" onclick="resetMachineId('${col}','${doc.id}')">기기 초기화</button>`
           : '';
