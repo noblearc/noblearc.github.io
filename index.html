@@ -943,15 +943,17 @@ async function loadMyLicenses(email) {
       snap.forEach(doc => {
         const d = doc.data();
         const toDate  = v => v?.toDate ? v.toDate() : (v ? new Date(v) : null);
+        const isActive = d.active !== false;
         const date    = d.activatedAt ? toDate(d.activatedAt)?.toLocaleDateString('ko-KR') : '';
         const typeTxt = d.type === 'lifetime' ? '영구' : (d.months ? `${d.months}개월 구독` : '구독');
-        const expTxt  = d.expiresAt ? ` · ${toDate(d.expiresAt)?.toLocaleDateString('ko-KR')} 만료` : '';
-        const machineBtn = d.machineId
+        const expTxt  = isActive && d.expiresAt ? ` · ${toDate(d.expiresAt)?.toLocaleDateString('ko-KR')} 만료` : '';
+        const statusTxt = !isActive ? ' · <span style="color:#f87171;font-weight:700;">비활성화(환불)</span>' : '';
+        const machineBtn = isActive && d.machineId
           ? `<button class="btn-reset-machine" onclick="resetMachineId('${col}','${doc.id}')">기기 초기화</button>`
           : '';
-        html += `<div class="license-item">
+        html += `<div class="license-item" style="${!isActive ? 'opacity:0.5;' : ''}">
           <div class="license-key">${doc.id}</div>
-          <div class="license-meta">${label} · ${typeTxt}${expTxt} · ${date}</div>
+          <div class="license-meta">${label} · ${typeTxt}${expTxt} · ${date}${statusTxt}</div>
           ${machineBtn}
         </div>`;
       });
