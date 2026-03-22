@@ -1096,6 +1096,13 @@ async function requestTrial() {
       }})
     });
     if (!res.ok) throw new Error('발급 실패: ' + res.status);
+
+    // 이메일 발송 (실패해도 키 발급은 완료된 것으로 처리)
+    fetch('https://noble-arc-payment.vercel.app/api/send-trial-email', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, licenseKey: trialKey })
+    }).catch(() => {});
+
     closeTrialModal();
     document.getElementById('licenseKey').textContent = trialKey;
     document.getElementById('licenseModal').style.display = 'flex';
