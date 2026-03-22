@@ -961,7 +961,7 @@ async function loadMyLicenses(email) {
   const container = document.getElementById('mypageLicenses');
   container.innerHTML = '<div class="license-empty">불러오는 중...</div>';
   try {
-    const colLabels = { shorts_licenses:'SHORTS', longform_licenses:'LONGFORM', bundle_licenses:'BUNDLE' };
+    const colLabels = { shorts_licenses:'SHORTS', longform_licenses:'LONGFORM', bundle_licenses:'BUNDLE', trial_licenses:'체험' };
     let html = '';
     for (const [col, label] of Object.entries(colLabels)) {
       const snap = await db.collection(col).where('buyerEmail','==',email).get();
@@ -969,11 +969,12 @@ async function loadMyLicenses(email) {
         const d = doc.data();
         const toDate  = v => v?.toDate ? v.toDate() : (v ? new Date(v) : null);
         const isActive = d.active !== false;
+        const isTrial = col === 'trial_licenses';
         const date    = d.activatedAt ? toDate(d.activatedAt)?.toLocaleDateString('ko-KR') : '';
-        const typeTxt = d.type === 'lifetime' ? '영구' : (d.months ? `${d.months}개월 구독` : '구독');
+        const typeTxt = isTrial ? '2일 무료체험' : (d.type === 'lifetime' ? '영구' : (d.months ? `${d.months}개월 구독` : '구독'));
         const expTxt  = isActive && d.expiresAt ? ` · ${toDate(d.expiresAt)?.toLocaleDateString('ko-KR')} 만료` : '';
-        const statusTxt = !isActive ? ' · <span style="color:#f87171;font-weight:700;">비활성화(환불)</span>' : '';
-        const machineBtn = isActive && d.machineId
+        const statusTxt = !isActive ? ' · <span style="color:#f87171;font-weight:700;">비활성화</span>' : '';
+        const machineBtn = !isTrial && isActive && d.machineId
           ? `<button class="btn-reset-machine" onclick="resetMachineId('${col}','${doc.id}')">기기 초기화</button>`
           : '';
         html += `<div class="license-item" style="${!isActive ? 'opacity:0.5;' : ''}">
