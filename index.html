@@ -479,13 +479,13 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
   <div class="reveal" style="text-align:center;">
     <div class="eyebrow">이용 요금</div>
     <h2 class="sec-title">합리적인 가격으로<br>시작하세요</h2>
-    <p class="sec-sub" style="margin:0 auto 32px;">단건 결제 또는 월 자동 정기구독 중 원하는 방식으로 시작하세요.</p>
+    <p class="sec-sub" style="margin:0 auto 32px;">월 단위 단건 결제로 부담 없이 시작하세요.</p>
   </div>
-  <div class="pay-type-toggle reveal" id="payTypeToggle">
+  <div class="pay-type-toggle reveal" id="payTypeToggle" style="display:none">
     <button class="pay-type-btn on" id="btnSingle" onclick="setPayType('single')">단건 결제</button>
     <button class="pay-type-btn" id="btnSub" onclick="setPayType('sub')">정기구독 <span class="pay-type-save">월 2,000원 절약</span></button>
   </div>
-  <div class="sub-notice-banner" id="subNoticeBanner">
+  <div class="sub-notice-banner" id="subNoticeBanner" style="display:none">
     ⚙️ <strong>정기구독 시스템 구축 중입니다.</strong> 현재는 단건 결제로만 이용 가능합니다.<br>정기구독 오픈 시 기존 회원분들께 별도 안내드릴 예정입니다.
   </div>
   <div class="pricing-grid reveal">
@@ -1244,7 +1244,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
   <h2 class="sec-title">계속 발전하는<br><em>업데이트 로드맵</em></h2>
   <div class="road-list">
     <div class="road-item"><div class="road-dot"></div><p><strong>지원 언어 확대</strong> — 현재 7개 언어에서 추가 언어 지원 예정</p></div>
-    <div class="road-item"><div class="road-dot"></div><p><strong>정기구독 시스템 도입</strong> — 더 저렴한 가격으로 자동 갱신 이용 가능</p></div>
+    <div class="road-item" style="display:none"><div class="road-dot"></div><p><strong>정기구독 시스템 도입</strong> — 더 저렴한 가격으로 자동 갱신 이용 가능</p></div>
   </div>
 </section>
 
@@ -1399,8 +1399,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">이용 기간이 끝나면 어떻게 되나요?</div>
       <div class="faq-a">이용 기간이 만료되면 프로그램 사용이 중단됩니다.<br><br>
-      <strong>단건 결제</strong>의 경우 이용 기간 종료 후 직접 재결제하면 즉시 다시 이용 가능합니다.<br><br>
-      <strong>정기구독</strong>의 경우 매월 자동으로 결제되어 이용 기간이 연장됩니다. 언제든 마이페이지에서 구독을 해지할 수 있으며, 해지 후에는 남은 이용 기간까지만 사용 가능합니다.</div>
+      <strong>단건 결제</strong>의 경우 이용 기간 종료 후 직접 재결제하면 즉시 다시 이용 가능합니다.</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">Windows 외 Mac, Linux도 지원하나요?</div>
@@ -1417,16 +1416,13 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">환불은 어떻게 하면 되나요?</div>
       <div class="faq-a">환불을 원하시면 이메일(doedoo291@gmail.com) 또는 전화(010-3387-0352)로 문의해 주세요.<br><br>
-      <strong>[단건 결제 환불]</strong><br>
-      라이선스 키를 아직 활성화하지 않으셨다면 구매일로부터 7일 이내에 전액 환불이 가능합니다. 단, 라이선스 키를 프로그램에 입력하여 활성화한 경우에는 디지털 콘텐츠의 특성상 환불이 어렵습니다(전자상거래 등에서의 소비자보호에 관한 법률 제17조 제2항 준용).<br><br>
-      <strong>[정기구독 환불]</strong><br>
-      정기구독은 언제든 해지 가능합니다. 해지 시 당월 남은 이용 기간은 계속 사용 가능하며, 다음 달부터 자동 청구가 중단됩니다. 이미 결제된 당월 금액의 환불은 라이선스 미활성화 상태에서 결제일로부터 7일 이내에 한해 요청 가능합니다. 활성화 후에는 디지털 콘텐츠 특성상 환불이 어렵습니다.</div>
+      라이선스 키를 아직 활성화하지 않으셨다면 구매일로부터 7일 이내에 전액 환불이 가능합니다. 단, 라이선스 키를 프로그램에 입력하여 활성화한 경우에는 디지털 콘텐츠의 특성상 환불이 어렵습니다(전자상거래 등에서의 소비자보호에 관한 법률 제17조 제2항 준용).</div>
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFaq(this)">프로그램에 오류가 있어서 사용을 못 했어요. 환불되나요?</div>
       <div class="faq-a">프로그램 자체의 결함이나 오류로 인해 정상적인 사용이 불가능했다고 판단되는 경우에는 개별 협의를 통해 환불 또는 이용 기간 연장 조치를 취해 드립니다. 이메일(doedoo291@gmail.com) 또는 전화(010-3387-0352)로 문의해 주시면 최대한 빠르게 확인 후 안내해 드리겠습니다.</div>
     </div>
-    <div class="faq-item">
+    <div class="faq-item" style="display:none">
       <div class="faq-q" onclick="toggleFaq(this)">정기구독과 단건 결제의 차이는 무엇인가요?</div>
       <div class="faq-a"><strong>단건 결제</strong>는 매월 직접 재결제하는 방식입니다. 이용 기간이 만료되면 사용이 중단되고, 원하실 때 직접 결제하면 됩니다. 자동 청구 걱정이 없습니다.<br><br>
       <strong>정기구독</strong>은 매월 자동으로 결제되는 방식으로, 단건 결제 대비 월 2,000원 저렴합니다. 언제든 마이페이지에서 해지할 수 있으며, 해지 시 다음 달부터 자동 청구가 중단됩니다.</div>
