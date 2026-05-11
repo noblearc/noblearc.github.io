@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOBLE ARC | AI 유튜브 자동화 솔루션</title>
+<script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+<meta name="description" content="NOBLE ARC는 AI 기반 유튜브 롱폼/숏폼 콘텐츠 자동화 솔루션입니다.">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ac:#6d28d9;
+  --ac2:#7c3aed;
+  --ac3:#a78bfa;
+  --cy:#0891b2;
+  --bg:#ffffff;
+  --bg2:#f8f7ff;
+  --bg3:#f0eeff;
+  --bg4:#e9e5ff;
+  --wd:#1a1a2e;
+  --muted:#6b7280;
+  --muted2:#9ca3af;
+  --border:#e5e7eb;
+  --border-ac:rgba(109,40,217,0.25);
+  --shadow:0 1px 3px rgba(0,0,0,0.08),0 8px 24px rgba(109,40,217,0.06);
+  --shadow-lg:0 4px 6px rgba(0,0,0,0.05),0 20px 48px rgba(109,40,217,0.12);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;background:var(--bg);color:var(--wd);line-height:1.6;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 60px;height:80px;
+  background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  display:flex;align-items:center;gap:12px;
+}
+.nav-logo-img{
+  width:48px;height:48px;object-fit:cover;
+  border-radius:10px;flex-shrink:0;
+}
+.nav-logo-text{
+  font-size:26px;font-weight:900;letter-spacing:2px;
+  background:linear-gradient(135deg,var(--ac),#2563eb);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;
+}
+.nav-links{display:flex;gap:40px;position:absolute;left:50%;transform:translateX(-50%);}
+.nav-links a{
+  font-size:17px;font-weight:600;color:var(--muted);
+  transition:color .2s;position:relative;padding-bottom:4px;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--ac);border-radius:2px;
+  transform:scaleX(0);transition:transform .2s;
+}
+.nav-links a:hover{color:var(--ac);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-login{font-size:15px;font-weight:600;color:var(--muted);padding:8px 16px;border-radius:8px;transition:color .2s,background .2s;}
+.nav-login:hover{color:var(--ac);background:var(--bg3);}
+.nav-cta{
+  font-size:15px;font-weight:700;padding:10px 24px;
+  background:var(--ac);color:#fff;border-radius:10px;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 4px 16px rgba(109,40,217,0.3);
+}
+.nav-cta:hover{background:#5b21b6;transform:translateY(-1px);}
+/* logged in state */
+.nav-user{display:none;align-items:center;gap:10px;}
+.nav-avatar{width:36px;height:36px;border-radius:50%;background:var(--bg4);border:2px solid var(--border-ac);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--ac);cursor:pointer;}
+.nav-user-email{font-size:13px;color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:80px 24px 60px;overflow:hidden;
+  background:linear-gradient(180deg,#faf8ff 0%,#f0ecff 40%,#e8f4ff 100%);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(rgba(109,40,217,0.06) 1.5px,transparent 1.5px);
+  background-size:28px 28px;
+}
+.hero-orb1{
+  position:absolute;top:20%;left:15%;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(124,58,237,0.12),transparent 70%);
+  pointer-events:none;
+}
+.hero-orb2{
+  position:absolute;bottom:20%;right:10%;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(8,145,178,0.1),transparent 70%);
+  pointer-events:none;
+}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 20px;border:1.5px solid var(--border-ac);border-radius:99px;
+  font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--ac2);
+  background:rgba(109,40,217,0.06);margin-bottom:32px;
+  animation:fadeUp .6s ease both;
+}
+.hero-tag::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--ac3);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hero h1{
+  font-size:clamp(46px,7vw,92px);font-weight:900;
+  line-height:1.05;letter-spacing:-2px;margin-bottom:28px;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero h1 .line1{display:block;color:var(--wd);}
+.hero h1 .line2{
+  display:block;
+  background:linear-gradient(120deg,var(--ac) 0%,#2563eb 60%,var(--cy) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-size:clamp(15px,2vw,20px);color:var(--muted);
+  max-width:560px;margin-bottom:48px;line-height:1.75;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp .7s .3s ease both;}
+.btn-main{
+  padding:15px 40px;background:var(--ac);color:#fff;
+  font-size:16px;font-weight:700;border-radius:12px;
+  box-shadow:0 4px 20px rgba(109,40,217,0.35);
+  transition:background .2s,transform .15s,box-shadow .2s;
+}
+.btn-main:hover{background:#5b21b6;transform:translateY(-2px);box-shadow:0 8px 32px rgba(109,40,217,0.45);}
+.btn-ghost{
+  padding:15px 40px;color:var(--ac);
+  font-size:16px;font-weight:700;border-radius:12px;
+  border:2px solid var(--border-ac);
+  background:rgba(109,40,217,0.04);
+  transition:background .2s,transform .15s;
+}
+.btn-ghost:hover{background:rgba(109,40,217,0.1);transform:translateY(-2px);}
+.hero-scroll{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:10px;letter-spacing:3px;color:var(--muted2);
+  animation:fadeUp .7s .6s ease both;
+}
+.scroll-mouse{width:22px;height:34px;border:1.5px solid var(--muted2);border-radius:11px;display:flex;justify-content:center;padding-top:6px;}
+.scroll-mouse::after{content:'';width:3px;height:7px;background:var(--muted2);border-radius:2px;animation:scrollDown 1.8s infinite;}
+@keyframes scrollDown{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(10px);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── STATS ── */
+.stats-band{background:linear-gradient(135deg,#f5f0ff,#eef4ff);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.stats-headline{
+  font-size:clamp(18px,2.5vw,28px);font-weight:800;color:var(--wd);
+  line-height:1.5;letter-spacing:-.5px;margin-bottom:14px;
+}
+.stats-sub{font-size:clamp(14px,1.5vw,17px);color:var(--muted);}
+
+/* ── SUBSCRIPTION (상단 배치) ── */
+.sub-section{background:var(--bg2);border-bottom:1px solid var(--border);}
+.sec{max-width:1160px;margin:0 auto;padding:100px 24px;}
+.sec.tight{padding:80px 24px;}
+.eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--ac2);text-transform:uppercase;margin-bottom:16px;}
+.sec-title{font-size:clamp(28px,4vw,50px);font-weight:900;letter-spacing:-1.5px;line-height:1.1;margin-bottom:14px;color:var(--wd);}
+.sec-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.7;}
+.reveal{opacity:1;transform:none;}
+.js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.js-ready .reveal.visible{opacity:1;transform:none;}
+
+/* sub tabs */
+.sub-tabs-wrap{display:flex;justify-content:center;margin-bottom:48px;}
+.sub-tabs{display:inline-flex;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:5px;gap:4px;box-shadow:var(--shadow);}
+.sub-tab{padding:10px 28px;border-radius:10px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:transparent;transition:background .2s,color .2s;}
+.sub-tab.on{background:linear-gradient(135deg,var(--ac),#2563eb);color:#fff;box-shadow:0 2px 12px rgba(109,40,217,0.3);}
+.sub-tab:hover:not(.on){color:var(--ac);}
+
+/* pricing grid */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.pricing-card{
+  background:#fff;border-radius:20px;padding:40px 32px;
+  border:1.5px solid var(--border);
+  box-shadow:var(--shadow);
+  transition:transform .2s,box-shadow .2s,border-color .2s;
+  position:relative;
+}
+.pricing-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+.pricing-card.highlight{
+  border-color:var(--ac2);
+  background:linear-gradient(160deg,#faf8ff 0%,#fff 100%);
+  box-shadow:0 4px 6px rgba(0,0,0,0.04),0 20px 48px rgba(109,40,217,0.18);
+}
+.pricing-badge{
+  display:inline-block;padding:5px 16px;border-radius:99px;
+  font-size:11px;font-weight:800;letter-spacing:1.5px;
+  background:linear-gradient(135deg,var(--ac),#2563eb);color:#fff;
+  margin-bottom:20px;
+}
+.pricing-name{font-size:20px;font-weight:800;margin-bottom:6px;color:var(--wd);}
+.pricing-desc{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.5;}
+.pricing-price-row{display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;}
+.pricing-price{font-size:46px;font-weight:900;line-height:1;color:var(--ac);}
+.pricing-unit{font-size:14px;color:var(--muted);margin-bottom:6px;}
+.pricing-original{font-size:13px;color:var(--muted2);text-decoration:line-through;margin-bottom:2px;}
+.pricing-discount{font-size:12px;font-weight:700;color:#059669;margin-bottom:6px;}
+.pricing-billing{font-size:12px;color:var(--muted);margin-bottom:28px;}
+.pricing-features{list-style:none;margin-bottom:32px;}
+.pricing-features li{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--wd);}
+.pricing-features li:last-child{border-bottom:none;}
+.pricing-features li::before{content:'✓';color:var(--ac2);font-weight:800;flex-shrink:0;font-size:14px;}
+.pricing-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:transform .15s,box-shadow .2s,background .2s;}
+.pricing-btn.primary{background:var(--ac);color:#fff;box-shadow:0 4px 16px rgba(109,40,217,0.3);}
+.pricing-btn.primary:hover{background:#5b21b6;transform:translateY(-1px);}
+.pricing-btn.secondary{background:var(--bg3);color:var(--ac);border:1.5px solid var(--border-ac);}
+.pricing-btn.secondary:hover{background:var(--bg4);transform:translateY(-1px);}
+.pricing-note{text-align:center;font-size:13px;color:var(--muted);margin-top:24px;}
+.trial-banner{background:linear-gradient(135deg,#059669,#047857);color:#fff;text-align:center;padding:24px 32px;border-radius:16px;margin-top:28px;}
+.trial-banner h3{font-size:17px;font-weight:800;margin-bottom:6px;}
+.trial-banner p{font-size:13px;opacity:0.88;margin-bottom:16px;}
+.trial-btn{background:#fff;color:#047857;font-size:14px;font-weight:700;padding:10px 28px;border:none;border-radius:8px;cursor:pointer;transition:opacity .15s;}
+.trial-btn:hover{opacity:0.88;}
+.pay-type-toggle{display:flex;background:var(--bg3);border-radius:12px;padding:4px;width:fit-content;margin:0 auto 40px;border:1.5px solid var(--border-ac);}
+.pay-type-btn{padding:10px 28px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .2s;white-space:nowrap;}
+.pay-type-btn.on{background:var(--ac);color:#fff;box-shadow:0 2px 12px rgba(109,40,217,0.3);}
+.pay-type-save{display:inline-block;margin-left:8px;background:#059669;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;vertical-align:middle;}
+.sub-notice-banner{display:none;background:#fffbeb;border:1.5px solid #f59e0b;border-radius:12px;padding:14px 20px;margin-bottom:24px;font-size:13px;color:#92400e;text-align:center;line-height:1.6;}
+.sub-notice-banner strong{color:#b45309;}
+
+
+/* ── FEATURES ── */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;margin-top:56px;}
+.bento-card{background:#fff;border-radius:16px;padding:32px 28px;border:1.5px solid var(--border);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s;}
+.bento-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--border-ac);}
+.bento-card.wide{grid-column:span 2;}
+.bento-num{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--ac3);margin-bottom:14px;}
+.bento-title{font-size:18px;font-weight:800;margin-bottom:10px;color:var(--wd);}
+.bento-desc{font-size:14px;color:var(--muted);line-height:1.7;}
+.bento-accent{display:block;width:32px;height:3px;background:linear-gradient(90deg,var(--ac),var(--cy));border-radius:2px;margin-bottom:14px;}
+.bento-highlight{background:linear-gradient(135deg,#f5f0ff,#eef4ff);border-color:var(--border-ac);}
+
+/* ── WORKFLOW ── */
+.workflow-wrap{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:56px;position:relative;}
+.steps::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,var(--border-ac) 20%,var(--border-ac) 80%,transparent);}
+.step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;}
+.step-num{width:56px;height:56px;border-radius:50%;background:#fff;border:2px solid var(--border-ac);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--ac);margin-bottom:18px;position:relative;z-index:1;box-shadow:var(--shadow);transition:background .3s,box-shadow .3s;}
+.step:hover .step-num{background:var(--bg3);box-shadow:0 0 0 4px rgba(109,40,217,0.1);}
+.step-title{font-size:14px;font-weight:800;margin-bottom:6px;color:var(--wd);}
+.step-desc{font-size:12px;color:var(--muted);line-height:1.6;}
+
+/* ── FAQ ── */
+.faq-list{max-width:720px;margin:48px auto 0;}
+.faq-item{border-bottom:1px solid var(--border);}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:15px;font-weight:700;cursor:pointer;transition:color .2s;color:var(--wd);}
+.faq-q:hover{color:var(--ac);}
+.faq-q::after{content:'+';font-size:24px;font-weight:300;color:var(--muted2);transition:transform .3s;}
+.faq-item.open .faq-q::after{transform:rotate(45deg);}
+.faq-a{font-size:14px;color:var(--muted);line-height:1.8;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s;}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:20px;}
+
+/* ── BOARD ── */
+.board-tabs{display:flex;gap:8px;margin-bottom:0;}
+.board-tab{padding:10px 28px;border-radius:10px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border:1.5px solid var(--border);background:#fff;transition:all .2s;}
+.board-tab.on{background:linear-gradient(135deg,var(--ac),#2563eb);color:#fff;border-color:transparent;box-shadow:0 2px 12px rgba(109,40,217,0.3);}
+.board-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.board-write-btn{padding:9px 20px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;}
+.board-list{border:1.5px solid var(--border);border-radius:16px;overflow:hidden;background:#fff;}
+.board-item{display:grid;grid-template-columns:1fr auto;align-items:center;padding:18px 24px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;}
+.board-item:last-child{border-bottom:none;}
+.board-item:hover{background:var(--bg2);}
+.board-item-title{font-size:15px;font-weight:600;color:var(--wd);margin-bottom:4px;}
+.board-item-meta{font-size:12px;color:var(--muted2);}
+.board-item-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;}
+.badge-review{background:rgba(109,40,217,0.08);color:var(--ac);}
+.badge-answered{background:rgba(34,197,94,0.1);color:#16a34a;}
+.badge-waiting{background:rgba(245,158,11,0.1);color:#d97706;}
+.board-empty{padding:48px;text-align:center;color:var(--muted2);font-size:14px;}
+.board-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:24px;}
+.board-modal{background:#fff;border-radius:20px;padding:40px;width:100%;max-width:600px;max-height:85vh;overflow-y:auto;}
+.board-modal h3{font-size:20px;font-weight:800;margin-bottom:24px;color:var(--wd);}
+.board-modal-type{display:flex;gap:8px;margin-bottom:16px;}
+.board-type-btn{flex:1;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;background:#fff;transition:all .2s;}
+.board-type-btn.on{border-color:var(--ac);color:var(--ac);background:rgba(109,40,217,0.04);}
+.board-modal input,.board-modal textarea{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;outline:none;margin-bottom:12px;box-sizing:border-box;}
+.board-modal input:focus,.board-modal textarea:focus{border-color:var(--ac);}
+.board-modal textarea{min-height:140px;resize:vertical;}
+.board-modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
+.btn-board-cancel{padding:10px 20px;background:var(--bg3);color:var(--muted);border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;}
+.btn-board-submit{padding:10px 24px;background:linear-gradient(135deg,var(--ac),#2563eb);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;}
+.post-author{font-size:13px;color:var(--muted);margin-bottom:20px;}
+.post-content{font-size:15px;line-height:1.8;color:var(--wd);white-space:pre-wrap;padding:20px;background:var(--bg2);border-radius:12px;margin-bottom:24px;}
+.replies-section h4{font-size:12px;font-weight:700;color:var(--muted2);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+.reply-item{padding:14px 16px;background:var(--bg2);border-radius:10px;margin-bottom:8px;}
+.reply-meta{font-size:11px;color:var(--muted2);margin-bottom:6px;}
+.reply-admin-badge{font-size:10px;font-weight:700;color:var(--ac);background:rgba(109,40,217,0.08);padding:2px 8px;border-radius:99px;margin-left:6px;}
+.reply-content{font-size:14px;color:var(--wd);line-height:1.6;}
+.reply-input-wrap{display:flex;gap:8px;margin-top:12px;}
+.reply-input-wrap input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;}
+.reply-input-wrap input:focus{border-color:var(--ac);}
+.btn-reply{padding:10px 16px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
+.img-attach-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:1.5px dashed var(--border);border-radius:8px;font-size:13px;color:var(--muted);cursor:pointer;background:var(--bg2);transition:border-color .2s;}
+.img-attach-btn:hover{border-color:var(--ac);color:var(--ac);}
+.img-preview{margin-top:10px;position:relative;display:inline-block;}
+.img-preview img{max-width:100%;max-height:200px;border-radius:10px;border:1.5px solid var(--border);}
+.img-preview-remove{position:absolute;top:-8px;right:-8px;width:22px;height:22px;background:#ef4444;color:#fff;border:none;border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
+.post-image{width:100%;max-height:400px;object-fit:contain;border-radius:12px;margin-bottom:20px;border:1.5px solid var(--border);}
+
+/* ── CTA BAND ── */
+.cta-band{
+  background:linear-gradient(135deg,var(--ac) 0%,#2563eb 60%,var(--cy) 100%);
+  padding:100px 24px;text-align:center;position:relative;overflow:hidden;
+}
+.cta-band::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1.5px,transparent 1.5px);background-size:28px 28px;pointer-events:none;}
+.cta-band h2{font-size:clamp(28px,4vw,52px);font-weight:900;letter-spacing:-1px;margin-bottom:16px;color:#fff;position:relative;}
+.cta-band p{font-size:18px;color:rgba(255,255,255,0.8);margin-bottom:40px;position:relative;}
+.btn-white{padding:16px 52px;background:#fff;color:var(--ac);font-size:16px;font-weight:800;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.15);transition:transform .15s,box-shadow .2s;}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.2);}
+
+/* ── FOOTER ── */
+footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:48px;}
+.footer-brand .logo{font-size:18px;font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,var(--ac),#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;}
+.footer-brand p{font-size:13px;color:var(--muted);max-width:260px;line-height:1.7;}
+.footer-links{display:flex;gap:60px;}
+.footer-col h4{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;margin-bottom:16px;}
+.footer-col a{display:block;font-size:13px;color:var(--muted);margin-bottom:10px;transition:color .2s;}
+.footer-col a:hover{color:var(--ac);}
+.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted2);flex-wrap:wrap;gap:12px;}
+.footer-biz{font-size:11px;color:var(--muted2);line-height:1.8;text-align:right;}
+
+/* ── AUTH MODALS ── */
+.modal{display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);}
+.modal-box{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:44px 40px;width:90%;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
+.modal-box h3{font-size:22px;font-weight:900;color:var(--wd);margin-bottom:8px;}
+.modal-box .modal-sub{font-size:14px;color:var(--muted);margin-bottom:28px;}
+.modal-box label{font-size:13px;font-weight:600;color:var(--wd);display:block;margin-bottom:6px;}
+.modal-box input{width:100%;padding:12px 16px;background:#f9fafb;border:1.5px solid var(--border);border-radius:10px;color:var(--wd);font-size:14px;outline:none;transition:border-color .2s;margin-bottom:16px;}
+.modal-box input:focus{border-color:var(--ac2);background:#fff;}
+.modal-msg{font-size:13px;color:#dc2626;min-height:18px;margin-bottom:12px;}
+.modal-btns{display:flex;gap:10px;margin-top:4px;}
+.modal-btns button{flex:1;padding:13px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:background .2s;}
+.btn-primary-modal{background:var(--ac);color:#fff;}
+.btn-primary-modal:hover{background:#5b21b6;}
+.btn-primary-modal:disabled{opacity:.5;cursor:not-allowed;}
+.btn-cancel-modal{background:var(--bg3);color:var(--muted);}
+.modal-switch{text-align:center;font-size:13px;color:var(--muted);margin-top:16px;}
+.modal-switch a{color:var(--ac);font-weight:700;cursor:pointer;}
+
+/* 구글 로그인 버튼 */
+.btn-google{
+  width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:600;
+  background:#fff;color:var(--wd);border:1.5px solid var(--border);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:background .2s,box-shadow .2s;box-shadow:var(--shadow);
+  margin-bottom:20px;
+}
+.btn-google:hover{background:#f9fafb;box-shadow:var(--shadow-lg);}
+.divider{display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:12px;color:var(--muted2);}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* 마이페이지 패널 */
+.mypage-panel{
+  display:none;position:fixed;top:80px;right:60px;z-index:800;
+  background:#fff;border:1.5px solid var(--border);border-radius:16px;
+  padding:24px;width:300px;box-shadow:var(--shadow-lg);
+}
+.mypage-panel.open{display:block;}
+.mypage-email{font-size:13px;color:var(--muted);margin-bottom:16px;word-break:break-all;}
+.mypage-section{margin-bottom:20px;}
+.mypage-section h4{font-size:12px;font-weight:700;letter-spacing:1px;color:var(--muted2);text-transform:uppercase;margin-bottom:10px;}
+.license-item{background:var(--bg2);border-radius:10px;padding:12px 14px;margin-bottom:8px;}
+.license-key{font-family:monospace;font-size:13px;font-weight:700;color:var(--ac);letter-spacing:1px;}
+.license-meta{font-size:11px;color:var(--muted);margin-top:4px;}
+.license-empty{font-size:13px;color:var(--muted2);}
+.btn-logout{width:100%;padding:10px;background:var(--bg3);color:var(--muted);border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:background .2s;}
+.btn-reset-machine{margin-top:6px;padding:4px 10px;background:#fee2e2;color:#dc2626;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;}
+.btn-reset-machine:hover{background:#fecaca;}
+.btn-logout:hover{background:var(--bg4);}
+
+/* 결제 모달 */
+.license-key-box{background:var(--bg3);border:1.5px solid var(--border-ac);border-radius:10px;padding:20px;font-size:17px;font-weight:800;letter-spacing:2px;text-align:center;color:var(--ac);margin:20px 0;font-family:monospace;}
+#copyBtn{width:100%;padding:13px;background:var(--ac);color:#fff;border-radius:10px;font-size:14px;font-weight:700;border:none;cursor:pointer;}
+#copyBtn:hover{background:#5b21b6;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:0 24px;height:72px;}
+  .nav-links{display:none;}
+  .bento{grid-template-columns:1fr;}
+  .bento-card.wide{grid-column:span 1;}
+  .steps{grid-template-columns:repeat(2,1fr);gap:32px;}
+  .steps::before{display:none;}
+  .pricing-grid{grid-template-columns:1fr;}
+
+  footer{padding:48px 24px 32px;}
+  .footer-top{flex-direction:column;}
+  .footer-links{flex-direction:column;gap:32px;}
+  .footer-biz{text-align:left;}
+  .mypage-panel{right:24px;width:calc(100vw - 48px);}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/" style="cursor:pointer;">
+    <img class="nav-logo-img" src="logo.png" alt="NOBLE ARC">
+    <span class="nav-logo-text">노블아크(NOBLE ARC)</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">기능</a>
+    <a href="#subscription">요금제</a>
+    <a href="#faq">FAQ</a>
+    <a href="#community">커뮤니티</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-user" id="navUser">
+      <div class="nav-user-email" id="navUserEmail"></div>
+      <div class="nav-avatar" id="navAvatar" onclick="toggleMypage()">U</div>
+    </div>
+    <a class="nav-login" id="navLoginBtn" onclick="openAuthModal('login')">로그인</a>
+    <a class="nav-cta" id="navSignupBtn" onclick="openAuthModal('signup')">회원가입</a>
+  </div>
+</nav>
+
+<!-- 마이페이지 드롭다운 -->
+<div class="mypage-panel" id="mypagePanel">
+  <div class="mypage-email" id="mypageEmail"></div>
+  <div class="mypage-section">
+    <h4>내 라이선스</h4>
+    <div id="mypageLicenses"><div class="license-empty">라이선스 없음</div></div>
+  </div>
+  <button class="btn-logout" onclick="doLogout()">로그아웃</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
+  <div class="hero-tag">유튜브 영상 자동화 솔루션</div>
+  <h1>
+    <span class="line1">유튜브 영상제작의 모든 것</span>
+    <span class="line2">NOBLE ARC가 전부 해드립니다</span>
+  </h1>
+  <p class="hero-sub">소재, 대본, 이미지, 음성, 자막, 편집까지 모두<br>클릭 몇 번 또는 전자동 시스템으로 완성형 유튜브 영상을 만드세요.</p>
+  <div class="hero-btns">
+    <a href="#subscription" class="btn-main">지금 시작하기</a>
+    <a href="#features" class="btn-ghost">기능 살펴보기</a>
+    <a href="manual.html" class="btn-ghost" target="_blank">📖 사용설명서</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-mouse"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-band">
+  <div class="stats-inner" style="max-width:900px;margin:0 auto;padding:52px 48px;text-align:center;">
+    <p class="stats-headline reveal">수년간 축적된 유튜브 노하우와 인기 영상 제작 비법을<br>프로그램 로직에 그대로 담았습니다.</p>
+    <p class="stats-sub reveal">단순 자동화가 아닙니다. 실제로 성과를 내는 방식으로 설계되었습니다.</p>
+  </div>
+</div>
+
+<!-- SUBSCRIPTION (상단으로 이동) -->
+<div class="sub-section" id="subscription">
+<section class="sec">
+  <div class="reveal" style="text-align:center;">
+    <div class="eyebrow">이용 요금</div>
+    <h2 class="sec-title">합리적인 가격으로<br>시작하세요</h2>
+    <p class="sec-sub" style="margin:0 auto 32px;">단건 결제 또는 월 자동 정기구독 중 원하는 방식으로 시작하세요.</p>
+  </div>
+  <div class="pay-type-toggle reveal" id="payTypeToggle">
+    <button class="pay-type-btn on" id="btnSingle" onclick="setPayType('single')">단건 결제</button>
+    <button class="pay-type-btn" id="btnSub" onclick="setPayType('sub')">정기구독 <span class="pay-type-save">월 2,000원 절약</span></button>
+  </div>
+  <div class="sub-notice-banner" id="subNoticeBanner">
+    ⚙️ <strong>정기구독 시스템 구축 중입니다.</strong> 현재는 단건 결제로만 이용 가능합니다.<br>정기구독 오픈 시 기존 회원분들께 별도 안내드릴 예정입니다.
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="pricing-card" data-prod="shorts">
+      <div class="pricing-badge">SHORTS</div>
+      <div class="pricing-name">쇼츠 전용</div>
+      <div class="pricing-desc">쇼츠 채널에 최적화된 자동화 솔루션</div>
+      <div class="pricing-price-row">
+        <div class="pricing-price">₩22,000</div>
+        <div class="pricing-unit">/월</div>
+      </div>
+      <div class="pricing-original">₩34,000/월</div>
+      <div class="pricing-discount">35% 할인</div>
+      <div class="pricing-billing">월 단위 결제 · 수동 갱신</div>
+      <button class="pricing-btn secondary" onclick="openBuyModal('shorts')">쇼츠 시작하기</button>
+    </div>
+    <div class="pricing-card highlight" data-prod="longform">
+      <div class="pricing-badge">LONGFORM</div>
+      <div class="pricing-name">롱폼 전용</div>
+      <div class="pricing-desc">롱폼 채널에 최적화된 고급 자동화 솔루션</div>
+      <div class="pricing-price-row">
+        <div class="pricing-price">₩29,000</div>
+        <div class="pricing-unit">/월</div>
+      </div>
+      <div class="pricing-original">₩42,000/월</div>
+      <div class="pricing-discount">31% 할인</div>
+      <div class="pricing-billing">월 단위 결제 · 수동 갱신</div>
+      <button class="pricing-btn primary" onclick="openBuyModal('longform')">롱폼 시작하기</button>
+    </div>
+    <div class="pricing-card" data-prod="bundle">
+      <div class="pricing-badge">BUNDLE</div>
+      <div class="pricing-name">쇼츠 + 롱폼</div>
+      <div class="pricing-desc">쇼츠+롱폼 동시 운영하는 가장 스마트한 선택</div>
+      <div class="pricing-price-row">
+        <div class="pricing-price">₩45,000</div>
+        <div class="pricing-unit">/월</div>
+      </div>
+      <div class="pricing-original">₩65,000/월</div>
+      <div class="pricing-discount">31% 할인</div>
+      <div class="pricing-billing">월 단위 결제 · 수동 갱신</div>
+      <button class="pricing-btn secondary" onclick="openBuyModal('bundle')">번들 시작하기</button>
+    </div>
+  </div>
+  <p class="pricing-note reveal" id="priceNote">결제 후 즉시 라이선스 발급 · 이용 기간 종료 후 재결제 방식</p>
+  <div class="reveal" style="text-align:center;margin-top:48px;margin-bottom:8px">
+    <img src="noblearc_screenshots.png" alt="NOBLE ARC 실제 프로그램 동작 화면" style="width:100%;max-width:960px;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.5)">
+  </div>
+  <style>
+#detail-section *,
+#detail-section *::before,
+#detail-section *::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#080F1C;--navy2:#0C172A;--navy3:#112038;
+  --gold:#F5A623;--gold2:#FFD166;
+  --teal:#00C9A7;
+  --red:#E8533A;
+  --white:#FFFFFF;--light:#DCE8F5;--muted:#90B8D8;
+  --card:#0E1D32;--card2:#0A1828;
+  --max:860px;
+}
+#detail-section{background:var(--navy);font-family:'Noto Sans KR',sans-serif;color:var(--white);margin:0 auto;max-width:var(--max);overflow-x:hidden}
+#detail-section .wrap{padding:0 40px}
+#detail-section .sec{padding:64px 40px;border-bottom:1px solid rgba(255,255,255,.06)}
+#detail-section .label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:8px;margin-bottom:14px}
+#detail-section .label::before{content:'';width:20px;height:2px;background:var(--teal);flex-shrink:0}
+#detail-section .sec-title{font-weight:900;font-size:32px;line-height:1.25;margin-bottom:12px;letter-spacing:-0.5px;color:#ffffff}
+#detail-section .sec-title em{color:var(--gold);font-style:normal}
+#detail-section .sec-title .t{color:var(--teal);font-style:normal}
+#detail-section .sec-desc{font-size:15px;color:#A8C4DC;line-height:1.9}
+#detail-section /* HERO */
+.hero{background:linear-gradient(160deg,#080F1C 0%,#0C1F3A 60%,#080F1C 100%);padding:72px 40px 60px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
+#detail-section .hero::before{content:'';position:absolute;top:-60px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.1) 0%,transparent 70%);pointer-events:none}
+#detail-section .hero::after{content:'';position:absolute;bottom:-40px;left:-60px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,167,.07) 0%,transparent 70%);pointer-events:none}
+#detail-section .hero-inner{position:relative}
+#detail-section .hero-top{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+#detail-section .hero-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:5px;color:var(--gold)}
+#detail-section .hero-badge{background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px}
+#detail-section .hero h1{font-weight:900;font-size:46px;line-height:1.18;letter-spacing:-1px;margin-bottom:18px}
+#detail-section .hero h1 .g{color:var(--gold)}
+#detail-section .hero h1 .t{color:var(--teal)}
+#detail-section .hero-sub{font-size:16px;color:var(--light);line-height:1.85;margin-bottom:36px;max-width:640px}
+#detail-section .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+#detail-section .hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--light)}
+#detail-section .hero-tag.g{border-color:rgba(245,166,35,.3);color:var(--gold);background:rgba(245,166,35,.08)}
+#detail-section .hero-tag.t{border-color:rgba(0,201,167,.3);color:var(--teal);background:rgba(0,201,167,.08)}
+#detail-section .hero-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.07);border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+#detail-section .kpi{background:var(--card);padding:22px 12px;text-align:center}
+#detail-section .kpi-n{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);line-height:1}
+#detail-section .kpi-u{font-size:10px;font-weight:700;color:var(--teal);margin:4px 0;letter-spacing:1px}
+#detail-section .kpi-d{font-size:11px;color:var(--muted)}
+#detail-section /* PROGRAMS */
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px}
+#detail-section .prog-card{border-radius:16px;padding:28px 24px;border:1px solid rgba(255,255,255,.08)}
+#detail-section .prog-card.longform{background:linear-gradient(135deg,rgba(245,166,35,.07),var(--card));border-color:rgba(245,166,35,.2)}
+#detail-section .prog-card.shorts{background:linear-gradient(135deg,rgba(0,201,167,.07),var(--card));border-color:rgba(0,201,167,.2)}
+#detail-section .prog-ratio{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;margin-bottom:6px}
+#detail-section .prog-card.longform .prog-ratio{color:var(--gold)}
+#detail-section .prog-card.shorts .prog-ratio{color:var(--teal)}
+#detail-section .prog-label{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:14px}
+#detail-section .prog-card.longform .prog-label{color:var(--gold)}
+#detail-section .prog-card.shorts .prog-label{color:var(--teal)}
+#detail-section .prog-items{display:flex;flex-direction:column;gap:7px}
+#detail-section .prog-item{font-size:13px;color:var(--light);display:flex;align-items:flex-start;gap:7px;line-height:1.6}
+#detail-section .prog-item::before{content:'✓';flex-shrink:0;font-weight:900;margin-top:1px}
+#detail-section .prog-card.longform .prog-item::before{color:var(--gold)}
+#detail-section .prog-card.shorts .prog-item::before{color:var(--teal)}
+#detail-section /* SNS */
+.sns-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+#detail-section .sns-card{background:var(--card);border-radius:16px;padding:26px 22px;border:1px solid rgba(255,255,255,.07)}
+#detail-section .sns-card-title{font-size:15px;font-weight:900;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+#detail-section .sns-badge{font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 9px;border-radius:20px}
+#detail-section .sns-badge.gold{background:rgba(245,166,35,.15);color:var(--gold);border:1px solid rgba(245,166,35,.2)}
+#detail-section .sns-badge.teal{background:rgba(0,201,167,.12);color:var(--teal);border:1px solid rgba(0,201,167,.2)}
+#detail-section .sns-card p{font-size:13px;color:#A8C4DC;line-height:1.85;margin-bottom:14px}
+#detail-section .sns-pill-group{display:flex;gap:6px;flex-wrap:wrap}
+#detail-section .sns-pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.06);color:var(--light);border:1px solid rgba(255,255,255,.1)}
+#detail-section .sns-how{margin-top:22px;background:rgba(0,201,167,.05);border:1px solid rgba(0,201,167,.15);border-radius:14px;padding:20px 22px}
+#detail-section .sns-how p{font-size:14px;color:#A8C4DC;line-height:1.9}
+#detail-section .sns-how strong{color:var(--teal)}
+#detail-section /* RESEARCH */
+.research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+#detail-section .research-card{background:var(--card);border-radius:14px;padding:22px 20px;border:1px solid rgba(255,255,255,.06)}
+#detail-section .research-icon{font-size:26px;margin-bottom:10px}
+#detail-section .research-card h4{font-size:15px;font-weight:900;margin-bottom:7px}
+#detail-section .research-card p{font-size:13px;color:#A8C4DC;line-height:1.75}
+#detail-section /* FEAT TAGS */
+.feat-tag{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px}
+#detail-section .feat-tag.g{color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2)}
+#detail-section .feat-tag.t{color:var(--teal);background:rgba(0,201,167,.1);border:1px solid rgba(0,201,167,.2)}
+#detail-section /* PROBLEM */
+.prob-list{display:flex;flex-direction:column;gap:14px;margin-top:36px}
+#detail-section .prob-item{background:rgba(232,83,58,.06);border:1px solid rgba(232,83,58,.15);border-radius:14px;padding:22px 24px;display:flex;gap:18px;align-items:flex-start}
+#detail-section .prob-icon{font-size:28px;flex-shrink:0;margin-top:2px}
+#detail-section .prob-item h4{font-size:16px;font-weight:900;margin-bottom:6px;color:var(--white)}
+#detail-section .prob-item p{font-size:14px;color:#A8C4DC;line-height:1.8}
+#detail-section .prob-center{margin-top:36px;text-align:center;padding:30px;background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.15);border-radius:16px}
+#detail-section .prob-center p{font-size:16px;font-weight:700;color:var(--light);line-height:1.7}
+#detail-section .prob-center strong{color:var(--gold)}
+#detail-section /* SOLUTION */
+.solution-box{margin-top:36px;background:linear-gradient(135deg,rgba(0,201,167,.08),rgba(245,166,35,.05));border:1px solid rgba(0,201,167,.2);border-radius:20px;padding:40px 32px;text-align:center}
+#detail-section .solution-box .big{font-weight:900;font-size:28px;line-height:1.35;margin-bottom:18px}
+#detail-section .solution-box .big em{color:var(--teal);font-style:normal}
+#detail-section .solution-box p{font-size:15px;color:#A8C4DC;line-height:1.9}
+#detail-section /* FLOW */
+.flow-wrap{margin-top:40px;position:relative}
+#detail-section .flow-wrap::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),rgba(245,166,35,.1))}
+#detail-section .flow-item{display:flex;gap:26px;padding-bottom:36px;align-items:flex-start;position:relative}
+#detail-section .flow-item:last-child{padding-bottom:0}
+#detail-section .flow-dot{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:19px;flex-shrink:0;position:relative;z-index:1}
+#detail-section .flow-dot.g{background:var(--gold);color:var(--navy)}
+#detail-section .flow-dot.t{background:var(--teal);color:var(--navy)}
+#detail-section .flow-body{padding-top:8px}
+#detail-section .flow-body h4{font-size:18px;font-weight:900;margin-bottom:7px}
+#detail-section .flow-body p{font-size:14px;color:#A8C4DC;line-height:1.85}
+#detail-section .flow-tags{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+#detail-section .ftag{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(245,166,35,.12);color:var(--gold);border:1px solid rgba(245,166,35,.2)}
+#detail-section .ftag.t{background:rgba(0,201,167,.12);color:var(--teal);border-color:rgba(0,201,167,.2)}
+#detail-section /* FEATURES */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+#detail-section .feat-card{background:var(--card);border-radius:14px;padding:26px 22px;border:1px solid rgba(255,255,255,.05)}
+#detail-section .feat-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+#detail-section .feat-icon.g{background:rgba(245,166,35,.14)}
+#detail-section .feat-icon.t{background:rgba(0,201,167,.14)}
+#detail-section .feat-card h4{font-size:16px;font-weight:900;margin-bottom:8px}
+#detail-section .feat-card p{font-size:13px;color:#A8C4DC;line-height:1.8}
+#detail-section /* COST */
+.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+#detail-section .cost-card{background:var(--card);border-radius:16px;padding:28px 24px;border:1px solid rgba(255,255,255,.06)}
+#detail-section .cost-card.fc{border-color:rgba(245,166,35,.25)}
+#detail-section .cost-badge{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--teal);margin-bottom:10px}
+#detail-section .cost-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);line-height:1;margin-bottom:4px}
+#detail-section .cost-card.free .cost-num{color:var(--teal)}
+#detail-section .cost-sub{font-size:12px;color:var(--muted);margin-bottom:18px}
+#detail-section .cost-items{display:flex;flex-direction:column;gap:9px}
+#detail-section .cost-item{font-size:13px;color:var(--light);display:flex;align-items:flex-start;gap:8px;line-height:1.6}
+#detail-section .cost-item::before{content:'✓';color:var(--teal);font-weight:900;flex-shrink:0;margin-top:1px}
+#detail-section /* COMPARE */
+.compare-table{margin-top:36px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+#detail-section .ct-head{display:grid;grid-template-columns:1fr 140px 140px;background:var(--card2);padding:16px 20px;font-size:12px;font-weight:700;letter-spacing:.5px}
+#detail-section .ct-head .na{color:var(--gold)}
+#detail-section .ct-head .other{color:var(--muted)}
+#detail-section .ct-row{display:grid;grid-template-columns:1fr 140px 140px;padding:14px 20px;border-top:1px solid rgba(255,255,255,.05);align-items:center;font-size:14px}
+#detail-section .ct-row:nth-child(even){background:rgba(255,255,255,.02)}
+#detail-section .ct-label{color:#A8C4DC}
+#detail-section .yes{color:var(--teal);font-weight:700}
+#detail-section .no{color:var(--red);font-weight:700}
+#detail-section /* ROI */
+.roi-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+#detail-section .roi-box{border-radius:16px;padding:28px 22px;text-align:center}
+#detail-section .roi-box.bad{background:rgba(232,83,58,.07);border:1px solid rgba(232,83,58,.2)}
+#detail-section .roi-box.good{background:rgba(0,201,167,.07);border:1px solid rgba(0,201,167,.25)}
+#detail-section .roi-box .rb-label{font-size:11px;font-weight:700;letter-spacing:1.5px;margin-bottom:18px}
+#detail-section .roi-box.bad .rb-label{color:var(--red)}
+#detail-section .roi-box.good .rb-label{color:var(--teal)}
+#detail-section .roi-stat{margin-bottom:12px}
+#detail-section .roi-stat .rs-l{font-size:12px;color:var(--muted);margin-bottom:4px}
+#detail-section .roi-stat .rs-v{font-size:22px;font-weight:900}
+#detail-section .roi-box.bad .rs-v{color:var(--red)}
+#detail-section .roi-box.good .rs-v{color:var(--teal)}
+#detail-section .roi-result{margin-top:22px;text-align:center;padding:22px;background:rgba(0,201,167,.05);border:1px solid rgba(0,201,167,.15);border-radius:14px}
+#detail-section .roi-result p{font-size:15px;font-weight:700;color:var(--light);line-height:1.75}
+#detail-section .roi-result strong{color:var(--teal)}
+#detail-section /* PRICING */
+.pricing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+#detail-section .pc{background:var(--card);border-radius:18px;padding:32px 22px;border:1px solid rgba(255,255,255,.06);text-align:center;position:relative;overflow:hidden}
+#detail-section .pc.best{background:linear-gradient(155deg,#172847,#0E2040);border-color:rgba(245,166,35,.5);transform:scale(1.03)}
+#detail-section .pc.best::before{content:'🏆 인기';position:absolute;top:14px;right:14px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:900;padding:3px 12px;border-radius:20px}
+#detail-section .pc .pt{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+#detail-section .pc .pn{font-size:20px;font-weight:900;margin-bottom:6px}
+#detail-section .pc .pn em{color:var(--gold);font-style:normal}
+#detail-section .pc .pp{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;color:var(--white);margin:18px 0 2px}
+#detail-section .pc .pd{font-size:12px;color:var(--muted);margin-bottom:24px}
+#detail-section .pc ul{list-style:none;text-align:left;margin-bottom:0}
+#detail-section .pc ul li{font-size:13px;color:var(--light);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:9px;line-height:1.5}
+#detail-section .pc.best ul li::before{content:'✓';color:var(--gold);font-weight:900;flex-shrink:0}
+#detail-section .pc:not(.best) ul li::before{content:'✓';color:var(--teal);font-weight:900;flex-shrink:0}
+#detail-section /* VALUE */
+.value-box{margin-top:36px;background:linear-gradient(135deg,rgba(0,201,167,.07),rgba(245,166,35,.04));border:1px solid rgba(0,201,167,.2);border-radius:20px;padding:36px 28px;text-align:center}
+#detail-section .value-box .vb-big{font-size:22px;font-weight:900;line-height:1.5;margin-bottom:24px}
+#detail-section .value-box .vb-big em{color:var(--teal);font-style:normal}
+#detail-section .value-items{display:flex;flex-direction:column;gap:12px;text-align:left}
+#detail-section .value-item{display:flex;align-items:flex-start;gap:14px;font-size:14px;color:var(--light);line-height:1.75}
+#detail-section .value-item .vi{font-size:20px;flex-shrink:0}
+#detail-section /* MAKER */
+.maker-card{background:var(--card);border-radius:20px;padding:36px 30px;border:1px solid rgba(255,255,255,.06);margin-top:36px}
+#detail-section .maker-top{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+#detail-section .maker-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--navy);flex-shrink:0}
+#detail-section .maker-name{font-size:20px;font-weight:900;margin-bottom:5px}
+#detail-section .maker-role{font-size:13px;color:var(--teal);font-weight:700}
+#detail-section .maker-story{font-size:14px;color:#A8C4DC;line-height:1.95}
+#detail-section .maker-story p{margin-bottom:14px}
+#detail-section .maker-story p:last-child{margin-bottom:0}
+#detail-section .maker-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+#detail-section .ms{background:var(--card2);border-radius:12px;padding:18px;text-align:center}
+#detail-section .ms-n{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--gold);line-height:1}
+#detail-section .ms-d{font-size:12px;color:var(--muted);margin-top:5px}
+#detail-section /* ROADMAP */
+.road-list{display:flex;flex-direction:column;gap:12px;margin-top:36px}
+#detail-section .road-item{display:flex;align-items:flex-start;gap:16px;background:var(--card);border-radius:12px;padding:18px 22px;border:1px solid rgba(255,255,255,.05)}
+#detail-section .road-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:5px}
+#detail-section .road-item p{font-size:14px;color:var(--light);line-height:1.75}
+#detail-section .road-item strong{color:var(--teal)}
+#detail-section /* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:12px;margin-top:36px}
+#detail-section .faq-item{background:var(--card);border-radius:14px;padding:22px 22px;border:1px solid rgba(255,255,255,.05)}
+#detail-section .faq-q{font-size:15px;font-weight:900;margin-bottom:10px;color:var(--white);display:flex;gap:8px}
+#detail-section .faq-q span{color:var(--gold)}
+#detail-section .faq-a{font-size:14px;color:#A8C4DC;line-height:1.85;max-height:none;overflow:visible}
+#detail-section /* NOTICE */
+.notice-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px 22px;margin-top:36px}
+#detail-section .notice-box h4{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:14px}
+#detail-section .notice-list{display:flex;flex-direction:column;gap:8px}
+#detail-section .notice-list li{font-size:13px;color:var(--muted);line-height:1.75;padding-left:16px;position:relative;list-style:none}
+#detail-section .notice-list li::before{content:'·';position:absolute;left:0;color:var(--muted)}
+#detail-section /* CTA */
+.cta-section{background:linear-gradient(160deg,#0C1F3A,#080F1C);padding:72px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
+#detail-section .cta-section h2{font-weight:900;font-size:32px;line-height:1.35;margin-bottom:16px}
+#detail-section .cta-section h2 em{color:var(--gold);font-style:normal}
+#detail-section .cta-section p{font-size:15px;color:#A8C4DC;line-height:1.9}
+#detail-section .cta-note{font-size:13px;color:var(--muted);margin-top:18px}
+
+
+  </style>
+  <div id="detail-section" style="margin-top:32px;margin-bottom:8px;width:100%;overflow:hidden">
+<!-- ① HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-logo">NOBLE ARC</div>
+      <div class="hero-badge">AI YOUTUBE AUTOMATION</div>
+    </div>
+    <h1>유튜브 영상 제작의<br><span class="g">모든 것</span>을<br><span class="t">전부 자동화</span>합니다</h1>
+    <p class="hero-sub">
+      소재 발굴부터 대본 · 이미지 · 음성 · 자막 · 편집 · 업로드까지<br>
+      키워드 하나로 완성형 유튜브 영상이 완성됩니다.<br>
+      영상 편집 몰라도, 해외 언어 몰라도 됩니다.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag g">⚡ AI 전자동화</span>
+      <span class="hero-tag t">롱폼 + 쇼츠</span>
+      <span class="hero-tag">🌍 7개 언어 지원</span>
+      <span class="hero-tag t">🤖 AI 에이전트 시스템</span>
+      <span class="hero-tag">📱 SNS 글 자동 발행</span>
+      <span class="hero-tag g">🛒 쿠팡파트너스 쇼츠</span>
+    </div>
+    <div class="hero-kpi">
+      <div class="kpi">
+        <div class="kpi-n">2</div>
+        <div class="kpi-u">PROGRAMS</div>
+        <div class="kpi-d">롱폼 · 쇼츠</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n">17</div>
+        <div class="kpi-u">IMAGE STYLES</div>
+        <div class="kpi-d">이미지 스타일 수</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n">7</div>
+        <div class="kpi-u">LANGUAGES</div>
+        <div class="kpi-d">다국어 채널 운영</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-n">$300</div>
+        <div class="kpi-u">FREE CREDIT</div>
+        <div class="kpi-d">AI 영상제작비 사실상 0원</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ② PROBLEM -->
+<section class="sec" style="background:var(--navy2)">
+  <div class="label">PROBLEM</div>
+  <h2 class="sec-title">유튜브, 하고 싶은데<br><em>왜 이렇게 힘든 걸까요?</em></h2>
+  <div class="prob-list">
+    <div class="prob-item">
+      <div class="prob-icon">⏰</div>
+      <div>
+        <h4>영상 하나에 몇 시간이 사라진다</h4>
+        <p>소재 조사, 대본 작성, 이미지 찾기, 음성 입히기, 자막 맞추기, 편집까지. 영상 하나 완성하는 데 최소 3~5시간. 매일 하기엔 너무 고됩니다.</p>
+      </div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-icon">🌐</div>
+      <div>
+        <h4>해외 채널은 엄두도 못 낸다</h4>
+        <p>일본어, 영어로 된 채널을 만들면 수익 잠재력이 훨씬 높다는 걸 알면서도, 언어를 모르니 시작조차 못 합니다.</p>
+      </div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-icon">💸</div>
+      <div>
+        <h4>AI 도구 쓰면 비용이 또 나간다</h4>
+        <p>대본 생성, 이미지 생성, 음성 합성… 툴마다 비용이 따로 붙습니다. 수익이 나기도 전에 지출이 먼저 쌓입니다.</p>
+      </div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-icon">📉</div>
+      <div>
+        <h4>꾸준히 올리지 못하면 채널이 죽는다</h4>
+        <p>알고리즘은 꾸준한 업로드를 좋아합니다. 하지만 바쁜 일상에서 매일 영상을 만드는 건 현실적으로 불가능합니다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="prob-center">
+    <p>이 모든 문제를<br><strong>한 번에 해결할 수 있다면?</strong></p>
+  </div>
+</section>
+
+<!-- ③ SOLUTION -->
+<section class="sec">
+  <div class="label">SOLUTION</div>
+  <h2 class="sec-title">단순한 자동화가 아닙니다<br><em>실제로 성과를 내는 시스템</em>입니다</h2>
+  <div class="solution-box">
+    <div class="big">키워드 하나면 됩니다.<br><em>나머지는 노블아크가 합니다.</em></div>
+    <p>수년간 유튜브를 직접 운영하며 쌓아온 노하우와<br>인기 영상 제작 비법을 프로그램 로직에 그대로 담았습니다.<br>버튼 하나로 완성형 영상이 만들어집니다.</p>
+  </div>
+</section>
+
+<!-- ③-0 PROGRAMS -->
+<section class="sec" style="background:var(--navy2)">
+  <div class="label">PROGRAMS</div>
+  <h2 class="sec-title">두 가지 <em>전용 프로그램</em></h2>
+  <p class="sec-desc">목적에 맞는 전용 프로그램을 선택하거나 번들로 함께 이용하세요.</p>
+  <div class="prog-grid">
+    <div class="prog-card longform">
+      <div class="prog-ratio">16:9</div>
+      <div class="prog-label">LONGFORM AUTOMATION</div>
+      <div class="prog-items">
+        <div class="prog-item">3분~25분 롱폼 영상 제작</div>
+        <div class="prog-item">키워드 발굴 · 벤치마킹 2가지 방식</div>
+        <div class="prog-item">17가지 이미지 스타일 지원</div>
+        <div class="prog-item">고정 캐릭터 이미지 설정</div>
+        <div class="prog-item">AI 메타데이터 자동 생성</div>
+        <div class="prog-item">SNS 자동 발행 (블로그·인스타·스레드·페이스북)</div>
+        <div class="prog-item">AI 에이전트 채널 자동 운영</div>
+      </div>
+    </div>
+    <div class="prog-card shorts">
+      <div class="prog-ratio">9:16</div>
+      <div class="prog-label">SHORTS AUTOMATION</div>
+      <div class="prog-items">
+        <div class="prog-item">45~90초 쇼츠 영상 자동 제작</div>
+        <div class="prog-item">카테고리 · 벤치마킹 · 뉴스 · 쿠팡파트너스 4가지</div>
+        <div class="prog-item">17가지 이미지 스타일 지원</div>
+        <div class="prog-item">고정 캐릭터 이미지 설정</div>
+        <div class="prog-item">쇼츠 대량 제작 기능</div>
+        <div class="prog-item">SNS 자동 발행 (인스타·스레드·페이스북)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ③-1 AI AGENT -->
+<section class="sec" style="background:linear-gradient(160deg,#080F1C,#0C1F3A)">
+  <div class="label" style="color:var(--gold)">LONGFORM · AI AGENT</div>
+  <h2 class="sec-title" style="font-size:28px">이제는 에이전트가<br><em>유튜브 채널 전체를 운영합니다</em></h2>
+  <p class="sec-desc">노블아크 롱폼에는 AI 에이전트 시스템이 내장되어 있습니다.<br>채널 운영의 처음부터 끝까지, 사람이 개입하지 않아도 됩니다.</p>
+
+  <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+    <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:22px 20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">STEP 1 · 소재 발굴</div>
+      <div style="font-size:14px;color:var(--light);line-height:1.8">채널 콘셉트를 스스로 분석하고 떡상검색기를 통해 채널에 맞는 소재를 자동으로 발굴합니다.</div>
+    </div>
+    <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:22px 20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">STEP 2 · 대본 · 이미지 · 더빙 · 편집</div>
+      <div style="font-size:14px;color:var(--light);line-height:1.8">대본 생성부터 이미지, 음성 더빙, BGM, 편집까지 전 과정을 에이전트가 자동 처리합니다.</div>
+    </div>
+    <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:22px 20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">STEP 3 · 업로드 완전 자동화</div>
+      <div style="font-size:14px;color:var(--light);line-height:1.8">제목 · 설명 · 태그 · 썸네일 자동 생성 및 업로드. AI 콘텐츠 사용 체크까지 자동으로 처리합니다.</div>
+    </div>
+    <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:22px 20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">STEP 4 · 채널 관리 · 성과 보고</div>
+      <div style="font-size:14px;color:var(--light);line-height:1.8">채널 댓글 관리 자동화, 조회수 등 운영 성과를 이메일 보고서로 자동 발송합니다.</div>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- ④ HOW IT WORKS -->
+<section class="sec" style="background:var(--navy2)">
+  <div class="label">HOW IT WORKS</div>
+  <h2 class="sec-title">영상이 완성되는<br><em>6단계 자동화 흐름</em></h2>
+  <p class="sec-desc" style="margin-bottom:8px">딸깍모드(전자동)와 단계별 생성 모드 중 원하는 방식으로 진행하세요.</p>
+  <div class="flow-wrap">
+    <div class="flow-item">
+      <div class="flow-dot g">1</div>
+      <div class="flow-body">
+        <h4>소재 발굴 — 리서치센터</h4>
+        <p>떡상 영상 검색, 경쟁 채널 분석, 뉴스 트렌드 검색으로 지금 뜨는 소재를 발굴합니다. 무엇을 만들지 고민할 필요가 없습니다.</p>
+        <div class="flow-tags"><span class="ftag">떡상 검색</span><span class="ftag">채널 분석</span><span class="ftag">트렌드</span></div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-dot g">2</div>
+      <div class="flow-body">
+        <h4>AI 대본 자동 생성</h4>
+        <p>키워드 입력 또는 떡상 영상 벤치마킹으로 최상위 품질 대본이 자동 생성됩니다. 역사, 심리, 경제, 시사 등 다양한 카테고리 지원.</p>
+        <div class="flow-tags"><span class="ftag">4가지 생성 방식</span><span class="ftag">다양한 카테고리</span></div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-dot g">3</div>
+      <div class="flow-body">
+        <h4>AI 이미지 자동 생성</h4>
+        <p>대본 내용에 맞는 이미지를 자동으로 생성합니다. 쇼츠·롱폼 모두 16가지 스타일 중 선택 가능. 고정 캐릭터 설정도 지원합니다.</p>
+        <div class="flow-tags"><span class="ftag t">16가지 스타일</span><span class="ftag t">고정 캐릭터</span></div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-dot t">4</div>
+      <div class="flow-body">
+        <h4>AI 음성 합성 + 자막 자동 싱크</h4>
+        <p>한국어, 일본어, 영어, 독일어, 스페인어 등 7개 언어로 고품질 음성이 자동 생성됩니다. 자막은 음성과 완벽하게 싱크가 맞춰집니다.</p>
+        <div class="flow-tags"><span class="ftag t">7개 언어</span><span class="ftag t">자막 자동 싱크</span></div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-dot t">5</div>
+      <div class="flow-body">
+        <h4>편집 + 렌더링</h4>
+        <p>BGM, 화면 전환 효과, 씬 편집까지 자동 처리됩니다. 씬 편집기로 대본과 이미지를 직접 수정하거나 동영상 삽입도 가능합니다. 렌더링 완료 후에는 완성된 영상의 대본을 바탕으로 각 SNS에 최적화된 글을 자동으로 생성할 수 있습니다.</p>
+        <div class="flow-tags"><span class="ftag t">원클릭 렌더링</span><span class="ftag t">씬 편집기</span><span class="ftag t">SNS 콘텐츠 변환</span></div>
+      </div>
+    </div>
+    <div class="flow-item">
+      <div class="flow-dot t">6</div>
+      <div class="flow-body">
+        <h4>메타데이터 생성 + 유튜브 자동 업로드 + SNS 발행</h4>
+        <p>제목 · 설명 · 태그 · 썸네일을 AI가 자동 생성합니다. 유튜브 즉시 업로드 후 SNS 콘텐츠 자동 생성으로 이어집니다. 쿠팡파트너스 쇼츠는 영상 설명란과 댓글에 구매 링크가 자동으로 포함됩니다.</p>
+        <div class="flow-tags"><span class="ftag t">자동 업로드</span><span class="ftag t">대량 제작</span><span class="ftag">SNS 발행</span><span class="ftag">쿠팡파트너스</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ FEATURES -->
+<section class="sec">
+  <div class="label">FEATURES</div>
+  <h2 class="sec-title">노블아크가 <em>특별한 이유</em></h2>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon g">⚡</div>
+      <h4>딸깍모드 · 단계별 생성 모드</h4>
+      <p>소재만 입력하면 전 과정을 한 번에 완성하는 딸깍모드와, 각 단계를 직접 확인하며 진행하는 단계별 생성 모드 모두 지원합니다.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon g">🌍</div>
+      <h4>7개 언어 다국어 지원</h4>
+      <p>일본어, 영어를 몰라도 해외 채널 운영이 가능합니다. AI가 해당 언어로 대본·음성·자막·메타데이터까지 전부 처리합니다.</p>
+    </div>
+    <div class="feat-card" style="border-color:rgba(245,166,35,.25);background:linear-gradient(135deg,rgba(245,166,35,.06),var(--card))">
+      <div class="feat-icon g">🛒</div>
+      <h4>쿠팡파트너스 쇼츠</h4>
+      <p>쿠팡 상품을 키워드로 검색하면 소개 영상을 자동 제작하고 유튜브에 바로 업로드합니다. 영상 설명란과 댓글에 파트너스 구매 링크가 자동으로 포함되어 수익화에 바로 활용할 수 있습니다.</p>
+      <span class="feat-tag g">쇼츠 전용</span>
+    </div>
+    <div class="feat-card" style="border-color:rgba(245,166,35,.25);background:linear-gradient(135deg,rgba(245,166,35,.06),var(--card))">
+      <div class="feat-icon g">🤖</div>
+      <h4>롱폼 AI 에이전트</h4>
+      <p>채널 분석부터 소재 발굴, 영상 제작, 업로드, 댓글 관리, 성과 보고까지 전 과정을 에이전트가 자동으로 운영합니다. 사람이 개입하지 않아도 채널이 돌아갑니다.</p>
+      <span class="feat-tag g">롱폼 전용</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon t">📊</div>
+      <h4>리서치센터 내장</h4>
+      <p>떡상 영상 발굴, 경쟁 채널 분석, 최적 업로드 시간, 수익 예측까지 한 화면에서 확인합니다.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon t">🎬</div>
+      <h4>쇼츠 대량 제작</h4>
+      <p>큐(Queue) 기능으로 여러 편을 연속 생성합니다. 한 번 설정하면 다른 일을 하는 동안에도 영상이 만들어집니다.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon g">🎨</div>
+      <h4>17가지 이미지 스타일</h4>
+      <p>일러스트, 실사, 3D, 애니메이션 등 다양한 스타일 중 채널에 맞는 스타일을 선택하세요. 고정 캐릭터 설정도 지원합니다.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon g">🎤</div>
+      <h4>4가지 TTS 음성 시스템</h4>
+      <p>Gemini TTS(무료)부터 ElevenLabs, MiniMax, OpenAI까지. 원하는 품질과 비용에 맞게 선택할 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SNS 글 발행 -->
+<section class="sec" style="background:linear-gradient(160deg,#080F1C,#0D1E35)">
+  <div class="label">SNS AUTO PUBLISH</div>
+  <h2 class="sec-title">유튜브 소재로<br><em>SNS까지 자동 발행합니다</em></h2>
+  <p class="sec-desc">영상 완성 후 렌더링 탭에서 각 SNS에 맞는 글을 자동으로 생성합니다.</p>
+  <div class="sns-grid">
+    <div class="sns-card">
+      <div class="sns-card-title">LONGFORM <span class="sns-badge gold">4개 채널</span></div>
+      <p>유튜브 대본을 바탕으로 최적화된 글을 자동 생성합니다.</p>
+      <div class="sns-pill-group">
+        <span class="sns-pill">📝 블로그</span>
+        <span class="sns-pill">📸 인스타그램</span>
+        <span class="sns-pill">🧵 스레드</span>
+        <span class="sns-pill">👍 페이스북</span>
+      </div>
+    </div>
+    <div class="sns-card">
+      <div class="sns-card-title">SHORTS <span class="sns-badge teal">3개 채널</span></div>
+      <p>쇼츠 대본을 기반으로 SNS 글을 자동 생성합니다.</p>
+      <div class="sns-pill-group">
+        <span class="sns-pill">📸 인스타그램</span>
+        <span class="sns-pill">🧵 스레드</span>
+        <span class="sns-pill">👍 페이스북</span>
+      </div>
+    </div>
+  </div>
+  <div class="sns-how">
+    <p>SNS 채널을 선택하고 <strong>SNS 콘텐츠 생성 버튼</strong>을 누르면 해당 SNS에 맞는 형식으로 글이 자동 생성됩니다. 해시태그와 영상 이미지가 함께 출력되며 <strong>전체 복사</strong>로 바로 붙여넣기 하시면 됩니다.</p>
+  </div>
+</section>
+
+<!-- ⑥ COST -->
+<section class="sec" style="background:var(--navy2)">
+  <div class="label">COST EFFICIENCY</div>
+  <h2 class="sec-title"><em>비용 최소화</em>가<br>핵심 설계 원칙입니다</h2>
+  <p class="sec-desc">타사 프로그램과 가장 크게 다른 점. 구매자의 비용을 최우선으로 고려했습니다.</p>
+  <div class="cost-grid">
+    <div class="cost-card fc">
+      <div class="cost-badge">GOOGLE FREE CREDIT</div>
+      <div class="cost-num">$300</div>
+      <div class="cost-sub">약 44만원 상당 무료 크레딧</div>
+      <div class="cost-items">
+        <div class="cost-item">대본 생성 무료 (Gemini AI)</div>
+        <div class="cost-item">이미지 생성 무료 (Imagen 3.0)</div>
+        <div class="cost-item">음성 더빙 무료 (Gemini TTS)</div>
+        <div class="cost-item">크레딧 소진 시 새 계정 재발급</div>
+      </div>
+    </div>
+    <div class="cost-card free">
+      <div class="cost-badge">ADDITIONAL FREE API</div>
+      <div class="cost-num" style="color:var(--teal)">FREE</div>
+      <div class="cost-sub">핵심 기능 추가 API도 무료</div>
+      <div class="cost-items">
+        <div class="cost-item">GROQ — 자막 싱크 (일 120분)</div>
+        <div class="cost-item">유튜브 API — 리서치 + 자동업로드</div>
+        <div class="cost-item">초과 시 내장 자막 자동 전환</div>
+        <div class="cost-item">선택적 유료 TTS 업그레이드 가능</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ COMPARE -->
+<section class="sec">
+  <div class="label">COMPARISON</div>
+  <h2 class="sec-title">노블아크 vs <em>타사 프로그램</em></h2>
+  <p class="sec-desc">기능과 비용 모두에서 명확하게 차별화되어 있습니다.</p>
+  <div class="compare-table">
+    <div class="ct-head">
+      <div>비교 항목</div><div class="na" style="text-align:center">NOBLE ARC</div><div class="other" style="text-align:center">타사</div>
+    </div>
+    <div class="ct-row"><div class="ct-label">대본·이미지·TTS 기본 비용</div><div style="text-align:center" class="yes">무료(크레딧)</div><div style="text-align:center" class="no">유료</div></div>
+    <div class="ct-row"><div class="ct-label">다국어 지원</div><div style="text-align:center" class="yes">7개 언어</div><div style="text-align:center" class="no">제한적</div></div>
+    <div class="ct-row"><div class="ct-label">내장 리서치센터</div><div style="text-align:center" class="yes">포함</div><div style="text-align:center" class="no">미포함</div></div>
+    <div class="ct-row"><div class="ct-label">쿠팡파트너스 쇼츠 자동화</div><div style="text-align:center" class="yes">지원</div><div style="text-align:center" class="no">미지원</div></div>
+    <div class="ct-row"><div class="ct-label">AI 에이전트 채널 운영</div><div style="text-align:center" class="yes">지원 (롱폼)</div><div style="text-align:center" class="no">미지원</div></div>
+    <div class="ct-row"><div class="ct-label">SNS 콘텐츠 자동 생성</div><div style="text-align:center" class="yes">7개 채널</div><div style="text-align:center" class="no">미지원</div></div>
+    <div class="ct-row"><div class="ct-label">쇼츠 대량 제작</div><div style="text-align:center" class="yes">지원</div><div style="text-align:center" class="no">미지원</div></div>
+    <div class="ct-row"><div class="ct-label">고정 캐릭터 설정</div><div style="text-align:center" class="yes">지원</div><div style="text-align:center" class="no">미지원</div></div>
+    <div class="ct-row"><div class="ct-label">이미지 스타일 수</div><div style="text-align:center" class="yes">17가지</div><div style="text-align:center" class="no">적음</div></div>
+    <div class="ct-row"><div class="ct-label">프로그램 이용료</div><div style="text-align:center" class="yes">매우 저렴</div><div style="text-align:center" class="no">고가</div></div>
+  </div>
+</section>
+
+<!-- ⑧ ROI -->
+<section class="sec" style="background:var(--navy2)">
+  <div class="label">ROI SIMULATION</div>
+  <h2 class="sec-title">직접 제작 vs<br><em>노블아크 자동화</em> 비교</h2>
+  <p class="sec-desc">롱폼 기준 · 하루 1편 · 월 30편 제작 시나리오</p>
+  <div class="roi-wrap">
+    <div class="roi-box bad">
+      <div class="rb-label">✕ 직접 제작</div>
+      <div class="roi-stat"><div class="rs-l">편당 소요 시간</div><div class="rs-v">3~5시간</div></div>
+      <div class="roi-stat"><div class="rs-l">월 총 소요 시간</div><div class="rs-v">90~150h</div></div>
+      <div class="roi-stat"><div class="rs-l">월 AI 비용</div><div class="rs-v">수만원+</div></div>
+      <div class="roi-stat"><div class="rs-l">월 영상 제작 수</div><div class="rs-v">현실적으로 불가</div></div>
+    </div>
+    <div class="roi-box good">
+      <div class="rb-label">✓ 노블아크</div>
+      <div class="roi-stat"><div class="rs-l">편당 작업 방식</div><div class="rs-v">다른 일 하면서</div></div>
+      <div class="roi-stat"><div class="rs-l">직접 조작 시간</div><div class="rs-v">최소화</div></div>
+      <div class="roi-stat"><div class="rs-l">월 AI 비용</div><div class="rs-v">사실상 0원</div></div>
+      <div class="roi-stat"><div class="rs-l">월 영상 제작 수</div><div class="rs-v">제한 없음</div></div>
+    </div>
+  </div>
+  <div class="roi-result">
+    <p>영상 제작 수는 <strong>제한 없이</strong>,<br>AI 비용은 <strong>거의 0원</strong>으로. 다른 일을 하는 동안에도.</p>
+  </div>
+</section>
+
+<!-- ⑨ PRICING -->
+<section class="sec">
+  <div class="label">PRICING</div>
+  <h2 class="sec-title">합리적인 <em>요금제</em></h2>
+  <p class="sec-desc">필요한 프로그램만 선택하거나, 번들로 두 가지 모두 이용하세요.</p>
+  <div class="pricing-cards">
+    <div class="pc">
+      <div class="pt">Shorts Only</div>
+      <div class="pn">쇼츠 <em>전용</em></div>
+      <div class="pp">22,000원</div>
+      <div class="pd">월 단위 결제</div>
+      <ul>
+        <li>9:16 쇼츠 영상 완전 자동화</li>
+        <li>딸깍모드(원클릭 전자동) + 대량생산모드</li>
+        <li>쿠팡파트너스 쇼츠 — 상품 소개 영상 자동 제작 · 구매 링크 자동 삽입</li>
+        <li>SNS 콘텐츠 자동 생성 (인스타그램 · 스레드 · 페이스북)</li>
+        <li>17가지 이미지 스타일 · 리서치센터 · 유튜브 자동 업로드</li>
+      </ul>
+    </div>
+    <div class="pc best">
+      <div class="pt">Best Value</div>
+      <div class="pn">번들 <em>패키지</em></div>
+      <div class="pp">45,000원</div>
+      <div class="pd">쇼츠 + 롱폼 · 월 단위 결제</div>
+      <ul>
+        <li>롱폼 + 쇼츠 전체 기능 포함</li>
+        <li>AI 에이전트 + 쿠팡파트너스 쇼츠 동시 활용</li>
+        <li>SNS 콘텐츠 자동 생성 총 7개 채널 지원</li>
+        <li>딸깍모드 + 대량 제작 + 고정 캐릭터 모두 사용</li>
+        <li>17가지 이미지 스타일 · 리서치센터 전체 이용</li>
+        <li>AI 메타데이터 자동 생성 · 유튜브 자동 업로드</li>
+      </ul>
+    </div>
+    <div class="pc">
+      <div class="pt">Longform Only</div>
+      <div class="pn">롱폼 <em>전용</em></div>
+      <div class="pp">29,000원</div>
+      <div class="pd">월 단위 결제</div>
+      <ul>
+        <li>16:9 롱폼 영상 완전 자동화 (3분~25분)</li>
+        <li>딸깍모드(원클릭 전자동) + AI 에이전트 채널 운영</li>
+        <li>SNS 콘텐츠 자동 생성 (블로그 · 인스타그램 · 스레드 · 페이스북)</li>
+        <li>17가지 이미지 스타일 · 고정 캐릭터 설정</li>
+        <li>AI 메타데이터 자동 생성 · 리서치센터 이용</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ⑩ VALUE -->
+<section class="sec" style="background:var(--navy2)">
+  <div class="label">VALUE</div>
+  <h2 class="sec-title">노블아크는<br>구독이 아니라 <em>투자입니다</em></h2>
+  <div class="value-box">
+    <div class="vb-big">"월 22,000~45,000원으로<br><em>24시간 일하는 AI 영상 팀을</em><br>고용하는 것과 같습니다"</div>
+    <div class="value-items">
+      <div class="value-item"><span class="vi">⏱️</span><span>시간의 복리 — 오늘 만든 영상이 6개월 후에도 조회수를 만들어냅니다</span></div>
+      <div class="value-item"><span class="vi">🌏</span><span>언어 장벽 제거 — 한국에서 일본, 영어권 채널까지 동시에 운영 가능</span></div>
+      <div class="value-item"><span class="vi">💰</span><span>비용 혁신 — AI 생성 비용이 거의 0원. 프로그램 이용료만으로 운영</span></div>
+      <div class="value-item"><span class="vi">🚀</span><span>경쟁 우위 — 경쟁자가 하루 1편 올릴 때, 당신은 10편을 올릴 수 있습니다</span></div>
+      <div class="value-item"><span class="vi">📱</span><span>채널 너머로 — 유튜브 업로드 후 SNS 홍보까지 한 번에. 멀티 채널 운영이 쉬워집니다</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑪ MAKER -->
+<section class="sec">
+  <div class="label">MAKER</div>
+  <h2 class="sec-title">개발자 <em>소개</em></h2>
+  <div class="maker-card">
+    <div class="maker-top">
+      <div class="maker-avatar">NA</div>
+      <div>
+        <div class="maker-name">NOBLE ARC 개발자</div>
+        <div class="maker-role">유튜브 채널 운영자 · 자동화 솔루션 개발자</div>
+      </div>
+    </div>
+    <div class="maker-story">
+      <p>유튜브로 수익을 내고 싶어서 영상을 만들어봤습니다. 그런데 막상 해보니 대본 쓰고, 이미지 구하고, 음성 입히고, 자막 맞추고, 편집하고… 영상 하나에 몇 시간이 사라졌습니다.</p>
+      <p>"이걸 전부 자동화할 수 없을까?" 그 질문 하나로 수년간 유튜브 채널을 운영하며 쌓아온 노하우를 프로그램 로직에 담기 시작했습니다. 단순히 빠르게 만드는 게 아니라, 실제로 조회수가 나오는 영상을 자동으로 만들어내는 구조가 필요했습니다.</p>
+      <p>그리고 한 가지 더 신경 쓴 것이 있습니다. 바로 비용입니다. 타사 프로그램들은 영상 한 편 만들 때마다 AI 비용이 따로 붙습니다. 구글 클라우드 $300 무료 크레딧을 활용해 대본·이미지·음성을 사실상 무료로 생성할 수 있도록 설계했습니다.</p>
+      <p>유튜브에 도전하는 분들의 시간도, 돈도 아껴드리고 싶었습니다. 노블아크는 그 마음으로 계속 발전하고 있습니다.</p>
+    </div>
+    <div class="maker-stats">
+      <div class="ms"><div class="ms-n">수년간</div><div class="ms-d">유튜브 채널 운영</div></div>
+      <div class="ms"><div class="ms-n">Windows</div><div class="ms-d">전용 · macOS 준비 중</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH CENTER -->
+<section class="sec" style="background:var(--navy2)">
+  <div class="label">RESEARCH CENTER</div>
+  <h2 class="sec-title">수익 기반 — <em>내장 리서치센터</em></h2>
+  <p class="sec-desc">무엇을 만들지 고민할 필요 없습니다. 뜨는 소재를 알려드립니다.</p>
+  <div class="research-grid">
+    <div class="research-card">
+      <div class="research-icon">🔥</div>
+      <h4>떡상 영상 검색</h4>
+      <p>최근 급상승 중인 영상을 실시간으로 파악하고 채널에 맞는 소재를 즉시 찾아냅니다.</p>
+    </div>
+    <div class="research-card">
+      <div class="research-icon">📈</div>
+      <h4>경쟁 채널 분석</h4>
+      <p>경쟁 채널을 입력하면 최고 성과 콘텐츠, 최적 업로드 시간, 예상 수익을 한눈에 분석합니다.</p>
+    </div>
+    <div class="research-card">
+      <div class="research-icon">📰</div>
+      <h4>트렌드 뉴스 검색</h4>
+      <p>실시간 뉴스를 기반으로 지금 사람들이 관심 가지는 소재를 빠르게 찾을 수 있습니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ⑫ ROADMAP -->
+<section class="sec" style="background:var(--navy2)">
+  <div class="label">ROADMAP</div>
+  <h2 class="sec-title">계속 발전하는<br><em>업데이트 로드맵</em></h2>
+  <div class="road-list">
+    <div class="road-item"><div class="road-dot"></div><p><strong>지원 언어 확대</strong> — 현재 7개 언어에서 추가 언어 지원 예정</p></div>
+    <div class="road-item"><div class="road-dot"></div><p><strong>정기구독 시스템 도입</strong> — 더 저렴한 가격으로 자동 갱신 이용 가능</p></div>
+  </div>
+</section>
+
+<!-- ⑬ FAQ -->
+<section class="sec">
+  <div class="label">FAQ</div>
+  <h2 class="sec-title">자주 묻는 <em>질문</em></h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q"><span>Q.</span>영상 편집 경험이 전혀 없어도 사용할 수 있나요?</div>
+      <div class="faq-a">네, 완전히 가능합니다. 키워드를 입력하고 버튼 하나만 누르면 대본부터 편집·업로드까지 자동으로 처리됩니다. 영상 편집 경험이 전혀 없어도 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>Q.</span>영상 제작 비용이 따로 발생하나요?</div>
+      <div class="faq-a">구글 클라우드의 $300 무료 크레딧(약 44만원)을 활용하면 대본·이미지·TTS 생성이 무료입니다. 크레딧 소진 후 새 계정으로 추가 크레딧 발급도 가능합니다. 프로그램 이용료 외 영상 제작 비용은 최소화되도록 설계되어 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>Q.</span>일본어나 영어를 몰라도 해외 채널 운영이 가능한가요?</div>
+      <div class="faq-a">네, 완벽하게 가능합니다. AI가 해당 언어에 최적화된 대본, 음성 더빙, 자막, 제목·설명·태그까지 전부 자동으로 처리합니다. 해당 언어를 한 글자도 몰라도 됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>Q.</span>쿠팡파트너스 쇼츠는 별도 설정이 필요한가요?</div>
+      <div class="faq-a">쿠팡 파트너스 계정과 API 연동만 한 번 설정해두면, 이후부터는 상품 키워드를 입력하는 것만으로 영상 제작부터 링크 삽입까지 전자동으로 진행됩니다. 별도로 링크를 복사하거나 설명란에 붙여넣을 필요가 없습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>Q.</span>구매 후 어떻게 프로그램을 받을 수 있나요?</div>
+      <div class="faq-a">결제 완료 후 이메일로 라이선스 키, 프로그램 다운로드 링크, 사용설명서 링크가 발송됩니다. 라이선스 키는 한 번만 입력하면 이후 자동으로 활성화됩니다. Windows 전용 프로그램입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q"><span>Q.</span>이용 기간이 끝나면 어떻게 되나요?</div>
+      <div class="faq-a">이용 기간이 만료되면 프로그램 사용이 중단됩니다. 홈페이지에서 재결제하시면 즉시 다시 이용 가능합니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑭ NOTICE -->
+<section class="sec" style="background:var(--navy2);border-bottom:none">
+  <div class="label">NOTICE</div>
+  <h2 class="sec-title">안내 <em>사항</em></h2>
+  <div class="notice-box">
+    <h4>📌 꼭 확인해주세요</h4>
+    <ul class="notice-list">
+      <li>본 서비스는 디지털 소프트웨어 이용권으로, 실물 배송이 없습니다.</li>
+      <li>라이선스 키는 1기기에서만 사용 가능합니다.</li>
+      <li>라이선스 키를 프로그램에 입력(활성화)한 이후에는 디지털 콘텐츠 특성상 환불이 어렵습니다.</li>
+      <li>활성화 전이라면 구매일로부터 7일 이내 전액 환불 가능합니다.</li>
+      <li>현재 Windows 전용이며, macOS 버전은 추후 지원 예정입니다.</li>
+      <li>구글 클라우드 $300 무료 크레딧은 개인이 별도 발급받아야 하며, 자세한 방법은 사용설명서에 안내되어 있습니다.</li>
+      <li>쿠팡파트너스 이용을 위해서는 별도 쿠팡 파트너스 계정 가입 및 API 연동이 필요합니다.</li>
+      <li>업데이트 로드맵 항목은 일정이 변경될 수 있으며 참고용입니다.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>지금 바로 시작하세요<br><em>유튜브 자동화의 새로운 기준</em></h2>
+  <p>키워드 하나면 됩니다. 영상 편집 몰라도 됩니다.<br>노블아크 하나로 완성형 유튜브 채널을 운영하세요.</p>
+  <div class="cta-note">쇼츠 22,000원 · 롱폼 29,000원 · 번들 45,000원 · 월 단위 결제</div>
+</section>
+  </div>
+  <!-- [TRIAL-HIDDEN] 나중에 보이기: style="display:none" 제거하면 복원 -->
+  <div class="trial-banner reveal" style="display:none">
+    <h3>2일 무료체험 — 쇼츠+롱폼 번들 전체 이용</h3>
+    <p>결제 없이 2일간 모든 기능을 직접 체험해보세요. 1기기 1회 한정.</p>
+    <button class="trial-btn" onclick="openTrialModal()">무료체험 신청하기</button>
+  </div>
+</section>
+</div>
+
+<!-- FEATURES -->
+<section class="sec" id="features">
+  <div class="reveal">
+    <div class="eyebrow">핵심 기능</div>
+    <h2 class="sec-title">필요한 모든 것이<br>하나에 담겨 있습니다</h2>
+    <p class="sec-sub">채널 운영에 필요한 전 과정을 자동화합니다.</p>
+  </div>
+  <div class="bento reveal">
+    <div class="bento-card wide bento-highlight">
+      <span class="bento-accent"></span>
+      <div class="bento-num">00</div>
+      <div class="bento-title">딸각모드 — 전자동 원클릭 시스템</div>
+      <div class="bento-desc">소재만 직접 입력하면, 그 외 모든 전 과정(원하면 업로드까지) 전부 원클릭 자동화 모드로 완성됩니다. 복잡한 설정 없이 버튼 하나로 끝냅니다.</div>
+    </div>
+    <div class="bento-card wide">
+      <span class="bento-accent"></span>
+      <div class="bento-num">01</div>
+      <div class="bento-title">AI 대본 자동 생성</div>
+      <div class="bento-desc">단순 키워드 입력만으로 대본 생성, 떡상 영상 벤치마킹으로 대본 생성, 그 외 다양한 모드 지원.<br>영상 길이 · 다양한 카테고리 선택 가능(역사, 심리, 경제, 시사 등). 최상 품질 대본 자동 생성.</div>
+    </div>
+    <div class="bento-card">
+      <span class="bento-accent"></span>
+      <div class="bento-num">02</div>
+      <div class="bento-title">AI 이미지 자동 생성</div>
+      <div class="bento-desc">대본에 맞는 이미지를 프로그램이 자동 생성. 쇼츠 14가지 · 롱폼 16가지 다양한 이미지 스타일 선택 가능.</div>
+    </div>
+    <div class="bento-card">
+      <span class="bento-accent"></span>
+      <div class="bento-num">03</div>
+      <div class="bento-title">AI 음성 합성 (TTS)</div>
+      <div class="bento-desc">한국어, 일본어, 영어, 독일어, 스페인어 등 다양한 언어 지원 — 다국어 유튜브 채널 운영 가능. 다양한 목소리 · 고품질 TTS로 자동 음성 생성.</div>
+    </div>
+    <div class="bento-card wide">
+      <span class="bento-accent"></span>
+      <div class="bento-num">04</div>
+      <div class="bento-title">자동 자막 및 다양한 효과</div>
+      <div class="bento-desc">BGM(배경음악), 화면 움직임 효과, 씬 전환 효과 등 다양한 효과 지원. 자막 자동 생성 및 정확한 싱크 맞춤.</div>
+    </div>
+    <div class="bento-card">
+      <span class="bento-accent"></span>
+      <div class="bento-num">05</div>
+      <div class="bento-title">씬 편집기</div>
+      <div class="bento-desc">대본 · 이미지 간단하게 편집 가능. 이미지 대신 동영상 삽입도 가능. 100씬 이상 작업을 원활하게 지원합니다.</div>
+    </div>
+    <div class="bento-card">
+      <span class="bento-accent"></span>
+      <div class="bento-num">06</div>
+      <div class="bento-title">메타데이터 자동 생성</div>
+      <div class="bento-desc">YouTube 제목 · 설명 · 태그를 AI가 자동으로 최적화합니다. 업로드 전 SEO 설정까지 원스톱 처리. 썸네일 이미지 생성도 지원합니다.</div>
+    </div>
+    <div class="bento-card wide">
+      <span class="bento-accent"></span>
+      <div class="bento-num">07</div>
+      <div class="bento-title">원클릭 렌더링 & YouTube 자동 업로드</div>
+      <div class="bento-desc">설정 완료 후 버튼 한 번으로 완성된 MP4 파일이 출력됩니다. 롱폼(16:9)과 쇼츠(9:16) 각 프로그램별 지원. 렌더링 즉시 YouTube에 자동 업로드되는 기능도 지원합니다. 쇼츠는 대량 제작 큐(Queue) 기능으로 여러 영상을 연속 생성할 수 있습니다(대량 제작 한 번에 가능).</div>
+    </div>
+    <div class="bento-card wide">
+      <span class="bento-accent"></span>
+      <div class="bento-num">08</div>
+      <div class="bento-title">리서치 센터 — 경쟁자 분석 · 떡상 검색 · 뉴스 트렌드</div>
+      <div class="bento-desc">채널명만 입력하면 경쟁 채널의 대시보드 · 업로드 패턴 · 최적 업로드 시간 · 수익 예측을 한눈에 분석합니다.<br>떡상 검색으로 최근 뜨고 있는 영상 · 이슈화되고 있는 영상을 발굴하여 주제 및 대본 벤치마킹 · 소재 발굴 지원.<br>뉴스 트렌드 검색으로 최근 뜨고 있는 검색어 · 이슈 뉴스 검색을 통해 다양한 소재 발굴을 지원합니다.</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FAQ -->
+<section class="sec" id="faq" style="padding-top:80px;">
+  <div class="reveal" style="text-align:center;">
+    <div class="eyebrow">FAQ</div>
+    <h2 class="sec-title">자주 묻는 질문</h2>
+  </div>
+  <div class="faq-list reveal">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">어떤 AI 모델을 사용하나요?</div>
+      <div class="faq-a">Google Gemini, ElevenLabs / MiniMax / OpenAI TTS를 지원합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">API 비용은 어떻게 되나요?</div>
+      <div class="faq-a">NOBLE ARC 프로그램 요금과 별도로 AI API 실사용 비용이 발생합니다. 최대한 최소화된 비용으로 영상이 제작될 수 있도록 지원합니다. Gemini는 무료 티어로 시작할 수 있어 초기 비용이 거의 없습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">이용 기간이 끝나면 어떻게 되나요?</div>
+      <div class="faq-a">이용 기간이 만료되면 프로그램 사용이 중단됩니다.<br><br>
+      <strong>단건 결제</strong>의 경우 이용 기간 종료 후 직접 재결제하면 즉시 다시 이용 가능합니다.<br><br>
+      <strong>정기구독</strong>의 경우 매월 자동으로 결제되어 이용 기간이 연장됩니다. 언제든 마이페이지에서 구독을 해지할 수 있으며, 해지 후에는 남은 이용 기간까지만 사용 가능합니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Windows 외 Mac, Linux도 지원하나요?</div>
+      <div class="faq-a">현재는 Windows 전용으로 제공됩니다. Mac / Linux 버전은 추후 지원 예정입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">처음 시작할 때 어떤 준비가 필요한가요?</div>
+      <div class="faq-a">Google Gemini API 키만 있으면 바로 시작할 수 있습니다. Gemini는 무료 티어를 제공하므로 초기 비용 부담이 없습니다. 이후 고품질 TTS를 원하는 경우 ElevenLabs, MiniMax, OpenAI 등 추가 API 키를 선택적으로 등록할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">라이선스 키를 잃어버렸어요.</div>
+      <div class="faq-a">회원 가입 후 로그인하면 마이페이지에서 구매한 라이선스 키를 언제든 다시 확인할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">환불은 어떻게 하면 되나요?</div>
+      <div class="faq-a">환불을 원하시면 이메일(doedoo291@gmail.com) 또는 전화(010-3387-0352)로 문의해 주세요.<br><br>
+      <strong>[단건 결제 환불]</strong><br>
+      라이선스 키를 아직 활성화하지 않으셨다면 구매일로부터 7일 이내에 전액 환불이 가능합니다. 단, 라이선스 키를 프로그램에 입력하여 활성화한 경우에는 디지털 콘텐츠의 특성상 환불이 어렵습니다(전자상거래 등에서의 소비자보호에 관한 법률 제17조 제2항 준용).<br><br>
+      <strong>[정기구독 환불]</strong><br>
+      정기구독은 언제든 해지 가능합니다. 해지 시 당월 남은 이용 기간은 계속 사용 가능하며, 다음 달부터 자동 청구가 중단됩니다. 이미 결제된 당월 금액의 환불은 라이선스 미활성화 상태에서 결제일로부터 7일 이내에 한해 요청 가능합니다. 활성화 후에는 디지털 콘텐츠 특성상 환불이 어렵습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">프로그램에 오류가 있어서 사용을 못 했어요. 환불되나요?</div>
+      <div class="faq-a">프로그램 자체의 결함이나 오류로 인해 정상적인 사용이 불가능했다고 판단되는 경우에는 개별 협의를 통해 환불 또는 이용 기간 연장 조치를 취해 드립니다. 이메일(doedoo291@gmail.com) 또는 전화(010-3387-0352)로 문의해 주시면 최대한 빠르게 확인 후 안내해 드리겠습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">정기구독과 단건 결제의 차이는 무엇인가요?</div>
+      <div class="faq-a"><strong>단건 결제</strong>는 매월 직접 재결제하는 방식입니다. 이용 기간이 만료되면 사용이 중단되고, 원하실 때 직접 결제하면 됩니다. 자동 청구 걱정이 없습니다.<br><br>
+      <strong>정기구독</strong>은 매월 자동으로 결제되는 방식으로, 단건 결제 대비 월 2,000원 저렴합니다. 언제든 마이페이지에서 해지할 수 있으며, 해지 시 다음 달부터 자동 청구가 중단됩니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section class="sec" id="community" style="padding-top:80px;">
+  <div class="reveal" style="text-align:center;">
+    <div class="eyebrow">커뮤니티</div>
+    <h2 class="sec-title">사용자 게시판</h2>
+    <p class="sec-sub" style="margin:0 auto 44px;">실제 사용자들의 후기와 질문을 확인하세요.</p>
+  </div>
+  <div class="board-header reveal">
+    <div class="board-tabs">
+      <button class="board-tab on" onclick="switchBoardTab(this,'review')">사용후기</button>
+      <button class="board-tab" onclick="switchBoardTab(this,'qna')">Q&amp;A</button>
+    </div>
+    <button class="board-write-btn" onclick="openWriteModal()">+ 글쓰기</button>
+  </div>
+  <div id="boardList" class="board-list reveal">
+    <div class="board-empty">불러오는 중...</div>
+  </div>
+</section>
+
+<!-- 글쓰기 모달 -->
+<div class="board-modal-overlay" id="writeModal" onclick="if(event.target===this)closeWriteModal()">
+  <div class="board-modal">
+    <h3>글쓰기</h3>
+    <div class="board-modal-type">
+      <button class="board-type-btn on" id="typeReview" onclick="selectPostType('review')">사용후기</button>
+      <button class="board-type-btn" id="typeQna" onclick="selectPostType('qna')">Q&amp;A</button>
+    </div>
+    <input id="writeTitle" type="text" placeholder="제목을 입력하세요" maxlength="100" />
+    <textarea id="writeContent" placeholder="내용을 입력하세요"></textarea>
+    <input type="file" id="writeImageInput" accept="image/*" style="display:none" onchange="previewImage(this)" />
+    <label for="writeImageInput" class="img-attach-btn">📷 이미지 첨부 (선택)</label>
+    <div id="writeImagePreview"></div>
+    <div class="board-modal-actions">
+      <button class="btn-board-cancel" onclick="closeWriteModal()">취소</button>
+      <button class="btn-board-submit" onclick="submitPost()">등록</button>
+    </div>
+    <p id="writeMsg" style="font-size:12px;color:#ef4444;margin-top:8px;text-align:right;min-height:18px;"></p>
+  </div>
+</div>
+
+<!-- 게시글 상세 모달 -->
+<div class="board-modal-overlay" id="postModal" onclick="if(event.target===this)closePostModal()">
+  <div class="board-modal">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+      <h3 id="postTitle" style="margin-bottom:0;flex:1;padding-right:16px;"></h3>
+      <div style="display:flex;gap:8px;flex-shrink:0;">
+        <button id="postDeleteBtn" onclick="deletePost()" style="display:none;padding:6px 14px;background:#fee2e2;color:#dc2626;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">삭제</button>
+        <button onclick="closePostModal()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);">✕</button>
+      </div>
+    </div>
+    <div class="post-author" id="postAuthor"></div>
+    <div id="postImageWrap"></div>
+    <div class="post-content" id="postContent"></div>
+    <div class="replies-section">
+      <h4>댓글</h4>
+      <div id="repliesList"></div>
+      <div class="reply-input-wrap" id="replyInputWrap">
+        <input id="replyInput" type="text" placeholder="댓글을 입력하세요" maxlength="500" onkeydown="if(event.key==='Enter')submitReply()" />
+        <button class="btn-reply" onclick="submitReply()">등록</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>지금 바로 채널을 성장시키세요</h2>
+  <p>자동화로 절약한 시간을 더 중요한 곳에 쓰세요.</p>
+  <a href="#subscription" class="btn-white">요금제 보기</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logo">NOBLE ARC</div>
+      <p>AI 기반 유튜브 롱폼/쇼츠 영상 자동화 솔루션.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>제품</h4>
+        <a href="#features">핵심 기능</a>
+        <a href="#subscription">요금제</a>
+      </div>
+      <div class="footer-col">
+        <h4>계정</h4>
+        <a href="#" onclick="openAuthModal('login')">로그인</a>
+        <a href="#" onclick="openAuthModal('signup')">회원가입</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://mail.google.com/mail/?view=cm&to=doedoo291@gmail.com" target="_blank">이메일 문의</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 NOBLE ARC. All rights reserved.</div>
+    <div class="footer-biz">
+      상호: 노블아크(NobleArc) · 대표: 채정옥 · 사업자등록번호: 451-01-03916<br>
+      통신판매업신고: 제 2026-안양동안-0412 호<br>
+      사업장: 경기도 안양시 동안구 관평로69번길 8-13, 1층 일부호(평촌동)<br>
+      이메일: doedoo291@gmail.com · 전화: 010-3387-0352 · 전화상담 가능시간 09:00~18:00
+    </div>
+  </div>
+</footer>
+
+<!-- AUTH MODAL (로그인/회원가입) -->
+<div class="modal" id="authModal">
+  <div class="modal-box">
+    <h3 id="authTitle">로그인</h3>
+    <p class="modal-sub" id="authSub">NOBLE ARC 계정으로 라이선스를 관리하세요.</p>
+    <button class="btn-google" onclick="doGoogleLogin()">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Google로 계속하기
+    </button>
+    <div class="divider">또는 이메일로</div>
+    <label>이메일</label>
+    <input type="email" id="authEmail" placeholder="email@example.com">
+    <label>비밀번호</label>
+    <input type="password" id="authPassword" placeholder="••••••••">
+    <div id="authNameWrap" style="display:none;">
+      <label>이름</label>
+      <input type="text" id="authName" placeholder="이름을 입력하세요">
+    </div>
+    <div class="modal-msg" id="authMsg"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel-modal" onclick="closeAuthModal()">취소</button>
+      <button class="btn-primary-modal" id="authSubmitBtn" onclick="doEmailAuth()">로그인</button>
+    </div>
+    <div class="modal-switch" id="authSwitch">계정이 없으신가요? <a onclick="switchAuthMode()">회원가입</a></div>
+  </div>
+</div>
+
+<!-- BUY MODAL -->
+<!-- TRIAL MODAL -->
+<div class="modal" id="trialModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeTrialModal()">&#x2715;</button>
+    <div class="modal-title">2일 무료체험 신청</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">쇼츠+롱폼 번들 전체 이용 · 1기기 1회 한정</p>
+    <div class="form-group">
+      <label class="form-label">이메일</label>
+      <input class="form-input" type="email" id="trialEmail" placeholder="your@email.com" />
+    </div>
+    <p class="modal-msg" id="trialMsg"></p>
+    <button class="btn-pay" id="trialBtn" onclick="requestTrial()">무료체험 키 발급받기</button>
+  </div>
+</div>
+
+<div class="modal" id="buyModal">
+  <div class="modal-box">
+    <h3 id="modalTitle">구매하기</h3>
+    <p class="modal-sub" id="modalSub">라이선스 키는 이메일로 발송됩니다.</p>
+    <label>이름</label>
+    <input type="text" id="buyerName" placeholder="홍길동">
+    <label>이메일</label>
+    <input type="email" id="buyerEmail" placeholder="email@example.com">
+    <label>휴대폰 번호</label>
+    <input type="tel" id="buyerPhone" placeholder="01012345678">
+    <div class="modal-msg" id="modalMsg"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel-modal" onclick="closeBuyModal()">취소</button>
+      <button class="btn-primary-modal" id="payBtn" onclick="startPayment()">결제하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- LICENSE MODAL -->
+<div class="modal" id="licenseModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeLicenseModal()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1;">✕</button>
+    <h3>라이선스 발급 완료</h3>
+    <p class="modal-sub">아래 키를 프로그램에 입력하세요. 이메일로도 발송됩니다.</p>
+    <div class="license-key-box" id="licenseKey"></div>
+    <button id="copyBtn" onclick="copyLicense()">라이선스 키 복사</button>
+    <button class="btn-cancel-modal" onclick="closeLicenseModal()" style="width:100%;margin-top:8px;">닫기</button>
+  </div>
+</div>
+
+<script>
+// ── Firebase 초기화 ─────────────────────────────────────
+let auth = null, db = null;
+try {
+  firebase.initializeApp({
+    apiKey: "AIzaSyBm3pfOFb6Dx2PhdxaO-0pzd1hW5NDEnFI",
+    authDomain: "noblearc-70d64.firebaseapp.com",
+    projectId: "noblearc-70d64"
+  });
+  auth = firebase.auth();
+  db   = firebase.firestore();
+  // 구글 리다이렉트 로그인 결과 처리
+  auth.getRedirectResult().then(r => { if(r&&r.user) closeAuthModal(); }).catch(()=>{});
+} catch(e) { console.warn('Firebase init:', e); }
+
+// ── 인증 상태 감지 ─────────────────────────────────────
+if (auth) auth.onAuthStateChanged(user => {
+  const navUser      = document.getElementById('navUser');
+  const navLoginBtn  = document.getElementById('navLoginBtn');
+  const navSignupBtn = document.getElementById('navSignupBtn');
+  const navAvatar    = document.getElementById('navAvatar');
+  const navUserEmail = document.getElementById('navUserEmail');
+  if (user) {
+    navUser.style.display      = 'flex';
+    navLoginBtn.style.display  = 'none';
+    navSignupBtn.style.display = 'none';
+    const initial = (user.displayName||user.email||'U')[0].toUpperCase();
+    navAvatar.textContent  = initial;
+    navUserEmail.textContent = user.displayName || user.email.split('@')[0];
+    document.getElementById('mypageEmail').textContent = user.email;
+    loadMyLicenses(user.email);
+  } else {
+    navUser.style.display      = 'none';
+    navLoginBtn.style.display  = '';
+    navSignupBtn.style.display = '';
+  }
+});
+
+// ── Auth 모달 ──────────────────────────────────────────
+let authMode = 'login';
+function openAuthModal(mode) {
+  authMode = mode || 'login';
+  setAuthMode(authMode);
+  document.getElementById('authEmail').value    = '';
+  document.getElementById('authPassword').value = '';
+  document.getElementById('authMsg').textContent = '';
+  document.getElementById('authModal').style.display = 'flex';
+}
+function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+function setAuthMode(mode) {
+  authMode = mode;
+  const isSignup = mode === 'signup';
+  document.getElementById('authTitle').textContent      = isSignup ? '회원가입' : '로그인';
+  document.getElementById('authSub').textContent        = isSignup ? 'NOBLE ARC 계정을 만들고 라이선스를 관리하세요.' : 'NOBLE ARC 계정으로 라이선스를 관리하세요.';
+  document.getElementById('authSubmitBtn').textContent  = isSignup ? '회원가입' : '로그인';
+  document.getElementById('authSwitch').innerHTML       = isSignup
+    ? '이미 계정이 있으신가요? <a onclick="switchAuthMode()">로그인</a>'
+    : '계정이 없으신가요? <a onclick="switchAuthMode()">회원가입</a>';
+  document.getElementById('authNameWrap').style.display = isSignup ? 'block' : 'none';
+}
+function switchAuthMode() {
+  setAuthMode(authMode === 'login' ? 'signup' : 'login');
+  document.getElementById('authMsg').textContent = '';
+}
+async function doEmailAuth() {
+  if (!auth) { document.getElementById('authMsg').textContent = '서비스 연결 오류. 새로고침 후 다시 시도해주세요.'; return; }
+  const email    = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+  const msgEl    = document.getElementById('authMsg');
+  const btn      = document.getElementById('authSubmitBtn');
+  if (!email || !password) { msgEl.textContent = '이메일과 비밀번호를 입력해주세요.'; return; }
+  btn.disabled = true;
+  btn.textContent = authMode === 'signup' ? '처리 중...' : '로그인 중...';
+  try {
+    if (authMode === 'signup') {
+      const name = document.getElementById('authName').value.trim();
+      const cred = await auth.createUserWithEmailAndPassword(email, password);
+      if (name) await cred.user.updateProfile({ displayName: name });
+    } else {
+      await auth.signInWithEmailAndPassword(email, password);
+    }
+    closeAuthModal();
+  } catch(e) {
+    const msgs = {
+      'auth/email-already-in-use':'이미 사용 중인 이메일입니다.',
+      'auth/wrong-password':'비밀번호가 올바르지 않습니다.',
+      'auth/user-not-found':'등록되지 않은 이메일입니다.',
+      'auth/weak-password':'비밀번호는 6자 이상이어야 합니다.',
+      'auth/invalid-email':'올바른 이메일 형식이 아닙니다.'
+    };
+    msgEl.textContent = msgs[e.code] || '오류가 발생했습니다: ' + e.message;
+  } finally {
+    btn.disabled = false;
+    btn.textContent = authMode === 'signup' ? '회원가입' : '로그인';
+  }
+}
+async function doGoogleLogin() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  try {
+    const result = await auth.signInWithPopup(provider);
+    if (result && result.user) closeAuthModal();
+  } catch(e) {
+    if (e.code === 'auth/popup-blocked' || e.code === 'auth/cancelled-popup-request') {
+      // 팝업 차단된 경우 리다이렉트로 폴백
+      try { await auth.signInWithRedirect(provider); } catch(e2) {}
+    } else {
+      document.getElementById('authMsg').textContent = '구글 로그인에 실패했습니다: ' + e.message;
+    }
+  }
+}
+async function doLogout() {
+  await auth.signOut();
+  document.getElementById('mypagePanel').classList.remove('open');
+}
+
+// ── 마이페이지 ─────────────────────────────────────────
+function toggleMypage() {
+  document.getElementById('mypagePanel').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const panel  = document.getElementById('mypagePanel');
+  const avatar = document.getElementById('navAvatar');
+  if (!panel.contains(e.target) && e.target !== avatar) panel.classList.remove('open');
+});
+
+async function loadMyLicenses(email) {
+  const container = document.getElementById('mypageLicenses');
+  container.innerHTML = '<div class="license-empty">불러오는 중...</div>';
+  try {
+    const colLabels = { shorts_licenses:'SHORTS', longform_licenses:'LONGFORM', bundle_licenses:'BUNDLE', trial_licenses:'체험' };
+    let html = '';
+    for (const [col, label] of Object.entries(colLabels)) {
+      const snap = await db.collection(col).where('buyerEmail','==',email).get();
+      snap.forEach(doc => {
+        const d = doc.data();
+        const toDate  = v => v?.toDate ? v.toDate() : (v ? new Date(v) : null);
+        const isActive = d.active !== false;
+        const isTrial = col === 'trial_licenses';
+        const date    = d.activatedAt ? toDate(d.activatedAt)?.toLocaleDateString('ko-KR') : '';
+        const typeTxt = isTrial ? '2일 무료체험' : (d.type === 'lifetime' ? '영구' : (d.months ? `${d.months}개월 구독` : '구독'));
+        const expTxt  = isActive && d.expiresAt ? ` · ${toDate(d.expiresAt)?.toLocaleDateString('ko-KR')} 만료` : '';
+        const statusTxt = !isActive ? ' · <span style="color:#f87171;font-weight:700;">비활성화</span>' : '';
+        const machineBtn = !isTrial && isActive && d.machineId
+          ? `<button class="btn-reset-machine" onclick="resetMachineId('${col}','${doc.id}')">기기 초기화</button>`
+          : '';
+        html += `<div class="license-item" style="${!isActive ? 'opacity:0.5;' : ''}">
+          <div class="license-key">${doc.id}</div>
+          <div class="license-meta">${label} · ${typeTxt}${expTxt} · ${date}${statusTxt}</div>
+          ${machineBtn}
+        </div>`;
+      });
+    }
+    container.innerHTML = html || '<div class="license-empty">구매 내역이 없습니다.</div>';
+  } catch(e) {
+    container.innerHTML = '<div class="license-empty">불러오기 실패</div>';
+  }
+}
+async function resetMachineId(collection, licKey) {
+  if (!confirm('이 라이선스의 기기 바인딩을 초기화하시겠습니까?\n초기화 후 다른 PC에서 활성화할 수 있습니다.')) return;
+  const url = `https://firestore.googleapis.com/v1/projects/${FB_PROJECT}/databases/(default)/documents/${collection}/${licKey}?key=${FB_API_KEY}&updateMask.fieldPaths=machineId`;
+  try {
+    const res = await fetch(url, {
+      method:'PATCH', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({fields:{ machineId:{nullValue:null} }})
+    });
+    if (res.ok) { alert('기기 초기화 완료. 이제 새 PC에서 활성화할 수 있습니다.'); loadMyLicenses(auth.currentUser.email); }
+    else { alert('초기화 실패. 다시 시도해주세요.'); }
+  } catch(e) { alert('오류: '+e.message); }
+}
+
+// ── 구독 요금제 ─────────────────────────────────────────
+const PRICES = { shorts:22000, longform:29000, bundle:45000 };
+const PRICES_SUB = { shorts:20000, longform:27000, bundle:43000 };
+const PRICES_ORIG = { shorts:34000, longform:42000, bundle:65000 };
+
+let currentPayType = 'single';
+
+function setPayType(type) {
+  currentPayType = type;
+  const banner = document.getElementById('subNoticeBanner');
+  if (banner) banner.style.display = type === 'sub' ? 'block' : 'none';
+  document.getElementById('btnSingle').classList.toggle('on', type==='single');
+  document.getElementById('btnSub').classList.toggle('on', type==='sub');
+  const prices = type==='single' ? PRICES : PRICES_SUB;
+  const billing = type==='single' ? '월 단위 결제 · 수동 갱신' : '월 자동 결제 · 언제든 해지 가능';
+  ['shorts','longform','bundle'].forEach(p => {
+    const card = document.querySelector(`[data-prod="${p}"]`);
+    if (!card) return;
+    const amt = prices[p];
+    const orig = PRICES_ORIG[p];
+    const disc = Math.round((1 - amt/orig)*100);
+    card.querySelector('.pricing-price').textContent = '₩' + amt.toLocaleString();
+    card.querySelector('.pricing-discount').textContent = disc + '% 할인';
+    card.querySelector('.pricing-billing').textContent = billing;
+  });
+  const note = document.getElementById('priceNote');
+  if (note) note.textContent = type==='single'
+    ? '결제 후 즉시 라이선스 발급 · 이용 기간 종료 후 재결제 방식'
+    : '결제 후 즉시 라이선스 발급 · 매월 자동 갱신 · 언제든 마이페이지에서 해지 가능';
+}
+
+// ── FAQ ───────────────────────────────────────────
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── 스크롤 애니메이션 ──────────────────────────────
+document.documentElement.classList.add('js-ready');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{ threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// ── 무료체험 시스템 ─────────────────────────────────
+function openTrialModal() {
+  if (!auth || !auth.currentUser) {
+    openAuthModal();
+    document.getElementById('authMsg').textContent = '무료체험 신청은 로그인이 필요합니다.';
+    return;
+  }
+  document.getElementById('trialEmail').value = auth.currentUser.email || '';
+  document.getElementById('trialMsg').textContent = '';
+  document.getElementById('trialBtn').disabled = false;
+  document.getElementById('trialBtn').textContent = '무료체험 키 발급받기';
+  document.getElementById('trialModal').style.display = 'flex';
+}
+function closeTrialModal() { document.getElementById('trialModal').style.display = 'none'; }
+
+async function requestTrial() {
+  const email = document.getElementById('trialEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('trialMsg').textContent = '올바른 이메일을 입력해주세요.';
+    return;
+  }
+  const btn = document.getElementById('trialBtn');
+  btn.disabled = true; btn.textContent = '확인 중...';
+  document.getElementById('trialMsg').textContent = '';
+  try {
+    // 이 이메일로 이미 체험한 적 있는지 확인
+    const snap = await db.collection('trial_licenses').where('buyerEmail', '==', email).get();
+    if (!snap.empty) {
+      document.getElementById('trialMsg').textContent = '이미 무료체험을 사용한 이메일입니다.';
+      btn.disabled = false; btn.textContent = '무료체험 키 발급받기';
+      return;
+    }
+    const trialKey = genLicenseKey();
+    const now = new Date();
+    const exp = new Date(now); exp.setDate(exp.getDate() + 2);
+    const url = `https://firestore.googleapis.com/v1/projects/${FB_PROJECT}/databases/(default)/documents/trial_licenses/${trialKey}?key=${FB_API_KEY}`;
+    const res = await fetch(url, {
+      method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields: {
+        active:      { booleanValue: true },
+        activatedAt: { timestampValue: now.toISOString() },
+        expiresAt:   { timestampValue: exp.toISOString() },
+        buyerEmail:  { stringValue: email },
+        type:        { stringValue: 'trial' },
+        machineId:   { stringValue: '' }
+      }})
+    });
+    if (!res.ok) throw new Error('발급 실패: ' + res.status);
+
+    // 이메일 발송 (실패해도 키 발급은 완료된 것으로 처리)
+    fetch('https://noble-arc-payment.vercel.app/api/send-trial-email', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, licenseKey: trialKey })
+    }).catch(() => {});
+
+    closeTrialModal();
+    document.getElementById('licenseKey').textContent = trialKey;
+    document.getElementById('licenseModal').style.display = 'flex';
+  } catch(e) {
+    document.getElementById('trialMsg').textContent = '오류: ' + e.message;
+    btn.disabled = false; btn.textContent = '무료체험 키 발급받기';
+  }
+}
+
+// ── 결제 시스템 ────────────────────────────────────
+const STORE_ID    = 'store-2e5479e3-45ff-4aaa-9f57-8cf9dcec241c';
+const CHANNEL_KEY = 'channel-key-fbe62bf2-c5da-45a5-866f-89e8f7ca8bf5';
+const FB_PROJECT  = 'noblearc-70d64';
+const FB_API_KEY  = 'AIzaSyBm3pfOFb6Dx2PhdxaO-0pzd1hW5NDEnFI';
+let currentProduct = 'shorts';
+
+function getProductInfo(product, paytype) {
+  const pt = paytype || currentPayType || 'single';
+  const nameMap = { shorts:'쇼츠', longform:'롱폼', bundle:'쇼츠+롱폼' };
+  const colMap  = { shorts:'shorts_licenses', longform:'longform_licenses', bundle:'bundle_licenses' };
+  const isSub = pt === 'sub';
+  const prices = isSub ? PRICES_SUB : PRICES;
+  return {
+    name: `NOBLE ARC ${nameMap[product]} ${isSub ? '정기구독' : '1개월'}`,
+    amount: prices[product],
+    collection: colMap[product],
+    type: isSub ? 'recurring' : 'subscription',
+    months: 1,
+    isSub
+  };
+}
+
+function openBuyModal(product) {
+  if (currentPayType === 'sub') {
+    alert('정기구독 시스템은 현재 구축 중입니다.\n단건 결제 탭으로 이용해 주세요.');
+    return;
+  }
+  if (!auth || !auth.currentUser) {
+    openAuthModal();
+    document.getElementById('authMsg').textContent = '결제하려면 먼저 로그인해주세요.';
+    return;
+  }
+  currentProduct = product;
+  const p = getProductInfo(product);
+  const subLabel = p.isSub ? ' (정기구독 · 매월 자동결제)' : ' (단건 결제)';
+  document.getElementById('modalTitle').textContent = p.name + ' 구매';
+  document.getElementById('modalSub').textContent = p.isSub
+    ? '매월 자동으로 결제됩니다. 언제든 마이페이지에서 해지 가능합니다.'
+    : '라이선스 키는 이메일로 발송됩니다.';
+  document.getElementById('buyerName').value = '';
+  document.getElementById('buyerEmail').value = auth.currentUser.email || '';
+  document.getElementById('buyerPhone').value = '';
+  document.getElementById('modalMsg').textContent = '';
+  document.getElementById('payBtn').disabled = false;
+  document.getElementById('payBtn').textContent = '결제하기 (₩' + p.amount.toLocaleString() + '/월' + (p.isSub ? ' · 자동결제' : '') + ')';
+  document.getElementById('buyModal').style.display = 'flex';
+}
+function closeBuyModal() { document.getElementById('buyModal').style.display = 'none'; }
+function closeLicenseModal() { document.getElementById('licenseModal').style.display = 'none'; }
+
+function genLicenseKey() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const seg = () => Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+  return `NARC-${seg()}-${seg()}-${seg()}`;
+}
+async function saveToFirebase(collection, licKey, email, paymentId, type, months) {
+  const url = `https://firestore.googleapis.com/v1/projects/${FB_PROJECT}/databases/(default)/documents/${collection}/${licKey}?key=${FB_API_KEY}`;
+  const now = new Date();
+  const fields = {
+    active:{booleanValue:true}, activatedAt:{timestampValue:now.toISOString()},
+    buyerEmail:{stringValue:email}, type:{stringValue:type}, paymentId:{stringValue:paymentId}
+  };
+  if (type === 'subscription' && months) {
+    const exp = new Date(now);
+    exp.setMonth(exp.getMonth() + months);
+    fields.expiresAt = {timestampValue:exp.toISOString()};
+    fields.months = {integerValue:months};
+  }
+  const res = await fetch(url, {
+    method:'PATCH', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({fields})
+  });
+  if (!res.ok) throw new Error('Firebase 저장 실패: '+res.status);
+}
+async function startPayment() {
+  const name  = document.getElementById('buyerName').value.trim();
+  const email = document.getElementById('buyerEmail').value.trim();
+  const phone = document.getElementById('buyerPhone').value.trim().replace(/-/g,'');
+  if (!name||name.length<2) { document.getElementById('modalMsg').textContent='이름을 입력해주세요. (2자 이상)'; return; }
+  if (!email||!email.includes('@')) { document.getElementById('modalMsg').textContent='올바른 이메일을 입력해주세요.'; return; }
+  if (!phone||phone.length<10) { document.getElementById('modalMsg').textContent='휴대폰 번호를 입력해주세요.'; return; }
+  const p = getProductInfo(currentProduct);
+  const payBtn = document.getElementById('payBtn');
+  payBtn.disabled=true; payBtn.textContent='결제창 열는 중...';
+  document.getElementById('modalMsg').textContent='';
+  const paymentId = 'NARC-'+Date.now()+'-'+Math.random().toString(36).slice(2,7).toUpperCase();
+  try {
+    const result = await PortOne.requestPayment({
+      storeId:STORE_ID, channelKey:CHANNEL_KEY, paymentId, orderName:p.name,
+      totalAmount:p.amount, currency:'KRW', payMethod:'CARD',
+      customer:{email, fullName:name, phoneNumber:phone}
+    });
+    if (result&&result.code!==undefined) {
+      document.getElementById('modalMsg').textContent=result.message||'결제가 취소되었습니다.';
+      payBtn.disabled=false; payBtn.textContent='결제하기 (₩'+p.amount.toLocaleString()+'/월'+(p.isSub?' · 자동결제':'')+')'; return;
+    }
+    payBtn.textContent='라이선스 발급 중...';
+    const licKey = genLicenseKey();
+    await saveToFirebase(p.collection, licKey, email, paymentId, p.type, p.months);
+    closeBuyModal();
+    document.getElementById('licenseKey').textContent=licKey;
+    document.getElementById('licenseModal').style.display='flex';
+  } catch(e) {
+    document.getElementById('modalMsg').textContent='오류: '+e.message;
+    payBtn.disabled=false; payBtn.textContent='결제하기 (₩'+p.amount.toLocaleString()+')';
+  }
+}
+function copyLicense() {
+  navigator.clipboard.writeText(document.getElementById('licenseKey').textContent).then(()=>{
+    document.getElementById('copyBtn').textContent='✓ 복사 완료!';
+    setTimeout(()=>{ document.getElementById('copyBtn').textContent='라이선스 키 복사'; },2000);
+  });
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){closeBuyModal();closeLicenseModal();closeAuthModal();closeWriteModal();closePostModal();closeTrialModal();} });
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadPosts('review');
+});
+
+// ── 게시판 ─────────────────────────────────────────────────────
+let currentBoardType = 'review';
+let currentPostId    = null;
+let writePostType    = 'review';
+
+function switchBoardTab(el, type) {
+  document.querySelectorAll('.board-tab').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  currentBoardType = type;
+  loadPosts(type);
+}
+function selectPostType(type) {
+  writePostType = type;
+  document.getElementById('typeReview').classList.toggle('on', type === 'review');
+  document.getElementById('typeQna').classList.toggle('on', type === 'qna');
+}
+function openWriteModal() {
+  if (!auth || !auth.currentUser) {
+    openAuthModal();
+    document.getElementById('authMsg').textContent = '글쓰기는 로그인이 필요합니다.';
+    return;
+  }
+  document.getElementById('writeTitle').value = '';
+  document.getElementById('writeContent').value = '';
+  document.getElementById('writeMsg').textContent = '';
+  document.getElementById('writeImageInput').value = '';
+  document.getElementById('writeImagePreview').innerHTML = '';
+  selectPostType('review');
+  document.getElementById('writeModal').style.display = 'flex';
+}
+function previewImage(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    alert('이미지는 5MB 이하만 첨부 가능합니다.');
+    input.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('writeImagePreview').innerHTML = `
+      <div class="img-preview">
+        <img src="${e.target.result}" />
+        <button class="img-preview-remove" onclick="removeImage()">✕</button>
+      </div>`;
+  };
+  reader.readAsDataURL(file);
+}
+function removeImage() {
+  document.getElementById('writeImageInput').value = '';
+  document.getElementById('writeImagePreview').innerHTML = '';
+}
+function closeWriteModal() { document.getElementById('writeModal').style.display = 'none'; }
+function closePostModal()  { document.getElementById('postModal').style.display = 'none'; }
+
+async function submitPost() {
+  const title   = document.getElementById('writeTitle').value.trim();
+  const content = document.getElementById('writeContent').value.trim();
+  if (!title)   { document.getElementById('writeMsg').textContent = '제목을 입력해주세요.'; return; }
+  if (!content) { document.getElementById('writeMsg').textContent = '내용을 입력해주세요.'; return; }
+  const user = auth.currentUser;
+  if (!user) return;
+  const btn = document.querySelector('.btn-board-submit');
+  btn.disabled = true; btn.textContent = '등록 중...';
+  try {
+    // 이미지 업로드 (ImgBB)
+    let imageUrl = null;
+    const fileInput = document.getElementById('writeImageInput');
+    if (fileInput.files[0]) {
+      btn.textContent = '이미지 업로드 중...';
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(fileInput.files[0]);
+      });
+      const form = new FormData();
+      form.append('key', 'b94a83807b9dc227adfebbadccb4bc05');
+      form.append('image', base64);
+      const imgRes = await fetch('https://api.imgbb.com/1/upload', { method:'POST', body:form });
+      const imgData = await imgRes.json();
+      if (!imgData.success) throw new Error('이미지 업로드 실패');
+      imageUrl = imgData.data.url;
+    }
+    await db.collection('posts').add({
+      type: writePostType, title, content,
+      authorEmail: user.email,
+      authorName: user.email.split('@')[0],
+      uid: user.uid,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      views: 0, replyCount: 0,
+      ...(imageUrl && { imageUrl })
+    });
+    closeWriteModal();
+    loadPosts(currentBoardType);
+  } catch(e) {
+    document.getElementById('writeMsg').textContent = '오류: ' + e.message;
+  } finally {
+    btn.disabled = false; btn.textContent = '등록';
+  }
+}
+
+async function loadPosts(type) {
+  const container = document.getElementById('boardList');
+  container.innerHTML = '<div class="board-empty">불러오는 중...</div>';
+  try {
+    const snap = await db.collection('posts')
+      .where('type', '==', type)
+      .orderBy('createdAt', 'desc')
+      .limit(20).get();
+    if (snap.empty) {
+      container.innerHTML = '<div class="board-empty">아직 게시글이 없습니다. 첫 번째 글을 작성해보세요!</div>';
+      return;
+    }
+    let html = '';
+    snap.forEach(doc => {
+      const d = doc.data();
+      const date = d.createdAt ? new Date(d.createdAt.toDate()).toLocaleDateString('ko-KR') : '';
+      const badge = type === 'review'
+        ? `<span class="board-item-badge badge-review">후기</span>`
+        : (d.replyCount > 0
+          ? `<span class="board-item-badge badge-answered">답변완료</span>`
+          : `<span class="board-item-badge badge-waiting">답변대기</span>`);
+      html += `<div class="board-item" onclick="openPost('${doc.id}')">
+        <div>
+          <div class="board-item-title">${d.title}</div>
+          <div class="board-item-meta">${d.authorName} · ${date}${d.views ? ' · 조회 ' + d.views : ''}</div>
+        </div>
+        ${badge}
+      </div>`;
+    });
+    container.innerHTML = html;
+  } catch(e) {
+    container.innerHTML = `<div class="board-empty">불러오기 실패 — <a href="https://console.firebase.google.com" target="_blank" style="color:var(--ac);">Firestore 색인 설정</a>이 필요할 수 있습니다.</div>`;
+  }
+}
+
+async function openPost(id) {
+  currentPostId = id;
+  const doc = await db.collection('posts').doc(id).get();
+  if (!doc.exists) return;
+  const d = doc.data();
+  const date = d.createdAt ? new Date(d.createdAt.toDate()).toLocaleDateString('ko-KR') : '';
+  document.getElementById('postTitle').textContent   = d.title;
+  document.getElementById('postAuthor').textContent  = `${d.authorName} · ${date}`;
+  document.getElementById('postContent').textContent = d.content;
+  document.getElementById('postImageWrap').innerHTML = d.imageUrl
+    ? `<img class="post-image" src="${d.imageUrl}" alt="첨부 이미지" />`
+    : '';
+  document.getElementById('replyInputWrap').style.display = auth.currentUser ? 'flex' : 'none';
+  const isOwner = auth.currentUser && auth.currentUser.uid === d.uid;
+  document.getElementById('postDeleteBtn').style.display = isOwner ? 'block' : 'none';
+  document.getElementById('replyInput').value = '';
+  document.getElementById('postModal').style.display = 'flex';
+  db.collection('posts').doc(id).update({ views: firebase.firestore.FieldValue.increment(1) }).catch(()=>{});
+  loadReplies(id);
+}
+
+async function deletePost() {
+  if (!currentPostId || !auth.currentUser) return;
+  if (!confirm('게시글을 삭제하시겠습니까?')) return;
+  try {
+    await db.collection('posts').doc(currentPostId).delete();
+    closePostModal();
+    loadPosts(currentBoardType);
+  } catch(e) {
+    alert('삭제 실패: ' + e.message);
+  }
+}
+async function loadReplies(postId) {
+  const container = document.getElementById('repliesList');
+  try {
+    const snap = await db.collection('posts').doc(postId).collection('replies')
+      .orderBy('createdAt', 'asc').get();
+    if (snap.empty) {
+      container.innerHTML = '<div style="font-size:13px;color:var(--muted2);padding:8px 0;">아직 댓글이 없습니다.</div>';
+      return;
+    }
+    let html = '';
+    snap.forEach(doc => {
+      const d = doc.data();
+      const date = d.createdAt ? new Date(d.createdAt.toDate()).toLocaleDateString('ko-KR') : '';
+      const adminBadge = d.isAdmin ? '<span class="reply-admin-badge">관리자</span>' : '';
+      html += `<div class="reply-item">
+        <div class="reply-meta">${d.authorName}${adminBadge} · ${date}</div>
+        <div class="reply-content">${d.content}</div>
+      </div>`;
+    });
+    container.innerHTML = html;
+  } catch(e) {
+    container.innerHTML = '<div style="font-size:13px;color:#ef4444;">불러오기 실패</div>';
+  }
+}
+
+async function submitReply() {
+  const input = document.getElementById('replyInput');
+  const content = input.value.trim();
+  if (!content || !currentPostId || !auth.currentUser) return;
+  const user = auth.currentUser;
+  input.disabled = true;
+  try {
+    await db.collection('posts').doc(currentPostId).collection('replies').add({
+      content,
+      authorEmail: user.email,
+      authorName: user.email.split('@')[0],
+      uid: user.uid,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      isAdmin: false
+    });
+    await db.collection('posts').doc(currentPostId).update({
+      replyCount: firebase.firestore.FieldValue.increment(1)
+    });
+    input.value = '';
+    loadReplies(currentPostId);
+    loadPosts(currentBoardType);
+  } catch(e) {
+    alert('오류: ' + e.message);
+  } finally {
+    input.disabled = false;
+  }
+}
+</script>
+
+<!-- 카카오 채널 플로팅 버튼 -->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+  integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+  crossorigin="anonymous"></script>
+<div id="kakao-channel-chat-button" style="position:fixed;bottom:24px;right:24px;z-index:9000;"></div>
+<script>
+  Kakao.init('5d9b4f102acd496a8772ea86c9015001');
+  Kakao.Channel.createChatButton({
+    container: '#kakao-channel-chat-button',
+    channelPublicId: '_WdxixlX',
+    title: 'consult',
+    size: 'large',
+    color: 'yellow',
+    shape: 'pc',
+    supportMultipleDensities: true,
+  });
+</script>
+</body>
+</html>
