@@ -152,8 +152,50 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <p>이제 상단에 있는 서비스 계정 만들기를 클릭해줍니다.</p>
 <div class="img-wrap"><img src="imgs/image21.png" loading="lazy" alt="스크린샷"></div>
 <p>그럼 위와 같은 화면이 나오는데 서비스 계정 이름에 자신이 원하는 이름을 아무거나 입력해줍니다. 그럼 바로 밑에 서비스 계정 ID는 자동으로 발급 됩니다. 그 아래 만들고 계속하기 버튼을 클릭하시면 됩니다.</p>
-<div class="img-wrap"><img src="imgs/image22.png" loading="lazy" alt="스크린샷"></div>
-<p>그럼 위와 같은 화면이 나오는데 여기서 역할 선택을 선택하신 후 검색창에 VERTEX 라고 검색해주세요 그러면 2번째 VERTEX AI 사용자라고 뜹니다. 이것을 선택하시고 밑에 있는 완료 버튼을 눌러주세요</p>
+<div class="img-wrap">
+  <canvas id="canvas-image22" style="max-width:100%;height:auto;display:block;margin:0 auto;"></canvas>
+  <script>
+  (function(){
+    var canvas = document.getElementById('canvas-image22');
+    var ctx = canvas.getContext('2d');
+    var img = new Image();
+    img.src = 'imgs/image22.png';
+    img.onload = function(){
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      ctx.drawImage(img, 0, 0);
+      var fontSize = Math.max(20, Math.floor(img.naturalWidth * 0.032));
+      var text = 'vertex ai 서비스에이전트 선택하세요';
+      var x = img.naturalWidth * 0.5;
+      var y = Math.floor(img.naturalHeight * 0.1);
+      var padX = fontSize * 0.8;
+      var padY = fontSize * 0.5;
+      ctx.font = 'bold ' + fontSize + 'px "Noto Sans KR", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      var textW = ctx.measureText(text).width;
+      ctx.fillStyle = 'rgba(220, 38, 38, 0.88)';
+      ctx.beginPath();
+      ctx.roundRect(x - textW/2 - padX, y - fontSize/2 - padY, textW + padX*2, fontSize + padY*2, 8);
+      ctx.fill();
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = Math.max(2, fontSize * 0.07);
+      ctx.strokeText(text, x, y);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(text, x, y);
+    };
+    img.onerror = function(){
+      canvas.style.display = 'none';
+      var fallback = document.createElement('img');
+      fallback.src = 'imgs/image22.png';
+      fallback.alt = '스크린샷';
+      fallback.style.maxWidth = '100%';
+      canvas.parentNode.insertBefore(fallback, canvas);
+    };
+  })();
+  </script>
+</div>
+<p>그럼 위와 같은 화면이 나오는데 여기서 역할 선택을 선택하신 후 검색창에 VERTEX 라고 검색해주세요 그러면 vertex ai 서비스 에이전트라고 뜹니다. 이것을 선택하시고 밑에 있는 완료 버튼을 눌러주세요</p>
 <div class="img-wrap"><img src="imgs/image23.png" loading="lazy" alt="스크린샷"></div>
 <p>완료 버튼을 누르시면 위와 같은 화면이 뜹니다. 여기서 이메일이라고 적힌 곳 아래 이메일 주소를 클릭해주세요</p>
 <div class="img-wrap"><img src="imgs/image24.png" loading="lazy" alt="스크린샷"></div>
