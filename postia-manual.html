@@ -335,9 +335,40 @@ td{padding:10px 14px;border:1px solid #1e2130;color:#ccc;vertical-align:top;line
   <p>블로그의 주제와 타겟 독자에 맞는 스타일을 선택하시면 됩니다. 예를 들어 건강·라이프스타일 블로그라면 사실적인 사진, IT·테크 블로그라면 3D 애니메이션이나 영화적 스타일이 잘 어울립니다.</p>
 
   <h3 id="sec-5-2">5-2 리서치 API 설정 (선택)</h3>
-  <p>리서치 센터의 키워드 검색량 분석 기능을 사용하시려면 네이버 API 키 등록이 필요합니다. 리서치 센터를 사용하지 않으실 분은 이 항목을 건너뛰셔도 됩니다.</p>
-  <p>네이버 검색광고 API는 searchad.naver.com에 접속하셔서 API 관리 메뉴에서 발급받을 수 있습니다. API Key, Secret Key, 고객 ID 세 가지를 발급받아 설정 탭의 리서치 API 섹션에 각각 입력하시면 됩니다.</p>
-  <p>네이버 데이터랩 API는 developers.naver.com에서 애플리케이션을 등록하신 후 Client ID와 Client Secret을 발급받아 입력하시면 됩니다.</p>
+  <p>리서치 센터의 키워드 검색량 분석 기능(네이버 키워드 도구, 데이터랩, 키워드 발굴 탭)을 사용하시려면 네이버 API 키 등록이 필요합니다. 리서치 센터를 사용하지 않으실 분은 이 항목을 건너뛰셔도 됩니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_settings_tab.png" loading="lazy" alt="설정 탭 — 리서치 API 입력 필드"></div>
+  <p>설정 탭 하단의 <strong>리서치 API (필수)</strong> 섹션에 총 5개의 항목을 입력해야 합니다. 위 3개는 네이버 검색광고(SA) API 키이고, 아래 2개는 네이버 데이터랩 API 키입니다. 아래 안내에 따라 각 키를 발급받아 입력해주세요.</p>
+
+  <h4 style="margin:2rem 0 0.8rem 0;font-size:1.05em;color:#60a5fa;">① 검색광고 API 발급 (위쪽 3개 항목)</h4>
+  <p>발급 항목: <strong>검색광고 API Key, 검색광고 Secret Key, 검색광고 고객 ID</strong></p>
+
+  <div class="img-wrap"><img src="imgs/searchad_main.png" loading="lazy" alt="네이버 검색광고 메인 — searchad.naver.com"></div>
+  <p><strong>searchad.naver.com</strong>으로 접속합니다. 네이버 광고주 계정으로 로그인하거나 회원가입을 진행합니다. 로그인 후 오른쪽 상단의 <strong>[광고시스템]</strong> 버튼을 클릭하여 광고 대시보드로 진입합니다.</p>
+
+  <div class="img-wrap"><img src="imgs/searchad_api_keys.png" loading="lazy" alt="SA API 사용 관리 — 액세스 라이선스키와 비밀키 복사"></div>
+  <p>광고시스템 대시보드에서 왼쪽 사이드바의 <strong>[도구]</strong> 탭을 클릭한 뒤 <strong>[API 사용 관리]</strong> 탭을 클릭합니다. 화면에 표시된 <strong>액세스 라이선스키</strong>를 복사하여 설정 탭의 "검색광고 API Key" 항목에 붙여넣고, <strong>비밀키</strong>를 복사하여 "검색광고 Secret Key" 항목에 붙여넣습니다.</p>
+
+  <div class="img-wrap"><img src="imgs/searchad_customer_id.png" loading="lazy" alt="주소창 고객 ID 확인"></div>
+  <p>같은 페이지에서 브라우저 상단의 주소창을 확인합니다. URL 형식은 <code>ads.naver.com/manage/ad-accounts/<strong>숫자</strong>/sa/tool/api</code>입니다. 이 URL 중간의 <strong>숫자 부분</strong>이 고객 ID입니다. 해당 숫자를 복사하여 설정 탭의 "검색광고 고객 ID" 항목에 붙여넣습니다.</p>
+
+  <h4 style="margin:2rem 0 0.8rem 0;font-size:1.05em;color:#60a5fa;">② 데이터랩 API 발급 (아래쪽 2개 항목)</h4>
+  <p>발급 항목: <strong>데이터랩 Client ID, 데이터랩 Secret</strong></p>
+
+  <div class="img-wrap"><img src="imgs/naver_dev_main.png" loading="lazy" alt="네이버 개발자 센터 — developers.naver.com"></div>
+  <p><strong>developers.naver.com</strong>으로 접속합니다. 네이버 아이디로 로그인합니다.</p>
+
+  <div class="img-wrap"><img src="imgs/naver_dev_app_register.png" loading="lazy" alt="Application → 애플리케이션 등록 클릭"></div>
+  <p>상단 메뉴에서 <strong>[Application]</strong>을 클릭한 뒤 드롭다운에서 <strong>[애플리케이션 등록]</strong>을 클릭합니다.</p>
+
+  <div class="img-wrap"><img src="imgs/naver_dev_app_form.png" loading="lazy" alt="애플리케이션 등록 폼 — 데이터랩 검색어트렌드 선택"></div>
+  <p>애플리케이션 등록 폼이 열립니다.</p>
+  <ul>
+    <li><strong>애플리케이션 이름</strong>: 원하는 이름을 자유롭게 입력합니다. (예: 키워드 리서치 툴)</li>
+    <li><strong>사용 API</strong>: 드롭다운에서 <strong>[데이터랩(검색어트렌드)]</strong>를 찾아 선택합니다. 필요에 따라 데이터랩(쇼핑인사이트)도 함께 추가할 수 있습니다.</li>
+    <li><strong>로그인 오픈 API 서비스 환경</strong>: 웹(Web)을 선택하고 웹 서비스 URL에 <code>http://localhost</code>를 입력합니다.</li>
+  </ul>
+  <p>입력 후 하단의 <strong>[등록하기]</strong> 버튼을 클릭합니다. 등록이 완료되면 <strong>[Application] → [내 애플리케이션]</strong>에서 방금 만든 앱을 선택하고 <strong>[개요]</strong> 탭에서 <strong>Client ID</strong>와 <strong>Client Secret</strong>을 복사하여 설정 탭에 각각 입력합니다.</p>
 
   <h3 id="sec-5-3">5-3 IndexNow 설정 (워드프레스 전용, 선택)</h3>
   <p>IndexNow는 워드프레스 블로그에서만 사용 가능한 기능입니다. 새 글을 발행한 직후 네이버와 빙(Bing) 검색엔진에 즉시 색인을 요청하는 기능으로, 검색 노출 속도를 높이는 데 도움이 됩니다.</p>
