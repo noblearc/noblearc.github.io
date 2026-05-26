@@ -381,11 +381,14 @@ td{padding:10px 14px;border:1px solid #1e2130;color:#ccc;vertical-align:top;line
 
   <h3 id="sec-5-4">5-4 텔레그램 봇 설정 (선택)</h3>
   <p>텔레그램 봇을 연결하면 블로그 발행 결과를 실시간으로 알림 받을 수 있고, 텔레그램에서 직접 명령을 보내 원격으로 프로그램을 제어할 수 있습니다. 자세한 사용법은 12번 텔레그램 원격 제어 항목을 참고하세요.</p>
+
+  <div class="img-wrap"><img src="imgs/tg_settings.png" loading="lazy" alt="설정 탭 — 텔레그램 봇 설정 섹션"></div>
+
   <p>봇 설정 순서는 다음과 같습니다.</p>
-  <p>① 텔레그램 앱에서 @BotFather를 검색하여 대화를 시작합니다. /newbot 명령을 입력하고 봇 이름과 사용자명을 입력하시면 봇 토큰이 발급됩니다.</p>
-  <p>② 발급받은 Bot Token을 설정 탭의 Bot Token 입력란에 붙여넣고 봇 연결 버튼을 클릭합니다.</p>
-  <p>③ 연결한 봇과 대화를 시작하여 /myid 명령을 전송하면 숫자로 된 Chat ID가 반환됩니다. 이 Chat ID를 설정 탭에 입력합니다. 여러 명에게 알림을 보내려면 Chat ID를 쉼표로 구분하여 입력하시면 됩니다.</p>
-  <p>④ 저장 및 적용 버튼을 클릭하면 설정이 완료됩니다. 테스트 메시지 버튼으로 연결 상태를 확인하실 수 있습니다.</p>
+  <p>① 텔레그램 앱에서 <strong>@BotFather</strong>를 검색하여 대화를 시작합니다. <code>/newbot</code> 명령을 입력하고 봇 이름과 사용자명을 입력하시면 봇 토큰이 발급됩니다.</p>
+  <p>② 발급받은 <strong>Bot Token</strong>을 설정 탭의 Bot Token 입력란에 붙여넣고 <strong>[봇 연결]</strong> 버튼을 클릭합니다.</p>
+  <p>③ 연결한 봇과 대화를 시작하여 <code>/myid</code> 명령을 전송하면 숫자로 된 <strong>Chat ID</strong>가 반환됩니다. 이 Chat ID를 설정 탭에 입력합니다. 여러 명에게 알림을 보내려면 Chat ID를 쉼표로 구분하여 입력하시면 됩니다.</p>
+  <p>④ <strong>[테스트 메시지]</strong> 버튼으로 연결 상태를 확인하실 수 있습니다.</p>
 
   <!-- ===== 6. 플랫폼 계정 등록 ===== -->
   <h2 id="sec-6">6. 플랫폼 계정 등록</h2>
@@ -634,19 +637,58 @@ td{padding:10px 14px;border:1px solid #1e2130;color:#ccc;vertical-align:top;line
 
   <!-- ===== 12. 텔레그램 원격 제어 ===== -->
   <h2 id="sec-12">12. 텔레그램 원격 제어</h2>
-  <p>텔레그램 봇이 설정되어 있다면 PC에서 프로그램을 직접 조작하지 않고도 텔레그램 앱에서 명령을 보내 원격으로 제어할 수 있습니다. 외출 중이거나 PC에 접근하기 어려운 상황에서도 블로그 발행을 관리할 수 있습니다.</p>
+  <p>텔레그램 봇이 설정되어 있다면 PC를 직접 조작하지 않고도 스마트폰 텔레그램 앱에서 포스티아를 원격으로 제어하고 발행 결과를 실시간으로 받아볼 수 있습니다.</p>
+  <div class="notice">
+    <p>⚠️ 텔레그램 원격 제어는 <strong>에이전트 탭, AI 포스팅, 벤치마킹 포스팅, 쿠팡파트너스</strong> 4개 탭만 지원합니다. 홍보발행·리뷰포스팅은 원격 제어가 지원되지 않습니다.</p>
+  </div>
 
-  <h3>주요 명령어</h3>
-  <table>
-    <tr><th>명령어</th><th>기능</th></tr>
-    <tr><td>/add 키워드</td><td>지정한 키워드를 발행 대기 큐에 추가합니다. 예: /add 직장인 재테크</td></tr>
-    <tr><td>/start</td><td>현재 에이전트 작동 상태를 확인합니다.</td></tr>
-    <tr><td>/post_start</td><td>포스팅을 시작합니다.</td></tr>
-    <tr><td>/post_stop</td><td>진행 중인 포스팅을 중지합니다.</td></tr>
-  </table>
+  <h3>봇 시작 및 메뉴 열기</h3>
+  <div class="img-wrap"><img src="imgs/tg_start.jpg" loading="lazy" alt="텔레그램 봇 시작 알림"></div>
+  <p>포스티아가 실행되면 텔레그램 봇으로 <strong>"Postia 시작됨"</strong> 알림이 자동 전송됩니다. 채팅창에 <strong>/start</strong> 를 입력하면 원격 제어 메뉴가 열립니다.</p>
 
-  <h3>알림 기능</h3>
-  <p>블로그 글 발행이 완료될 때마다 텔레그램으로 알림 메시지가 전송됩니다. 발행 실패 시에도 실패 원인과 함께 알림이 옵니다. 프로그램이 백그라운드에서 작동 중이더라도 결과를 실시간으로 확인하실 수 있습니다.</p>
+  <h3>발행 완료 알림 및 캡차 대응</h3>
+  <div class="img-wrap"><img src="imgs/tg_notify.jpg" loading="lazy" alt="발행 완료 알림 및 티스토리 캡차 알림"></div>
+  <p>글 발행이 완료될 때마다 플랫폼·블로그명과 함께 <strong>✅ 발행 완료</strong> 알림이 전송됩니다. 티스토리 캡차가 발생하면 <strong>⚠️ [티스토리 캡차 발생]</strong> 메시지와 함께 캡차 이미지가 전송되며, 채팅창에 캡차 텍스트를 입력(300초 이내)하면 자동으로 처리가 재개됩니다.</p>
+
+  <h3>AI 포스팅 원격 제어</h3>
+  <div class="img-wrap"><img src="imgs/tg_ai_posting.jpg" loading="lazy" alt="텔레그램 AI 포스팅 메뉴"></div>
+  <p>/start 후 AI 포스팅 메뉴를 선택하면 현재 예약 시간과 상태가 표시되며 아래 버튼으로 제어합니다.</p>
+  <ul>
+    <li><strong>▶ 즉시 시작</strong>: 예약 시간을 무시하고 지금 바로 AI 포스팅을 시작합니다.</li>
+    <li><strong>✍ 키워드 지정</strong>: 이번 회차에 사용할 키워드를 직접 지정합니다.</li>
+    <li><strong>🔗 백링크 ON/OFF</strong>: 백링크 삽입 기능을 켜거나 끕니다.</li>
+    <li><strong>⏹ 중지</strong>: 진행 중인 포스팅을 중지합니다.</li>
+  </ul>
+
+  <h3>에이전트 탭 원격 제어</h3>
+  <div class="img-wrap"><img src="imgs/tg_agent_status.jpg" loading="lazy" alt="텔레그램 에이전트 현황 메뉴"></div>
+  <p>/start 후 에이전트 현황을 선택하면 현재 상태(idle/running), 활성 블로그 수, 스케줄 설정 여부를 확인할 수 있습니다.</p>
+  <ul>
+    <li><strong>▶ 지금 실행</strong>: 에이전트를 즉시 실행합니다.</li>
+    <li><strong>⏹ 중지</strong>: 실행 중인 에이전트를 중지합니다.</li>
+    <li><strong>🔗 백링크 ON/OFF</strong>: 백링크 삽입을 켜거나 끕니다.</li>
+    <li><strong>📝 블로그 목록</strong>: 등록된 블로그 목록과 활성 상태를 확인합니다.</li>
+    <li><strong>📋 로그</strong>: 최근 실행 로그를 확인합니다.</li>
+  </ul>
+
+  <h3>블로그 활성/비활성 관리</h3>
+  <div class="img-wrap"><img src="imgs/tg_blog_manage.jpg" loading="lazy" alt="텔레그램 블로그 관리 메뉴"></div>
+  <p>블로그 관리 메뉴에서 등록된 블로그별로 활성/비활성 상태를 확인하고 토글할 수 있습니다. ✅는 활성(발행 대상), ❌는 비활성(발행 제외)을 의미합니다. 각 블로그 옆 <strong>[끄기]</strong> 버튼을 누르면 즉시 해당 블로그로의 발행이 중단됩니다.</p>
+
+  <h3>쿠팡파트너스 원격 발행</h3>
+  <div class="img-wrap"><img src="imgs/tg_coupang_menu.jpg" loading="lazy" alt="텔레그램 쿠팡파트너스 발행 메뉴"></div>
+  <p>/start 후 쿠팡파트너스 발행 메뉴를 선택하면 두 가지 발행 방식 중 선택할 수 있습니다.</p>
+  <ul>
+    <li><strong>⚡ 자동 발행</strong>: AI가 최적 상품을 자동으로 선택하여 발행합니다.</li>
+    <li><strong>🔍 상품 선택 발행</strong>: 키워드를 직접 입력하여 검색 결과에서 상품을 선택해 발행합니다.</li>
+  </ul>
+
+  <div class="img-wrap"><img src="imgs/tg_coupang_product.jpg" loading="lazy" alt="텔레그램 쿠팡 상품 선택 발행"></div>
+  <p>상품 선택 발행 선택 시 채팅창에 키워드를 입력합니다. (예: 태블릿) 쿠팡 상품 5개가 목록으로 표시되며 원하는 번호 버튼을 누르면 해당 상품으로 리뷰 글이 자동 생성·발행됩니다.</p>
+
+  <h3>벤치마킹 포스팅 — 참고 텍스트 입력</h3>
+  <div class="img-wrap"><img src="imgs/tg_bench_text.jpg" loading="lazy" alt="텔레그램 벤치마킹 참고 텍스트 입력"></div>
+  <p>벤치마킹 포스팅 탭에서 원격으로 발행 명령을 내리면 봇이 <strong>참고 텍스트 입력</strong>을 요청합니다. 뉴스 기사·블로그·유튜브 자막 등 참고할 내용을 채팅에 붙여넣으면 (최대 4,096자) AI가 해당 내용을 참고하여 글을 작성합니다. 입력을 취소하려면 <strong>/start</strong> 를 입력하면 됩니다.</p>
 
   <!-- ===== 13. 기타 안내 ===== -->
   <h2 id="sec-13">13. 기타 안내</h2>
