@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개인정보처리방침 | NOBLE ARC</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --ac:#6d28d9;--ac2:#7c3aed;--ac3:#a78bfa;
+  --bg:#ffffff;--bg2:#f8f7ff;
+  --wd:#1a1a2e;--muted:#6b7280;--muted2:#9ca3af;
+  --border:#e5e7eb;
+}
+body{font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;background:var(--bg);color:var(--wd);line-height:1.7;}
+a{text-decoration:none;color:var(--ac);}
+a:hover{text-decoration:underline;}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  display:flex;align-items:center;padding:0 60px;height:72px;
+  background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-size:22px;font-weight:900;letter-spacing:2px;
+  background:linear-gradient(135deg,var(--ac),#2563eb);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+.wrap{max-width:780px;margin:0 auto;padding:120px 24px 80px;}
+
+.page-title{
+  font-size:28px;font-weight:900;margin-bottom:8px;
+  background:linear-gradient(135deg,var(--ac),#2563eb);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.page-sub{font-size:13px;color:var(--muted);margin-bottom:48px;}
+
+section{margin-bottom:40px;}
+h2{
+  font-size:15px;font-weight:800;color:var(--wd);
+  padding:10px 16px;background:var(--bg2);
+  border-left:3px solid var(--ac);border-radius:0 6px 6px 0;
+  margin-bottom:16px;letter-spacing:0.5px;
+}
+p{font-size:14px;color:#374151;margin-bottom:10px;padding:0 4px;}
+ul{padding-left:20px;margin-bottom:10px;}
+li{font-size:14px;color:#374151;margin-bottom:6px;line-height:1.7;}
+table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:13px;}
+th{background:var(--bg2);padding:10px 14px;text-align:left;font-weight:700;border:1px solid var(--border);color:var(--wd);}
+td{padding:10px 14px;border:1px solid var(--border);color:#374151;vertical-align:top;line-height:1.6;}
+
+.highlight-box{
+  background:var(--bg2);border:1px solid rgba(109,40,217,0.2);
+  border-radius:10px;padding:20px 24px;margin-bottom:10px;
+}
+.highlight-box p{margin-bottom:4px;}
+
+footer{
+  background:#fff;border-top:1px solid var(--border);
+  padding:32px 60px;text-align:center;
+  font-size:12px;color:var(--muted2);
+}
+
+@media(max-width:640px){
+  nav{padding:0 20px;}
+  .wrap{padding:100px 16px 60px;}
+  footer{padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">NOBLE ARC</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-title">개인정보처리방침</div>
+  <div class="page-sub">시행일: 2026년 05월 26일 · 노블아크(NobleArc)</div>
+
+  <section>
+    <h2>제1조 개인정보의 수집 항목 및 수집 방법</h2>
+    <p>노블아크(이하 "회사")는 서비스 제공을 위해 아래와 같이 최소한의 개인정보를 수집합니다.</p>
+    <table>
+      <tr><th>수집 항목</th><th>수집 방법</th><th>필수/선택</th></tr>
+      <tr><td>이메일 주소</td><td>결제 시 입력 (PortOne 결제창)</td><td>필수</td></tr>
+      <tr><td>이름(구매자명)</td><td>결제 시 입력</td><td>필수</td></tr>
+      <tr><td>결제 정보 (결제 ID, 결제 금액)</td><td>PortOne 결제 처리 시 자동 수집</td><td>필수</td></tr>
+      <tr><td>기기 고유 식별자 (머신 ID)</td><td>프로그램 최초 실행 시 자동 수집</td><td>필수</td></tr>
+    </table>
+    <p>※ 머신 ID는 Windows 레지스트리의 기기 식별값을 해시 처리한 값으로, 다중 기기 사용 방지를 위해 수집됩니다.</p>
+  </section>
+
+  <section>
+    <h2>제2조 개인정보의 처리 목적</h2>
+    <ul>
+      <li>라이선스 키 발급 및 이메일 발송</li>
+      <li>구매 내역 확인 및 환불 처리</li>
+      <li>라이선스 유효성 검증 (중복 기기 등록 방지)</li>
+      <li>서비스 관련 공지사항 전달</li>
+    </ul>
+    <p>회사는 수집한 개인정보를 위 목적 이외의 용도로 사용하지 않으며, 목적이 변경될 경우 사전에 동의를 받습니다.</p>
+  </section>
+
+  <section>
+    <h2>제3조 개인정보의 보유 및 이용 기간</h2>
+    <table>
+      <tr><th>항목</th><th>보유 기간</th><th>근거</th></tr>
+      <tr><td>이메일, 이름, 결제 정보</td><td>구매일로부터 5년</td><td>전자상거래법 제6조</td></tr>
+      <tr><td>기기 고유 식별자 (머신 ID)</td><td>라이선스 유효 기간 + 6개월</td><td>서비스 운영 목적</td></tr>
+    </table>
+    <p>보유 기간이 경과하거나 처리 목적이 달성된 경우 지체 없이 파기합니다.</p>
+  </section>
+
+  <section>
+    <h2>제4조 개인정보의 제3자 제공 및 처리 위탁</h2>
+    <p>회사는 아래 업체에 개인정보 처리를 위탁하고 있습니다.</p>
+    <table>
+      <tr><th>수탁 업체</th><th>위탁 업무</th><th>보유 기간</th></tr>
+      <tr><td>Google Firebase (Google LLC)</td><td>라이선스 데이터 저장 및 관리</td><td>위탁 계약 종료 시까지</td></tr>
+      <tr><td>PortOne (포트원)</td><td>결제 처리 및 결제 정보 관리</td><td>위탁 계약 종료 시까지</td></tr>
+      <tr><td>Google Gmail</td><td>라이선스 키 이메일 발송</td><td>발송 즉시 삭제</td></tr>
+    </table>
+    <p>회사는 위탁 계약 시 개인정보 보호 관련 법규 준수 및 개인정보 안전 관리에 관한 사항을 계약서에 명시하고 있습니다.</p>
+    <p>수집한 개인정보는 위 위탁 목적 외 제3자에게 제공하지 않습니다.</p>
+  </section>
+
+  <section>
+    <h2>제5조 정보주체의 권리·의무 및 행사 방법</h2>
+    <p>이용자는 언제든지 아래 권리를 행사할 수 있습니다.</p>
+    <ul>
+      <li><strong>개인정보 열람 요청:</strong> 회사가 보유한 본인의 개인정보 확인</li>
+      <li><strong>개인정보 수정 요청:</strong> 잘못된 정보 정정</li>
+      <li><strong>개인정보 삭제 요청:</strong> 보유 중인 개인정보 삭제 (단, 법령에 따라 보존 의무가 있는 정보 제외)</li>
+      <li><strong>처리 정지 요청:</strong> 개인정보 처리의 일시 정지</li>
+    </ul>
+    <div class="highlight-box">
+      <p><strong>권리 행사 방법</strong></p>
+      <p>이메일: <a href="mailto:doedoo291@gmail.com">doedoo291@gmail.com</a></p>
+      <p>전화: <a href="tel:010-3387-0352">010-3387-0352</a> (상담 가능 시간 09:00~18:00)</p>
+      <p>요청 접수 후 10영업일 이내 처리하며, 처리 결과를 이메일로 안내드립니다.</p>
+    </div>
+    <p>※ 개인정보 삭제 요청 시 서비스(라이선스) 이용이 즉시 중단될 수 있습니다.</p>
+  </section>
+
+  <section>
+    <h2>제6조 개인정보 보호책임자</h2>
+    <div class="highlight-box">
+      <p><strong>개인정보 보호책임자</strong></p>
+      <p>성명: 채정옥</p>
+      <p>상호: 노블아크(NobleArc)</p>
+      <p>이메일: <a href="mailto:doedoo291@gmail.com">doedoo291@gmail.com</a></p>
+      <p>전화: <a href="tel:010-3387-0352">010-3387-0352</a></p>
+    </div>
+    <p>개인정보 처리에 관한 문의, 불만 처리, 피해 구제 등은 위 연락처로 문의해 주시기 바랍니다.</p>
+    <p>기타 개인정보 침해에 대한 신고나 상담은 아래 기관에 문의하실 수 있습니다.</p>
+    <ul>
+      <li>개인정보보호위원회: <a href="https://www.pipc.go.kr" target="_blank">www.pipc.go.kr</a> / 전화 182</li>
+      <li>한국인터넷진흥원 개인정보침해 신고센터: <a href="https://privacy.kisa.or.kr" target="_blank">privacy.kisa.or.kr</a> / 전화 118</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>제7조 개인정보의 안전성 확보 조치</h2>
+    <ul>
+      <li>모든 데이터는 Google Firebase를 통해 암호화 저장됩니다.</li>
+      <li>라이선스 검증 API는 서버 측 인증 토큰을 통해 비인가 접근을 차단합니다.</li>
+      <li>기기 식별자는 SHA-256 해시 처리 후 저장되며, 원본 값은 보관하지 않습니다.</li>
+      <li>관리자 외 개인정보 접근을 제한하고 있습니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>제8조 개인정보처리방침의 변경</h2>
+    <p>이 개인정보처리방침은 법령·정책 변경이나 서비스 변경 사항을 반영하기 위해 수정될 수 있습니다. 변경 시 홈페이지 공지 또는 이메일을 통해 사전 안내합니다.</p>
+    <p><strong>현행 방침 시행일: 2026년 05월 26일</strong></p>
+  </section>
+</div>
+
+<footer>
+  © 2026 NOBLE ARC. All rights reserved. · 상호: 노블아크(NobleArc) · 대표: 채정옥 · 사업자등록번호: 451-01-03916
+</footer>
+
+</body>
+</html>
