@@ -373,14 +373,11 @@ td{padding:10px 14px;border:1px solid #1e2130;color:#ccc;vertical-align:top;line
   <h3 id="sec-5-3">5-3 IndexNow 설정 (워드프레스 전용, 선택)</h3>
   <p>IndexNow는 워드프레스 블로그에서만 사용 가능한 기능입니다. 새 글을 발행한 직후 네이버와 빙(Bing) 검색엔진에 즉시 색인을 요청하는 기능으로, 검색 노출 속도를 높이는 데 도움이 됩니다.</p>
 
-  <div style="margin:1.5rem 0;padding:1.2rem 1.5rem;background:rgba(34,197,94,0.07);border:1.5px solid rgba(34,197,94,0.3);border-radius:12px;">
-    <p style="margin:0 0 0.5rem 0;font-weight:700;color:#4ade80;">✔ 추천: 워드프레스 플러그인으로 간단하게 해결</p>
-    <p style="margin:0;color:#ccc;font-size:0.95em;">워드프레스 관리자 → 플러그인 → 새 플러그인 추가 → <strong>IndexNow Plugin</strong> (작성자: bingwebmastertools) 검색 → 설치 및 활성화. 이것만으로 색인 요청이 자동 처리됩니다. 포스티아 설정 탭의 IndexNow 입력란은 작성하지 않아도 됩니다.</p>
-  </div>
+  <div class="img-wrap"><img src="imgs/indexnow_plugin_add.png" loading="lazy" alt="워드프레스 플러그인 추가 — 새 플러그인 추가 메뉴"></div>
+  <p>워드프레스 관리자 왼쪽 메뉴에서 <strong>[플러그인]</strong> → <strong>[플러그인 추가]</strong>를 클릭합니다.</p>
 
-  <p>포스티아 설정 탭의 IndexNow 항목은 완전히 <strong>선택사항</strong>입니다. 위 플러그인을 설치했다면 입력하지 않아도 됩니다. 직접 설정하고 싶은 경우에만 아래 방법을 따르세요.</p>
-
-  <p><strong>직접 설정하는 방법:</strong> 임의의 영문+숫자 문자열을 API Key로 정합니다. (예: <code>mykey20261234</code>) 그런 다음 워드프레스 호스팅의 파일관리자(또는 FTP)에서 사이트 루트 폴더(보통 <code>public_html</code> 또는 <code>html</code>)에 <code>mykey20261234.txt</code> 파일을 생성하고 파일 내용에 동일한 키 값(<code>mykey20261234</code>)을 입력하여 저장합니다. 파일명 = 파일내용 = API Key 세 가지가 반드시 동일해야 합니다. 파일 업로드 후 포스티아 설정 탭의 API Key에 <code>mykey20261234</code>를, 키 파일 URL에 <code>https://내사이트주소.com/mykey20261234.txt</code>를 입력하시면 됩니다.</p>
+  <div class="img-wrap"><img src="imgs/indexnow_plugin_search.png" loading="lazy" alt="IndexNow Plugin 검색 결과 — bingwebmastertools"></div>
+  <p>오른쪽 검색창에 <strong>IndexNow</strong>를 입력합니다. 검색 결과에서 <strong>IndexNow Plugin</strong> (작성자: bingwebmastertools)을 찾아 <strong>[지금 설치]</strong> 버튼을 클릭한 뒤 활성화합니다. 이것만으로 글 발행 시 색인 요청이 자동으로 처리됩니다.</p>
 
   <h3 id="sec-5-4">5-4 텔레그램 봇 설정 (선택)</h3>
   <p>텔레그램 봇을 연결하면 블로그 발행 결과를 실시간으로 알림 받을 수 있고, 텔레그램에서 직접 명령을 보내 원격으로 프로그램을 제어할 수 있습니다. 자세한 사용법은 12번 텔레그램 원격 제어 항목을 참고하세요.</p>
