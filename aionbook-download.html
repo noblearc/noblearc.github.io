@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AionBook 다운로드</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI','Malgun Gothic',sans-serif;
+    background:#0d0d14;color:#e8e8f0;min-height:100vh;
+    display:flex;align-items:center;justify-content:center;padding:24px;
+  }
+  .card{
+    background:#15151f;border:1px solid rgba(255,255,255,0.08);
+    border-radius:20px;padding:44px;max-width:460px;width:100%;
+    text-align:center;box-shadow:0 0 60px rgba(124,111,205,0.12);
+  }
+  .logo{
+    font-size:24px;font-weight:800;letter-spacing:1px;margin-bottom:6px;
+    background:linear-gradient(135deg,#7c6fcd,#e94560);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  }
+  .sub{font-size:13px;color:#8888a8;margin-bottom:32px;}
+  .version{font-size:13px;color:#8888a8;margin-bottom:20px;min-height:18px;}
+  .version b{color:#e8e8f0;}
+  .dl-btn{
+    display:inline-block;width:100%;padding:16px;border:none;border-radius:12px;
+    background:linear-gradient(135deg,#7c6fcd,#e94560);color:#fff;
+    font-size:16px;font-weight:700;cursor:pointer;text-decoration:none;
+    box-shadow:0 0 30px rgba(124,111,205,0.35);transition:opacity .2s;
+  }
+  .dl-btn:hover{opacity:0.9;}
+  .dl-btn:disabled{opacity:0.5;cursor:default;}
+  .msg{font-size:13px;color:#f87171;margin-top:16px;min-height:18px;}
+  .hint{font-size:12px;color:#55556a;margin-top:24px;line-height:1.7;}
+  .spinner{
+    width:28px;height:28px;border:3px solid rgba(255,255,255,0.15);
+    border-top-color:#7c6fcd;border-radius:50%;margin:0 auto 16px;
+    animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">AionBook</div>
+  <div class="sub">전자책 자동 제작 프로그램</div>
+
+  <div id="loadingBox">
+    <div class="spinner"></div>
+    <p style="font-size:13px;color:#8888a8;">다운로드 링크를 준비하고 있습니다...</p>
+  </div>
+
+  <div id="readyBox" style="display:none">
+    <div class="version">최신 버전 <b id="verLabel"></b></div>
+    <a class="dl-btn" id="dlBtn" href="#">⬇ 설치 파일 다운로드</a>
+  </div>
+
+  <div class="msg" id="msg"></div>
+  <div class="hint">
+    다운로드 링크는 1시간 동안만 유효합니다.<br>
+    문제가 계속되면 새로고침 후 다시 시도해주세요.
+  </div>
+</div>
+
+<script>
+const CHECK_URL    = 'https://us-central1-noblearc-70d64.cloudfunctions.net/checkUpdate';
+const DOWNLOAD_URL = 'https://us-central1-noblearc-70d64.cloudfunctions.net/getDownloadUrl';
+const PRODUCT_TYPE = 'aionbook';
+
+async function init() {
+  try {
+    // currentVersion을 0.0.0으로 보내면 항상 "최신 버전 있음"으로 응답 — 최신 릴리즈 조회 용도로 재사용
+    const checkRes = await fetch(`${CHECK_URL}?productType=${PRODUCT_TYPE}&currentVersion=0.0.0`);
+    const checkData = await checkRes.json();
+    if (!checkData.ok || !checkData.assetName) throw new Error('아직 배포된 버전이 없습니다.');
+
+    const urlRes = await fetch(`${DOWNLOAD_URL}?productType=${PRODUCT_TYPE}&assetName=${encodeURIComponent(checkData.assetName)}`);
+    const urlData = await urlRes.json();
+    if (!urlData.ok || !urlData.url) throw new Error(urlData.error || '다운로드 링크 발급에 실패했습니다.');
+
+    document.getElementById('verLabel').textContent = 'v' + checkData.latestVersion;
+    document.getElementById('dlBtn').href = urlData.url;
+    document.getElementById('dlBtn').setAttribute('download', checkData.assetName);
+    document.getElementById('loadingBox').style.display = 'none';
+    document.getElementById('readyBox').style.display = 'block';
+  } catch (e) {
+    document.getElementById('loadingBox').style.display = 'none';
+    document.getElementById('msg').textContent = '오류: ' + e.message;
+  }
+}
+init();
+</script>
+</body>
+</html>
