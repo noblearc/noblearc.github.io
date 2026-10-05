@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>백테스트 자동화 | NOBLE ARC</title>
+<style>
+  :root {
+    --bg: #F1F3F6; --surface: #FFFFFF; --surface-2: #F5F6F9;
+    --border: #DDE1E8; --border-soft: #E7EAEF;
+    --ink: #14161B; --ink-muted: #4B5160; --ink-faint: #7B8190;
+    --accent: #96631A; --accent-2: #C99A46; --good: #2F8F52; --good-soft: #E3F1E8;
+    --bad: #B8503F; --bad-soft: #F7E9E6;
+    --dark: #14161B; --dark2: #1D2027;
+    --blue: #3B6FE0; --blue-soft: #E8EEFC;
+    --shadow: 0 1px 2px rgba(20,24,32,0.04), 0 8px 24px -12px rgba(20,24,32,0.12);
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Pretendard Variable", Pretendard,
+      "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased; line-height: 1.7; font-size: 17px;
+  }
+  .num { font-family: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace; font-variant-numeric: tabular-nums; }
+  .page { max-width: 780px; margin: 0 auto; }
+  img { max-width: 100%; display: block; border-radius: 14px; }
+
+  /* ── 히어로 ── */
+  .hero { background: var(--dark); color: #fff; padding: 80px 28px 60px; text-align: center; position:relative; overflow:hidden; }
+  .hero::before {
+    content:""; position:absolute; inset:0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,154,70,0.18), transparent 70%);
+  }
+  .hero > * { position:relative; z-index:1; }
+  .hero-badge { display:inline-block; background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 9px 20px; font-size: 14px; font-weight:700; letter-spacing:0.02em; margin-bottom: 30px; color:#e8cf9a; }
+  .hero h1 { font-size: clamp(34px, 7.5vw, 52px); font-weight: 900; line-height: 1.35; margin: 0 0 26px; letter-spacing:-0.01em; }
+  .hero h1 .hl { color: #ffcf5c; }
+  .hero p.sub { color: #c7cbd3; font-size: 19px; max-width: 40ch; margin: 0 auto 40px; line-height:1.75; }
+  .hero-stats { display:flex; justify-content:center; gap: 10px; flex-wrap: wrap; }
+  .hero-stat { background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.14); border-radius: 16px; padding: 20px 20px; min-width: 130px; }
+  .hero-stat .v { font-size: 21px; font-weight: 900; color: #ffcf5c; line-height:1.3; }
+  .hero-stat .l { font-size: 13px; color: #9aa0ac; margin-top:6px; }
+
+  /* ── 4대 차별점 ── */
+  .pillar-band { background: var(--surface-2); padding: 48px 24px 52px; }
+  .pillar-eyebrow { text-align:center; font-size:14px; font-weight:900; letter-spacing:0.08em; color:var(--ink-faint); text-transform:uppercase; margin-bottom:8px; }
+  .pillar-title { text-align:center; font-size: clamp(24px,5.5vw,30px); font-weight:900; margin:0 0 32px; letter-spacing:-0.01em; }
+  .pillar-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; }
+  @media (max-width: 640px) { .pillar-grid { grid-template-columns: 1fr; } }
+  .pillar-card { background:var(--surface); border:2px solid var(--border); border-radius:18px; padding:26px 22px; text-align:center; box-shadow:var(--shadow); }
+  .pillar-card .pnum { display:inline-block; width:30px; height:30px; line-height:30px; border-radius:50%; background:var(--dark); color:#ffcf5c; font-size:14px; font-weight:900; margin-bottom:12px; }
+  .pillar-card .picon { font-size:34px; margin-bottom:10px; }
+  .pillar-card .ptitle { font-weight:900; font-size:18px; line-height:1.4; margin-bottom:8px; }
+  .pillar-card .pdesc { font-size:14.5px; color:var(--ink-faint); line-height:1.6; }
+
+  /* ── 섹션 공통 ── */
+  section { padding: 68px 28px; }
+  section.alt { background: var(--surface); }
+  .eyebrow { text-align:center; font-size:14px; font-weight:800; letter-spacing:0.08em; color: var(--accent); margin-bottom:16px; text-transform:uppercase; }
+  h2.sec-title { font-size: clamp(26px, 5.5vw, 34px); font-weight: 900; text-align:center; margin: 0 0 16px; line-height:1.4; letter-spacing:-0.01em; }
+  h2.sec-title .hl { color: var(--accent); }
+  h2.sec-title .hl-blue { color: var(--blue); }
+  p.sec-sub { text-align:center; color: var(--ink-muted); font-size: 17.5px; max-width: 50ch; margin: 0 auto 44px; line-height:1.75; }
+
+  .chart-card { background: var(--surface); border:1px solid var(--border); border-radius:18px; box-shadow: var(--shadow); padding: 30px 26px 22px; margin: 0 0 10px; }
+  .chart-card svg { width:100%; height:auto; display:block; }
+  .chart-caption { text-align:center; font-size:14px; color:var(--ink-faint); margin-top:16px; line-height:1.6; }
+
+  .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid3 { display:grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  @media (max-width: 560px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+  .stat-card { background: var(--surface); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding:28px 20px; text-align:center; }
+  .stat-card .v { font-size:26px; font-weight:900; letter-spacing:-0.02em; }
+  .stat-card .l { font-size:14px; color:var(--ink-faint); margin-top:8px; font-weight:600; }
+
+  table.dp-table { width:100%; border-collapse:collapse; font-size:15.5px; background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; }
+  table.dp-table th, table.dp-table td { padding:15px 16px; text-align:right; border-bottom:1px solid var(--border-soft); }
+  table.dp-table th:first-child, table.dp-table td:first-child { text-align:left; }
+  table.dp-table th { background:var(--surface-2); color:var(--ink-faint); font-size:12.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.03em; }
+  table.dp-table tr:last-child td { border-bottom:none; }
+  .good { color: var(--good); font-weight:800; }
+  .bad { color: var(--bad); font-weight:800; }
+
+  /* ── 대비(문제) 섹션 ── */
+  .contrast-dark { background: var(--dark); color:#fff; padding: 72px 28px; }
+  .contrast-dark .eyebrow { color:#e8cf9a; }
+  .contrast-dark h2 { font-size: clamp(26px,5.5vw,34px); font-weight:900; text-align:center; margin:0 0 44px; line-height:1.45; }
+  .fail-item { display:flex; gap:18px; align-items:flex-start; padding:22px 0; border-bottom:1px solid rgba(255,255,255,0.08); }
+  .fail-icon { flex:none; width:36px; height:36px; border-radius:50%; background:#3a2020; color:#e08370; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; }
+  .fail-text { font-size:17px; color:#c7cbd3; padding-top:5px; line-height:1.65; }
+  .fail-text b { color:#fff; }
+  .verdict { text-align:center; font-size:26px; font-weight:900; margin: 44px 0 0; color:#ffcf5c; letter-spacing:-0.01em; }
+
+  /* ── 체크리스트 ── */
+  ul.check { list-style:none; padding:0; margin:0; }
+  ul.check li { padding:16px 0 16px 36px; position:relative; font-size:17px; color:var(--ink); border-bottom:1px solid var(--border-soft); font-weight:500; line-height:1.6; }
+  ul.check li:last-child { border-bottom:none; }
+  ul.check li::before { content:"✓"; position:absolute; left:0; top:16px; color:var(--good); font-weight:900; font-size:19px; }
+
+  /* ── 사용법 카드 ── */
+  .curri-item { display:flex; gap:20px; align-items:flex-start; background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:26px 26px; margin-bottom:16px; box-shadow:var(--shadow); }
+  .curri-num { flex:none; width:50px; height:50px; border-radius:14px; background:var(--dark); color:#ffcf5c; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:19px; }
+  .curri-title { font-weight:800; font-size:19px; margin-bottom:7px; }
+  .curri-desc { font-size:15.5px; color:var(--ink-muted); line-height:1.65; }
+
+  /* ── 채팅 목업 ── */
+  .chat-mock { background:var(--dark2); border-radius:16px; padding:22px; margin: 8px 0 0; }
+  .chat-bubble { max-width:82%; padding:13px 17px; border-radius:14px; font-size:15px; line-height:1.6; margin-bottom:12px; }
+  .chat-bubble.user { background:#2b3140; color:#fff; margin-left:auto; border-bottom-right-radius:4px; }
+  .chat-bubble.ai { background:#0e0f13; color:#d6d9e0; border:1px solid rgba(255,255,255,0.08); border-bottom-left-radius:4px; }
+  .chat-bubble b { color:#ffcf5c; }
+
+  /* ── 기능 그리드 ── */
+  .feat-grid { display:grid; grid-template-columns: repeat(2,1fr); gap:14px; }
+  @media (max-width:560px) { .feat-grid { grid-template-columns:1fr; } }
+  .feat-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px 22px; box-shadow:var(--shadow); }
+  .feat-card .ftitle { font-weight:900; font-size:16.5px; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .feat-card .fdesc { font-size:14.5px; color:var(--ink-muted); line-height:1.65; }
+
+  /* ── FAQ ── */
+  .faq-item { border-bottom:1px solid var(--border-soft); padding:24px 0; }
+  .faq-q { font-weight:800; font-size:17.5px; margin-bottom:11px; line-height:1.5; }
+  .faq-q::before { content:"Q. "; color:var(--accent); }
+  .faq-a { font-size:15.5px; color:var(--ink-muted); line-height:1.7; }
+  .faq-a::before { content:"A. "; color:var(--ink-faint); font-weight:800; }
+
+  /* ── 법적고지 ── */
+  .legal { font-size:12.5px; color:var(--ink-faint); line-height:1.9; background:var(--surface-2); border-radius:14px; padding:26px 28px; }
+  .legal p { margin:0 0 8px; }
+  .legal p:last-child { margin:0; }
+
+  /* ── CTA ── */
+  .cta-band { background: linear-gradient(135deg,#ffcf5c,#f0a63a); padding:60px 28px; text-align:center; }
+  .cta-band h3 { font-size: clamp(24px,5vw,30px); font-weight:900; color:#2a1e00; margin:0 0 12px; letter-spacing:-0.01em; }
+  .cta-band p { color:#4a3a10; font-size:16.5px; margin:0; line-height:1.6; }
+
+  .price-box { background:var(--surface); border:2px solid var(--accent-2); border-radius:18px; padding:36px 30px; text-align:center; box-shadow:var(--shadow); }
+  .price-box .plan { font-size:14px; font-weight:800; color:var(--accent); letter-spacing:0.04em; margin-bottom:10px; text-transform:uppercase; }
+  .price-box .price { font-size:36px; font-weight:900; }
+  .price-box .price .per { font-size:16px; color:var(--ink-faint); font-weight:700; }
+  .price-box .note { font-size:13.5px; color:var(--ink-faint); margin-top:10px; }
+  .price-box .bundle-list { text-align:left; font-size:14.5px; color:var(--ink-muted); margin-top:20px; padding-top:20px; border-top:1px solid var(--border-soft); }
+  .price-box .bundle-list div { padding:6px 0; }
+
+  .divider-word { text-align:center; font-size:14px; font-weight:800; color:var(--ink-faint); letter-spacing:0.06em; margin: 10px 0 30px; }
+
+  .contact-box { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:30px; text-align:center; box-shadow:var(--shadow); }
+  .contact-box .how { font-size:16px; font-weight:700; margin-bottom:8px; }
+  .contact-box .how-value { font-size:15px; color:var(--ink-muted); line-height:1.8; }
+
+  /* ── 비교표 ── */
+  .compare-wrap { background:var(--surface); border:1px solid var(--border); border-radius:18px; overflow:hidden; box-shadow:var(--shadow); }
+  .compare-row { display:grid; grid-template-columns: 1fr 1fr; }
+  .compare-row + .compare-row { border-top:1px solid var(--border-soft); }
+  .compare-cell { padding:20px 22px; font-size:15px; line-height:1.65; }
+  .compare-cell.bad-col { background: color-mix(in srgb, var(--bad) 5%, transparent); color:var(--ink-muted); }
+  .compare-cell.good-col { background: color-mix(in srgb, var(--good) 7%, transparent); color:var(--ink); font-weight:600; }
+  .compare-head { display:grid; grid-template-columns: 1fr 1fr; }
+  .compare-head div { padding:16px 22px; font-weight:900; font-size:14.5px; text-align:center; }
+  .compare-head .bad-col { background:var(--bad); color:#fff; }
+  .compare-head .good-col { background:var(--dark); color:#ffcf5c; }
+</style>
+<style id="hp-css">
+#hpnav{position:fixed;top:0;left:0;right:0;z-index:2147483000;height:54px;background:rgba(10,10,20,.94);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;border-bottom:1px solid rgba(255,255,255,.1);box-sizing:border-box}
+#hpnav a{color:#fff;text-decoration:none;font-size:14px;font-weight:700;letter-spacing:0}
+#hpnav .lg{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:900}
+#hpnav .lg img{height:28px;border-radius:7px}
+#hpnav .lk{display:flex;align-items:center;gap:18px}
+#hpnav .lk a.b{background:#2563EB;color:#fff;padding:8px 16px;border-radius:9px;font-weight:900}
+#hpfloat{position:fixed;right:18px;bottom:18px;z-index:2147483000;background:#2563EB;color:#fff;font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-weight:900;font-size:15px;padding:14px 22px;border-radius:99px;box-shadow:0 10px 30px rgba(0,0,0,.35);text-decoration:none}
+body{padding-top:54px!important}
+@media(max-width:560px){#hpnav .lk a:not(.b){display:none}#hpfloat{left:14px;right:14px;text-align:center}}
+</style></head>
+<body><div id="hpnav"><a class="lg" href="index.html"><img src="logo.png" alt="">노블아크(NOBLE ARC)</a><div class="lk"><a href="index.html#lineup">프로그램</a><a href="index.html#manuals">사용설명서</a><a class="b" href="index.html#subscription">구매하기</a></div></div><a id="hpfloat" href="index.html#subscription">월 25,000원 · 구매하기</a>
+
+<div class="page">
+
+  <!-- ══════ 히어로 ══════ -->
+  <div class="hero">
+    <div class="hero-badge">💬 대화형 AI 정밀 백테스트 프로그램</div>
+    <h1>그 매매 아이디어,<br><span class="hl">감이 아니라 데이터로</span><br>확인하세요</h1>
+    <p class="sub">코딩을 몰라도 괜찮습니다. 머릿속 매매 아이디어를 말로 설명하기만 하면, 자동화 프로그램이 조건을 구조화하고 실제 거래소 데이터로 1분봉 단위까지 정밀하게 재현합니다.</p>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="v">대화형 입력</div><div class="l">코딩 지식 불필요</div></div>
+      <div class="hero-stat"><div class="v">1분봉 재현</div><div class="l">진입~청산 전 구간</div></div>
+      <div class="hero-stat"><div class="v">Tick 실측검증</div><div class="l">애매구간 실체결 대조</div></div>
+      <div class="hero-stat"><div class="v">3개 거래소</div><div class="l">국내·해외·해외선물</div></div>
+    </div>
+  </div>
+
+  <!-- ══════ 4대 차별점 ══════ -->
+  <div class="pillar-band">
+    <div class="pillar-eyebrow">Why Precision Backtest</div>
+    <div class="pillar-title">보통의 백테스트 도구와 <span style="color:var(--accent);">다른 이유</span></div>
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <div class="pnum">1</div>
+        <div class="picon">💬</div>
+        <div class="ptitle">대화로 끝내는 조건 설정</div>
+        <div class="pdesc">엑셀도, 코딩도 필요 없습니다. 매매 아이디어를 문장으로 설명하면 됩니다.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pnum">2</div>
+        <div class="picon">🔬</div>
+        <div class="ptitle">신호와 체결을 분리 판정</div>
+        <div class="pdesc">기준봉 판정용 캔들과 실제 체결 확인용 1분봉을 절대 섞지 않습니다.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pnum">3</div>
+        <div class="picon">🧾</div>
+        <div class="ptitle">애매하면 실체결로 검증</div>
+        <div class="pdesc">같은 1분 안에서 손절·익절이 동시에 걸리는 애매한 순간까지 실제 체결데이터로 확인합니다.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pnum">4</div>
+        <div class="picon">🌐</div>
+        <div class="ptitle">현물부터 레버리지 선물까지</div>
+        <div class="pdesc">국내 거래소·바이낸스 현물은 물론, 레버리지·청산가·펀딩비까지 반영한 선물 백테스트도 됩니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ 문제 제기 ══════ -->
+  <div class="contrast-dark">
+    <div class="eyebrow">구매 전에 꼭 확인하세요</div>
+    <h2>백테스트 프로그램,<br>이 중 하나라도 해당되면<br>승률을 믿을 수 없습니다</h2>
+
+    <div class="fail-item">
+      <div class="fail-icon">✕</div>
+      <div class="fail-text"><b>신호 찾는 캔들로 체결까지 대충 판정합니다.</b><br>4시간봉·15분봉 하나로 "이 안에서 익절됐다"고 낙관적으로 처리하면, 실제로는 손절인데 익절로 잘못 기록되는 경우가 적지 않게 생깁니다.</div>
+    </div>
+    <div class="fail-item">
+      <div class="fail-icon">✕</div>
+      <div class="fail-text"><b>같은 캔들 안에서 손절선·익절선을 동시에 건드리면 그냥 유리한 쪽으로 판정합니다.</b><br>실제로 어느 게 먼저 찍혔는지 확인하지 않고 넘어가는 경우, 승률이 조용히 부풀려집니다.</div>
+    </div>
+    <div class="fail-item">
+      <div class="fail-icon">✕</div>
+      <div class="fail-text"><b>코딩을 모르면 결국 남이 만든 결과만 믿어야 합니다.</b><br>내 아이디어를 직접 검증할 방법이 없으니, 검증되지 않은 강의나 리딩방에 의존하게 됩니다.</div>
+    </div>
+
+    <p class="verdict">이 프로그램은 이 세 가지를 전부 피하도록 설계했습니다.</p>
+  </div>
+
+  <!-- ══════ 방법론 설명 ══════ -->
+  <section>
+    <div class="eyebrow">정밀도의 핵심</div>
+    <h2 class="sec-title">신호 찾는 해상도와<br><span class="hl">체결 확인 해상도</span>를 분리합니다</h2>
+    <p class="sec-sub">기준봉(신호)은 15분봉·1시간봉처럼 원하는 타임프레임으로 찾되, 신호가 뜬 다음부터는 진입~청산까지 반드시 1분봉을 처음부터 끝까지 순서대로 재생합니다. 중간을 건너뛰는 하이브리드 판정은 하지 않습니다.</p>
+
+    <div class="compare-wrap">
+      <div class="compare-head">
+        <div class="bad-col">흔한 방식</div>
+        <div class="good-col">정밀 백테스트</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell bad-col">신호 캔들 안에서 손절·익절을 동시에 낙관 판정</div>
+        <div class="compare-cell good-col">진입 이후 1분봉을 끝까지 순차 재생해서 실제 순서 확인</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell bad-col">같은 분 안 동시발생 시 유리한 쪽으로 처리</div>
+        <div class="compare-cell good-col">시가가 이미 넘겼으면 시가로, 아니면 불리한 쪽부터 확인(보수적 우선순위)</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell bad-col">그래도 애매하면 그냥 추정해서 넘어감</div>
+        <div class="compare-cell good-col">바이낸스는 실제 체결(tick) 데이터로 한 번 더 대조 검증</div>
+      </div>
+      <div class="compare-row">
+        <div class="compare-cell bad-col">지금 기준 상위 종목으로만 전체 기간 계산</div>
+        <div class="compare-cell good-col">그 시점 기준으로 유니버스를 다시 구성하는 옵션 제공</div>
+      </div>
+    </div>
+    <p class="chart-caption">모든 판정 기준은 프로그램 안에서 그대로 확인할 수 있고, 개별 거래 전체(종목·진입일시·청산일시·가격)를 CSV로 내려받아 직접 재검산할 수 있습니다.</p>
+  </section>
+
+  <!-- ══════ 대화 목업 ══════ -->
+  <section class="alt">
+    <div class="eyebrow">사용 경험</div>
+    <h2 class="sec-title">코딩 대신, <span class="hl">대화</span>로</h2>
+    <p class="sec-sub">조건을 자연어로 설명하면 프로그램이 이해한 내용을 정리해서 보여주고, 정말 필요한 정보가 빠졌을 때만 되묻습니다. 언급하지 않은 값은 임의로 채우지 않습니다.</p>
+
+    <div class="chat-mock">
+      <div class="chat-bubble user">국내 거래소에서 15분봉 기준으로 거래량이 평균 대비 3배 이상 터지면 매수하고 싶어요.</div>
+      <div class="chat-bubble ai">거래량 "평균"의 기준 기간이 필요해요 — 예를 들어 <b>직전 20봉 평균 대비 3배</b>처럼요. 그리고 손절 기준도 아직 안 주셨는데, 몇 %로 할까요?</div>
+      <div class="chat-bubble user">직전 20봉 평균, 손절은 5%, 익절은 8%로 해줘.</div>
+      <div class="chat-bubble ai">확인했습니다. 검증 기간은 특별히 없으시면 최근 3년으로, 동시보유 슬롯은 3개로 진행할게요. 이대로 실행할까요?</div>
+    </div>
+    <p class="chart-caption">실제 대화 흐름을 그대로 재현한 예시입니다. 조건이 다 모이면 표로 정리해서 마지막으로 한 번 더 확인시켜 드립니다.</p>
+  </section>
+
+  <!-- ══════ 실제 화면 ══════ -->
+  <section>
+    <div class="eyebrow">실제 프로그램 화면</div>
+    <h2 class="sec-title">군더더기 없는 <span class="hl">윈도우 프로그램</span></h2>
+    <p class="sec-sub">설치 후 바로 실행되는 독립 프로그램입니다. 본인의 API 키만 있으면 되고, 그 키는 이 컴퓨터에만 저장되며 외부로 전송되지 않습니다.</p>
+
+    <div class="chart-card" style="padding:14px;">
+      <img src="pimg/backtest/screenshot-market-toggle.png" alt="정밀 백테스트 프로그램 실행 화면 — API 키 설정, 거래소 선택, 대화 입력">
+    </div>
+    <p class="chart-caption">API 키 등록 → 국내 거래소·Binance·Binance 선물 중 원하는 시장 선택 → 대화창에 조건 설명, 이 한 화면에서 전부 처리됩니다.</p>
+  </section>
+
+  <!-- ══════ 핵심 기능 ══════ -->
+  <section class="alt">
+    <div class="eyebrow">핵심 기능</div>
+    <h2 class="sec-title">백테스트 하나로 <span class="hl">끝나지 않습니다</span></h2>
+    <p class="sec-sub">한 번 돌려보고 끝내는 게 아니라, 그 결과를 의심하고 다시 확인할 수 있는 도구까지 함께 들어있습니다.</p>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="ftitle">📊 HTML·PDF 리포트</div>
+        <div class="fdesc">승률·비중반영 손익비·최대낙폭(MDD)·자본곡선까지 자동으로 정리된 리포트를 받습니다.</div>
+      </div>
+      <div class="feat-card">
+        <div class="ftitle">🧪 파라미터 스윕</div>
+        <div class="fdesc">손절·익절 값을 여러 조합으로 한 번에 전수조사하고, 연도별 성과까지 따로 나눠서 보여줍니다.</div>
+      </div>
+      <div class="feat-card">
+        <div class="ftitle">📅 롤링 윈도우 검증</div>
+        <div class="fdesc">시작일을 1·2개월씩 옮겨봐도 결론이 유지되는지 자동으로 비교해줍니다.</div>
+      </div>
+      <div class="feat-card">
+        <div class="ftitle">🧮 종합 검증</div>
+        <div class="fdesc">기본 백테스트→스윕→롤링윈도우를 한 번에 이어서 실행해 리포트 하나로 묶어줍니다.</div>
+      </div>
+      <div class="feat-card">
+        <div class="ftitle">🪙 마틴게일(분할매수) 지원</div>
+        <div class="fdesc">물타기·분할매수 전략도 단계별 비중까지 그대로 반영해서 검증할 수 있습니다.</div>
+      </div>
+      <div class="feat-card">
+        <div class="ftitle">📈 레버리지 선물</div>
+        <div class="fdesc">바이낸스 무기한 선물의 레버리지·청산가·펀딩비까지 반영해서 계산합니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ 리포트 미리보기 ══════ -->
+  <section>
+    <div class="eyebrow">결과 확인</div>
+    <h2 class="sec-title">이런 지표를 <span class="hl">한눈에</span> 받습니다</h2>
+    <p class="sec-sub">아래는 화면 구성 예시입니다(실제 수치가 아닙니다) — 어떤 조건을 검증하든 같은 형식의 리포트로 정리됩니다.</p>
+
+    <div class="grid3">
+      <div class="stat-card"><div class="v">87.4%</div><div class="l">승률(예시)</div></div>
+      <div class="stat-card"><div class="v">1.62</div><div class="l">비중반영 손익비(예시)</div></div>
+      <div class="stat-card"><div class="v bad">-14.2%</div><div class="l">최대낙폭 MDD(예시)</div></div>
+    </div>
+
+    <div class="divider-word" style="margin-top:36px;">개별 거래도 전부 CSV로</div>
+    <table class="dp-table">
+      <thead><tr><th>종목</th><th>진입일시</th><th>청산일시</th><th>결과</th><th>수익률</th></tr></thead>
+      <tbody>
+        <tr><td>BTCUSDT</td><td class="num">08-18 09:15</td><td class="num">08-18 14:20</td><td>익절</td><td class="num good">+2.0%</td></tr>
+        <tr><td>ETHUSDT</td><td class="num">08-19 03:30</td><td class="num">08-19 22:05</td><td>손절</td><td class="num bad">-3.0%</td></tr>
+        <tr><td>…</td><td class="num">…</td><td class="num">…</td><td>…</td><td class="num">…</td></tr>
+      </tbody>
+    </table>
+    <p class="chart-caption">요약 통계만 보여주고 끝내지 않습니다 — 전체 거래 내역을 예외 없이 CSV로 받아 직접 재검산할 수 있습니다(투명성 원칙).</p>
+  </section>
+
+  <!-- ══════ 지원 범위 ══════ -->
+  <section class="alt">
+    <div class="eyebrow">지원 거래소</div>
+    <h2 class="sec-title">현물부터 <span class="hl">레버리지 선물</span>까지</h2>
+    <div class="grid3">
+      <div class="stat-card" style="text-align:left; padding:24px 20px;">
+        <div style="font-size:26px; margin-bottom:8px;">🇰🇷</div>
+        <div style="font-weight:800; font-size:16.5px; margin-bottom:8px;">국내 거래소 현물</div>
+        <div style="font-size:14px; color:var(--ink-muted); line-height:1.6;">원화(KRW) 마켓 전 종목 대상<br><span style="color:var(--ink-faint);">※ tick 실측검증은 미지원(공개 체결데이터 없음)</span></div>
+      </div>
+      <div class="stat-card" style="text-align:left; padding:24px 20px;">
+        <div style="font-size:26px; margin-bottom:8px;">🌐</div>
+        <div style="font-weight:800; font-size:16.5px; margin-bottom:8px;">Binance 현물</div>
+        <div style="font-size:14px; color:var(--ink-muted); line-height:1.6;">USDT 마켓 전 종목 대상<br><span style="color:var(--good);">✓ tick 실측검증 지원</span></div>
+      </div>
+      <div class="stat-card" style="text-align:left; padding:24px 20px;">
+        <div style="font-size:26px; margin-bottom:8px;">⚡</div>
+        <div style="font-weight:800; font-size:16.5px; margin-bottom:8px;">Binance 선물</div>
+        <div style="font-size:14px; color:var(--ink-muted); line-height:1.6;">USDT-M 무기한, 레버리지·롱/숏 전부 지원<br><span style="color:var(--good);">✓ tick 실측검증 지원</span></div>
+      </div>
+    </div>
+    <p class="chart-caption" style="margin-top:20px;">tick(실제 체결) 데이터 실측검증은 바이낸스에서만 가능합니다 — 국내 거래소는 공개된 체결 데이터 아카이브 자체가 없어서, 애매한 순간은 거리 기반 휴리스틱으로만 판정됩니다.</p>
+  </section>
+
+  <!-- ══════ 사용법 3단계 ══════ -->
+  <section>
+    <div class="eyebrow">사용 방법</div>
+    <h2 class="sec-title">단 <span class="hl">3단계</span>면 됩니다</h2>
+
+    <div class="curri-item">
+      <div class="curri-num">1</div>
+      <div><div class="curri-title">매매 아이디어를 말로 설명</div><div class="curri-desc">"20일 이동평균선을 종가가 상향 돌파하면 매수, 10% 오르면 익절, 5% 떨어지면 손절" — 이런 식으로 편하게 설명하면 됩니다.</div></div>
+    </div>
+    <div class="curri-item">
+      <div class="curri-num">2</div>
+      <div><div class="curri-title">확정된 조건을 확인</div><div class="curri-desc">프로그램이 이해한 조건을 표로 정리해서 보여줍니다. 다르면 대화창에 계속 말씀하시면 바로 수정됩니다.</div></div>
+    </div>
+    <div class="curri-item">
+      <div class="curri-num">3</div>
+      <div><div class="curri-title">실행하고 리포트 확인</div><div class="curri-desc">실제 거래소 데이터로 1분봉까지 정밀 재현한 뒤, HTML·PDF 리포트와 전체 거래내역 CSV를 받습니다.</div></div>
+    </div>
+  </section>
+
+  <!-- ══════ 신뢰 요소 ══════ -->
+  <section class="alt">
+    <div class="eyebrow">신뢰할 수 있는 이유</div>
+    <h2 class="sec-title">데이터도, API 키도<br><span class="hl">전부 내 컴퓨터 안</span>에만</h2>
+    <div class="chart-card">
+      <ul class="check">
+        <li>API 키는 이 컴퓨터에만 저장되고, 어디로도 전송되지 않습니다.</li>
+        <li>조건 해석에만 API를 쓰고, 매매 실행이나 자금 이동은 이 프로그램이 하지 않습니다.</li>
+        <li>같은 조건으로 다시 실행하면 항상 같은 결과가 나옵니다(재현가능성).</li>
+        <li>한 번 계산한 숫자를 그대로 믿지 않도록, 스윕·롤링윈도우 같은 재검증 도구를 함께 제공합니다.</li>
+        <li>이미 받아온 데이터는 캐시에 남겨서, 같은 구간을 다시 검증할 때 처음부터 다시 받지 않습니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════ 추천 대상 ══════ -->
+  <section>
+    <div class="eyebrow">이런 분께 추천</div>
+    <h2 class="sec-title">이런 분들께 <span class="hl">추천</span>합니다</h2>
+    <div class="chart-card">
+      <ul class="check">
+        <li>머릿속에만 있던 매매 아이디어를, 코딩 없이 직접 검증해보고 싶은 분</li>
+        <li>강의나 리딩방에서 들은 "승률 90%"라는 말을 그대로 믿기보다 직접 확인하고 싶은 분</li>
+        <li>이미 코딩으로 백테스트해봤지만, 룩어헤드 편향·동시발생 판정이 제대로 됐는지 의심되는 분</li>
+        <li>현물뿐 아니라 레버리지 선물 전략까지 청산가·펀딩비 포함해서 정확히 계산해보고 싶은 분</li>
+        <li>물타기·분할매수 같은 단계형 전략을 비중까지 반영해서 검증하고 싶은 분</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════ 구성 ══════ -->
+  <section class="alt">
+    <div class="eyebrow">구성</div>
+    <h2 class="sec-title">프로그램 <span class="hl">+ 사용설명서</span></h2>
+    <p class="sec-sub">이 프로그램에는 특정 매매기법이 내장되어 있지 않습니다. 어떤 조건이든 직접 설명해서 검증하는 범용 도구입니다.</p>
+    <div class="grid2">
+      <div class="stat-card" style="text-align:left; padding:28px 24px;">
+        <div style="font-size:26px; margin-bottom:10px;">🖥️</div>
+        <div style="font-weight:800; font-size:18px; margin-bottom:8px;">정밀 백테스트 프로그램</div>
+        <div style="font-size:14.5px; color:var(--ink-muted); line-height:1.65;">윈도우 설치형 프로그램(.exe). 다운로드 즉시 설치해서 바로 쓸 수 있습니다.</div>
+      </div>
+      <div class="stat-card" style="text-align:left; padding:28px 24px;">
+        <div style="font-size:26px; margin-bottom:10px;">📖</div>
+        <div style="font-weight:800; font-size:18px; margin-bottom:8px;">프로그램 사용설명서</div>
+        <div style="font-size:14.5px; color:var(--ink-muted); line-height:1.65;">API 키 설정부터 대화형 조건 입력, 리포트 읽는 법, 스윕·롤링윈도우 사용법까지 담은 PDF 문서입니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ FAQ ══════ -->
+  <section>
+    <div class="eyebrow">자주 묻는 질문</div>
+    <h2 class="sec-title">자주 묻는 질문</h2>
+    <div class="faq-item"><div class="faq-q">이 프로그램이 매매기법을 알려주나요?</div><div class="faq-a">아니요. 이 프로그램은 사용자가 직접 설명한 조건을 정확하게 검증해주는 도구입니다. 특정 매매기법을 제공하거나 추천하지 않습니다.</div></div>
+    <div class="faq-item"><div class="faq-q">코딩을 전혀 몰라도 쓸 수 있나요?</div><div class="faq-a">네. 매매 아이디어를 자연어로 설명하면 자동화 프로그램이 실행 가능한 조건으로 구조화합니다. 정말 필요한 정보가 부족할 때만 대화로 되묻습니다.</div></div>
+    <div class="faq-item"><div class="faq-q">Claude API 비용은 어떻게 되나요?</div><div class="faq-a">본인의 Claude API 키를 직접 등록해서 사용하며, API 사용료는 본인 부담입니다(조건 해석 단계에서만 소량 사용되며, 백테스트 계산 자체는 API를 쓰지 않습니다).</div></div>
+    <div class="faq-item"><div class="faq-q">어떤 거래소를 지원하나요?</div><div class="faq-a">국내 거래소 현물, 바이낸스 현물, 바이낸스 USDT-M 무기한 선물(레버리지 포함)을 지원합니다.</div></div>
+    <div class="faq-item"><div class="faq-q">수익을 보장하나요?</div><div class="faq-a">아니요. 본 프로그램은 과거 데이터를 기반으로 조건을 정밀하게 계산해주는 소프트웨어이며, 특정 수익을 보장하지 않습니다. 백테스트 결과는 미래 수익을 담보하지 않습니다.</div></div>
+    <div class="faq-item"><div class="faq-q">실시간 매매 신호나 자동매매를 대신 해주나요?</div><div class="faq-a">아니요. 과거 데이터 검증(백테스트) 전용 프로그램이며, 실시간 신호 제공·매매 대행·리딩은 하지 않습니다.</div></div>
+    <div class="faq-item"><div class="faq-q">이용 기간은 어떻게 되나요?</div><div class="faq-a">월 단위 이용권입니다. 결제 직후 이메일로 안내되는 라이선스 키로 설치·인증하시면 되며, 첫 기기 등록 시점부터 1개월간 이용할 수 있습니다. 기간이 끝나면 홈페이지에서 재결제하여 이어서 이용할 수 있습니다.</div></div>
+    <div class="faq-item"><div class="faq-q">PC 사양은 어느 정도면 되나요?</div><div class="faq-a">일반적인 사무용 윈도우 PC면 충분합니다. 인터넷 연결과 본인의 API 키만 있으면 됩니다.</div></div>
+  </section>
+
+  <!-- ══════ 법적 고지 ══════ -->
+  <section class="alt">
+    <h2 class="sec-title" style="font-size:18px;">법적 고지</h2>
+    <div class="legal">
+      <p>※ 본 상품(정밀 백테스트 프로그램 + 사용설명서)은 사용자가 직접 설명한 매매 조건을 과거 데이터로 정밀하게 계산해주는 소프트웨어 도구이며, 특정 매매기법·투자자산·종목을 제공하거나 추천하지 않습니다.</p>
+      <p>※ 본 프로그램은 백테스트(과거 데이터 검증) 전용이며, 실시간 매매 신호 제공, 매매 대행, 투자 리딩을 일절 하지 않습니다.</p>
+      <p>※ 조건 해석에 사용되는 Claude API는 구매자 본인의 개인 키로 동작하며, 그 사용료는 구매자 본인 부담입니다.</p>
+      <p>※ 백테스트 결과는 과거 데이터를 기반으로 한 계산 결과일 뿐이며, 향후 수익을 보장하지 않습니다. 가상자산·레버리지 상품 투자는 높은 가격변동성으로 단기간에 투자원금의 전부 또는 상당 부분이 손실될 수 있습니다.</p>
+      <p>※ 실전 투자 여부와 그로 인한 손익은 전적으로 이용자 본인의 판단과 책임입니다. 제작자는 투자 손실 등에 대해 어떠한 법적 책임도 지지 않습니다.</p>
+      <p>※ 본 상품은 월 단위 이용권으로 판매되며, 라이선스 키는 결제 직후 이메일로 발송됩니다. 이용 기간은 첫 기기 등록 시점부터 계산되며, 기간 종료 후에는 재결제로 이어서 이용할 수 있습니다.</p>
+      <p>※ 라이선스 키를 아직 활성화하지 않으셨다면 구매일로부터 7일 이내 전액 환불이 가능합니다. 프로그램에 키를 입력해 활성화한 이후에는 디지털 콘텐츠의 특성상 환불이 제한됩니다.</p>
+      <p>※ 본 콘텐츠는 저작권법의 보호를 받으며, 프로그램·문서를 무단으로 복제·배포·재판매하거나 제3자에게 제공하는 행위는 엄격히 금지됩니다. 위반 시 저작권법 및 관련 법률에 따라 민·형사상 책임을 포함한 법적 조치가 취해질 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- ══════ CTA ══════ -->
+  <div class="cta-band">
+    <h3>말로 설명하면, 정밀하게 검증됩니다</h3>
+    <p>지금 바로 시작해보세요</p>
+  </div>
+
+  <div style="padding: 44px 28px;">
+    <div class="price-box" style="max-width:420px; margin:0 auto;">
+<div class="plan">1개월 이용권</div><div class="price">25,000<span class="per">원 / 월</span></div>
+<div class="note">월 단위 결제 · 아래 구성 전체 포함 · API 사용료 별도</div>
+<div class="bundle-list"><div>🖥️ 정밀 백테스트 프로그램(.exe)</div><div>📖 프로그램 사용설명서(PDF)</div></div>
+<div style="text-align:center;margin-top:20px"><a href="index.html#subscription" style="display:inline-block;margin-top:8px;background:#2563EB;color:#fff;text-decoration:none;font-weight:900;font-size:20px;padding:17px 34px;border-radius:16px;font-family:'Segoe UI','Malgun Gothic',sans-serif">월 25,000원 · 구매하기</a></div></div></div>
+  </div>
+
+</div>
+
+<div style="background:#0b0b14;color:#8a8aa0;text-align:center;padding:30px 20px;font-size:12px;line-height:1.9;font-family:'Segoe UI','Malgun Gothic',sans-serif">© 2026 NOBLE ARC. All rights reserved. · <a href="privacy.html" style="color:#8a8aa0;text-decoration:underline">개인정보처리방침</a><br>상호: 노블아크(NobleArc) · 대표: 채정옥 · 사업자등록번호: 451-01-03916<br>통신판매업신고: 제 2026-안양동안-0412 호<br>사업장: 경기도 안양시 동안구 관평로69번길 8-13, 1층 일부호(평촌동)<br>이메일: doedoo291@gmail.com · 전화: 010-3387-0352 · 전화상담 가능시간 09:00~18:00</div></body>
+</html>

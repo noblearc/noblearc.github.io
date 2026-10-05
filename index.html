@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOBLE ARC | AI 유튜브 자동화 솔루션</title>
+<title>NOBLE ARC | AI 콘텐츠 자동화 솔루션 6종</title>
 <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
@@ -409,9 +409,61 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
   .mypage-panel{right:24px;width:calc(100vw - 48px);}
 }
 </style>
+
+<style id="hub-css">
+.sec-wide{max-width:1180px;margin:0 auto;padding:96px 28px}
+.hub-hero{padding:150px 28px 90px;text-align:center;background:linear-gradient(180deg,#f5f1ff 0%,#fff 100%);position:relative;overflow:hidden}
+.hub-hero .tag{display:inline-block;padding:8px 20px;border:1px solid var(--border-ac);background:#fff;border-radius:99px;font-size:13px;font-weight:700;color:var(--ac);letter-spacing:.06em}
+.hub-hero h1{font-size:clamp(34px,6vw,68px);line-height:1.2;font-weight:900;margin:26px 0 20px;letter-spacing:-.02em}
+.hub-hero h1 em{font-style:normal;background:linear-gradient(90deg,#6d28d9,#2563eb);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hub-hero p.sub{font-size:clamp(15px,2.2vw,19px);color:var(--muted);max-width:720px;margin:0 auto}
+.hub-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.hub-btn{padding:15px 30px;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;border:1.5px solid var(--border-ac);background:#fff;color:var(--ac);display:inline-block}
+.hub-btn.main{background:var(--ac);color:#fff;border-color:var(--ac);box-shadow:0 8px 24px rgba(109,40,217,.3)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:44px}
+.chips a{padding:9px 18px;border-radius:99px;font-size:14px;font-weight:800;border:1.5px solid;background:#fff}
+.hub-title{text-align:center;margin-bottom:48px}
+.hub-title .eyebrow{font-size:13px;font-weight:800;letter-spacing:.2em;color:var(--ac);margin-bottom:12px}
+.hub-title h2{font-size:clamp(28px,4.4vw,44px);font-weight:900;line-height:1.3;letter-spacing:-.02em}
+.hub-title p{color:var(--muted);margin-top:12px;font-size:16px}
+.lineup{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:22px}
+.lcard{background:#fff;border:1px solid var(--border);border-radius:20px;padding:30px 28px;border-top:5px solid var(--c);box-shadow:var(--shadow);display:flex;flex-direction:column}
+.lcard .n{font-size:12px;font-weight:900;letter-spacing:.16em;color:var(--c)}
+.lcard h3{font-size:26px;font-weight:900;margin:8px 0 4px;color:var(--c)}
+.lcard .sb{font-size:13px;color:var(--muted2);font-weight:700;margin-bottom:12px}
+.lcard p{font-size:15px;color:#374151;line-height:1.65;flex:1}
+.lcard ul{margin:14px 0 18px;padding-left:0;list-style:none}
+.lcard li{font-size:14px;color:var(--muted);padding:4px 0 4px 20px;position:relative}
+.lcard li::before{content:'✔';position:absolute;left:0;color:var(--c);font-weight:900;font-size:12px;top:6px}
+.lcard .pr{font-size:14px;color:var(--muted);margin-bottom:14px}
+.lcard .pr b{font-size:24px;color:var(--wd);font-weight:900}
+.lcard .bt{display:flex;gap:8px}
+.lcard .bt a,.lcard .bt button{flex:1;text-align:center;padding:12px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer;border:1.5px solid var(--c);background:#fff;color:var(--c)}
+.lcard .bt button{background:var(--c);color:#fff}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.pcd{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:30px 24px;text-align:center;position:relative;box-shadow:var(--shadow)}
+.pcd.hl{border-color:var(--ac);box-shadow:var(--shadow-lg)}
+.pcd .bd{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--c);margin-bottom:8px}
+.pcd .nm{font-size:21px;font-weight:900}
+.pcd .ds{font-size:13px;color:var(--muted);margin:8px 0 18px;min-height:40px}
+.pcd .pc{font-size:34px;font-weight:900;color:var(--wd)}
+.pcd .pc small{font-size:14px;color:var(--muted);font-weight:700}
+.pcd .og{font-size:13px;color:var(--muted2);text-decoration:line-through;margin-top:4px}
+.pcd .dc{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;background:#059669;color:#fff;border-radius:99px;padding:3px 10px}
+.pcd .bl{font-size:12px;color:var(--muted2);margin:14px 0 16px}
+.pcd button{width:100%;padding:13px;border:none;border-radius:11px;font-weight:800;font-size:14px;cursor:pointer;background:var(--c);color:#fff}
+.pcd button:disabled{background:#d1d5db;cursor:not-allowed}
+.pcd .nt{font-size:11.5px;color:var(--muted2);margin-top:10px;line-height:1.5}
+.pnote{margin:34px auto 0;max-width:820px;font-size:13.5px;color:var(--muted);line-height:1.9;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px 26px}
+.pnote b{color:var(--wd)}
+.mlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:10px}
+.mlist a{display:block;padding:18px 20px;border:1.5px solid var(--border);border-radius:14px;background:#fff;font-weight:800;font-size:15px}
+.mlist a span{display:block;font-size:12px;color:var(--muted2);font-weight:600;margin-top:4px}
+.mlist a.off{opacity:.55;pointer-events:none}
+@media(max-width:640px){.sec-wide{padding:70px 18px}.hub-hero{padding:120px 18px 60px}}
+</style>
 </head>
 <body>
-
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="/" style="cursor:pointer;">
@@ -419,11 +471,12 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
     <span class="nav-logo-text">노블아크(NOBLE ARC)</span>
   </a>
   <div class="nav-links">
-    <a href="#features">기능</a>
-    <a href="#subscription">요금제</a>
-    <a href="#faq">FAQ</a>
-    <a href="#community">커뮤니티</a>
-  </div>
+<a href="#lineup">프로그램</a>
+<a href="#subscription">요금제</a>
+<a href="#manuals">사용설명서</a>
+<a href="#faq">FAQ</a>
+<a href="#community">커뮤니티</a>
+</div>
   <div class="nav-right">
     <div class="nav-user" id="navUser">
       <div class="nav-user-email" id="navUserEmail"></div>
@@ -443,993 +496,47 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
   </div>
   <button class="btn-logout" onclick="doLogout()">로그아웃</button>
 </div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-orb1"></div>
-  <div class="hero-orb2"></div>
-  <div class="hero-tag">유튜브 영상 자동화 솔루션</div>
-  <h1>
-    <span class="line1">유튜브 영상제작의 모든 것</span>
-    <span class="line2">NOBLE ARC가 전부 해드립니다</span>
-  </h1>
-  <p class="hero-sub">소재, 대본, 이미지, 음성, 자막, 편집까지 모두<br>클릭 몇 번 또는 전자동 시스템으로 완성형 유튜브 영상을 만드세요.</p>
-  <div class="hero-btns">
-    <a href="#subscription" class="btn-main">지금 시작하기</a>
-    <a href="#features" class="btn-ghost">기능 살펴보기</a>
-    <a href="manual.html" class="btn-ghost" target="_blank">📖 사용설명서</a>
-  </div>
-  <div class="hero-scroll">
-    <div class="scroll-mouse"></div>
-    SCROLL
-  </div>
-</section>
-
-<!-- STATS -->
-<div class="stats-band">
-  <div class="stats-inner" style="max-width:900px;margin:0 auto;padding:52px 48px;text-align:center;">
-    <p class="stats-headline reveal">수년간 축적된 유튜브 노하우와 인기 영상 제작 비법을<br>프로그램 로직에 그대로 담았습니다.</p>
-    <p class="stats-sub reveal">단순 자동화가 아닙니다. 실제로 성과를 내는 방식으로 설계되었습니다.</p>
-  </div>
-</div>
-
-<!-- SUBSCRIPTION (상단으로 이동) -->
-<div class="sub-section" id="subscription">
-<section class="sec">
-  <div class="reveal" style="text-align:center;">
-    <div class="eyebrow">이용 요금</div>
-    <h2 class="sec-title">합리적인 가격으로<br>시작하세요</h2>
-    <p class="sec-sub" style="margin:0 auto 32px;">월 단위 단건 결제로 부담 없이 시작하세요.</p>
-  </div>
-  <div class="pay-type-toggle reveal" id="payTypeToggle" style="display:none">
-    <button class="pay-type-btn on" id="btnSingle" onclick="setPayType('single')">단건 결제</button>
-    <button class="pay-type-btn" id="btnSub" onclick="setPayType('sub')">정기구독 <span class="pay-type-save">월 2,000원 절약</span></button>
-  </div>
-  <div class="sub-notice-banner" id="subNoticeBanner" style="display:none">
-    ⚙️ <strong>정기구독 시스템 구축 중입니다.</strong> 현재는 단건 결제로만 이용 가능합니다.<br>정기구독 오픈 시 기존 회원분들께 별도 안내드릴 예정입니다.
-  </div>
-  <div class="pricing-grid reveal">
-    <div class="pricing-card" data-prod="shorts">
-      <div class="pricing-badge">SHORTS</div>
-      <div class="pricing-name">쇼츠 전용</div>
-      <div class="pricing-desc">쇼츠 채널에 최적화된 자동화 솔루션</div>
-      <div class="pricing-price-row">
-        <div class="pricing-price">₩22,000</div>
-        <div class="pricing-unit">/월</div>
-      </div>
-      <div class="pricing-original">₩34,000/월</div>
-      <div class="pricing-discount">35% 할인</div>
-      <div class="pricing-billing">월 단위 결제 · 수동 갱신</div>
-      <button class="pricing-btn secondary" onclick="openBuyModal('shorts')">쇼츠 시작하기</button>
-    </div>
-    <div class="pricing-card highlight" data-prod="longform">
-      <div class="pricing-badge">LONGFORM</div>
-      <div class="pricing-name">롱폼 전용</div>
-      <div class="pricing-desc">롱폼 채널에 최적화된 고급 자동화 솔루션</div>
-      <div class="pricing-price-row">
-        <div class="pricing-price">₩29,000</div>
-        <div class="pricing-unit">/월</div>
-      </div>
-      <div class="pricing-original">₩42,000/월</div>
-      <div class="pricing-discount">31% 할인</div>
-      <div class="pricing-billing">월 단위 결제 · 수동 갱신</div>
-      <button class="pricing-btn primary" onclick="openBuyModal('longform')">롱폼 시작하기</button>
-    </div>
-    <div class="pricing-card" data-prod="bundle">
-      <div class="pricing-badge">BUNDLE</div>
-      <div class="pricing-name">쇼츠 + 롱폼</div>
-      <div class="pricing-desc">쇼츠+롱폼 동시 운영하는 가장 스마트한 선택</div>
-      <div class="pricing-price-row">
-        <div class="pricing-price">₩45,000</div>
-        <div class="pricing-unit">/월</div>
-      </div>
-      <div class="pricing-original">₩65,000/월</div>
-      <div class="pricing-discount">31% 할인</div>
-      <div class="pricing-billing">월 단위 결제 · 수동 갱신</div>
-      <button class="pricing-btn secondary" onclick="openBuyModal('bundle')">번들 시작하기</button>
-    </div>
-  </div>
-  <p class="pricing-note reveal" id="priceNote">결제 후 즉시 라이선스 발급 · 이용 기간 종료 후 재결제 방식</p>
-  <div class="reveal" style="text-align:center;margin-top:48px;margin-bottom:8px">
-    <img src="noblearc_screenshots.png" alt="NOBLE ARC 실제 프로그램 동작 화면" style="width:100%;max-width:960px;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.5)">
-  </div>
-  <style>
-#detail-section *,
-#detail-section *::before,
-#detail-section *::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#080F1C;--navy2:#0C172A;--navy3:#112038;
-  --gold:#F5A623;--gold2:#FFD166;
-  --teal:#00C9A7;
-  --red:#E8533A;
-  --white:#FFFFFF;--light:#DCE8F5;--muted:#90B8D8;
-  --card:#0E1D32;--card2:#0A1828;
-  --max:860px;
-}
-#detail-section{background:var(--navy);font-family:'Noto Sans KR',sans-serif;color:var(--white);margin:0 auto;max-width:var(--max);overflow-x:hidden}
-#detail-section .wrap{padding:0 40px}
-#detail-section .sec{padding:64px 40px;border-bottom:1px solid rgba(255,255,255,.06)}
-#detail-section .label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--teal);display:flex;align-items:center;gap:8px;margin-bottom:14px}
-#detail-section .label::before{content:'';width:20px;height:2px;background:var(--teal);flex-shrink:0}
-#detail-section .sec-title{font-weight:900;font-size:32px;line-height:1.25;margin-bottom:12px;letter-spacing:-0.5px;color:#ffffff}
-#detail-section .sec-title em{color:var(--gold);font-style:normal}
-#detail-section .sec-title .t{color:var(--teal);font-style:normal}
-#detail-section .sec-desc{font-size:15px;color:#A8C4DC;line-height:1.9}
-#detail-section /* HERO */
-.hero{background:linear-gradient(160deg,#080F1C 0%,#0C1F3A 60%,#080F1C 100%);padding:72px 40px 60px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.06)}
-#detail-section .hero::before{content:'';position:absolute;top:-60px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.1) 0%,transparent 70%);pointer-events:none}
-#detail-section .hero::after{content:'';position:absolute;bottom:-40px;left:-60px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,167,.07) 0%,transparent 70%);pointer-events:none}
-#detail-section .hero-inner{position:relative}
-#detail-section .hero-top{display:flex;align-items:center;gap:12px;margin-bottom:32px}
-#detail-section .hero-logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:5px;color:var(--gold)}
-#detail-section .hero-badge{background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1px}
-#detail-section .hero h1{font-weight:900;font-size:46px;line-height:1.18;letter-spacing:-1px;margin-bottom:18px}
-#detail-section .hero h1 .g{color:var(--gold)}
-#detail-section .hero h1 .t{color:var(--teal)}
-#detail-section .hero-sub{font-size:16px;color:var(--light);line-height:1.85;margin-bottom:36px;max-width:640px}
-#detail-section .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
-#detail-section .hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--light)}
-#detail-section .hero-tag.g{border-color:rgba(245,166,35,.3);color:var(--gold);background:rgba(245,166,35,.08)}
-#detail-section .hero-tag.t{border-color:rgba(0,201,167,.3);color:var(--teal);background:rgba(0,201,167,.08)}
-#detail-section .hero-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.07);border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
-#detail-section .kpi{background:var(--card);padding:22px 12px;text-align:center}
-#detail-section .kpi-n{font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);line-height:1}
-#detail-section .kpi-u{font-size:10px;font-weight:700;color:var(--teal);margin:4px 0;letter-spacing:1px}
-#detail-section .kpi-d{font-size:11px;color:var(--muted)}
-#detail-section /* PROGRAMS */
-.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px}
-#detail-section .prog-card{border-radius:16px;padding:28px 24px;border:1px solid rgba(255,255,255,.08)}
-#detail-section .prog-card.longform{background:linear-gradient(135deg,rgba(245,166,35,.07),var(--card));border-color:rgba(245,166,35,.2)}
-#detail-section .prog-card.shorts{background:linear-gradient(135deg,rgba(0,201,167,.07),var(--card));border-color:rgba(0,201,167,.2)}
-#detail-section .prog-ratio{font-family:'Bebas Neue',sans-serif;font-size:42px;line-height:1;margin-bottom:6px}
-#detail-section .prog-card.longform .prog-ratio{color:var(--gold)}
-#detail-section .prog-card.shorts .prog-ratio{color:var(--teal)}
-#detail-section .prog-label{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:14px}
-#detail-section .prog-card.longform .prog-label{color:var(--gold)}
-#detail-section .prog-card.shorts .prog-label{color:var(--teal)}
-#detail-section .prog-items{display:flex;flex-direction:column;gap:7px}
-#detail-section .prog-item{font-size:13px;color:var(--light);display:flex;align-items:flex-start;gap:7px;line-height:1.6}
-#detail-section .prog-item::before{content:'✓';flex-shrink:0;font-weight:900;margin-top:1px}
-#detail-section .prog-card.longform .prog-item::before{color:var(--gold)}
-#detail-section .prog-card.shorts .prog-item::before{color:var(--teal)}
-#detail-section /* SNS */
-.sns-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
-#detail-section .sns-card{background:var(--card);border-radius:16px;padding:26px 22px;border:1px solid rgba(255,255,255,.07)}
-#detail-section .sns-card-title{font-size:15px;font-weight:900;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-#detail-section .sns-badge{font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 9px;border-radius:20px}
-#detail-section .sns-badge.gold{background:rgba(245,166,35,.15);color:var(--gold);border:1px solid rgba(245,166,35,.2)}
-#detail-section .sns-badge.teal{background:rgba(0,201,167,.12);color:var(--teal);border:1px solid rgba(0,201,167,.2)}
-#detail-section .sns-card p{font-size:13px;color:#A8C4DC;line-height:1.85;margin-bottom:14px}
-#detail-section .sns-pill-group{display:flex;gap:6px;flex-wrap:wrap}
-#detail-section .sns-pill{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.06);color:var(--light);border:1px solid rgba(255,255,255,.1)}
-#detail-section .sns-how{margin-top:22px;background:rgba(0,201,167,.05);border:1px solid rgba(0,201,167,.15);border-radius:14px;padding:20px 22px}
-#detail-section .sns-how p{font-size:14px;color:#A8C4DC;line-height:1.9}
-#detail-section .sns-how strong{color:var(--teal)}
-#detail-section /* RESEARCH */
-.research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
-#detail-section .research-card{background:var(--card);border-radius:14px;padding:22px 20px;border:1px solid rgba(255,255,255,.06)}
-#detail-section .research-icon{font-size:26px;margin-bottom:10px}
-#detail-section .research-card h4{font-size:15px;font-weight:900;margin-bottom:7px}
-#detail-section .research-card p{font-size:13px;color:#A8C4DC;line-height:1.75}
-#detail-section /* FEAT TAGS */
-.feat-tag{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px}
-#detail-section .feat-tag.g{color:var(--gold);background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2)}
-#detail-section .feat-tag.t{color:var(--teal);background:rgba(0,201,167,.1);border:1px solid rgba(0,201,167,.2)}
-#detail-section /* PROBLEM */
-.prob-list{display:flex;flex-direction:column;gap:14px;margin-top:36px}
-#detail-section .prob-item{background:rgba(232,83,58,.06);border:1px solid rgba(232,83,58,.15);border-radius:14px;padding:22px 24px;display:flex;gap:18px;align-items:flex-start}
-#detail-section .prob-icon{font-size:28px;flex-shrink:0;margin-top:2px}
-#detail-section .prob-item h4{font-size:16px;font-weight:900;margin-bottom:6px;color:var(--white)}
-#detail-section .prob-item p{font-size:14px;color:#A8C4DC;line-height:1.8}
-#detail-section .prob-center{margin-top:36px;text-align:center;padding:30px;background:rgba(245,166,35,.05);border:1px solid rgba(245,166,35,.15);border-radius:16px}
-#detail-section .prob-center p{font-size:16px;font-weight:700;color:var(--light);line-height:1.7}
-#detail-section .prob-center strong{color:var(--gold)}
-#detail-section /* SOLUTION */
-.solution-box{margin-top:36px;background:linear-gradient(135deg,rgba(0,201,167,.08),rgba(245,166,35,.05));border:1px solid rgba(0,201,167,.2);border-radius:20px;padding:40px 32px;text-align:center}
-#detail-section .solution-box .big{font-weight:900;font-size:28px;line-height:1.35;margin-bottom:18px}
-#detail-section .solution-box .big em{color:var(--teal);font-style:normal}
-#detail-section .solution-box p{font-size:15px;color:#A8C4DC;line-height:1.9}
-#detail-section /* FLOW */
-.flow-wrap{margin-top:40px;position:relative}
-#detail-section .flow-wrap::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),rgba(245,166,35,.1))}
-#detail-section .flow-item{display:flex;gap:26px;padding-bottom:36px;align-items:flex-start;position:relative}
-#detail-section .flow-item:last-child{padding-bottom:0}
-#detail-section .flow-dot{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:19px;flex-shrink:0;position:relative;z-index:1}
-#detail-section .flow-dot.g{background:var(--gold);color:var(--navy)}
-#detail-section .flow-dot.t{background:var(--teal);color:var(--navy)}
-#detail-section .flow-body{padding-top:8px}
-#detail-section .flow-body h4{font-size:18px;font-weight:900;margin-bottom:7px}
-#detail-section .flow-body p{font-size:14px;color:#A8C4DC;line-height:1.85}
-#detail-section .flow-tags{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
-#detail-section .ftag{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;background:rgba(245,166,35,.12);color:var(--gold);border:1px solid rgba(245,166,35,.2)}
-#detail-section .ftag.t{background:rgba(0,201,167,.12);color:var(--teal);border-color:rgba(0,201,167,.2)}
-#detail-section /* FEATURES */
-.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
-#detail-section .feat-card{background:var(--card);border-radius:14px;padding:26px 22px;border:1px solid rgba(255,255,255,.05)}
-#detail-section .feat-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
-#detail-section .feat-icon.g{background:rgba(245,166,35,.14)}
-#detail-section .feat-icon.t{background:rgba(0,201,167,.14)}
-#detail-section .feat-card h4{font-size:16px;font-weight:900;margin-bottom:8px}
-#detail-section .feat-card p{font-size:13px;color:#A8C4DC;line-height:1.8}
-#detail-section /* COST */
-.cost-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
-#detail-section .cost-card{background:var(--card);border-radius:16px;padding:28px 24px;border:1px solid rgba(255,255,255,.06)}
-#detail-section .cost-card.fc{border-color:rgba(245,166,35,.25)}
-#detail-section .cost-badge{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--teal);margin-bottom:10px}
-#detail-section .cost-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--gold);line-height:1;margin-bottom:4px}
-#detail-section .cost-card.free .cost-num{color:var(--teal)}
-#detail-section .cost-sub{font-size:12px;color:var(--muted);margin-bottom:18px}
-#detail-section .cost-items{display:flex;flex-direction:column;gap:9px}
-#detail-section .cost-item{font-size:13px;color:var(--light);display:flex;align-items:flex-start;gap:8px;line-height:1.6}
-#detail-section .cost-item::before{content:'✓';color:var(--teal);font-weight:900;flex-shrink:0;margin-top:1px}
-#detail-section /* COMPARE */
-.compare-table{margin-top:36px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
-#detail-section .ct-head{display:grid;grid-template-columns:1fr 140px 140px;background:var(--card2);padding:16px 20px;font-size:12px;font-weight:700;letter-spacing:.5px}
-#detail-section .ct-head .na{color:var(--gold)}
-#detail-section .ct-head .other{color:var(--muted)}
-#detail-section .ct-row{display:grid;grid-template-columns:1fr 140px 140px;padding:14px 20px;border-top:1px solid rgba(255,255,255,.05);align-items:center;font-size:14px}
-#detail-section .ct-row:nth-child(even){background:rgba(255,255,255,.02)}
-#detail-section .ct-label{color:#A8C4DC}
-#detail-section .yes{color:var(--teal);font-weight:700}
-#detail-section .no{color:var(--red);font-weight:700}
-#detail-section /* ROI */
-.roi-wrap{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
-#detail-section .roi-box{border-radius:16px;padding:28px 22px;text-align:center}
-#detail-section .roi-box.bad{background:rgba(232,83,58,.07);border:1px solid rgba(232,83,58,.2)}
-#detail-section .roi-box.good{background:rgba(0,201,167,.07);border:1px solid rgba(0,201,167,.25)}
-#detail-section .roi-box .rb-label{font-size:11px;font-weight:700;letter-spacing:1.5px;margin-bottom:18px}
-#detail-section .roi-box.bad .rb-label{color:var(--red)}
-#detail-section .roi-box.good .rb-label{color:var(--teal)}
-#detail-section .roi-stat{margin-bottom:12px}
-#detail-section .roi-stat .rs-l{font-size:12px;color:var(--muted);margin-bottom:4px}
-#detail-section .roi-stat .rs-v{font-size:22px;font-weight:900}
-#detail-section .roi-box.bad .rs-v{color:var(--red)}
-#detail-section .roi-box.good .rs-v{color:var(--teal)}
-#detail-section .roi-result{margin-top:22px;text-align:center;padding:22px;background:rgba(0,201,167,.05);border:1px solid rgba(0,201,167,.15);border-radius:14px}
-#detail-section .roi-result p{font-size:15px;font-weight:700;color:var(--light);line-height:1.75}
-#detail-section .roi-result strong{color:var(--teal)}
-#detail-section /* PRICING */
-.pricing-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
-#detail-section .pc{background:var(--card);border-radius:18px;padding:32px 22px;border:1px solid rgba(255,255,255,.06);text-align:center;position:relative;overflow:hidden}
-#detail-section .pc.best{background:linear-gradient(155deg,#172847,#0E2040);border-color:rgba(245,166,35,.5);transform:scale(1.03)}
-#detail-section .pc.best::before{content:'🏆 인기';position:absolute;top:14px;right:14px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:900;padding:3px 12px;border-radius:20px}
-#detail-section .pc .pt{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
-#detail-section .pc .pn{font-size:20px;font-weight:900;margin-bottom:6px}
-#detail-section .pc .pn em{color:var(--gold);font-style:normal}
-#detail-section .pc .pp{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;color:var(--white);margin:18px 0 2px}
-#detail-section .pc .pd{font-size:12px;color:var(--muted);margin-bottom:24px}
-#detail-section .pc ul{list-style:none;text-align:left;margin-bottom:0}
-#detail-section .pc ul li{font-size:13px;color:var(--light);padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:9px;line-height:1.5}
-#detail-section .pc.best ul li::before{content:'✓';color:var(--gold);font-weight:900;flex-shrink:0}
-#detail-section .pc:not(.best) ul li::before{content:'✓';color:var(--teal);font-weight:900;flex-shrink:0}
-#detail-section /* VALUE */
-.value-box{margin-top:36px;background:linear-gradient(135deg,rgba(0,201,167,.07),rgba(245,166,35,.04));border:1px solid rgba(0,201,167,.2);border-radius:20px;padding:36px 28px;text-align:center}
-#detail-section .value-box .vb-big{font-size:22px;font-weight:900;line-height:1.5;margin-bottom:24px}
-#detail-section .value-box .vb-big em{color:var(--teal);font-style:normal}
-#detail-section .value-items{display:flex;flex-direction:column;gap:12px;text-align:left}
-#detail-section .value-item{display:flex;align-items:flex-start;gap:14px;font-size:14px;color:var(--light);line-height:1.75}
-#detail-section .value-item .vi{font-size:20px;flex-shrink:0}
-#detail-section /* MAKER */
-.maker-card{background:var(--card);border-radius:20px;padding:36px 30px;border:1px solid rgba(255,255,255,.06);margin-top:36px}
-#detail-section .maker-top{display:flex;align-items:center;gap:18px;margin-bottom:22px}
-#detail-section .maker-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold2));display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--navy);flex-shrink:0}
-#detail-section .maker-name{font-size:20px;font-weight:900;margin-bottom:5px}
-#detail-section .maker-role{font-size:13px;color:var(--teal);font-weight:700}
-#detail-section .maker-story{font-size:14px;color:#A8C4DC;line-height:1.95}
-#detail-section .maker-story p{margin-bottom:14px}
-#detail-section .maker-story p:last-child{margin-bottom:0}
-#detail-section .maker-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
-#detail-section .ms{background:var(--card2);border-radius:12px;padding:18px;text-align:center}
-#detail-section .ms-n{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--gold);line-height:1}
-#detail-section .ms-d{font-size:12px;color:var(--muted);margin-top:5px}
-#detail-section /* ROADMAP */
-.road-list{display:flex;flex-direction:column;gap:12px;margin-top:36px}
-#detail-section .road-item{display:flex;align-items:flex-start;gap:16px;background:var(--card);border-radius:12px;padding:18px 22px;border:1px solid rgba(255,255,255,.05)}
-#detail-section .road-dot{width:10px;height:10px;border-radius:50%;background:var(--teal);flex-shrink:0;margin-top:5px}
-#detail-section .road-item p{font-size:14px;color:var(--light);line-height:1.75}
-#detail-section .road-item strong{color:var(--teal)}
-#detail-section /* FAQ */
-.faq-list{display:flex;flex-direction:column;gap:12px;margin-top:36px}
-#detail-section .faq-item{background:var(--card);border-radius:14px;padding:22px 22px;border:1px solid rgba(255,255,255,.05)}
-#detail-section .faq-q{font-size:15px;font-weight:900;margin-bottom:10px;color:var(--white);display:flex;gap:8px}
-#detail-section .faq-q span{color:var(--gold)}
-#detail-section .faq-a{font-size:14px;color:#A8C4DC;line-height:1.85;max-height:none;overflow:visible}
-#detail-section /* NOTICE */
-.notice-box{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px 22px;margin-top:36px}
-#detail-section .notice-box h4{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:14px}
-#detail-section .notice-list{display:flex;flex-direction:column;gap:8px}
-#detail-section .notice-list li{font-size:13px;color:var(--muted);line-height:1.75;padding-left:16px;position:relative;list-style:none}
-#detail-section .notice-list li::before{content:'·';position:absolute;left:0;color:var(--muted)}
-#detail-section /* CTA */
-.cta-section{background:linear-gradient(160deg,#0C1F3A,#080F1C);padding:72px 40px;text-align:center;border-top:1px solid rgba(255,255,255,.06)}
-#detail-section .cta-section h2{font-weight:900;font-size:32px;line-height:1.35;margin-bottom:16px}
-#detail-section .cta-section h2 em{color:var(--gold);font-style:normal}
-#detail-section .cta-section p{font-size:15px;color:#A8C4DC;line-height:1.9}
-#detail-section .cta-note{font-size:13px;color:var(--muted);margin-top:18px}
-
-
-  </style>
-  <div id="detail-section" style="margin-top:32px;margin-bottom:8px;width:100%;overflow:hidden">
-<!-- ① HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-top">
-      <div class="hero-logo">NOBLE ARC</div>
-      <div class="hero-badge">AI YOUTUBE AUTOMATION</div>
-    </div>
-    <h1>유튜브 영상 제작의<br><span class="g">모든 것</span>을<br><span class="t">전부 자동화</span>합니다</h1>
-    <p class="hero-sub">
-      소재 발굴부터 대본 · 이미지 · 음성 · 자막 · 편집 · 업로드까지<br>
-      키워드 하나로 완성형 유튜브 영상이 완성됩니다.<br>
-      영상 편집 몰라도, 해외 언어 몰라도 됩니다.
-    </p>
-    <div class="hero-tags">
-      <span class="hero-tag g">⚡ AI 전자동화</span>
-      <span class="hero-tag t">롱폼 + 쇼츠</span>
-      <span class="hero-tag">🌍 7개 언어 지원</span>
-      <span class="hero-tag t">🤖 AI 에이전트 시스템</span>
-      <span class="hero-tag">📱 SNS 글 자동 발행</span>
-      <span class="hero-tag g">🛒 쿠팡파트너스 쇼츠</span>
-    </div>
-    <div class="hero-kpi">
-      <div class="kpi">
-        <div class="kpi-n">2</div>
-        <div class="kpi-u">PROGRAMS</div>
-        <div class="kpi-d">롱폼 · 쇼츠</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-n">17</div>
-        <div class="kpi-u">IMAGE STYLES</div>
-        <div class="kpi-d">이미지 스타일 수</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-n">7</div>
-        <div class="kpi-u">LANGUAGES</div>
-        <div class="kpi-d">다국어 채널 운영</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-n">$300</div>
-        <div class="kpi-u">FREE CREDIT</div>
-        <div class="kpi-d">AI 영상제작비 사실상 0원</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ② PROBLEM -->
-<section class="sec" style="background:var(--navy2)">
-  <div class="label">PROBLEM</div>
-  <h2 class="sec-title">유튜브, 하고 싶은데<br><em>왜 이렇게 힘든 걸까요?</em></h2>
-  <div class="prob-list">
-    <div class="prob-item">
-      <div class="prob-icon">⏰</div>
-      <div>
-        <h4>영상 하나에 몇 시간이 사라진다</h4>
-        <p>소재 조사, 대본 작성, 이미지 찾기, 음성 입히기, 자막 맞추기, 편집까지. 영상 하나 완성하는 데 최소 3~5시간. 매일 하기엔 너무 고됩니다.</p>
-      </div>
-    </div>
-    <div class="prob-item">
-      <div class="prob-icon">🌐</div>
-      <div>
-        <h4>해외 채널은 엄두도 못 낸다</h4>
-        <p>일본어, 영어로 된 채널을 만들면 수익 잠재력이 훨씬 높다는 걸 알면서도, 언어를 모르니 시작조차 못 합니다.</p>
-      </div>
-    </div>
-    <div class="prob-item">
-      <div class="prob-icon">💸</div>
-      <div>
-        <h4>AI 도구 쓰면 비용이 또 나간다</h4>
-        <p>대본 생성, 이미지 생성, 음성 합성… 툴마다 비용이 따로 붙습니다. 수익이 나기도 전에 지출이 먼저 쌓입니다.</p>
-      </div>
-    </div>
-    <div class="prob-item">
-      <div class="prob-icon">📉</div>
-      <div>
-        <h4>꾸준히 올리지 못하면 채널이 죽는다</h4>
-        <p>알고리즘은 꾸준한 업로드를 좋아합니다. 하지만 바쁜 일상에서 매일 영상을 만드는 건 현실적으로 불가능합니다.</p>
-      </div>
-    </div>
-  </div>
-  <div class="prob-center">
-    <p>이 모든 문제를<br><strong>한 번에 해결할 수 있다면?</strong></p>
-  </div>
-</section>
-
-<!-- ③ SOLUTION -->
-<section class="sec">
-  <div class="label">SOLUTION</div>
-  <h2 class="sec-title">단순한 자동화가 아닙니다<br><em>실제로 성과를 내는 시스템</em>입니다</h2>
-  <div class="solution-box">
-    <div class="big">키워드 하나면 됩니다.<br><em>나머지는 노블아크가 합니다.</em></div>
-    <p>수년간 유튜브를 직접 운영하며 쌓아온 노하우와<br>인기 영상 제작 비법을 프로그램 로직에 그대로 담았습니다.<br>버튼 하나로 완성형 영상이 만들어집니다.</p>
-  </div>
-</section>
-
-<!-- ③-0 PROGRAMS -->
-<section class="sec" style="background:var(--navy2)">
-  <div class="label">PROGRAMS</div>
-  <h2 class="sec-title">두 가지 <em>전용 프로그램</em></h2>
-  <p class="sec-desc">목적에 맞는 전용 프로그램을 선택하거나 번들로 함께 이용하세요.</p>
-  <div class="prog-grid">
-    <div class="prog-card longform">
-      <div class="prog-ratio">16:9</div>
-      <div class="prog-label">LONGFORM AUTOMATION</div>
-      <div class="prog-items">
-        <div class="prog-item">3분~25분 롱폼 영상 제작</div>
-        <div class="prog-item">키워드 발굴 · 벤치마킹 2가지 방식</div>
-        <div class="prog-item">17가지 이미지 스타일 지원</div>
-        <div class="prog-item">고정 캐릭터 이미지 설정</div>
-        <div class="prog-item">AI 메타데이터 자동 생성</div>
-        <div class="prog-item">SNS 자동 발행 (블로그·인스타·스레드·페이스북)</div>
-        <div class="prog-item">AI 에이전트 채널 자동 운영</div>
-      </div>
-    </div>
-    <div class="prog-card shorts">
-      <div class="prog-ratio">9:16</div>
-      <div class="prog-label">SHORTS AUTOMATION</div>
-      <div class="prog-items">
-        <div class="prog-item">45~90초 쇼츠 영상 자동 제작</div>
-        <div class="prog-item">카테고리 · 벤치마킹 · 뉴스 · 쿠팡파트너스 4가지</div>
-        <div class="prog-item">17가지 이미지 스타일 지원</div>
-        <div class="prog-item">고정 캐릭터 이미지 설정</div>
-        <div class="prog-item">쇼츠 대량 제작 기능</div>
-        <div class="prog-item">SNS 자동 발행 (인스타·스레드·페이스북)</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ③-1 AI AGENT -->
-<section class="sec" style="background:linear-gradient(160deg,#080F1C,#0C1F3A)">
-  <div class="label" style="color:var(--gold)">LONGFORM · AI AGENT</div>
-  <h2 class="sec-title" style="font-size:28px">이제는 에이전트가<br><em>유튜브 채널 전체를 운영합니다</em></h2>
-  <p class="sec-desc">노블아크 롱폼에는 AI 에이전트 시스템이 내장되어 있습니다.<br>채널 운영의 처음부터 끝까지, 사람이 개입하지 않아도 됩니다.</p>
-
-  <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
-    <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:22px 20px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">STEP 1 · 소재 발굴</div>
-      <div style="font-size:14px;color:var(--light);line-height:1.8">채널 콘셉트를 스스로 분석하고 떡상검색기를 통해 채널에 맞는 소재를 자동으로 발굴합니다.</div>
-    </div>
-    <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:22px 20px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">STEP 2 · 대본 · 이미지 · 더빙 · 편집</div>
-      <div style="font-size:14px;color:var(--light);line-height:1.8">대본 생성부터 이미지, 음성 더빙, BGM, 편집까지 전 과정을 에이전트가 자동 처리합니다.</div>
-    </div>
-    <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:22px 20px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">STEP 3 · 업로드 완전 자동화</div>
-      <div style="font-size:14px;color:var(--light);line-height:1.8">제목 · 설명 · 태그 · 썸네일 자동 생성 및 업로드. AI 콘텐츠 사용 체크까지 자동으로 처리합니다.</div>
-    </div>
-    <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:22px 20px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">STEP 4 · 채널 관리 · 성과 보고</div>
-      <div style="font-size:14px;color:var(--light);line-height:1.8">채널 댓글 관리 자동화, 조회수 등 운영 성과를 이메일 보고서로 자동 발송합니다.</div>
-    </div>
-  </div>
-
-
-</section>
-
-<!-- ④ HOW IT WORKS -->
-<section class="sec" style="background:var(--navy2)">
-  <div class="label">HOW IT WORKS</div>
-  <h2 class="sec-title">영상이 완성되는<br><em>6단계 자동화 흐름</em></h2>
-  <p class="sec-desc" style="margin-bottom:8px">딸깍모드(전자동)와 단계별 생성 모드 중 원하는 방식으로 진행하세요.</p>
-  <div class="flow-wrap">
-    <div class="flow-item">
-      <div class="flow-dot g">1</div>
-      <div class="flow-body">
-        <h4>소재 발굴 — 리서치센터</h4>
-        <p>떡상 영상 검색, 경쟁 채널 분석, 뉴스 트렌드 검색으로 지금 뜨는 소재를 발굴합니다. 무엇을 만들지 고민할 필요가 없습니다.</p>
-        <div class="flow-tags"><span class="ftag">떡상 검색</span><span class="ftag">채널 분석</span><span class="ftag">트렌드</span></div>
-      </div>
-    </div>
-    <div class="flow-item">
-      <div class="flow-dot g">2</div>
-      <div class="flow-body">
-        <h4>AI 대본 자동 생성</h4>
-        <p>키워드 입력 또는 떡상 영상 벤치마킹으로 최상위 품질 대본이 자동 생성됩니다. 역사, 심리, 경제, 시사 등 다양한 카테고리 지원.</p>
-        <div class="flow-tags"><span class="ftag">4가지 생성 방식</span><span class="ftag">다양한 카테고리</span></div>
-      </div>
-    </div>
-    <div class="flow-item">
-      <div class="flow-dot g">3</div>
-      <div class="flow-body">
-        <h4>AI 이미지 자동 생성</h4>
-        <p>대본 내용에 맞는 이미지를 자동으로 생성합니다. 쇼츠·롱폼 모두 16가지 스타일 중 선택 가능. 고정 캐릭터 설정도 지원합니다.</p>
-        <div class="flow-tags"><span class="ftag t">16가지 스타일</span><span class="ftag t">고정 캐릭터</span></div>
-      </div>
-    </div>
-    <div class="flow-item">
-      <div class="flow-dot t">4</div>
-      <div class="flow-body">
-        <h4>AI 음성 합성 + 자막 자동 싱크</h4>
-        <p>한국어, 일본어, 영어, 독일어, 스페인어 등 7개 언어로 고품질 음성이 자동 생성됩니다. 자막은 음성과 완벽하게 싱크가 맞춰집니다.</p>
-        <div class="flow-tags"><span class="ftag t">7개 언어</span><span class="ftag t">자막 자동 싱크</span></div>
-      </div>
-    </div>
-    <div class="flow-item">
-      <div class="flow-dot t">5</div>
-      <div class="flow-body">
-        <h4>편집 + 렌더링</h4>
-        <p>BGM, 화면 전환 효과, 씬 편집까지 자동 처리됩니다. 씬 편집기로 대본과 이미지를 직접 수정하거나 동영상 삽입도 가능합니다. 렌더링 완료 후에는 완성된 영상의 대본을 바탕으로 각 SNS에 최적화된 글을 자동으로 생성할 수 있습니다.</p>
-        <div class="flow-tags"><span class="ftag t">원클릭 렌더링</span><span class="ftag t">씬 편집기</span><span class="ftag t">SNS 콘텐츠 변환</span></div>
-      </div>
-    </div>
-    <div class="flow-item">
-      <div class="flow-dot t">6</div>
-      <div class="flow-body">
-        <h4>메타데이터 생성 + 유튜브 자동 업로드 + SNS 발행</h4>
-        <p>제목 · 설명 · 태그 · 썸네일을 AI가 자동 생성합니다. 유튜브 즉시 업로드 후 SNS 콘텐츠 자동 생성으로 이어집니다. 쿠팡파트너스 쇼츠는 영상 설명란과 댓글에 구매 링크가 자동으로 포함됩니다.</p>
-        <div class="flow-tags"><span class="ftag t">자동 업로드</span><span class="ftag t">대량 제작</span><span class="ftag">SNS 발행</span><span class="ftag">쿠팡파트너스</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ⑤ FEATURES -->
-<section class="sec">
-  <div class="label">FEATURES</div>
-  <h2 class="sec-title">노블아크가 <em>특별한 이유</em></h2>
-  <div class="feat-grid">
-    <div class="feat-card">
-      <div class="feat-icon g">⚡</div>
-      <h4>딸깍모드 · 단계별 생성 모드</h4>
-      <p>소재만 입력하면 전 과정을 한 번에 완성하는 딸깍모드와, 각 단계를 직접 확인하며 진행하는 단계별 생성 모드 모두 지원합니다.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon g">🌍</div>
-      <h4>7개 언어 다국어 지원</h4>
-      <p>일본어, 영어를 몰라도 해외 채널 운영이 가능합니다. AI가 해당 언어로 대본·음성·자막·메타데이터까지 전부 처리합니다.</p>
-    </div>
-    <div class="feat-card" style="border-color:rgba(245,166,35,.25);background:linear-gradient(135deg,rgba(245,166,35,.06),var(--card))">
-      <div class="feat-icon g">🛒</div>
-      <h4>쿠팡파트너스 쇼츠</h4>
-      <p>쿠팡 상품을 키워드로 검색하면 소개 영상을 자동 제작하고 유튜브에 바로 업로드합니다. 영상 설명란과 댓글에 파트너스 구매 링크가 자동으로 포함되어 수익화에 바로 활용할 수 있습니다.</p>
-      <span class="feat-tag g">쇼츠 전용</span>
-    </div>
-    <div class="feat-card" style="border-color:rgba(245,166,35,.25);background:linear-gradient(135deg,rgba(245,166,35,.06),var(--card))">
-      <div class="feat-icon g">🤖</div>
-      <h4>롱폼 AI 에이전트</h4>
-      <p>채널 분석부터 소재 발굴, 영상 제작, 업로드, 댓글 관리, 성과 보고까지 전 과정을 에이전트가 자동으로 운영합니다. 사람이 개입하지 않아도 채널이 돌아갑니다.</p>
-      <span class="feat-tag g">롱폼 전용</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon t">📊</div>
-      <h4>리서치센터 내장</h4>
-      <p>떡상 영상 발굴, 경쟁 채널 분석, 최적 업로드 시간, 수익 예측까지 한 화면에서 확인합니다.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon t">🎬</div>
-      <h4>쇼츠 대량 제작</h4>
-      <p>큐(Queue) 기능으로 여러 편을 연속 생성합니다. 한 번 설정하면 다른 일을 하는 동안에도 영상이 만들어집니다.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon g">🎨</div>
-      <h4>17가지 이미지 스타일</h4>
-      <p>일러스트, 실사, 3D, 애니메이션 등 다양한 스타일 중 채널에 맞는 스타일을 선택하세요. 고정 캐릭터 설정도 지원합니다.</p>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon g">🎤</div>
-      <h4>4가지 TTS 음성 시스템</h4>
-      <p>Gemini TTS(무료)부터 ElevenLabs, MiniMax, OpenAI까지. 원하는 품질과 비용에 맞게 선택할 수 있습니다.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SNS 글 발행 -->
-<section class="sec" style="background:linear-gradient(160deg,#080F1C,#0D1E35)">
-  <div class="label">SNS AUTO PUBLISH</div>
-  <h2 class="sec-title">유튜브 소재로<br><em>SNS까지 자동 발행합니다</em></h2>
-  <p class="sec-desc">영상 완성 후 렌더링 탭에서 각 SNS에 맞는 글을 자동으로 생성합니다.</p>
-  <div class="sns-grid">
-    <div class="sns-card">
-      <div class="sns-card-title">LONGFORM <span class="sns-badge gold">4개 채널</span></div>
-      <p>유튜브 대본을 바탕으로 최적화된 글을 자동 생성합니다.</p>
-      <div class="sns-pill-group">
-        <span class="sns-pill">📝 블로그</span>
-        <span class="sns-pill">📸 인스타그램</span>
-        <span class="sns-pill">🧵 스레드</span>
-        <span class="sns-pill">👍 페이스북</span>
-      </div>
-    </div>
-    <div class="sns-card">
-      <div class="sns-card-title">SHORTS <span class="sns-badge teal">3개 채널</span></div>
-      <p>쇼츠 대본을 기반으로 SNS 글을 자동 생성합니다.</p>
-      <div class="sns-pill-group">
-        <span class="sns-pill">📸 인스타그램</span>
-        <span class="sns-pill">🧵 스레드</span>
-        <span class="sns-pill">👍 페이스북</span>
-      </div>
-    </div>
-  </div>
-  <div class="sns-how">
-    <p>SNS 채널을 선택하고 <strong>SNS 콘텐츠 생성 버튼</strong>을 누르면 해당 SNS에 맞는 형식으로 글이 자동 생성됩니다. 해시태그와 영상 이미지가 함께 출력되며 <strong>전체 복사</strong>로 바로 붙여넣기 하시면 됩니다.</p>
-  </div>
-</section>
-
-<!-- ⑥ COST -->
-<section class="sec" style="background:var(--navy2)">
-  <div class="label">COST EFFICIENCY</div>
-  <h2 class="sec-title"><em>비용 최소화</em>가<br>핵심 설계 원칙입니다</h2>
-  <p class="sec-desc">타사 프로그램과 가장 크게 다른 점. 구매자의 비용을 최우선으로 고려했습니다.</p>
-  <div class="cost-grid">
-    <div class="cost-card fc">
-      <div class="cost-badge">GOOGLE FREE CREDIT</div>
-      <div class="cost-num">$300</div>
-      <div class="cost-sub">약 44만원 상당 무료 크레딧</div>
-      <div class="cost-items">
-        <div class="cost-item">대본 생성 무료 (Gemini AI)</div>
-        <div class="cost-item">이미지 생성 무료 (Imagen 3.0)</div>
-        <div class="cost-item">음성 더빙 무료 (Gemini TTS)</div>
-        <div class="cost-item">크레딧 소진 시 새 계정 재발급</div>
-      </div>
-    </div>
-    <div class="cost-card free">
-      <div class="cost-badge">ADDITIONAL FREE API</div>
-      <div class="cost-num" style="color:var(--teal)">FREE</div>
-      <div class="cost-sub">핵심 기능 추가 API도 무료</div>
-      <div class="cost-items">
-        <div class="cost-item">GROQ — 자막 싱크 (일 120분)</div>
-        <div class="cost-item">유튜브 API — 리서치 + 자동업로드</div>
-        <div class="cost-item">초과 시 내장 자막 자동 전환</div>
-        <div class="cost-item">선택적 유료 TTS 업그레이드 가능</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ⑦ COMPARE -->
-<section class="sec">
-  <div class="label">COMPARISON</div>
-  <h2 class="sec-title">노블아크 vs <em>타사 프로그램</em></h2>
-  <p class="sec-desc">기능과 비용 모두에서 명확하게 차별화되어 있습니다.</p>
-  <div class="compare-table">
-    <div class="ct-head">
-      <div>비교 항목</div><div class="na" style="text-align:center">NOBLE ARC</div><div class="other" style="text-align:center">타사</div>
-    </div>
-    <div class="ct-row"><div class="ct-label">대본·이미지·TTS 기본 비용</div><div style="text-align:center" class="yes">무료(크레딧)</div><div style="text-align:center" class="no">유료</div></div>
-    <div class="ct-row"><div class="ct-label">다국어 지원</div><div style="text-align:center" class="yes">7개 언어</div><div style="text-align:center" class="no">제한적</div></div>
-    <div class="ct-row"><div class="ct-label">내장 리서치센터</div><div style="text-align:center" class="yes">포함</div><div style="text-align:center" class="no">미포함</div></div>
-    <div class="ct-row"><div class="ct-label">쿠팡파트너스 쇼츠 자동화</div><div style="text-align:center" class="yes">지원</div><div style="text-align:center" class="no">미지원</div></div>
-    <div class="ct-row"><div class="ct-label">AI 에이전트 채널 운영</div><div style="text-align:center" class="yes">지원 (롱폼)</div><div style="text-align:center" class="no">미지원</div></div>
-    <div class="ct-row"><div class="ct-label">SNS 콘텐츠 자동 생성</div><div style="text-align:center" class="yes">7개 채널</div><div style="text-align:center" class="no">미지원</div></div>
-    <div class="ct-row"><div class="ct-label">쇼츠 대량 제작</div><div style="text-align:center" class="yes">지원</div><div style="text-align:center" class="no">미지원</div></div>
-    <div class="ct-row"><div class="ct-label">고정 캐릭터 설정</div><div style="text-align:center" class="yes">지원</div><div style="text-align:center" class="no">미지원</div></div>
-    <div class="ct-row"><div class="ct-label">이미지 스타일 수</div><div style="text-align:center" class="yes">17가지</div><div style="text-align:center" class="no">적음</div></div>
-    <div class="ct-row"><div class="ct-label">프로그램 이용료</div><div style="text-align:center" class="yes">매우 저렴</div><div style="text-align:center" class="no">고가</div></div>
-  </div>
-</section>
-
-<!-- ⑧ ROI -->
-<section class="sec" style="background:var(--navy2)">
-  <div class="label">ROI SIMULATION</div>
-  <h2 class="sec-title">직접 제작 vs<br><em>노블아크 자동화</em> 비교</h2>
-  <p class="sec-desc">롱폼 기준 · 하루 1편 · 월 30편 제작 시나리오</p>
-  <div class="roi-wrap">
-    <div class="roi-box bad">
-      <div class="rb-label">✕ 직접 제작</div>
-      <div class="roi-stat"><div class="rs-l">편당 소요 시간</div><div class="rs-v">3~5시간</div></div>
-      <div class="roi-stat"><div class="rs-l">월 총 소요 시간</div><div class="rs-v">90~150h</div></div>
-      <div class="roi-stat"><div class="rs-l">월 AI 비용</div><div class="rs-v">수만원+</div></div>
-      <div class="roi-stat"><div class="rs-l">월 영상 제작 수</div><div class="rs-v">현실적으로 불가</div></div>
-    </div>
-    <div class="roi-box good">
-      <div class="rb-label">✓ 노블아크</div>
-      <div class="roi-stat"><div class="rs-l">편당 작업 방식</div><div class="rs-v">다른 일 하면서</div></div>
-      <div class="roi-stat"><div class="rs-l">직접 조작 시간</div><div class="rs-v">최소화</div></div>
-      <div class="roi-stat"><div class="rs-l">월 AI 비용</div><div class="rs-v">사실상 0원</div></div>
-      <div class="roi-stat"><div class="rs-l">월 영상 제작 수</div><div class="rs-v">제한 없음</div></div>
-    </div>
-  </div>
-  <div class="roi-result">
-    <p>영상 제작 수는 <strong>제한 없이</strong>,<br>AI 비용은 <strong>거의 0원</strong>으로. 다른 일을 하는 동안에도.</p>
-  </div>
-</section>
-
-<!-- ⑨ PRICING -->
-<section class="sec">
-  <div class="label">PRICING</div>
-  <h2 class="sec-title">합리적인 <em>요금제</em></h2>
-  <p class="sec-desc">필요한 프로그램만 선택하거나, 번들로 두 가지 모두 이용하세요.</p>
-  <div class="pricing-cards">
-    <div class="pc">
-      <div class="pt">Shorts Only</div>
-      <div class="pn">쇼츠 <em>전용</em></div>
-      <div class="pp">22,000원</div>
-      <div class="pd">월 단위 결제</div>
-      <ul>
-        <li>9:16 쇼츠 영상 완전 자동화</li>
-        <li>딸깍모드(원클릭 전자동) + 대량생산모드</li>
-        <li>쿠팡파트너스 쇼츠 — 상품 소개 영상 자동 제작 · 구매 링크 자동 삽입</li>
-        <li>SNS 콘텐츠 자동 생성 (인스타그램 · 스레드 · 페이스북)</li>
-        <li>17가지 이미지 스타일 · 리서치센터 · 유튜브 자동 업로드</li>
-      </ul>
-    </div>
-    <div class="pc best">
-      <div class="pt">Best Value</div>
-      <div class="pn">번들 <em>패키지</em></div>
-      <div class="pp">45,000원</div>
-      <div class="pd">쇼츠 + 롱폼 · 월 단위 결제</div>
-      <ul>
-        <li>롱폼 + 쇼츠 전체 기능 포함</li>
-        <li>AI 에이전트 + 쿠팡파트너스 쇼츠 동시 활용</li>
-        <li>SNS 콘텐츠 자동 생성 총 7개 채널 지원</li>
-        <li>딸깍모드 + 대량 제작 + 고정 캐릭터 모두 사용</li>
-        <li>17가지 이미지 스타일 · 리서치센터 전체 이용</li>
-        <li>AI 메타데이터 자동 생성 · 유튜브 자동 업로드</li>
-      </ul>
-    </div>
-    <div class="pc">
-      <div class="pt">Longform Only</div>
-      <div class="pn">롱폼 <em>전용</em></div>
-      <div class="pp">29,000원</div>
-      <div class="pd">월 단위 결제</div>
-      <ul>
-        <li>16:9 롱폼 영상 완전 자동화 (3분~25분)</li>
-        <li>딸깍모드(원클릭 전자동) + AI 에이전트 채널 운영</li>
-        <li>SNS 콘텐츠 자동 생성 (블로그 · 인스타그램 · 스레드 · 페이스북)</li>
-        <li>17가지 이미지 스타일 · 고정 캐릭터 설정</li>
-        <li>AI 메타데이터 자동 생성 · 리서치센터 이용</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ⑩ VALUE -->
-<section class="sec" style="background:var(--navy2)">
-  <div class="label">VALUE</div>
-  <h2 class="sec-title">노블아크는<br>구독이 아니라 <em>투자입니다</em></h2>
-  <div class="value-box">
-    <div class="vb-big">"월 22,000~45,000원으로<br><em>24시간 일하는 AI 영상 팀을</em><br>고용하는 것과 같습니다"</div>
-    <div class="value-items">
-      <div class="value-item"><span class="vi">⏱️</span><span>시간의 복리 — 오늘 만든 영상이 6개월 후에도 조회수를 만들어냅니다</span></div>
-      <div class="value-item"><span class="vi">🌏</span><span>언어 장벽 제거 — 한국에서 일본, 영어권 채널까지 동시에 운영 가능</span></div>
-      <div class="value-item"><span class="vi">💰</span><span>비용 혁신 — AI 생성 비용이 거의 0원. 프로그램 이용료만으로 운영</span></div>
-      <div class="value-item"><span class="vi">🚀</span><span>경쟁 우위 — 경쟁자가 하루 1편 올릴 때, 당신은 10편을 올릴 수 있습니다</span></div>
-      <div class="value-item"><span class="vi">📱</span><span>채널 너머로 — 유튜브 업로드 후 SNS 홍보까지 한 번에. 멀티 채널 운영이 쉬워집니다</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ⑪ MAKER -->
-<section class="sec">
-  <div class="label">MAKER</div>
-  <h2 class="sec-title">개발자 <em>소개</em></h2>
-  <div class="maker-card">
-    <div class="maker-top">
-      <div class="maker-avatar">NA</div>
-      <div>
-        <div class="maker-name">NOBLE ARC 개발자</div>
-        <div class="maker-role">유튜브 채널 운영자 · 자동화 솔루션 개발자</div>
-      </div>
-    </div>
-    <div class="maker-story">
-      <p>유튜브로 수익을 내고 싶어서 영상을 만들어봤습니다. 그런데 막상 해보니 대본 쓰고, 이미지 구하고, 음성 입히고, 자막 맞추고, 편집하고… 영상 하나에 몇 시간이 사라졌습니다.</p>
-      <p>"이걸 전부 자동화할 수 없을까?" 그 질문 하나로 수년간 유튜브 채널을 운영하며 쌓아온 노하우를 프로그램 로직에 담기 시작했습니다. 단순히 빠르게 만드는 게 아니라, 실제로 조회수가 나오는 영상을 자동으로 만들어내는 구조가 필요했습니다.</p>
-      <p>그리고 한 가지 더 신경 쓴 것이 있습니다. 바로 비용입니다. 타사 프로그램들은 영상 한 편 만들 때마다 AI 비용이 따로 붙습니다. 구글 클라우드 $300 무료 크레딧을 활용해 대본·이미지·음성을 사실상 무료로 생성할 수 있도록 설계했습니다.</p>
-      <p>유튜브에 도전하는 분들의 시간도, 돈도 아껴드리고 싶었습니다. 노블아크는 그 마음으로 계속 발전하고 있습니다.</p>
-    </div>
-    <div class="maker-stats">
-      <div class="ms"><div class="ms-n">수년간</div><div class="ms-d">유튜브 채널 운영</div></div>
-      <div class="ms"><div class="ms-n">Windows</div><div class="ms-d">전용 · macOS 준비 중</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- RESEARCH CENTER -->
-<section class="sec" style="background:var(--navy2)">
-  <div class="label">RESEARCH CENTER</div>
-  <h2 class="sec-title">수익 기반 — <em>내장 리서치센터</em></h2>
-  <p class="sec-desc">무엇을 만들지 고민할 필요 없습니다. 뜨는 소재를 알려드립니다.</p>
-  <div class="research-grid">
-    <div class="research-card">
-      <div class="research-icon">🔥</div>
-      <h4>떡상 영상 검색</h4>
-      <p>최근 급상승 중인 영상을 실시간으로 파악하고 채널에 맞는 소재를 즉시 찾아냅니다.</p>
-    </div>
-    <div class="research-card">
-      <div class="research-icon">📈</div>
-      <h4>경쟁 채널 분석</h4>
-      <p>경쟁 채널을 입력하면 최고 성과 콘텐츠, 최적 업로드 시간, 예상 수익을 한눈에 분석합니다.</p>
-    </div>
-    <div class="research-card">
-      <div class="research-icon">📰</div>
-      <h4>트렌드 뉴스 검색</h4>
-      <p>실시간 뉴스를 기반으로 지금 사람들이 관심 가지는 소재를 빠르게 찾을 수 있습니다.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ⑫ ROADMAP -->
-<section class="sec" style="background:var(--navy2)">
-  <div class="label">ROADMAP</div>
-  <h2 class="sec-title">계속 발전하는<br><em>업데이트 로드맵</em></h2>
-  <div class="road-list">
-    <div class="road-item"><div class="road-dot"></div><p><strong>지원 언어 확대</strong> — 현재 7개 언어에서 추가 언어 지원 예정</p></div>
-    <div class="road-item" style="display:none"><div class="road-dot"></div><p><strong>정기구독 시스템 도입</strong> — 더 저렴한 가격으로 자동 갱신 이용 가능</p></div>
-  </div>
-</section>
-
-<!-- ⑬ FAQ -->
-<section class="sec">
-  <div class="label">FAQ</div>
-  <h2 class="sec-title">자주 묻는 <em>질문</em></h2>
-  <div class="faq-list">
-    <div class="faq-item">
-      <div class="faq-q"><span>Q.</span>영상 편집 경험이 전혀 없어도 사용할 수 있나요?</div>
-      <div class="faq-a">네, 완전히 가능합니다. 키워드를 입력하고 버튼 하나만 누르면 대본부터 편집·업로드까지 자동으로 처리됩니다. 영상 편집 경험이 전혀 없어도 됩니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q"><span>Q.</span>영상 제작 비용이 따로 발생하나요?</div>
-      <div class="faq-a">구글 클라우드의 $300 무료 크레딧(약 44만원)을 활용하면 대본·이미지·TTS 생성이 무료입니다. 크레딧 소진 후 새 계정으로 추가 크레딧 발급도 가능합니다. 프로그램 이용료 외 영상 제작 비용은 최소화되도록 설계되어 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q"><span>Q.</span>일본어나 영어를 몰라도 해외 채널 운영이 가능한가요?</div>
-      <div class="faq-a">네, 완벽하게 가능합니다. AI가 해당 언어에 최적화된 대본, 음성 더빙, 자막, 제목·설명·태그까지 전부 자동으로 처리합니다. 해당 언어를 한 글자도 몰라도 됩니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q"><span>Q.</span>쿠팡파트너스 쇼츠는 별도 설정이 필요한가요?</div>
-      <div class="faq-a">쿠팡 파트너스 계정과 API 연동만 한 번 설정해두면, 이후부터는 상품 키워드를 입력하는 것만으로 영상 제작부터 링크 삽입까지 전자동으로 진행됩니다. 별도로 링크를 복사하거나 설명란에 붙여넣을 필요가 없습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q"><span>Q.</span>구매 후 어떻게 프로그램을 받을 수 있나요?</div>
-      <div class="faq-a">결제 완료 후 이메일로 라이선스 키, 프로그램 다운로드 링크, 사용설명서 링크가 발송됩니다. 라이선스 키는 한 번만 입력하면 이후 자동으로 활성화됩니다. Windows 전용 프로그램입니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q"><span>Q.</span>이용 기간이 끝나면 어떻게 되나요?</div>
-      <div class="faq-a">이용 기간이 만료되면 프로그램 사용이 중단됩니다. 홈페이지에서 재결제하시면 즉시 다시 이용 가능합니다.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ⑭ NOTICE -->
-<section class="sec" style="background:var(--navy2);border-bottom:none">
-  <div class="label">NOTICE</div>
-  <h2 class="sec-title">안내 <em>사항</em></h2>
-  <div class="notice-box">
-    <h4>📌 꼭 확인해주세요</h4>
-    <ul class="notice-list">
-      <li>본 서비스는 디지털 소프트웨어 이용권으로, 실물 배송이 없습니다.</li>
-      <li>라이선스 키는 1기기에서만 사용 가능합니다.</li>
-      <li>라이선스 키를 프로그램에 입력(활성화)한 이후에는 디지털 콘텐츠 특성상 환불이 어렵습니다.</li>
-      <li>활성화 전이라면 구매일로부터 7일 이내 전액 환불 가능합니다.</li>
-      <li>현재 Windows 전용이며, macOS 버전은 추후 지원 예정입니다.</li>
-      <li>구글 클라우드 $300 무료 크레딧은 개인이 별도 발급받아야 하며, 자세한 방법은 사용설명서에 안내되어 있습니다.</li>
-      <li>쿠팡파트너스 이용을 위해서는 별도 쿠팡 파트너스 계정 가입 및 API 연동이 필요합니다.</li>
-      <li>업데이트 로드맵 항목은 일정이 변경될 수 있으며 참고용입니다.</li>
-    </ul>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <h2>지금 바로 시작하세요<br><em>유튜브 자동화의 새로운 기준</em></h2>
-  <p>키워드 하나면 됩니다. 영상 편집 몰라도 됩니다.<br>노블아크 하나로 완성형 유튜브 채널을 운영하세요.</p>
-  <div class="cta-note">쇼츠 22,000원 · 롱폼 29,000원 · 번들 45,000원 · 월 단위 결제</div>
-</section>
-  </div>
-  <!-- [TRIAL-HIDDEN] 나중에 보이기: style="display:none" 제거하면 복원 -->
-  <div class="trial-banner reveal" style="display:none">
-    <h3>2일 무료체험 — 쇼츠+롱폼 번들 전체 이용</h3>
-    <p>결제 없이 2일간 모든 기능을 직접 체험해보세요. 1기기 1회 한정.</p>
-    <button class="trial-btn" onclick="openTrialModal()">무료체험 신청하기</button>
-  </div>
-</section>
-</div>
-
-<!-- FEATURES -->
-<section class="sec" id="features">
-  <div class="reveal">
-    <div class="eyebrow">핵심 기능</div>
-    <h2 class="sec-title">필요한 모든 것이<br>하나에 담겨 있습니다</h2>
-    <p class="sec-sub">채널 운영에 필요한 전 과정을 자동화합니다.</p>
-  </div>
-  <div class="bento reveal">
-    <div class="bento-card wide bento-highlight">
-      <span class="bento-accent"></span>
-      <div class="bento-num">00</div>
-      <div class="bento-title">딸각모드 — 전자동 원클릭 시스템</div>
-      <div class="bento-desc">소재만 직접 입력하면, 그 외 모든 전 과정(원하면 업로드까지) 전부 원클릭 자동화 모드로 완성됩니다. 복잡한 설정 없이 버튼 하나로 끝냅니다.</div>
-    </div>
-    <div class="bento-card wide">
-      <span class="bento-accent"></span>
-      <div class="bento-num">01</div>
-      <div class="bento-title">AI 대본 자동 생성</div>
-      <div class="bento-desc">단순 키워드 입력만으로 대본 생성, 떡상 영상 벤치마킹으로 대본 생성, 그 외 다양한 모드 지원.<br>영상 길이 · 다양한 카테고리 선택 가능(역사, 심리, 경제, 시사 등). 최상 품질 대본 자동 생성.</div>
-    </div>
-    <div class="bento-card">
-      <span class="bento-accent"></span>
-      <div class="bento-num">02</div>
-      <div class="bento-title">AI 이미지 자동 생성</div>
-      <div class="bento-desc">대본에 맞는 이미지를 프로그램이 자동 생성. 쇼츠 14가지 · 롱폼 16가지 다양한 이미지 스타일 선택 가능.</div>
-    </div>
-    <div class="bento-card">
-      <span class="bento-accent"></span>
-      <div class="bento-num">03</div>
-      <div class="bento-title">AI 음성 합성 (TTS)</div>
-      <div class="bento-desc">한국어, 일본어, 영어, 독일어, 스페인어 등 다양한 언어 지원 — 다국어 유튜브 채널 운영 가능. 다양한 목소리 · 고품질 TTS로 자동 음성 생성.</div>
-    </div>
-    <div class="bento-card wide">
-      <span class="bento-accent"></span>
-      <div class="bento-num">04</div>
-      <div class="bento-title">자동 자막 및 다양한 효과</div>
-      <div class="bento-desc">BGM(배경음악), 화면 움직임 효과, 씬 전환 효과 등 다양한 효과 지원. 자막 자동 생성 및 정확한 싱크 맞춤.</div>
-    </div>
-    <div class="bento-card">
-      <span class="bento-accent"></span>
-      <div class="bento-num">05</div>
-      <div class="bento-title">씬 편집기</div>
-      <div class="bento-desc">대본 · 이미지 간단하게 편집 가능. 이미지 대신 동영상 삽입도 가능. 100씬 이상 작업을 원활하게 지원합니다.</div>
-    </div>
-    <div class="bento-card">
-      <span class="bento-accent"></span>
-      <div class="bento-num">06</div>
-      <div class="bento-title">메타데이터 자동 생성</div>
-      <div class="bento-desc">YouTube 제목 · 설명 · 태그를 AI가 자동으로 최적화합니다. 업로드 전 SEO 설정까지 원스톱 처리. 썸네일 이미지 생성도 지원합니다.</div>
-    </div>
-    <div class="bento-card wide">
-      <span class="bento-accent"></span>
-      <div class="bento-num">07</div>
-      <div class="bento-title">원클릭 렌더링 & YouTube 자동 업로드</div>
-      <div class="bento-desc">설정 완료 후 버튼 한 번으로 완성된 MP4 파일이 출력됩니다. 롱폼(16:9)과 쇼츠(9:16) 각 프로그램별 지원. 렌더링 즉시 YouTube에 자동 업로드되는 기능도 지원합니다. 쇼츠는 대량 제작 큐(Queue) 기능으로 여러 영상을 연속 생성할 수 있습니다(대량 제작 한 번에 가능).</div>
-    </div>
-    <div class="bento-card wide">
-      <span class="bento-accent"></span>
-      <div class="bento-num">08</div>
-      <div class="bento-title">리서치 센터 — 경쟁자 분석 · 떡상 검색 · 뉴스 트렌드</div>
-      <div class="bento-desc">채널명만 입력하면 경쟁 채널의 대시보드 · 업로드 패턴 · 최적 업로드 시간 · 수익 예측을 한눈에 분석합니다.<br>떡상 검색으로 최근 뜨고 있는 영상 · 이슈화되고 있는 영상을 발굴하여 주제 및 대본 벤치마킹 · 소재 발굴 지원.<br>뉴스 트렌드 검색으로 최근 뜨고 있는 검색어 · 이슈 뉴스 검색을 통해 다양한 소재 발굴을 지원합니다.</div>
-    </div>
-  </div>
-</section>
-
-
-<!-- FAQ -->
-<section class="sec" id="faq" style="padding-top:80px;">
-  <div class="reveal" style="text-align:center;">
-    <div class="eyebrow">FAQ</div>
-    <h2 class="sec-title">자주 묻는 질문</h2>
-  </div>
-  <div class="faq-list reveal">
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">어떤 AI 모델을 사용하나요?</div>
-      <div class="faq-a">Google Gemini, ElevenLabs / MiniMax / OpenAI TTS를 지원합니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">API 비용은 어떻게 되나요?</div>
-      <div class="faq-a">NOBLE ARC 프로그램 요금과 별도로 AI API 실사용 비용이 발생합니다. 최대한 최소화된 비용으로 영상이 제작될 수 있도록 지원합니다. Gemini는 무료 티어로 시작할 수 있어 초기 비용이 거의 없습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">이용 기간이 끝나면 어떻게 되나요?</div>
-      <div class="faq-a">이용 기간이 만료되면 프로그램 사용이 중단됩니다.<br><br>
-      <strong>단건 결제</strong>의 경우 이용 기간 종료 후 직접 재결제하면 즉시 다시 이용 가능합니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">Windows 외 Mac, Linux도 지원하나요?</div>
-      <div class="faq-a">현재는 Windows 전용으로 제공됩니다. Mac / Linux 버전은 추후 지원 예정입니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">처음 시작할 때 어떤 준비가 필요한가요?</div>
-      <div class="faq-a">Google Gemini API 키만 있으면 바로 시작할 수 있습니다. Gemini는 무료 티어를 제공하므로 초기 비용 부담이 없습니다. 이후 고품질 TTS를 원하는 경우 ElevenLabs, MiniMax, OpenAI 등 추가 API 키를 선택적으로 등록할 수 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">라이선스 키를 잃어버렸어요.</div>
-      <div class="faq-a">회원 가입 후 로그인하면 마이페이지에서 구매한 라이선스 키를 언제든 다시 확인할 수 있습니다.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">환불은 어떻게 하면 되나요?</div>
-      <div class="faq-a">환불을 원하시면 이메일(doedoo291@gmail.com) 또는 전화(010-3387-0352)로 문의해 주세요.<br><br>
-      라이선스 키를 아직 활성화하지 않으셨다면 구매일로부터 7일 이내에 전액 환불이 가능합니다. 단, 라이선스 키를 프로그램에 입력하여 활성화한 경우에는 디지털 콘텐츠의 특성상 환불이 어렵습니다(전자상거래 등에서의 소비자보호에 관한 법률 제17조 제2항 준용).</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-q" onclick="toggleFaq(this)">프로그램에 오류가 있어서 사용을 못 했어요. 환불되나요?</div>
-      <div class="faq-a">프로그램 자체의 결함이나 오류로 인해 정상적인 사용이 불가능했다고 판단되는 경우에는 개별 협의를 통해 환불 또는 이용 기간 연장 조치를 취해 드립니다. 이메일(doedoo291@gmail.com) 또는 전화(010-3387-0352)로 문의해 주시면 최대한 빠르게 확인 후 안내해 드리겠습니다.</div>
-    </div>
-    <div class="faq-item" style="display:none">
-      <div class="faq-q" onclick="toggleFaq(this)">정기구독과 단건 결제의 차이는 무엇인가요?</div>
-      <div class="faq-a"><strong>단건 결제</strong>는 매월 직접 재결제하는 방식입니다. 이용 기간이 만료되면 사용이 중단되고, 원하실 때 직접 결제하면 됩니다. 자동 청구 걱정이 없습니다.<br><br>
-      <strong>정기구독</strong>은 매월 자동으로 결제되는 방식으로, 단건 결제 대비 월 2,000원 저렴합니다. 언제든 마이페이지에서 해지할 수 있으며, 해지 시 다음 달부터 자동 청구가 중단됩니다.</div>
-    </div>
-  </div>
-</section>
-
+<section class="hub-hero"><span class="tag">AI 콘텐츠 자동화 6종 라인업</span>
+<h1>콘텐츠 자동화,<br><em>노블아크 하나로</em></h1>
+<p class="sub">유튜브 · 쇼핑쇼츠 · 블로그 · 스레드 · 전자책 · 백테스트.<br>필요한 프로그램을 골라 월 단위로 시작하세요.</p>
+<div class="hub-btns"><a class="hub-btn main" href="#subscription">요금제 보기</a><a class="hub-btn" href="#lineup">프로그램 둘러보기</a><a class="hub-btn" href="#manuals">📖 사용설명서</a></div>
+<div class="chips"><a href="noblearc.html" style="color:#F2B544;border-color:#F2B544">노블아크</a><a href="vynko.html" style="color:#FF5A5F;border-color:#FF5A5F">VYNKO</a><a href="postia.html" style="color:#2FD6A0;border-color:#2FD6A0">포스티아</a><a href="backtest.html" style="color:#4DA3FF;border-color:#4DA3FF">백테스트 자동화</a><a href="postvane.html" style="color:#FF8A3D;border-color:#FF8A3D">POSTVANE</a><a href="aionbook.html" style="color:#9B7BFF;border-color:#9B7BFF">AIONBOOK</a></div></section>
+<section class="sec-wide" id="lineup"><div class="hub-title"><div class="eyebrow">LINE-UP</div><h2>6종 프로그램, 한눈에</h2><p>필요한 프로그램만 월 단위로 이용하세요.</p></div><div class="lineup"><div class="lcard" style="--c:#F2B544"><div class="n">PROGRAM 01</div><h3>노블아크</h3><div class="sb">NOBLE ARC · 롱폼 + 쇼츠</div>
+<p>키워드 하나로 완성형 유튜브 영상을 만드는 롱폼 · 쇼츠 자동화</p><ul><li>딸깍 전자동 제작</li><li>7개 언어 다국어 채널</li><li>롱폼 AI 에이전트</li></ul><div class="pr">쇼츠 22,000원 · 롱폼 29,000원 · 번들 <b>45,000원</b></div>
+<div class="bt"><a href="noblearc.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#FF5A5F"><div class="n">PROGRAM 02</div><h3>VYNKO</h3><div class="sb">쿠팡파트너스 쇼핑쇼츠</div>
+<p>쿠팡파트너스 쇼핑쇼츠를 상품 검색부터 업로드까지 자동 제작</p><ul><li>상품 소싱 + 딥링크 자동</li><li>대본 6종 + 보이스 필터 15종</li><li>(광고) 표시 자동 삽입</li></ul><div class="pr">월 <b>27,000원</b></div>
+<div class="bt"><a href="vynko.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#2FD6A0"><div class="n">PROGRAM 03</div><h3>포스티아</h3><div class="sb">Postia · 블로그 자동화</div>
+<p>키워드 하나로 4개 블로그 플랫폼에 글을 자동 발행</p><ul><li>SEO 본문 자동 작성</li><li>자는 동안에도 발행</li><li>4가지 발행 모드</li></ul><div class="pr">월 <b>25,000원</b></div>
+<div class="bt"><a href="postia.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#4DA3FF"><div class="n">PROGRAM 04</div><h3>백테스트 자동화</h3><div class="sb">대화형 AI 정밀 백테스트</div>
+<p>코딩 없이 대화로 매매 아이디어를 1분봉까지 정밀 검증</p><ul><li>대화로 끝내는 조건 설정</li><li>신호와 체결을 분리 판정</li><li>현물부터 선물까지</li></ul><div class="pr">월 <b>25,000원</b></div>
+<div class="bt"><a href="backtest.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#FF8A3D"><div class="n">PROGRAM 05</div><h3>POSTVANE</h3><div class="sb">스레드 계정 자동 운영</div>
+<p>운영 방향만 정하면 스레드 계정이 알아서 굴러가는 자동 운영</p><ul><li>수집 → 점수화 → 내 말투로 재작성</li><li>4컷 만화 자동 생성</li><li>천천히, 안전하게 발행</li></ul><div class="pr">월 <b>19,000원</b></div>
+<div class="bt"><a href="postvane.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#9B7BFF"><div class="n">PROGRAM 06</div><h3>AIONBOOK</h3><div class="sb">AI 전자책 제작 에디터</div>
+<p>주제 하나로 기획 · 집필 · 표지 · 조판까지 전자책 한 권 완성</p><ul><li>기획·집필·표지·조판 올인원</li><li>디자인 5종 · 문체 4종</li><li>유페이퍼·작가와 등록정보</li></ul><div class="pr">월 <b>9,000원</b></div>
+<div class="bt"><a href="aionbook.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div></div></section>
+<div class="sub-section" id="subscription"><section class="sec-wide"><div class="hub-title"><div class="eyebrow">이용 요금</div><h2>합리적인 가격으로 시작하세요</h2><p>월 단위 단건 결제로 부담 없이 시작하세요.</p></div>
+<div class="pay-type-toggle" id="payTypeToggle" style="display:none"><button class="pay-type-btn on" id="btnSingle"></button><button class="pay-type-btn" id="btnSub"></button></div><div id="subNoticeBanner" style="display:none"></div>
+<div class="pgrid"><div class="pcd" style="--c:#F2B544" data-prod="shorts"><div class="bd">NOBLE ARC · SHORTS</div><div class="nm">노블아크 쇼츠</div><div class="ds">쇼츠 채널 전용 자동화</div>
+<div class="pc">₩22,000<small> /월</small></div><div class="og">₩34,000/월</div><div class="dc">35% 할인</div><div class="bl">월 단위 결제 · 수동 갱신</div>
+<button onclick="openBuyModal('shorts')">시작하기</button><div class="nt">※ API 사용료 별도 · Google $300 무료 크레딧 활용 가능</div></div><div class="pcd hl" style="--c:#F2B544" data-prod="longform"><div class="bd">NOBLE ARC · LONGFORM</div><div class="nm">노블아크 롱폼</div><div class="ds">롱폼 채널 전용 고급 자동화</div>
+<div class="pc">₩29,000<small> /월</small></div><div class="og">₩42,000/월</div><div class="dc">31% 할인</div><div class="bl">월 단위 결제 · 수동 갱신</div>
+<button onclick="openBuyModal('longform')">시작하기</button><div class="nt">※ API 사용료 별도 · Google $300 무료 크레딧 활용 가능</div></div><div class="pcd" style="--c:#F2B544" data-prod="bundle"><div class="bd">NOBLE ARC · BUNDLE</div><div class="nm">노블아크 쇼츠+롱폼</div><div class="ds">두 가지를 모두 운영하는 스마트한 선택</div>
+<div class="pc">₩45,000<small> /월</small></div><div class="og">₩65,000/월</div><div class="dc">31% 할인</div><div class="bl">월 단위 결제 · 수동 갱신</div>
+<button onclick="openBuyModal('bundle')">시작하기</button><div class="nt">※ API 사용료 별도 · Google $300 무료 크레딧 활용 가능</div></div><div class="pcd" style="--c:#FF5A5F" data-prod="vynko"><div class="bd">VYNKO</div><div class="nm">VYNKO 쇼핑쇼츠</div><div class="ds">쿠팡파트너스 쇼핑쇼츠 자동화</div>
+<div class="pc">₩27,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
+<button onclick="openBuyModal('vynko')">시작하기</button><div class="nt">※ API 사용료 별도 · 상품 이미지 → 영상 전환 무료 제공</div></div><div class="pcd" style="--c:#2FD6A0" data-prod="postia"><div class="bd">POSTIA</div><div class="nm">포스티아 블로그</div><div class="ds">4개 플랫폼 블로그 자동 발행</div>
+<div class="pc">₩25,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
+<button onclick="openBuyModal('postia')">시작하기</button><div class="nt">※ API 사용료 별도 · Google $300 무료 크레딧 활용 가능</div></div><div class="pcd" style="--c:#4DA3FF" data-prod="backtest"><div class="bd">BACKTEST</div><div class="nm">백테스트 자동화</div><div class="ds">대화형 AI 정밀 백테스트</div>
+<div class="pc">₩25,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
+<button onclick="openBuyModal('backtest')">시작하기</button><div class="nt">※ API 사용료 별도</div></div><div class="pcd" style="--c:#FF8A3D" data-prod="postvane"><div class="bd">POSTVANE</div><div class="nm">POSTVANE 스레드</div><div class="ds">스레드 계정 자동 운영</div>
+<div class="pc">₩19,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
+<button onclick="openBuyModal('postvane')">시작하기</button><div class="nt">※ API 사용료 별도</div></div><div class="pcd" style="--c:#9B7BFF" data-prod="aionbook"><div class="bd">AIONBOOK</div><div class="nm">AIONBOOK 전자책</div><div class="ds">AI 전자책 제작 에디터</div>
+<div class="pc">₩9,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
+<button onclick="openBuyModal('aionbook')">시작하기</button><div class="nt">※ API 사용료 별도</div></div></div>
+<p class="pricing-note" id="priceNote" style="text-align:center;margin-top:26px;color:var(--muted);font-size:14px">결제 후 즉시 라이선스 발급 · 이용 기간 종료 후 재결제 방식</p>
+<div class="pnote"><b>꼭 확인해 주세요</b><br>· 각 프로그램은 <b>1대의 PC</b>에서 사용할 수 있으며, 기기 초기화를 통해 기기를 변경할 수 있습니다.<br>· 프로그램별 <b>동시 사용</b>이 가능합니다. 단, API 키가 중복된 경우 <b>순차적 사용</b>을 권장합니다.<br>· <b>API 사용료는 이용료와 별도</b>이며 본인 API 키 기준으로 발생합니다.<br>· Google $300 무료 크레딧은 노블아크, 포스티아에서 활용할 수 있습니다 (Google 신규 가입 조건 적용).<br>· VYNKO의 상품 이미지 → 영상 전환 기능은 무료로 제공해 드립니다.<br>· 백테스트는 과거 데이터 기반 검증 도구이며 수익이나 승률을 보장하지 않습니다.<br>· Windows 10 이상 · 설치형 데스크톱 프로그램입니다.</div></section></div>
+<section class="sec-wide" id="manuals" style="padding-top:20px"><div class="hub-title"><div class="eyebrow">MANUAL</div><h2>사용설명서</h2></div><div class="mlist"><a href="manual.html" target="_blank" style="border-color:#F2B544">노블아크 사용설명서<span>바로 보기</span></a><a class="off">VYNKO 사용설명서<span>구매 후 이메일로 안내</span></a><a href="postia-manual.html" target="_blank" style="border-color:#2FD6A0">포스티아 사용설명서<span>바로 보기</span></a><a class="off">백테스트 자동화 사용설명서<span>구매 후 이메일로 안내</span></a><a class="off">POSTVANE 사용설명서<span>구매 후 이메일로 안내</span></a><a href="aionbook-manual.html" target="_blank" style="border-color:#9B7BFF">AIONBOOK 사용설명서<span>바로 보기</span></a></div></section>
+<section class="sec" id="faq" style="padding-top:80px;"><div style="text-align:center;"><div class="eyebrow">FAQ</div><h2 class="sec-title">자주 묻는 질문</h2></div><div class="faq-list"><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">구매 후 어떻게 프로그램을 받을 수 있나요?</div><div class="faq-a">결제 완료 후 이메일로 라이선스 키, 프로그램 다운로드 링크, 사용설명서 링크가 발송됩니다. 라이선스 키는 한 번만 입력하면 이후 자동으로 활성화됩니다. Windows 전용 프로그램입니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">몇 대의 PC에서 사용할 수 있나요?</div><div class="faq-a">각 프로그램당 1대의 PC에서 사용할 수 있습니다. 기기 초기화를 통해 기기를 변경할 수 있습니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">프로그램을 동시에 사용해도 되나요?</div><div class="faq-a">프로그램별로 동시 사용이 가능합니다. 다만 API 키가 중복된 경우 충돌을 막기 위해 순차적으로 사용하시길 권장합니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">API 비용은 어떻게 되나요?</div><div class="faq-a">모든 프로그램의 API 사용료는 이용료와 별도이며 본인 API 키 기준으로 발생합니다. 노블아크와 포스티아는 Google 신규 가입 시 제공되는 $300 무료 크레딧을 활용할 수 있습니다(Google 정책 및 조건 적용). VYNKO의 상품 이미지 → 영상 전환 기능은 무료로 제공해 드립니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">이용 기간이 끝나면 어떻게 되나요?</div><div class="faq-a">이용 기간이 만료되면 프로그램 사용이 중단됩니다. 홈페이지에서 재결제하시면 즉시 다시 이용할 수 있습니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">라이선스 키를 잃어버렸어요.</div><div class="faq-a">회원 가입 후 로그인하면 마이페이지에서 구매한 라이선스 키를 다시 확인할 수 있습니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">환불이 가능한가요?</div><div class="faq-a">라이선스 키를 아직 활성화하지 않으셨다면 구매일로부터 7일 이내에 전액 환불이 가능합니다. 라이선스 키를 프로그램에 입력해 활성화한 경우에는 디지털 콘텐츠의 특성상 환불이 어렵습니다(전자상거래 등에서의 소비자보호에 관한 법률 제17조 제2항 준용).</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">백테스트 프로그램은 수익을 보장하나요?</div><div class="faq-a">아니요. 매매 아이디어를 과거 데이터로 검증하는 도구이며, 수익이나 승률을 보장하거나 투자를 권유하지 않습니다. 과거 결과는 미래 성과를 보장하지 않습니다.</div></div></div></section>
 <!-- COMMUNITY -->
 <section class="sec" id="community" style="padding-top:80px;">
   <div class="reveal" style="text-align:center;">
@@ -1496,8 +603,8 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
 
 <!-- CTA -->
 <div class="cta-band">
-  <h2>지금 바로 채널을 성장시키세요</h2>
-  <p>자동화로 절약한 시간을 더 중요한 곳에 쓰세요.</p>
+  <h2>지금 바로 콘텐츠 자동화를 시작하세요</h2>
+  <p>필요한 프로그램만 월 단위로 이용하세요.</p>
   <a href="#subscription" class="btn-white">요금제 보기</a>
 </div>
 
@@ -1506,12 +613,12 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
   <div class="footer-top">
     <div class="footer-brand">
       <div class="logo">NOBLE ARC</div>
-      <p>AI 기반 유튜브 롱폼/쇼츠 영상 자동화 솔루션.</p>
+      <p>AI 기반 콘텐츠 자동화 솔루션 (유튜브 · 쇼핑쇼츠 · 블로그 · 스레드 · 전자책 · 백테스트)</p>
     </div>
     <div class="footer-links">
       <div class="footer-col">
         <h4>제품</h4>
-        <a href="#features">핵심 기능</a>
+        <a href="#lineup">프로그램</a>
         <a href="#subscription">요금제</a>
       </div>
       <div class="footer-col">
@@ -1533,7 +640,6 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
     </div>
   </div>
 </footer>
-
 <!-- AUTH MODAL (로그인/회원가입) -->
 <div class="modal" id="authModal">
   <div class="modal-box">
@@ -1778,6 +884,8 @@ async function resetMachineId(collection, licKey) {
 }
 
 // ── 구독 요금제 ─────────────────────────────────────────
+const PRODUCTS = {"shorts": {"name": "노블아크 쇼츠", "order": "쇼츠", "amount": 22000, "collection": "shorts_licenses", "server": false, "enabled": true}, "longform": {"name": "노블아크 롱폼", "order": "롱폼", "amount": 29000, "collection": "longform_licenses", "server": false, "enabled": true}, "bundle": {"name": "노블아크 쇼츠+롱폼", "order": "쇼츠+롱폼", "amount": 45000, "collection": "bundle_licenses", "server": false, "enabled": true}, "vynko": {"name": "VYNKO 쇼핑쇼츠", "order": "VYNKO 쇼핑쇼츠", "amount": 27000, "collection": "vynko_licenses", "server": true, "enabled": true}, "postia": {"name": "포스티아 블로그 자동화", "order": "포스티아 블로그 자동화", "amount": 25000, "collection": "blog_licenses", "server": true, "enabled": true}, "backtest": {"name": "백테스트 자동화", "order": "백테스트 자동화", "amount": 25000, "collection": "pbt_licenses", "server": true, "enabled": true}, "postvane": {"name": "POSTVANE 스레드 자동화", "order": "POSTVANE 스레드 자동화", "amount": 19000, "collection": "postvane_licenses", "server": true, "enabled": true}, "aionbook": {"name": "AIONBOOK 전자책 자동화", "order": "AIONBOOK 전자책 자동화", "amount": 9000, "collection": "aionbook_licenses", "server": true, "enabled": true}};
+const ISSUE_API = 'https://noble-arc-payment.vercel.app/api/issue';
 const PRICES = { shorts:22000, longform:29000, bundle:45000 };
 const PRICES_SUB = { shorts:20000, longform:27000, bundle:43000 };
 const PRICES_ORIG = { shorts:34000, longform:42000, bundle:65000 };
@@ -1896,14 +1004,13 @@ let currentProduct = 'shorts';
 
 function getProductInfo(product, paytype) {
   const pt = paytype || currentPayType || 'single';
-  const nameMap = { shorts:'쇼츠', longform:'롱폼', bundle:'쇼츠+롱폼' };
-  const colMap  = { shorts:'shorts_licenses', longform:'longform_licenses', bundle:'bundle_licenses' };
+  const P = PRODUCTS[product];
   const isSub = pt === 'sub';
-  const prices = isSub ? PRICES_SUB : PRICES;
   return {
-    name: `NOBLE ARC ${nameMap[product]} ${isSub ? '정기구독' : '1개월'}`,
-    amount: prices[product],
-    collection: colMap[product],
+    name: `NOBLE ARC ${P.order} ${isSub ? '정기구독' : '1개월'}`,
+    amount: isSub && PRICES_SUB[product] ? PRICES_SUB[product] : P.amount,
+    collection: P.collection,
+    server: P.server,
     type: isSub ? 'recurring' : 'subscription',
     months: 1,
     isSub
@@ -1911,6 +1018,7 @@ function getProductInfo(product, paytype) {
 }
 
 function openBuyModal(product) {
+  if (!PRODUCTS[product] || !PRODUCTS[product].enabled) { alert('해당 상품은 준비 중입니다. 문의: 카카오톡 채널'); return; }
   if (currentPayType === 'sub') {
     alert('정기구독 시스템은 현재 구축 중입니다.\n단건 결제 탭으로 이용해 주세요.');
     return;
@@ -1978,15 +1086,24 @@ async function startPayment() {
     const result = await PortOne.requestPayment({
       storeId:STORE_ID, channelKey:CHANNEL_KEY, paymentId, orderName:p.name,
       totalAmount:p.amount, currency:'KRW', payMethod:'CARD',
-      customer:{email, fullName:name, phoneNumber:phone}
+      customer:{email, fullName:name, phoneNumber:phone}, customData:{product:currentProduct}
     });
     if (result&&result.code!==undefined) {
       document.getElementById('modalMsg').textContent=result.message||'결제가 취소되었습니다.';
       payBtn.disabled=false; payBtn.textContent='결제하기 (₩'+p.amount.toLocaleString()+'/월'+(p.isSub?' · 자동결제':'')+')'; return;
     }
     payBtn.textContent='라이선스 발급 중...';
-    const licKey = genLicenseKey();
-    await saveToFirebase(p.collection, licKey, email, paymentId, p.type, p.months);
+    let licKey;
+    if (p.server) {
+      // 신규 상품: 서버가 PortOne 결제 검증 후 키 발급 + 이메일 발송
+      const r = await fetch(ISSUE_API, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ paymentId, product: currentProduct }) });
+      const j = await r.json().catch(()=>({}));
+      if (!r.ok || !j.ok) throw new Error(j.error || '라이선스 발급에 실패했습니다. 결제는 완료되었으니 고객센터로 문의해 주세요. (결제번호 ' + paymentId + ')');
+      licKey = j.licenseKey;
+    } else {
+      licKey = genLicenseKey();
+      await saveToFirebase(p.collection, licKey, email, paymentId, p.type, p.months);
+    }
     closeBuyModal();
     document.getElementById('licenseKey').textContent=licKey;
     document.getElementById('licenseModal').style.display='flex';

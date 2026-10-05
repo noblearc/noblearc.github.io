@@ -1,0 +1,1131 @@
+<!DOCTYPE html><html lang="ko"><head>
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>포스티아(Postia) 블로그 자동화 | NOBLE ARC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+<style>
+  :root{
+    --bg: #F2EEE6;
+    --bg-2:#EAE5DA;
+    --ink:#15110C;
+    --ink-2:#3A332A;
+    --muted:#8A8377;
+    --line:#DDD6C8;
+    --orange:#FF5A1F;
+    --orange-2:#E84A0F;
+    --orange-soft:#FFE9DD;
+    --black:#0B0907;
+    --white:#fff;
+    --green:#2BB673;
+    --blue:#2563E5;
+    --pink:#E63274;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);}
+  body{
+    font-family:"Pretendard Variable","Pretendard",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+    color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    line-height:1.5;word-break:keep-all;word-wrap:break-word;
+  }
+  .page{max-width:1080px;margin:0 auto;background:var(--bg);}
+  section{padding:120px 60px;position:relative;}
+  section.dark{background:var(--black);color:#F4EFE6;}
+  section.orange{background:var(--orange);color:#fff;}
+  section.bg2{background:var(--bg-2);}
+  section.tight{padding-top:100px;padding-bottom:100px;}
+
+  .mono{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;font-weight:500;}
+  .label{display:inline-flex;align-items:center;gap:14px;color:var(--orange);font-size:14px;}
+  .label::before{content:"";width:38px;height:2px;background:var(--orange);display:block;}
+  section.dark .label{color:var(--orange);}
+  section.orange .label{color:#fff;}
+  section.orange .label::before{background:#fff;}
+
+  h1.hero{font-weight:900;font-size:148px;line-height:.95;letter-spacing:-.04em;margin-top:32px;}
+  h2.headline{font-weight:900;font-size:108px;line-height:1.0;letter-spacing:-.035em;margin-top:28px;}
+  h2.med{font-size:88px;}
+  h2.sm{font-size:72px;}
+  h2.headline .or{color:var(--orange);}
+  section.dark h2.headline,section.orange h2.headline{color:#fff;}
+  h3.sub{font-weight:800;font-size:32px;line-height:1.3;letter-spacing:-.02em;color:var(--orange);margin-top:36px;}
+  p.lead{font-weight:500;font-size:24px;line-height:1.6;color:var(--ink-2);margin-top:28px;max-width:880px;}
+  p.lead b{color:var(--ink);}
+  section.dark p.lead{color:#C9C2B5;}
+  section.dark p.lead b{color:#fff;}
+  section.orange p.lead{color:#FFE7DA;}
+  section.orange p.lead b{color:#fff;}
+
+  .check-list{margin-top:36px;display:flex;flex-direction:column;gap:18px;}
+  .check-list li{display:flex;gap:16px;align-items:flex-start;font-size:19px;font-weight:600;color:var(--ink);list-style:none;}
+  section.dark .check-list li{color:#EBE5D6;}
+  section.orange .check-list li{color:#fff;}
+  .dot{flex:0 0 26px;width:26px;height:26px;border-radius:999px;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin-top:2px;}
+  section.orange .dot{background:#fff;color:var(--orange);}
+
+  /* nav */
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:34px 60px 0;}
+  .brand{display:flex;align-items:center;gap:14px;}
+  .brand .logo{width:46px;height:46px;border-radius:12px;background:var(--black);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;}
+  .brand .name{font-weight:800;font-size:26px;letter-spacing:-.02em;}
+  .nav .right{display:flex;align-items:center;gap:22px;}
+  .pill{background:var(--black);color:#fff;border-radius:999px;padding:10px 18px;display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.04em;}
+  .pill .dot-r{width:8px;height:8px;border-radius:999px;background:var(--orange);}
+  .nav .arc{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--ink-2);letter-spacing:.18em;}
+
+  /* hero */
+  .hero-wrap{padding:80px 60px 140px;}
+  .hero-tagline{font-size:50px;font-weight:900;line-height:1.15;letter-spacing:-.03em;margin-top:48px;max-width:880px;}
+  .hero-tagline .or{color:var(--orange);}
+  .hero-cta{margin-top:60px;display:flex;align-items:center;gap:36px;flex-wrap:wrap;}
+  .btn{background:var(--orange);color:#fff;font-weight:800;font-size:22px;padding:24px 32px;border-radius:14px;display:inline-flex;align-items:center;gap:18px;border:0;cursor:pointer;letter-spacing:-.01em;box-shadow:0 8px 0 var(--orange-2);}
+  .btn .arrow{width:34px;height:34px;border-radius:999px;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;}
+  .cta-meta{font-size:15px;line-height:1.55;}
+  .cta-meta .star{font-weight:800;font-size:18px;color:var(--ink);}
+  .cta-meta .row{color:var(--muted);margin-top:6px;}
+  .cta-meta b{color:var(--orange);}
+  section.dark .cta-meta .star{color:#fff;}
+  section.dark .cta-meta .row{color:#A8A091;}
+
+  /* quotes */
+  .quotes-grid{margin-top:80px;display:grid;grid-template-columns:1fr;gap:48px;}
+  .quote{border-left:4px solid var(--orange);padding:30px 0 30px 36px;}
+  .quote .q{font-size:44px;font-weight:800;line-height:1.35;letter-spacing:-.02em;color:#F4EFE6;}
+  .quote .q .hi{color:var(--orange);}
+  .quote .src{margin-top:24px;font-size:18px;color:#9D958A;font-weight:500;}
+
+  /* numbered list */
+  .num-list{margin-top:60px;display:flex;flex-direction:column;}
+  .num-list .row{display:flex;align-items:flex-start;gap:36px;padding:36px 0;border-top:1px solid var(--line);}
+  .num-list .row:last-child{border-bottom:1px solid var(--line);}
+  .num-list .n{flex:0 0 130px;font-family:"JetBrains Mono",monospace;font-size:20px;color:var(--orange);font-weight:700;letter-spacing:.06em;padding-top:6px;}
+  .num-list .t{font-size:32px;font-weight:800;line-height:1.3;letter-spacing:-.02em;color:var(--ink);}
+  .num-list .t small{display:block;font-weight:500;font-size:18px;color:var(--muted);margin-top:8px;letter-spacing:0;}
+
+  /* when grid */
+  .when-grid{margin-top:60px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  .when{background:#fff;border:1px solid var(--line);border-radius:18px;padding:30px 32px;display:flex;align-items:center;gap:20px;}
+  .when .ico{width:48px;height:48px;border-radius:12px;background:var(--orange-soft);color:var(--orange);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;font-family:"JetBrains Mono",monospace;}
+  .when .tx{font-size:22px;font-weight:800;letter-spacing:-.015em;}
+
+  /* versus */
+  .versus{margin-top:80px;display:grid;grid-template-columns:1fr 80px 1fr;align-items:stretch;gap:0;}
+  .vbox{border-radius:24px;padding:44px 36px;min-height:280px;display:flex;flex-direction:column;justify-content:space-between;}
+  .vbox.lo{background:#fff;border:1px solid var(--line);}
+  .vbox.hi{background:var(--black);color:#fff;}
+  .vbox .vlabel{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.18em;color:var(--muted);}
+  .vbox.hi .vlabel{color:#A8A091;}
+  .vbox .vnum{font-size:120px;font-weight:900;line-height:1;letter-spacing:-.04em;margin-top:16px;}
+  .vbox.lo .vnum{color:var(--ink-2);}
+  .vbox.hi .vnum{color:var(--orange);}
+  .vbox .vtx{font-size:22px;font-weight:700;margin-top:14px;letter-spacing:-.01em;}
+  .vbox.lo .vtx{color:var(--muted);}
+  .vs-arrow{display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--orange);font-weight:900;}
+
+  /* tasks */
+  .task-grid{margin-top:60px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  .task{background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px;}
+  .task .tn{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--orange);letter-spacing:.18em;}
+  .task .tt{font-size:28px;font-weight:800;letter-spacing:-.02em;line-height:1.25;}
+  .task .td{font-size:16px;color:var(--muted);font-weight:500;line-height:1.6;}
+  .task.weight{background:var(--black);color:#fff;grid-column:1/3;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:32px;}
+  .task.weight .l{font-size:36px;font-weight:800;letter-spacing:-.02em;line-height:1.25;}
+  .task.weight .r{font-size:24px;color:#C9C2B5;max-width:340px;font-weight:600;text-align:right;letter-spacing:-.01em;}
+
+  /* platforms */
+  .plat-row{margin-top:64px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .plat{border-radius:18px;padding:26px 22px;color:#fff;font-weight:800;display:flex;flex-direction:column;justify-content:space-between;min-height:130px;}
+  .plat .pl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;opacity:.85;}
+  .plat .pn{font-size:26px;letter-spacing:-.02em;margin-top:auto;line-height:1.15;}
+  .plat.naver{background:#03C75A;}
+  .plat.tistory{background:#FF5722;}
+  .plat.wp{background:#21759B;}
+  .plat.google{background:#4285F4;}
+
+  /* problem cards */
+  .prob-grid{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .prob{background:#fff;border:1px solid var(--line);border-radius:20px;padding:34px 30px;min-height:300px;display:flex;flex-direction:column;}
+  .prob .ico{width:60px;height:60px;border-radius:14px;background:var(--orange-soft);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:var(--orange);font-family:"JetBrains Mono",monospace;}
+  .prob .tt{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-top:32px;}
+  .prob .td{font-size:15px;color:var(--muted);font-weight:500;line-height:1.65;margin-top:14px;}
+
+  /* solution steps */
+  .steps{margin-top:60px;display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;align-items:stretch;gap:0;}
+  .step{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px;min-height:240px;display:flex;flex-direction:column;}
+  .step.hot{background:var(--black);color:#fff;border-color:var(--black);}
+  .step .sl{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted);letter-spacing:.18em;}
+  .step.hot .sl{color:var(--orange);}
+  .step .demo{margin-top:18px;flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .step .st{font-size:22px;font-weight:800;letter-spacing:-.015em;margin-top:18px;}
+  .step .sd{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.55;}
+  .step.hot .sd{color:#C9C2B5;}
+  .step-arrow{display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:24px;font-weight:900;}
+
+  .keyword-input{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--ink);display:flex;align-items:center;gap:8px;}
+  .chips{display:flex;gap:6px;margin-top:10px;}
+  .chip{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--ink-2);}
+  .gen-bar{background:#1a1410;border-radius:8px;padding:10px 14px;font-family:"JetBrains Mono",monospace;font-size:13px;color:#A8A091;}
+  .progress{height:6px;background:#1a1410;border-radius:999px;margin-top:8px;overflow:hidden;}
+  .progress span{display:block;height:100%;width:62%;background:var(--orange);border-radius:999px;}
+  .ptiles{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;}
+  .ptile{height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#fff;}
+
+  .stats-row{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px;}
+  .stat .ico{font-size:24px;}
+  .stat .v{font-size:32px;font-weight:900;letter-spacing:-.02em;margin-top:8px;}
+  .stat .l{font-size:14px;color:var(--muted);margin-top:4px;}
+
+  /* feature two-col */
+  .feat{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:50px;}
+  .feat.rev{grid-template-columns:1fr 1fr;}
+  /* feature full-width stack: text on top, big GIF below */
+  .feat-stack{display:block;margin-top:50px;}
+  .feat-stack .text{max-width:880px;}
+  .feat-stack .text h2{font-size:80px;line-height:1.0;font-weight:900;letter-spacing:-.035em;}
+  .feat-stack .text h2 .or{color:var(--orange);}
+  section.dark .feat-stack .text h2,section.orange .feat-stack .text h2{color:#fff;}
+  .feat-stack .text .quote-line{font-size:24px;font-weight:800;color:var(--orange);margin-top:30px;letter-spacing:-.015em;}
+  section.orange .feat-stack .text .quote-line{color:#fff;}
+  .feat-stack .text p{font-size:18px;color:var(--ink-2);line-height:1.7;margin-top:20px;font-weight:500;max-width:820px;}
+  section.dark .feat-stack .text p{color:#C9C2B5;}
+  section.orange .feat-stack .text p{color:#FFE7DA;}
+  .feat-stack .check-list{display:grid;grid-template-columns:1fr 1fr;gap:14px 28px;margin-top:32px;max-width:880px;}
+  .feat-stack .media{margin-top:60px;}
+  .feat-stack .media-cap{margin-top:14px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--muted);letter-spacing:.12em;}
+  section.dark .feat-stack .media-cap{color:#A8A091;}
+  section.orange .feat-stack .media-cap{color:#FFE7DA;}
+  .feat-stack .media-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:60px;}
+  /* bigger telegram phones */
+  .tg-stack{display:flex;justify-content:center;gap:40px;margin-top:60px;}
+  .tg-stack .tg-phone{flex:0 0 auto;width:380px;border-radius:42px;border-width:10px;}
+  .tg-stack .tg-cap{margin-top:14px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:13px;color:#A8A091;letter-spacing:.12em;}
+  .feat .text h2{font-size:80px;line-height:1.0;font-weight:900;letter-spacing:-.035em;}
+  .feat .text h2 .or{color:var(--orange);}
+  section.dark .feat .text h2,section.orange .feat .text h2{color:#fff;}
+  .feat .text .quote-line{font-size:24px;font-weight:800;color:var(--orange);margin-top:30px;letter-spacing:-.015em;}
+  section.orange .feat .text .quote-line{color:#fff;}
+  .feat .text p{font-size:18px;color:var(--ink-2);line-height:1.7;margin-top:20px;font-weight:500;}
+  section.dark .feat .text p{color:#C9C2B5;}
+  section.orange .feat .text p{color:#FFE7DA;}
+
+  /* agent visual */
+  .agent-card{background:#16120D;border:1px solid #2A241B;border-radius:24px;padding:36px;}
+  .agent-card .ttl{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.18em;color:#A8A091;margin-bottom:20px;}
+  .agent-card .stp{display:grid;grid-template-columns:50px 1fr;gap:18px;padding:18px 0;border-top:1px dashed #2A241B;}
+  .agent-card .stp:first-of-type{border-top:0;}
+  .agent-card .stp .b{font-family:"JetBrains Mono",monospace;color:var(--orange);font-weight:700;}
+  .agent-card .stp .x{font-size:18px;font-weight:800;color:#fff;letter-spacing:-.01em;}
+  .agent-card .stp .s{font-size:14px;color:#9A9282;margin-top:4px;}
+
+  /* publish card visual */
+  .pub-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px;}
+  .pub-card .ttl{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.18em;color:var(--muted);margin-bottom:14px;}
+  .pub-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .pub-cell{padding:14px 16px;border-radius:10px;color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:space-between;}
+  .pub-foot{margin-top:14px;padding:12px;border:1px dashed var(--line);border-radius:10px;text-align:center;font-size:13px;color:var(--muted);font-weight:600;}
+
+  /* image grid - feat 03 */
+  .img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .img-tile{aspect-ratio:1/1;border-radius:8px;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.08) 0 6px,rgba(0,0,0,0) 6px 12px);}
+
+  /* coupang workflow */
+  .work-card{background:#0B0907;border-radius:20px;padding:28px;color:#fff;}
+  .work-card .wt{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.18em;color:#A8A091;}
+  .work-row{display:grid;grid-template-columns:30px 1fr 30px;gap:14px;padding:14px 0;align-items:center;border-top:1px dashed #2A241B;}
+  .work-row:first-of-type{border-top:0;}
+  .work-row .b{width:24px;height:24px;border-radius:999px;background:var(--orange);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .work-row .x{font-size:16px;font-weight:800;}
+  .work-row .x small{display:block;font-weight:500;color:#9A9282;font-size:13px;margin-top:2px;}
+  .work-row .arr{color:#7C7466;}
+
+  /* thumbnail visual */
+  .thumb-card{aspect-ratio:1.6/1;border-radius:18px;background:linear-gradient(160deg,#7C8896 0%,#3D4754 100%);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:24px;}
+  .thumb-card::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 10px,rgba(255,255,255,0) 10px 20px);}
+  .thumb-card .tag{position:absolute;top:18px;right:18px;background:var(--orange);color:#fff;font-size:11px;font-weight:800;padding:5px 9px;border-radius:6px;letter-spacing:.1em;font-family:"JetBrains Mono",monospace;}
+  .thumb-card .tt{position:relative;color:#fff;font-size:30px;font-weight:900;line-height:1.2;letter-spacing:-.02em;}
+
+  /* telegram visual */
+  .tg-card{background:#16120D;border:1px solid #2A241B;border-radius:18px;padding:22px;}
+  .tg-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+  .tg-ic{width:36px;height:36px;border-radius:999px;background:#2563E5;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;}
+  .tg-name{color:#fff;font-weight:800;}
+  .tg-name small{display:block;font-size:11px;color:#7C7466;font-weight:500;}
+  .tg-bub{padding:10px 14px;border-radius:12px;font-size:14px;font-weight:600;margin-top:8px;display:inline-block;max-width:80%;}
+  .tg-l{background:#2A6FDB;color:#fff;}
+  .tg-r{background:#1f1a14;color:#fff;margin-left:auto;display:block;text-align:right;width:fit-content;font-family:"JetBrains Mono",monospace;font-size:13px;}
+  .tg-warn{background:var(--orange);color:#fff;}
+  .tg-row{display:flex;flex-direction:column;}
+
+  /* sns */
+  .sns-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;}
+  .src-label{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;color:var(--muted);}
+  .src-bar{margin-top:10px;height:12px;border-radius:6px;background:linear-gradient(to right,#bbb 70%,#eaeaea 70%);}
+  .arrow-down{text-align:center;font-size:24px;color:var(--orange);margin:18px 0;font-weight:900;}
+  .sns-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .sns-pill{padding:18px 12px;border-radius:12px;color:#fff;text-align:center;font-weight:800;font-size:15px;}
+  .sns-pill small{display:block;font-weight:500;font-size:12px;opacity:.85;margin-top:4px;}
+  .sns-ig{background:linear-gradient(135deg,#E63274,#9333EA);}
+  .sns-th{background:#0B0907;}
+  .sns-fb{background:#1877F2;}
+
+  /* research */
+  .res-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px;}
+  .res-card .ttl{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.18em;color:var(--muted);margin-bottom:18px;}
+  .res-row{padding:14px 0;border-bottom:1px solid var(--line);}
+  .res-row:last-child{border-bottom:0;}
+  .res-row .top{display:flex;justify-content:space-between;font-weight:700;}
+  .res-row .top .grade{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.06em;}
+  .res-row .bar{height:8px;border-radius:999px;background:var(--bg-2);margin-top:8px;overflow:hidden;}
+  .res-row .bar span{display:block;height:100%;border-radius:999px;}
+  .g-d{color:#3B82F6;} .b-d{background:#3B82F6;width:80%;}
+  .g-p{color:#8B5CF6;} .b-p{background:#8B5CF6;width:62%;}
+  .g-g{color:#F4B72A;} .b-g{background:#F4B72A;width:45%;}
+  .g-s{color:#94A3B8;} .b-s{background:#94A3B8;width:28%;}
+
+  /* before/after table */
+  .baf-table{margin-top:60px;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;}
+  .baf-table .row{display:grid;grid-template-columns:1fr 1.3fr 1.3fr;padding:28px 32px;border-top:1px solid var(--line);align-items:center;}
+  .baf-table .row.head{background:var(--bg);border-top:0;font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.18em;color:var(--muted);}
+  .baf-table .row.head .b{color:var(--muted);}
+  .baf-table .row.head .a{color:var(--orange);}
+  .baf-table .row .k{font-size:18px;font-weight:700;color:var(--ink);}
+  .baf-table .row .b{font-size:18px;color:var(--muted);text-decoration:line-through;text-decoration-thickness:2px;}
+  .baf-table .row .a{font-size:24px;color:var(--ink);font-weight:800;letter-spacing:-.015em;}
+  .pill-center{margin:50px auto 0;display:block;width:fit-content;background:var(--black);color:#fff;border-radius:999px;padding:18px 32px;font-size:18px;font-weight:800;letter-spacing:-.01em;}
+
+  /* screens */
+  .scr-grid{margin-top:60px;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .scr{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;}
+  .scr .frame{background:var(--bg-2);padding:30px;min-height:240px;display:flex;align-items:center;justify-content:center;}
+  .scr .body{padding:24px 28px 30px;}
+  .scr .sl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;color:var(--orange);}
+  .scr .st{font-size:22px;font-weight:800;letter-spacing:-.015em;margin-top:8px;}
+  .scr .sd{font-size:14px;color:var(--muted);margin-top:6px;}
+  .mock-queue{width:100%;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;}
+  .mock-queue .qh{display:flex;justify-content:space-between;font-weight:800;font-size:14px;margin-bottom:12px;}
+  .mock-queue .qr{display:flex;align-items:center;gap:8px;margin:6px 0;}
+  .mock-queue .qd{width:14px;height:14px;border-radius:4px;}
+  .mock-queue .qb{flex:1;height:6px;background:var(--bg-2);border-radius:999px;overflow:hidden;}
+  .mock-queue .qb span{display:block;height:100%;background:var(--ink);border-radius:999px;}
+  .mock-post{width:100%;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;}
+  .mock-post .h{height:8px;background:var(--ink);width:75%;border-radius:4px;}
+  .mock-post .imgs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px;}
+  .mock-post .ig{aspect-ratio:1/1;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.08) 0 6px,rgba(0,0,0,0) 6px 12px);border-radius:6px;}
+  .mock-post .l{height:5px;background:var(--bg-2);border-radius:4px;margin-top:8px;}
+  .mock-rev{width:100%;background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;gap:14px;align-items:flex-start;}
+  .mock-rev .pic{width:60px;height:60px;background:#FFE5E0;border-radius:8px;flex:0 0 60px;}
+  .mock-rev .b{flex:1;}
+  .mock-rev .t{height:6px;background:var(--ink);width:80%;border-radius:4px;}
+  .mock-rev .r{font-weight:800;font-size:14px;margin-top:6px;}
+  .mock-rev .pls{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:10px;}
+  .mock-rev .pls span{padding:7px 0;background:var(--ink);color:#fff;text-align:center;font-size:12px;font-weight:700;border-radius:6px;}
+
+  /* for users */
+  .for-card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:18px;}
+  .for-card.dark{background:var(--black);color:#fff;border-color:var(--black);}
+  .for-card .head{background:var(--bg);padding:18px 32px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.4em;color:var(--muted);}
+  .for-card.dark .head{background:#15110C;color:#A8A091;}
+  .for-card .row{display:grid;grid-template-columns:1fr 1.5fr;padding:24px 32px;border-top:1px solid var(--line);align-items:center;gap:24px;}
+  .for-card.dark .row{border-top:1px solid #2A241B;}
+  .for-card .row .k{font-size:22px;font-weight:800;letter-spacing:-.015em;}
+  .for-card .row .v{font-size:16px;color:var(--muted);}
+  .for-card.dark .row .v{color:#C9C2B5;}
+
+  /* pricing */
+  .price-grid{margin-top:60px;display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .price-col{background:#16120D;border:1px solid #2A241B;border-radius:24px;padding:36px;position:relative;}
+  .price-col.rec{border-color:var(--orange);}
+  .price-col .badge{position:absolute;top:-14px;left:32px;background:var(--orange);color:#fff;font-weight:800;font-size:13px;padding:6px 14px;border-radius:999px;}
+  .price-col .pkg{display:flex;align-items:center;gap:10px;font-size:28px;font-weight:800;color:#fff;letter-spacing:-.02em;}
+  .price-col .desc{font-size:14px;color:#9A9282;margin-top:6px;}
+  .price-col .reg{font-size:13px;color:#7C7466;margin-top:10px;text-decoration:line-through;}
+  .price-tier{margin-top:14px;border-radius:14px;padding:22px;}
+  .price-tier.t1{background:var(--orange);color:#fff;}
+  .price-tier.t2{background:#1f1a14;color:#fff;border:1px solid #2A241B;}
+  .price-tier.t3{background:#1f1a14;color:#fff;border:1px solid #2A241B;}
+  .price-tier .top{display:flex;justify-content:space-between;font-size:13px;font-weight:700;letter-spacing:-.01em;}
+  .price-tier .price{font-size:38px;font-weight:900;letter-spacing:-.025em;margin-top:8px;line-height:1;}
+  .price-tier .bot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:13px;}
+  .price-tier .disc{padding:5px 10px;border-radius:6px;font-weight:800;font-size:12px;}
+  .price-tier.t1 .disc{background:rgba(0,0,0,.2);color:#fff;}
+  .price-tier.t2 .disc{background:rgba(43,182,115,.2);color:#34D67E;}
+  .price-tier.t3 .disc{background:#2A241B;color:#9A9282;}
+
+  .incl{margin-top:24px;background:#16120D;border:1px solid #2A241B;border-radius:20px;padding:32px;}
+  .incl .ih{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.4em;color:#A8A091;}
+  .incl .ig{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:10px 36px;}
+  .incl .ig div{display:flex;gap:10px;font-size:15px;color:#EBE5D6;font-weight:600;align-items:flex-start;line-height:1.5;}
+  .incl .ig div::before{content:"";flex:0 0 18px;width:18px;height:18px;border-radius:999px;background:var(--orange);color:#fff;margin-top:2px;mask-image:none;background-image:radial-gradient(circle, var(--orange) 0%, var(--orange) 60%, transparent 60%);}
+
+  /* gif media */
+  .gif-frame{position:relative;border-radius:18px;overflow:hidden;background:#0B0907;border:1px solid #2A241B;box-shadow:0 30px 60px rgba(0,0,0,.35);}
+  .gif-frame img{display:block;width:100%;height:auto;}
+  .gif-frame .gif-tag{position:absolute;top:14px;left:14px;background:rgba(11,9,7,.85);color:#fff;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.22em;font-weight:800;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,.1);z-index:2;}
+  .gif-frame .gif-tag b{color:var(--orange);}
+  .gif-cap{margin-top:12px;text-align:center;font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.1em;}
+  .gif-grid-4{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .gif-grid-4 .gif-frame{border-radius:14px;}
+  .gif-grid-4 .lab{position:absolute;bottom:12px;left:12px;background:rgba(11,9,7,.9);color:#fff;font-size:12px;font-weight:800;padding:6px 10px;border-radius:6px;z-index:2;}
+  .gif-grid-4 .lab b{color:var(--orange);font-family:"JetBrains Mono",monospace;letter-spacing:.18em;font-size:10px;display:block;margin-bottom:2px;}
+  .tg-pair{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .tg-phone{position:relative;border-radius:38px;overflow:hidden;background:#0B0907;border:8px solid #1B1610;box-shadow:0 30px 60px rgba(0,0,0,.4);}
+  .tg-phone img{display:block;width:100%;height:auto;}
+  .tg-phone .tg-l2{position:absolute;top:14px;left:14px;background:rgba(11,9,7,.9);color:var(--orange);font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.22em;font-weight:800;padding:5px 9px;border-radius:5px;z-index:2;}
+
+  /* gift ticket */
+  .gift-wrap{padding:80px 60px 60px;background:var(--bg);}
+  .gift{position:relative;background:var(--orange);border-radius:28px;padding:64px 72px;color:#fff;display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center;overflow:hidden;}
+  .gift::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.05) 0 10px,rgba(0,0,0,0) 10px 20px);pointer-events:none;}
+  .gift .stub{position:relative;}
+  .gift .tag{display:inline-flex;align-items:center;gap:10px;font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.3em;font-weight:800;background:#0B0907;color:var(--orange);padding:8px 14px;border-radius:6px;}
+  .gift .gift-h{margin-top:22px;font-size:68px;font-weight:900;letter-spacing:-.03em;line-height:1.04;color:#fff;}
+  .gift .gift-h u{text-decoration:underline;text-decoration-thickness:6px;text-underline-offset:8px;text-decoration-color:#0B0907;}
+  .gift .gift-p{margin-top:20px;font-size:19px;line-height:1.65;color:#FFE7DA;font-weight:600;max-width:560px;}
+  .gift .gift-p b{color:#fff;}
+  .gift .stamp-cta{margin-top:26px;display:inline-flex;align-items:center;gap:12px;background:#0B0907;color:#fff;padding:14px 22px;border-radius:999px;font-weight:800;font-size:15px;letter-spacing:-.005em;}
+  .gift .stamp-cta b{color:var(--orange);}
+
+  /* gift book mockup */
+  .gift-vis{position:relative;display:flex;align-items:center;justify-content:center;min-height:440px;}
+  .gift-vis .seal{position:absolute;top:18px;left:14px;z-index:3;width:120px;height:120px;border-radius:999px;background:#0B0907;color:var(--orange);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:"JetBrains Mono",monospace;font-weight:800;letter-spacing:.18em;font-size:11px;line-height:1.4;border:2px dashed var(--orange);transform:rotate(-12deg);}
+  .gift-vis .seal b{display:block;font-size:22px;letter-spacing:-.01em;color:#fff;margin:4px 0;font-family:inherit;}
+  .ebook{position:relative;width:280px;height:380px;transform:rotate(-5deg);filter:drop-shadow(0 24px 30px rgba(0,0,0,.35));}
+  .ebook .pages{position:absolute;top:6px;right:-4px;bottom:6px;width:8px;background:repeating-linear-gradient(0deg,#fff 0 1px,#e3d6b8 1px 2px);border-radius:0 4px 4px 0;}
+  .ebook .cover{position:absolute;inset:0;background:#0B0907;border-radius:6px 14px 14px 6px;border-left:14px solid #C24A1B;padding:34px 28px 30px;display:flex;flex-direction:column;justify-content:space-between;}
+  .ebook .cover::before{content:"";position:absolute;inset:14px;border:1px solid rgba(255,255,255,.08);border-radius:4px;pointer-events:none;}
+  .ebook .e-label{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.32em;color:var(--orange);font-weight:800;}
+  .ebook .e-ttl{font-size:46px;font-weight:900;color:#fff;line-height:.98;letter-spacing:-.035em;}
+  .ebook .e-ttl span{color:var(--orange);}
+  .ebook .e-foot{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.3em;color:#7C7466;}
+  .ebook .e-foot b{display:block;color:#EBE5D6;font-size:12px;letter-spacing:.18em;margin-bottom:4px;font-family:inherit;}
+  .gift-vis .float-tag{position:absolute;bottom:24px;right:8px;background:#0B0907;color:#fff;padding:10px 16px;border-radius:8px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.18em;font-weight:800;transform:rotate(4deg);}
+  .gift-vis .float-tag b{color:var(--orange);}
+
+  /* story */
+  section.story{padding:140px 60px 160px;}
+  .story .or{color:var(--orange);}
+  .story-hello{display:flex;align-items:flex-start;gap:28px;margin-top:56px;}
+  .story-hello .hi-mark{font-family:"JetBrains Mono",monospace;font-size:220px;line-height:.65;color:var(--orange);font-weight:900;}
+  .story-hi{font-size:172px;font-weight:900;letter-spacing:-.04em;line-height:.95;color:#fff;}
+  .story-tag{font-size:20px;color:#9A9282;margin-top:22px;font-family:"JetBrains Mono",monospace;letter-spacing:.06em;text-transform:uppercase;}
+
+  .story-row{display:grid;grid-template-columns:220px 1fr;gap:48px;margin-top:120px;border-top:1px solid #2A241B;padding-top:54px;align-items:flex-start;}
+  .story-date{font-size:22px;color:var(--orange);letter-spacing:.18em;font-weight:700;padding-top:18px;}
+  .story-line{font-size:84px;font-weight:900;letter-spacing:-.035em;line-height:1.05;color:#fff;}
+
+  .story-stamp{display:flex;flex-wrap:wrap;gap:16px;margin-top:54px;margin-left:268px;}
+  .story-stamp .stamp{font-size:34px;font-weight:800;letter-spacing:-.02em;padding:16px 26px;border-radius:14px;color:#fff;border:2px solid #2A241B;background:#16120D;}
+  .story-stamp .stamp.s1{background:var(--orange);border-color:var(--orange);transform:rotate(-1.5deg);}
+  .story-stamp .stamp.s2{transform:rotate(1deg);}
+  .story-stamp .stamp.s3{background:#fff;color:var(--black);border-color:#fff;transform:rotate(-.6deg);}
+
+  .story-arc{margin-top:110px;display:grid;grid-template-columns:1fr auto;align-items:flex-end;gap:40px;border-bottom:1px solid #2A241B;padding-bottom:40px;}
+  .story-arc .num{font-size:240px;font-weight:900;line-height:.85;letter-spacing:-.05em;color:var(--orange);}
+  .story-arc .num sup{font-size:90px;color:#fff;}
+  .story-arc .ar{font-size:24px;color:#C9C2B5;font-weight:600;line-height:1.45;max-width:380px;text-align:right;font-family:"JetBrains Mono",monospace;letter-spacing:.04em;}
+  .story-sub{font-size:30px;color:#fff;margin-top:36px;font-weight:700;max-width:820px;line-height:1.4;letter-spacing:-.015em;}
+  .story-sub .or{color:var(--orange);}
+
+  .panels{margin-top:110px;display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .panel{background:#16120D;border:1px solid #2A241B;border-radius:24px;padding:42px 38px;position:relative;}
+  .panel.tilt-l{transform:rotate(-.6deg);}
+  .panel.tilt-r{transform:rotate(.6deg);}
+  .panel .pn{font-family:"JetBrains Mono",monospace;font-size:13px;color:#A8A091;letter-spacing:.2em;}
+  .panel .pl{font-size:40px;font-weight:900;line-height:1.18;letter-spacing:-.025em;color:#fff;margin-top:18px;}
+  .panel .pp{font-size:16px;color:#9A9282;line-height:1.75;margin-top:22px;font-weight:500;}
+
+  .story-manifesto{margin-top:140px;font-size:120px;font-weight:900;line-height:.98;letter-spacing:-.04em;color:#fff;}
+  .story-manifesto::before{content:"—";color:var(--orange);font-size:80px;display:block;line-height:1;margin-bottom:24px;letter-spacing:0;}
+  .story-foot{font-size:22px;color:#C9C2B5;margin-top:40px;max-width:780px;line-height:1.7;font-weight:500;}
+  .story-foot b{color:#fff;}
+
+  .story-promise{margin-top:80px;background:var(--orange);border-radius:24px;padding:48px 56px;display:grid;grid-template-columns:180px 1fr;gap:36px;align-items:center;position:relative;overflow:hidden;}
+  .story-promise::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.05) 0 8px,rgba(0,0,0,0) 8px 16px);pointer-events:none;}
+  .promise-mark{font-family:"JetBrains Mono",monospace;font-size:13px;color:#fff;letter-spacing:.32em;font-weight:700;border-right:2px solid rgba(0,0,0,.25);padding:24px 0;line-height:1.5;position:relative;}
+  .promise-mark span{display:block;font-size:42px;font-weight:900;letter-spacing:-.02em;color:#0B0907;font-family:"Pretendard Variable",sans-serif;text-transform:none;margin-top:6px;}
+  .promise-text{font-size:46px;font-weight:900;letter-spacing:-.025em;line-height:1.1;color:#fff;position:relative;}
+  .promise-text u{text-decoration:underline;text-decoration-thickness:6px;text-underline-offset:8px;text-decoration-color:#0B0907;}
+
+  /* funding (legacy, retained for any other use) */
+
+  /* faq */
+  .faq{margin-top:60px;border-top:1px solid var(--line);}
+  .faq-item{border-bottom:1px solid var(--line);padding:36px 0;display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:flex-start;}
+  .faq-item .q{font-family:"JetBrains Mono",monospace;color:var(--orange);font-weight:700;font-size:18px;letter-spacing:.06em;}
+  .faq-item .body .qt{font-size:26px;font-weight:800;letter-spacing:-.015em;line-height:1.35;color:var(--ink);}
+  .faq-item .body .at{font-size:17px;line-height:1.7;color:var(--ink-2);margin-top:14px;font-weight:500;max-width:760px;}
+
+  /* final */
+  .final{padding:140px 60px;}
+  .final .h{font-size:140px;font-weight:900;line-height:.95;letter-spacing:-.04em;color:#fff;margin-top:30px;}
+  .final .h .or{color:var(--orange);}
+  .final .btn{margin-top:60px;background:#fff;color:var(--black);box-shadow:0 8px 0 #B5AC9C;}
+  .final .btn .arrow{background:var(--orange);color:#fff;}
+
+  footer{padding:50px 60px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;background:#0B0907;}
+  footer .mono{color:#7C7466;}
+</style>
+<style id="hp-css">
+#hpnav{position:fixed;top:0;left:0;right:0;z-index:2147483000;height:54px;background:rgba(10,10,20,.94);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;border-bottom:1px solid rgba(255,255,255,.1);box-sizing:border-box}
+#hpnav a{color:#fff;text-decoration:none;font-size:14px;font-weight:700;letter-spacing:0}
+#hpnav .lg{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:900}
+#hpnav .lg img{height:28px;border-radius:7px}
+#hpnav .lk{display:flex;align-items:center;gap:18px}
+#hpnav .lk a.b{background:#F97316;color:#fff;padding:8px 16px;border-radius:9px;font-weight:900}
+#hpfloat{position:fixed;right:18px;bottom:18px;z-index:2147483000;background:#F97316;color:#fff;font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-weight:900;font-size:15px;padding:14px 22px;border-radius:99px;box-shadow:0 10px 30px rgba(0,0,0,.35);text-decoration:none}
+body{padding-top:54px!important}
+@media(max-width:560px){#hpnav .lk a:not(.b){display:none}#hpfloat{left:14px;right:14px;text-align:center}}
+</style></head>
+<body style=""><div id="hpnav"><a class="lg" href="index.html"><img src="logo.png" alt="">노블아크(NOBLE ARC)</a><div class="lk"><a href="index.html#lineup">프로그램</a><a href="index.html#manuals">사용설명서</a><a class="b" href="index.html#subscription">구매하기</a></div></div><a id="hpfloat" href="index.html#subscription">월 25,000원 · 구매하기</a>
+<div class="page">
+
+  <!-- ============== NAV ============== -->
+  <div class="nav" data-screen-label="00 Nav">
+    <div class="brand">
+      <div class="logo">P</div>
+      <div class="name">Postia</div>
+    </div>
+    <div class="right">
+      <span class="pill"><span class="dot-r"></span>AUTOMATION</span>
+      <span class="arc mono">NOBLE&nbsp;&nbsp;ARC</span>
+    </div>
+  </div>
+
+  <!-- ============== 01 HERO ============== -->
+  <section class="hero-wrap" data-screen-label="01 Hero" style="padding-top:60px;padding-bottom:160px;">
+    <span class="label mono">REVOLUTION&nbsp;·&nbsp;01</span>
+    <h1 class="hero">블로그 자동화의<br><span style="color:var(--orange);">혁명,</span>&nbsp;Postia.</h1>
+    <p class="hero-tagline">
+      매일 키보드 앞에서 글을 쥐어짜내던 시간 —<br>
+      이제 <span class="or">Postia</span>가 24시간 당신 대신 운영합니다.
+    </p>
+    <div class="hero-cta">
+      <div class="cta-meta">
+        <div class="star">★ 월 ₩25,000 · 4개 블로그 플랫폼 · 블로그 수 제한 없음</div>
+        <div class="row">월 단위 결제 · <b>구매 즉시</b> 라이선스 발급</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 01.4 GIFT ============== -->
+  <section class="gift-wrap" data-screen-label="01.4 Gift">
+    <div class="gift">
+      <div class="stub">
+        <span class="tag">★&nbsp;FREE&nbsp;GIFT</span>
+        <div class="gift-h">구매하시면<br><u>블로그 마스터클래스<br>전자책</u> 무료.</div>
+        <p class="gift-p">프로그램을 구매하신 분께 17년 경력의 <b>블로그 마스터클래스 전자책</b>을 무료로 제공합니다. 블로그 운영전략 비법을 담은 10강 구조의 전자책입니다. 수익 발생은 개인의 운영 상황에 따라 다를 수 있습니다.</p>
+        <div class="stamp-cta">구매자&nbsp;<b>전원 증정</b></div>
+      </div>
+      <div class="gift-vis">
+        <div class="seal">FREE<b>GIFT</b>FOR&nbsp;ALL</div>
+        <div class="ebook">
+          <div class="pages"></div>
+          <div class="cover">
+            <div class="e-label">E·BOOK</div>
+            <div class="e-ttl">블로그<br>마스터<br><span>클래스</span></div>
+            <div class="e-foot"><b>17 YEARS · GUIDE</b>블로그 운영전략 실전가이드</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 01.5 STORY ============== -->
+  <section class="dark story" data-screen-label="01.5 Story">
+    <span class="label mono">FOUNDER&nbsp;·&nbsp;STORY</span>
+
+    <div class="story-hello">
+      <div class="hi-mark">“</div>
+      <div>
+        <h2 class="story-hi">Postia를<br>만들고 있는 사람입니다.</h2>
+        <p class="story-tag">— FOUNDER&nbsp;·&nbsp;NOBLE ARC</p>
+      </div>
+    </div>
+
+    <div class="story-row">
+      <div class="story-date mono">2008.03.18</div>
+      <div class="story-line">저는 <span class="or">이 날</span>,<br>블로그를 시작했습니다.</div>
+    </div>
+
+    <div class="story-stamp">
+      <div class="stamp s1">티스토리</div>
+      <div class="stamp s2">애드센스</div>
+      <div class="stamp s3">네이버 파워블로그</div>
+    </div>
+
+    <div class="story-arc">
+      <div class="num">17<sup>년</sup></div>
+      <div class="ar">SINCE 2008<br>— STILL RUNNING.</div>
+    </div>
+    <p class="story-sub">누구보다 <span class="or">일찍</span>, 누구보다 <span class="or">오래</span> —<br>블로그와 함께 살아온 17년입니다.</p>
+
+    <div class="panels">
+      <div class="panel tilt-l">
+        <div class="pn">PANEL&nbsp;·&nbsp;01</div>
+        <div class="pl">17년의 블로그 경력에,<br><span class="or">경영정보학</span>이라는 무기를 더했습니다.</div>
+        <div class="pp">컴퓨터 프로그램을 다루는 지식과, 누구보다 오래된 운영 경험. 이 둘을 합쳐 Postia를 만들고 있습니다.</div>
+      </div>
+      <div class="panel tilt-r">
+        <div class="pn">PANEL&nbsp;·&nbsp;02</div>
+        <div class="pl">누구보다 <span class="or">블로그에 최적화된</span> 기능,<br>누구보다 <span class="or">편리한</span> 기능을.</div>
+        <div class="pp">17년 동안 직접 부딪히며 알게 된 모든 노하우들을, 코드로 다시 풀어내는 중입니다.</div>
+      </div>
+    </div>
+
+    <div class="story-manifesto">블로그 자동화의 새로운 기준,<br>이제 <span class="or">여러분의 블로그</span>에<br>적용해 보세요.</div>
+    <p class="story-foot">기능은 이미 완성되었습니다. Postia는 블로그 자동화 올인원 프로그램으로, 사용자분들의 다양한 PC 환경과 운영 패턴 속에서 받은 피드백을 반영해 UI와 기능을 지속적으로 개선하고 있습니다. <b>사용자의 목소리가 Postia를 더 강하게 만듭니다.</b></p>
+
+    <div class="story-promise">
+      <div class="promise-mark">PROMISE<span>약속</span></div>
+      <div class="promise-text">사용자의 목소리가<br>Postia를 <u>&nbsp;더 강하게</u> 만듭니다.</div>
+    </div>
+  </section>
+
+  <!-- ============== 02 PHILOSOPHY (DARK) ============== -->
+  <section class="dark" data-screen-label="02 Philosophy">
+    <span class="label mono">PHILOSOPHY&nbsp;·&nbsp;02</span>
+    <h2 class="headline">
+      남들이 <span class="or">'시간'</span>을 팔 때,<br>
+      그들은 <span class="or">'시스템'</span>을<br>돌립니다.
+    </h2>
+    <p class="lead" style="max-width:820px;">
+      블로그운영 성공전략은 노력이 아니라 <b>구조</b>에서 나옵니다.
+    </p>
+
+    <div class="quotes-grid">
+      <div class="quote">
+        <div class="q">"수익 구조가 당신의 <span class="hi">시간</span>으로부터 분리되어야 한다.<br>
+          <span class="hi">소득의 나무</span>를 심어라.<br>
+          시스템이 당신 대신 일하게 하라."</div>
+        <div class="src">— 엠제이 드마코, 《부의 추월차선》 — 시스템의 본질</div>
+      </div>
+      <div class="quote">
+        <div class="q">"새로운 형태의 레버리지는 <span class="hi">코드와 미디어</span>다.<br>
+          이것들은 당신이 <span class="hi">잠든 사이에도</span> 일한다.<br>
+          허가받을 필요도 없다 (Permissionless)."</div>
+        <div class="src">— 나발 라비칸트, 《나발 레전드》 — 새로운 레버리지</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 03 NEW LEVERAGE ============== -->
+  <section data-screen-label="03 New Leverage">
+    <span class="label mono">LEVERAGE&nbsp;·&nbsp;03</span>
+    <h2 class="headline">
+      과거의 레버리지는<br>
+      <span class="or">잊으세요.</span>
+    </h2>
+    <p class="lead">
+      단순히 노력하는 것만으로 블로그 운영 성공 전략을 수립하던 시대는 끝났습니다.<br>
+      내가 쉬거나 자고 있는 동안에도 — <b>나 대신 일하는 자동화 시스템</b>을 만들어야 합니다.
+    </p>
+    <div class="num-list">
+      <div class="row"><div class="n">01 / 노동</div><div class="t">시간을 팔아 돈을 버는 모델은 한계가 있습니다.<small>당신의 24시간은 늘어나지 않습니다.</small></div></div>
+      <div class="row"><div class="n">02 / 도구</div><div class="t">자동화는 시간 ‘바깥’에서 작동하는 새로운 시스템입니다.<small>코드 · AI · 미디어는 잠든 사이에도 일합니다.</small></div></div>
+      <div class="row"><div class="n">03 / 채널</div><div class="t">하나가 아닌 <b>여러 채널</b>을 자동화로 굴리세요.<small>콘텐츠 생산량 × 채널 커버리지를 동시에 끌어올리는 단 하나의 방법.</small></div></div>
+    </div>
+  </section>
+
+  <!-- ============== 04 ALWAYS-ON ============== -->
+  <section class="bg2" data-screen-label="04 Always On">
+    <span class="label mono">ALWAYS-ON&nbsp;·&nbsp;04</span>
+    <h2 class="headline">
+      당신이 쉬는 동안에도<br>
+      <span class="or">글은 계속 발행됩니다.</span>
+    </h2>
+    <p class="lead">
+      Postia는 휴가지에서도, 출근길에서도, 잠든 새벽에도 멈추지 않습니다. 끊임없이 글을 발행해 <b>블로그 채널을 지속적으로 채워갑니다.</b>
+    </p>
+    <div class="when-grid">
+      <div class="when"><div class="ico">01</div><div class="tx">휴가를 떠난 시간에도</div></div>
+      <div class="when"><div class="ico">02</div><div class="tx">출근해서 일하는 시간에도</div></div>
+      <div class="when"><div class="ico">03</div><div class="tx">주말과 잠을 자는 새벽에도</div></div>
+      <div class="when"><div class="ico">04</div><div class="tx">취미생활을 즐기는 시간에도</div></div>
+    </div>
+    <h3 class="sub">"쉬지 않고 글을 발행해 블로그 채널을 채워갑니다."</h3>
+  </section>
+
+  <!-- ============== 05 SCALE ============== -->
+  <section data-screen-label="05 Scale">
+    <span class="label mono">SCALE&nbsp;·&nbsp;05</span>
+    <h2 class="headline">
+      블로그 1개 vs<br>
+      <span class="or">여러 채널,</span><br>
+      어디가 더 효율적일까요?
+    </h2>
+    <p class="lead">
+      답은 단순합니다. 다만, 사람의 손으로는 1개도 벅찹니다.<br>
+      Postia라면 <b>자동화로 채널 제한 없이</b> 운영 가능합니다.
+    </p>
+    <div class="versus">
+      <div class="vbox lo">
+        <div class="vlabel">MANUAL · 직접 운영</div>
+        <div><div class="vnum">1</div><div class="vtx">한 개도 짐이 됩니다.</div></div>
+      </div>
+      <div class="vs-arrow">→</div>
+      <div class="vbox hi">
+        <div class="vlabel">WITH POSTIA</div>
+        <div><div class="vnum">∞</div><div class="vtx">제한 없이 자동으로.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 06 BURDEN ============== -->
+  <section class="bg2" data-screen-label="06 Burden">
+    <span class="label mono">BURDEN&nbsp;·&nbsp;06</span>
+    <h2 class="headline">
+      이 모든 걸,<br>
+      혼자 다 하시려고요?
+    </h2>
+    <p class="lead">
+      한 편의 글이 발행되기까지 거치는 과정. 매일, 매 채널마다 반복됩니다.
+    </p>
+    <div class="task-grid">
+      <div class="task"><div class="tn">TASK · 01</div><div class="tt">인기 키워드 · 글 주제 찾기</div><div class="td">트렌드를 추적하고, 검색량을 비교하고, 경쟁 강도를 가늠합니다.</div></div>
+      <div class="task"><div class="tn">TASK · 02</div><div class="tt">SEO 기준의 긴 글 작성</div><div class="td">H2 구조, 내부 링크, 키워드 밀도까지 — 알고리즘 친화적으로.</div></div>
+      <div class="task"><div class="tn">TASK · 03</div><div class="tt">이미지 찾고, 만들고, 업로드</div><div class="td">스톡사진을 뒤지고, 본문 흐름에 맞춰 끼워 넣고, 호스팅까지.</div></div>
+      <div class="task"><div class="tn">TASK · 04</div><div class="tt">태그 분석 후 재작성</div><div class="td">발행 후에는 태그를 분석하고 다음 글의 방향을 다시 잡습니다.</div></div>
+      <div class="task weight">
+        <div class="l">매일, 플랫폼별로 ×<br>블로그 여러 개 등록하는 것도.</div>
+        <div class="r">혼자서, 부담스럽지 않으신가요?</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 07 RELEASE (DARK) ============== -->
+  <section class="dark" data-screen-label="07 Release">
+    <span class="label mono">RELEASE&nbsp;·&nbsp;07</span>
+    <h2 class="headline">
+      이제 그 짐을<br>
+      <span class="or">모두 벗으세요.</span>
+    </h2>
+    <p class="lead" style="max-width:820px;">
+      네이버블로그 · 티스토리 · 워드프레스 · 구글블로그 — <b>4개 플랫폼을 모두 지원</b>하면서, 같은 플랫폼 안에서도 <b>블로그 중복 등록에 제한이 없는</b> 블로그 자동화 올인원 도구, Postia.
+    </p>
+    <div class="plat-row">
+      <div class="plat naver"><div class="pl">PLATFORM · 01</div><div class="pn">네이버<br>블로그</div></div>
+      <div class="plat tistory"><div class="pl">PLATFORM · 02</div><div class="pn">티스토리</div></div>
+      <div class="plat wp"><div class="pl">PLATFORM · 03</div><div class="pn">워드<br>프레스</div></div>
+      <div class="plat google"><div class="pl">PLATFORM · 04</div><div class="pn">구글<br>블로그</div></div>
+    </div>
+    <div class="agent-card" style="margin-top:60px;">
+      <div class="ttl">FULL · AGENT · STACK</div>
+      <div class="stp"><div class="b">01</div><div><div class="x">스스로 키워드 발굴</div><div class="s">검색량 + 트렌드 통합 분석</div></div></div>
+      <div class="stp"><div class="b">02</div><div><div class="x">SEO 본문 자동 작성</div><div class="s">9개 H2 + Q&amp;A 구성</div></div></div>
+      <div class="stp"><div class="b">03</div><div><div class="x">AI 이미지 생성 · 편집</div><div class="s">본문 흐름에 맞춰 자동 삽입</div></div></div>
+      <div class="stp"><div class="b">04</div><div><div class="x">태그 자동 부여 · 4개 플랫폼 발행</div><div class="s">블로그 등록 제한 없음 · 플랫폼별 SEO 최적화</div></div></div>
+      <div class="stp"><div class="b">05</div><div><div class="x">텔레그램 실시간 보고</div><div class="s">언제 어디서나 명령 가능</div></div></div>
+    </div>
+  </section>
+
+  <!-- ============== 08 PROBLEM ============== -->
+  <section data-screen-label="08 Problem">
+    <span class="label mono">PROBLEM&nbsp;·&nbsp;08</span>
+    <h2 class="headline">블로그, 매일 쓰기<br>정말 힘드시죠?</h2>
+    <p class="lead">열심히 써도 노출은 안 되고, 시간은 모자라고, 아이디어는 매번 막막합니다. 이건 의지의 문제가 아닙니다.</p>
+    <div class="prob-grid">
+      <div class="prob"><div class="ico">01</div><div class="tt">매일 1~2시간<br>글 쓰는 게 지쳐요</div><div class="td">퇴근 후 키보드 앞에서 또 야근. 본업보다 더 힘든 부업이 되어버렸습니다.</div></div>
+      <div class="prob"><div class="ico">02</div><div class="tt">뭘 써야 할지<br>매번 막막해요</div><div class="td">키워드 리서치만 30분. 트렌드는 매주 바뀌고 따라가기조차 벅찹니다.</div></div>
+      <div class="prob"><div class="ico">03</div><div class="tt">열심히 써도<br>검색에 안 잡혀요</div><div class="td">SEO 최적화, H2 구조, 내부링크... 알고리즘은 갈수록 까다로워집니다.</div></div>
+    </div>
+  </section>
+
+  <!-- ============== 09 SOLUTION ============== -->
+  <section class="bg2" data-screen-label="09 Solution">
+    <span class="label mono">SOLUTION&nbsp;·&nbsp;09</span>
+    <h2 class="headline"><span style="color:var(--ink);">Postia가</span><br><span class="or">이 모든 걸 해결합니다.</span></h2>
+    <p class="lead">키워드 하나만 입력하세요. 나머지는 AI가 알아서 합니다.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="sl">STEP 01</div>
+        <div class="demo">
+          <div class="keyword-input">🔍 제주도 한달살기</div>
+          <div class="chips"><span class="chip">여행</span><span class="chip">맛집</span><span class="chip">숙소</span></div>
+        </div>
+        <div class="st">키워드 입력</div>
+        <div class="sd">원하는 주제 단어 한 개</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step hot">
+        <div class="sl">STEP 02</div>
+        <div class="demo">
+          <div class="gen-bar">generating...</div>
+          <div class="progress"><span></span></div>
+          <div class="ptiles"><div class="ptile" style="background:#2a2520;"></div><div class="ptile" style="background:#2a2520;"></div><div class="ptile" style="background:#2a2520;"></div><div class="ptile" style="background:#2a2520;"></div></div>
+        </div>
+        <div class="st">AI가 글+이미지 생성</div>
+        <div class="sd">9개+ H2 섹션, AI 이미지 자동 삽입</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="sl">STEP 03</div>
+        <div class="demo">
+          <div class="ptiles"><div class="ptile" style="background:#03C75A;">N</div><div class="ptile" style="background:#0B0907;">T</div><div class="ptile" style="background:#21759B;">W</div><div class="ptile" style="background:#FF5722;">G</div></div>
+        </div>
+        <div class="st">4개 플랫폼 동시 발행</div>
+        <div class="sd">네이버 · 티스토리 · WP · 구글블로그 (블로그 수 제한 없음)</div>
+      </div>
+    </div>
+    <div class="stats-row" style="margin-top:30px;">
+      <div class="stat"><div class="ico">📝</div><div class="v">단 몇 분</div><div class="l">글 1편 생성 시간</div></div>
+      <div class="stat"><div class="ico">🖼️</div><div class="v">포스트당 자동</div><div class="l">AI 이미지 삽입</div></div>
+      <div class="stat"><div class="ico">🌐</div><div class="v">최대 4개</div><div class="l">동시 발행 플랫폼</div></div>
+    </div>
+  </section>
+
+  <!-- ============== 10 FEATURE 01 AGENT ============== -->
+  <section class="dark" data-screen-label="10 Feature 01 Agent">
+    <span class="label mono">FEATURE&nbsp;01&nbsp;·&nbsp;AGENT</span>
+    <div class="feat-stack">
+      <div class="text">
+        <h2>자는 동안에도<br>발행됩니다.</h2>
+        <div class="quote-line">"하루에도 여러 시간, 요일별로 자유롭게"</div>
+        <p>블로그카드를 등록하고 시간을 정하면, 키워드 선정부터 글 작성, 이미지, 발행까지 — 모든 사이클이 무인으로 돌아갑니다. 이 프로그램의 가장 핵심 기능입니다.</p>
+        <ul class="check-list">
+          <li><span class="dot">✓</span>하루에도 여러 발행 시간 설정 가능 (예: 02:00 · 06:00 · 14:00)</li>
+          <li><span class="dot">✓</span>요일별 발행 스케줄 설정 가능</li>
+          <li><span class="dot">✓</span>Brain 시스템: 발행 이력을 학습해 다음 글 자동 보정</li>
+          <li><span class="dot">✓</span>15일 내 사용 키워드 자동 제외 (중복 방지)</li>
+        </ul>
+      </div>
+      <div class="media">
+        <div class="gif-frame">
+          <span class="gif-tag"><b>FEATURE 01</b>&nbsp;·&nbsp;AGENT</span>
+          <img src="pimg/postia/agent-running.gif" alt="AI 에이전트 자동 발행" loading="lazy">
+        </div>
+        <div class="media-cap">에이전트 실시간 가동 화면 · 1920×1080</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 10b POSTING CENTER ============== -->
+  <section class="bg2" data-screen-label="10b Posting Center">
+    <span class="label mono">POSTING&nbsp;CENTER&nbsp;·&nbsp;10.5</span>
+    <h2 class="headline">하나의 센터,<br><span class="or">4가지 발행 모드.</span></h2>
+    <p class="lead" style="max-width:820px;">목적에 따라 입력만 다르게. 글의 톤, 구조, SEO는 Postia가 알아서 맞춥니다. 4개 플랫폼 어디든, 4가지 모드 모두 동일하게 작동합니다.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:50px;">
+      <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:36px;display:flex;flex-direction:column;gap:14px;">
+        <div class="mono" style="font-size:11px;font-weight:800;letter-spacing:.22em;color:var(--orange);">MODE&nbsp;·&nbsp;01</div>
+        <div style="font-size:34px;font-weight:900;letter-spacing:-.025em;line-height:1.15;">AI 포스팅</div>
+        <div class="mono" style="font-size:12px;letter-spacing:.14em;color:var(--muted);font-weight:700;">키워드&nbsp;→&nbsp;본문 자동 생성</div>
+        <p style="font-size:16px;color:var(--ink-2);line-height:1.65;font-weight:500;margin:6px 0 0;">키워드 한 줄만 입력하면 AI가 SEO 구조에 맞춰 9개 H2 섹션 + Q&amp;A까지 풀길이 본문을 자동 생성합니다. 가장 많이 쓰이는 기본 모드.</p>
+        <div style="margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);"><b style="color:var(--ink);">USE</b>&nbsp;&nbsp;일상 블로그, 정보성 콘텐츠, 애드센스 운영</div>
+      </div>
+      <div style="background:var(--black);color:#fff;border-radius:18px;padding:36px;display:flex;flex-direction:column;gap:14px;">
+        <div class="mono" style="font-size:11px;font-weight:800;letter-spacing:.22em;color:var(--orange);">MODE&nbsp;·&nbsp;02</div>
+        <div style="font-size:34px;font-weight:900;letter-spacing:-.025em;line-height:1.15;">벤치마킹 포스팅</div>
+        <div class="mono" style="font-size:12px;letter-spacing:.14em;color:#A8A091;font-weight:700;">기사·블로그·유튜브 대본&nbsp;→&nbsp;재창작</div>
+        <p style="font-size:16px;color:#C9C2B5;line-height:1.65;font-weight:500;margin:6px 0 0;">잘 나가는 기사, 다른 블로그 글, 유튜브 대본을 붙여넣으면 그 구조와 인사이트만 살린 새로운 글로 재창작해 발행합니다. 트렌드 추격에 최적.</p>
+        <div style="margin-top:auto;padding-top:14px;border-top:1px solid #2A241B;font-size:13px;color:#A8A091;"><b style="color:#fff;">USE</b>&nbsp;&nbsp;인기 콘텐츠 벤치마킹, 트렌드 콘텐츠 빠른 생산</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:36px;display:flex;flex-direction:column;gap:14px;">
+        <div class="mono" style="font-size:11px;font-weight:800;letter-spacing:.22em;color:var(--orange);">MODE&nbsp;·&nbsp;03</div>
+        <div style="font-size:34px;font-weight:900;letter-spacing:-.025em;line-height:1.15;">홍보 포스팅</div>
+        <div class="mono" style="font-size:12px;letter-spacing:.14em;color:var(--muted);font-weight:700;">홍보 내용&nbsp;→&nbsp;홍보글 변환</div>
+        <p style="font-size:16px;color:var(--ink-2);line-height:1.65;font-weight:500;margin:6px 0 0;">소개하고 싶은 가게·서비스·이벤트 정보를 입력하면 광고 티 안 나는 자연스러운 톤의 홍보 블로그 글로 자동 변환·발행합니다.</p>
+        <div style="margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);"><b style="color:var(--ink);">USE</b>&nbsp;&nbsp;자영업·소상공인, 행사·이벤트 홍보, 신규 오픈</div>
+      </div>
+      <div style="background:#fff;border:1px solid var(--line);border-radius:18px;padding:36px;display:flex;flex-direction:column;gap:14px;">
+        <div class="mono" style="font-size:11px;font-weight:800;letter-spacing:.22em;color:var(--orange);">MODE&nbsp;·&nbsp;04</div>
+        <div style="font-size:34px;font-weight:900;letter-spacing:-.025em;line-height:1.15;">리뷰 포스팅</div>
+        <div class="mono" style="font-size:12px;letter-spacing:.14em;color:var(--muted);font-weight:700;">상품·체험 정보&nbsp;→&nbsp;리뷰글</div>
+        <p style="font-size:16px;color:var(--ink-2);line-height:1.65;font-weight:500;margin:6px 0 0;">체험단으로 받은 제품이나 직접 써본 상품 정보를 넣으면 진정성 있는 사용기 형식의 리뷰 글을 작성해 4개 플랫폼에 동시 발행합니다.</p>
+        <div style="margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);"><b style="color:var(--ink);">USE</b>&nbsp;&nbsp;체험단 활동, 상품 리뷰, 사용기 콘텐츠</div>
+      </div>
+    </div>
+    <div style="margin-top:32px;display:flex;justify-content:center;"><span style="background:var(--black);color:#fff;border-radius:999px;padding:14px 26px;font-size:15px;font-weight:800;letter-spacing:-.01em;">4가지 모드 모두 · 4개 플랫폼 · 무제한 블로그 등록</span></div>
+  </section>
+
+  <!-- ============== 11 FEATURE 02 MULTI-PUBLISH ============== -->
+  <section data-screen-label="11 Feature 02 MultiPublish">
+    <span class="label mono">FEATURE&nbsp;02&nbsp;·&nbsp;MULTI-PUBLISH</span>
+    <div class="feat-stack">
+      <div class="text">
+        <h2>4개 플랫폼,<br>블로그는 무제한.</h2>
+        <div class="quote-line">"네이버 · 티스토리 · 워드프레스 · 구글블로그"</div>
+        <p>4개 플랫폼을 모두 지원하는 것은 기본. 같은 플랫폼 안에서도 계정·블로그별로 8개, 10개, 그 이상 자유롭게 등록할 수 있습니다. 각 플랫폼 SEO 특성에 맞춰 자동 최적화되어 발행됩니다.</p>
+        <ul class="check-list">
+          <li><span class="dot">✓</span>네이버·티스토리·워드프레스·구글블로그 4개 플랫폼 지원</li>
+          <li><span class="dot">✓</span>같은 플랫폼 내 블로그 추가 등록 개수 제한 없음</li>
+          <li><span class="dot">✓</span>각 플랫폼 SEO 특성에 맞춰 자동 최적화</li>
+          <li><span class="dot">✓</span>다국어 글 생성 지원 (영어·일본어·스페인어 등)</li>
+        </ul>
+      </div>
+      <div class="media">
+        <div class="gif-frame">
+          <span class="gif-tag"><b>FEATURE 02</b>&nbsp;·&nbsp;POSTING</span>
+          <img src="pimg/postia/posting-center.gif" alt="포스팅 센터" loading="lazy">
+        </div>
+        <div class="media-cap">키워드 입력 → 4개 플랫폼 선택 → 동시 발행</div>
+        <div class="gif-frame" style="margin-top:32px;">
+          <span class="gif-tag"><b>NAVER</b>&nbsp;·&nbsp;LIVE</span>
+          <img src="pimg/postia/naver-publish.gif" alt="네이버 발행" loading="lazy">
+        </div>
+        <div class="media-cap">실제 네이버 블로그에 발행되는 장면</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 12 FEATURE 03 AI IMAGE ============== -->
+  <section class="bg2" data-screen-label="12 Feature 03 AI Image">
+    <span class="label mono">FEATURE&nbsp;03&nbsp;·&nbsp;AI&nbsp;IMAGE</span>
+    <div class="feat">
+      <div class="text">
+        <h2>이미지 찾는<br>시간도 0분.</h2>
+        <div class="quote-line">"Gemini 또는 OpenAI, 두 가지 모델 선택"</div>
+        <p>스톡사진 사이트를 뒤지지 마세요. AI가 글 내용을 분석해 그 흐름에 맞는 라이프스타일 이미지를 자동으로 생성하고, 본문 중간에 자연스럽게 삽입합니다.</p>
+        <ul class="check-list">
+          <li><span class="dot">✓</span>Gemini 모델 또는 OpenAI 모델 — 2가지 선택</li>
+          <li><span class="dot">✓</span>고퀄리티 이미지 자동 생성</li>
+          <li><span class="dot">✓</span>본문 컨텍스트 기반 이미지 생성</li>
+          <li><span class="dot">✓</span>포스트당 다수 이미지 자동 삽입</li>
+        </ul>
+      </div>
+      <div>
+        <div style="border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.18);background:#0B0907;">
+          <img src="pimg/postia/ai-image-grid.jpg" alt="AI 생성 이미지 예시 9종" loading="lazy" style="display:block;width:100%;height:auto;">
+        </div>
+        <div style="text-align:center;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.1em;">AI generated · 본문 흐름에 맞춰 자동 삽입</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 13 FEATURE 04 COUPANG ============== -->
+  <section class="orange" data-screen-label="13 Feature 04 Coupang">
+    <span class="label mono">FEATURE&nbsp;04&nbsp;·&nbsp;COUPANG</span>
+    <div class="feat-stack">
+      <div class="text">
+        <h2>키워드 하나로,<br>수익까지 자동.</h2>
+        <div class="quote-line">"상품 검색 → 리뷰 → 무제한 블로그 발행"</div>
+        <p>쿠팡파트너스 어필리에이트를 가장 빠르게 운영하는 방법. 키워드를 입력하면 쿠팡 상품을 자동 검색해 AI 리뷰 글을 만들고, 어필리에이트 링크를 삽입해 등록된 모든 블로그에 자동 발행합니다. 4개 플랫폼은 기본, 블로그 추가 등록은 제한이 없습니다.</p>
+        <ul class="check-list">
+          <li><span class="dot">✓</span>쿠팡 상품 자동 검색 &amp; 매칭</li>
+          <li><span class="dot">✓</span>AI 리뷰 글 자동 생성</li>
+          <li><span class="dot">✓</span>어필리에이트 링크 자동 삽입</li>
+          <li><span class="dot">✓</span>상품 이미지 + AI 라이프스타일 이미지 혼합</li>
+        </ul>
+      </div>
+      <div class="media">
+        <div class="gif-frame">
+          <span class="gif-tag"><b>FEATURE 04</b>&nbsp;·&nbsp;COUPANG</span>
+          <img src="pimg/postia/coupang-publish.gif" alt="쿠팡파트너스" loading="lazy">
+        </div>
+        <div class="media-cap">쿠팡 상품 검색 → AI 리뷰 → 자동 발행</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 14 FEATURE 05 THUMBNAIL ============== -->
+  <section data-screen-label="14 Feature 05 Thumbnail">
+    <span class="label mono">FEATURE&nbsp;05&nbsp;·&nbsp;THUMBNAIL</span>
+    <div class="feat">
+      <div class="text">
+        <h2>클릭률을 올리는<br>디테일까지.</h2>
+        <div class="quote-line">"제목이 새겨진 썸네일, 자동으로"</div>
+        <p>검색 결과에서 가장 먼저 눈에 띄는 건 결국 썸네일. 상품 또는 AI 이미지 위에 글 제목을 자동으로 오버레이해, 그냥 발행하는 것보다 훨씬 높은 클릭률을 만들어냅니다.</p>
+        <ul class="check-list">
+          <li><span class="dot">✓</span>4개 플랫폼 모두 썸네일 자동 적용</li>
+          <li><span class="dot">✓</span>제목 텍스트 자동 오버레이</li>
+          <li><span class="dot">✓</span>WebP 최적화 자동 변환</li>
+          <li><span class="dot">✓</span>이미지 호스팅 자동 업로드</li>
+        </ul>
+      </div>
+      <div>
+        <div style="border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.18);background:#0B0907;max-width:520px;margin:0 auto;">
+          <img src="pimg/postia/thumb-sample.png" alt="실제 자동 생성 썸네일 예시" loading="lazy" style="display:block;width:100%;height:auto;">
+        </div>
+        <div style="text-align:center;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.1em;">제목 자동 오버레이 · 4개 플랫폼 모두 지원</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 15 FEATURE 06 TELEGRAM ============== -->
+  <section class="dark" data-screen-label="15 Feature 06 Telegram">
+    <span class="label mono">FEATURE&nbsp;06&nbsp;·&nbsp;TELEGRAM</span>
+    <div class="feat-stack">
+      <div class="text">
+        <h2>스마트폰으로<br>언제든 소통.</h2>
+        <div class="quote-line">"발행 현황 보고 · 발행 명령"</div>
+        <p>텔레그램으로 블로그 글 발행 현황을 보고받고, 텔레그램으로 명령을 내릴 수 있습니다. 언제 어디서나 프로그램과 소통하세요. 캡차가 발생하면 사진으로 받아 답변만 보내면 됩니다.</p>
+        <ul class="check-list">
+          <li><span class="dot">✓</span>발행 완료/실패 실시간 알림</li>
+          <li><span class="dot">✓</span>캡차 발생 시 사진 전송 → 사용자 답변</li>
+          <li><span class="dot">✓</span>허용된 ID만 제어 가능 (보안)</li>
+        </ul>
+      </div>
+      <div class="tg-stack">
+        <div>
+          <div class="tg-phone"><span class="tg-l2">STATUS</span><img src="pimg/postia/telegram-status.gif" alt="텔레그램 에이전트 현황" loading="lazy"></div>
+          <div class="tg-cap">실시간 발행 현황 보고</div>
+        </div>
+        <div>
+          <div class="tg-phone"><span class="tg-l2">CONTROL</span><img src="pimg/postia/telegram-menu.gif" alt="텔레그램 원격 제어 메뉴" loading="lazy"></div>
+          <div class="tg-cap">원격 제어 메뉴</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 16 FEATURE 07 SNS ============== -->
+  <section data-screen-label="16 Feature 07 SNS">
+    <span class="label mono">FEATURE&nbsp;07&nbsp;·&nbsp;SNS</span>
+    <div class="feat">
+      <div class="text">
+        <h2>1글 →<br>3채널 자동 확장.</h2>
+        <div class="quote-line">"블로그 글을 3종류 SNS로 자동 변환"</div>
+        <p>블로그에 발행한 글을 인스타그램·스레드·페이스북 형식으로 자동 변환해드립니다. 각 SNS의 최적 글자 수에 맞춰 리포맷되고, 이미지는 1:1로 자동 크롭되어 SNS 썸네일로 저장됩니다.</p>
+        <ul class="check-list">
+          <li><span class="dot">✓</span>인스타그램 150자 / 스레드 300자 / 페이스북 500자 자동 조정</li>
+          <li><span class="dot">✓</span>1:1 이미지 자동 크롭</li>
+          <li><span class="dot">✓</span>SNS용 썸네일 자동 저장</li>
+          <li><span class="dot">✓</span>한 번의 글로 다채널(인스타·스레드·페이스북) 마케팅</li>
+        </ul>
+      </div>
+      <div class="sns-card">
+        <div class="src-label">SOURCE · 블로그 글</div>
+        <div class="src-bar"></div>
+        <div class="arrow-down">↓</div>
+        <div class="sns-grid">
+          <div class="sns-pill sns-ig">Instagram<small>150자 최적화</small></div>
+          <div class="sns-pill sns-th">Threads<small>300자 최적화</small></div>
+          <div class="sns-pill sns-fb">Facebook<small>500자 최적화</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 17 FEATURE 08 RESEARCH ============== -->
+  <section class="bg2" data-screen-label="17 Feature 08 Research">
+    <span class="label mono">FEATURE&nbsp;08&nbsp;·&nbsp;RESEARCH</span>
+    <div class="feat-stack">
+      <div class="text">
+        <h2>어떤 키워드가<br>잘 될지, 데이터로.</h2>
+        <div class="quote-line">"수천 개 연관키워드 + 실시간 트렌드"</div>
+        <p>감으로 키워드를 고르지 마세요. 네이버 검색광고 연관키워드 대량 검색으로 수천 개의 키워드를 단번에 찾아내고, Google Trends로 최신 유행 키워드와 뉴스 검색까지 다이렉트로 확인할 수 있습니다.</p>
+        <ul class="check-list">
+          <li><span class="dot">✓</span>네이버 검색광고 연관키워드 대량 검색 (수천 개 발굴)</li>
+          <li><span class="dot">✓</span>네이버 PC/모바일 검색량 자동 수집</li>
+          <li><span class="dot">✓</span>키워드 등급 4단계: 최상급 → 상급 → 중급 → 하급</li>
+          <li><span class="dot">✓</span>Google Trends 최신 유행 키워드 + 뉴스 다이렉트 검색</li>
+        </ul>
+      </div>
+      <div class="media">
+        <div class="gif-frame">
+          <img src="pimg/postia/research-discovery.gif" alt="키워드 발굴" loading="lazy">
+          <span class="gif-tag"><b>TAB 01</b>&nbsp;·&nbsp;키워드 발굴</span>
+        </div>
+        <div class="media-cap">연관키워드 대량 검색</div>
+        <div class="gif-frame" style="margin-top:32px;">
+          <img src="pimg/postia/research-keyword.gif" alt="키워드 도구" loading="lazy">
+          <span class="gif-tag"><b>TAB 02</b>&nbsp;·&nbsp;키워드 도구</span>
+        </div>
+        <div class="media-cap">검색량 + 등급 분석</div>
+        <div class="gif-frame" style="margin-top:32px;">
+          <img src="pimg/postia/research-datalab.gif" alt="데이터랩" loading="lazy">
+          <span class="gif-tag"><b>TAB 03</b>&nbsp;·&nbsp;데이터랩</span>
+        </div>
+        <div class="media-cap">Google Trends 트렌드</div>
+        <div class="gif-frame" style="margin-top:32px;">
+          <img src="pimg/postia/research-news.gif" alt="뉴스 트렌드" loading="lazy">
+          <span class="gif-tag"><b>TAB 04</b>&nbsp;·&nbsp;뉴스 트렌드</span>
+        </div>
+        <div class="media-cap">실시간 뉴스 키워드</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 18 BEFORE/AFTER ============== -->
+  <section data-screen-label="18 Before After">
+    <span class="label mono">BEFORE&nbsp;/&nbsp;AFTER&nbsp;·&nbsp;18</span>
+    <h2 class="headline">전과 후,<br><span class="or">무엇이 달라지나요?</span></h2>
+    <div class="baf-table">
+      <div class="row head"><div>항목</div><div class="b">BEFORE</div><div class="a">WITH POSTIA</div></div>
+      <div class="row"><div class="k">글 작성 시간</div><div class="b">1~2시간/편</div><div class="a">단 몇 분</div></div>
+      <div class="row"><div class="k">발행 플랫폼</div><div class="b">1개 수작업</div><div class="a">개수 제한없이 순차 자동</div></div>
+      <div class="row"><div class="k">키워드 리서치</div><div class="b">30분~1시간</div><div class="a">자동 수집</div></div>
+      <div class="row"><div class="k">이미지 준비</div><div class="b">별도 작업</div><div class="a">AI 자동 생성</div></div>
+      <div class="row"><div class="k">쿠팡 리뷰 발행</div><div class="b">2~3시간/편</div><div class="a">클릭 한 번</div></div>
+      <div class="row"><div class="k">월 발행 가능</div><div class="b">10~20편</div><div class="a">제한 없음</div></div>
+    </div>
+    <span class="pill-center">하루 5분 = 무제한 발행</span>
+  </section>
+
+  <!-- ============== 20 FOR ============== -->
+  <section data-screen-label="20 For">
+    <span class="label mono">FOR&nbsp;·&nbsp;20</span>
+    <h2 class="headline">이런 분들에게<br><span class="or">딱 맞습니다.</span></h2>
+    <p class="lead">개인부터 기업까지 — 블로그를 운영하는 모두를 위한 자동화 도구.</p>
+    <div class="for-card">
+      <div class="head">개 인  사 용 자</div>
+      <div class="row"><div class="k">블로그 입문자</div><div class="v">애드센스·쿠팡 블로그를 자동으로 운영하고 싶은 분</div></div>
+      <div class="row"><div class="k">스마트스토어·쿠팡 셀러</div><div class="v">상품 리뷰 블로그로 유입 트래픽 원함</div></div>
+      <div class="row"><div class="k">N잡러 / 부업러</div><div class="v">퇴근 후 자동으로 돌아가는 블로그 자동화 원함</div></div>
+      <div class="row"><div class="k">파워블로거</div><div class="v">여러 블로그 동시 운영, 시간 절감 원함</div></div>
+      <div class="row"><div class="k">소상공인 / 자영업자</div><div class="v">가게 홍보 블로그 자동 운영 원함</div></div>
+    </div>
+    <div class="for-card dark">
+      <div class="head">기 업  /  팀</div>
+      <div class="row"><div class="k">마케팅 대행사</div><div class="v">대량 블로그 운영을 자동화</div></div>
+      <div class="row"><div class="k">온라인 쇼핑몰 운영자</div><div class="v">상품 키워드 기반 블로그 마케팅</div></div>
+      <div class="row"><div class="k">유튜버</div><div class="v">자막 → 블로그 포스트 자동 변환</div></div>
+    </div>
+  </section>
+
+  <!-- ============== 21 PRICING ============== -->
+<section class="dark" data-screen-label="21 Pricing"><span class="label mono">PRICING&nbsp;·&nbsp;21</span>
+<h2 class="headline">부담 없이<br><span class="or">시작하세요.</span></h2>
+<p class="lead" style="font-size:22px;max-width:820px;">월 <b>₩25,000</b>, 월 단위 결제로 시작하세요.<br>필요한 만큼만 이용하고, 원할 때 이어서 결제하시면 됩니다.</p>
+<div class="incl"><div class="ih">구 성 · 포 함 사 항</div><div class="ig">
+<div>발행 횟수 제한 없음</div><div>네이버·티스토리·워드프레스·구글블로그 4개 플랫폼 전체</div><div>같은 플랫폼 블로그 계정·블로그별 추가 등록 가능</div>
+<div>AI 에이전트 완전 자동화</div><div>쿠팡파트너스 자동 발행</div><div>AI 이미지 생성 / 4개 플랫폼 썸네일 자동 제작</div><div>SNS 자동 변환</div>
+<div>텔레그램 원격 제어 &amp; 알림</div><div>리서치센터 (네이버 검색량 + Google Trends)</div><div>이용 기간 내 업데이트 무료</div>
+<div>프로그램 사용설명서 + 블로그 마스터클래스 전자책 제공</div><div>프로그램당 1대 PC · 기기 초기화로 변경 가능</div><div>라이선스 키 결제 즉시 발급</div></div></div>
+<div style="text-align:center;margin-top:44px"><a href="index.html#subscription" style="display:inline-block;margin-top:8px;background:#F97316;color:#fff;text-decoration:none;font-weight:900;font-size:20px;padding:17px 34px;border-radius:16px;font-family:'Segoe UI','Malgun Gothic',sans-serif">월 25,000원 · 구매하기</a></div>
+<p style="text-align:center;margin-top:22px;font-size:14px;opacity:.7;line-height:1.8">※ API 사용료는 이용료와 별도입니다. Google 신규 가입 시 제공되는 $300 무료 크레딧을 활용할 수 있습니다(Google 정책·조건 적용).</p>
+</section>
+
+<!-- ============== 22 GUIDE & FUNDING ============== -->
+  <section data-screen-final-cta="" data-screen-label="22 Guide Funding">
+    <span class="label mono">SUPPORT&nbsp;·&nbsp;22</span>
+    <h2 class="headline">상세 설명서까지<br><span class="or">함께 제공됩니다.</span></h2>
+    <p class="lead">구매자에게는 <b>프로그램 상세 설명서</b>가 함께 제공됩니다.</p>
+  </section>
+
+  <!-- ============== 23 FAQ ============== -->
+  <section class="bg2" data-screen-label="23 FAQ">
+    <span class="label mono">FAQ&nbsp;·&nbsp;23</span>
+    <h2 class="headline">자주 묻는<br><span class="or">질문들.</span></h2>
+    <div class="faq">
+      <div class="faq-item"><div class="q">Q · 01</div><div class="body"><div class="qt">컴퓨터를 켜두지 않아도 자동 발행되나요?</div><div class="at">컴퓨터가 실행되어 있어야 자동 발행됩니다. PC 기반으로 동작하기 때문에 켜져 있어야 하며, 텔레그램으로 어디서든 상태 확인 및 명령이 가능합니다.</div></div></div>
+      <div class="faq-item"><div class="q">Q · 02</div><div class="body"><div class="qt">네이버 계정이 여러 개면 모두 등록할 수 있나요?</div><div class="at">네이버는 여러 개 등록 가능하지만, 너무 많으면 로그인 제한이 걸릴 수 있어 적정 수로 운영하시는 것을 권장드립니다. 반면 <b>구글블로그 · 워드프레스 · 티스토리는 등록 개수 제한이 없으니 마음껏 추가</b>해서 운영하셔도 좋습니다.</div></div></div>
+      <div class="faq-item"><div class="q">Q · 03</div><div class="body"><div class="qt">API 키는 어떻게 발급받나요?</div><div class="at">Vertex AI의 300달러 무료 크레딧(Google 신규 가입 조건 적용)을 이용하시거나 OpenAI API 키를 발급받으시면 됩니다. API 사용료는 이용료와 별도이며, 구매 후 상세 발급 가이드를 안내해 드립니다.</div></div></div>
+      <div class="faq-item"><div class="q">Q · 04</div><div class="body"><div class="qt">구독 기간이 끝나면 데이터는 어떻게 되나요?</div><div class="at">데이터는 사라지지 않고 그대로 보존됩니다. 홈페이지에서 재결제하시면 기존 블로그카드와 발행 이력이 그대로 살아납니다.</div></div></div>
+      <div class="faq-item"><div class="q">Q · 05</div><div class="body"><div class="qt">Mac에서도 사용 가능한가요?</div><div class="at">현재는 Windows 전용 프로그램입니다. Mac은 지원하지 않습니다.</div></div></div>
+      <div class="faq-item"><div class="q">Q · 06</div><div class="body"><div class="qt">설치는 어렵지 않나요?</div><div class="at">프로그램 사용설명서를 함께 제공해 드립니다. 단계별 안내를 따라 설치 및 초기 설정을 마칠 수 있습니다.</div></div></div>
+      <div class="faq-item"><div class="q">Q · 07</div><div class="body"><div class="qt">블로그카드는 몇 개까지 등록할 수 있나요?</div><div class="at">등록 제한이 없습니다. 같은 플랫폼 안에서도 계정·블로그별로 자유롭게 추가하실 수 있습니다.</div></div></div>
+      <div class="faq-item"><div class="q">Q · 08</div><div class="body"><div class="qt">어떤 AI 모델을 사용하나요?</div><div class="at">글 생성 메인은 GEMINI 모델과 OPENAI 모델을 선택 사용할 수 있습니다.</div></div></div>
+    </div>
+  </section>
+
+  <!-- ============== 24 FINAL CTA ============== -->
+  <section class="dark final" data-screen-label="24 Final">
+    <span class="label mono">CALL&nbsp;·&nbsp;24</span>
+    <div class="h">매일 직접 블로그 글 쓰는 일,<br><span class="or">이제 멈추세요.</span></div>
+    <p class="lead" style="margin-top:40px;font-size:24px;max-width:860px;">Postia가 당신의 블로그 채널을 24시간, 4개 플랫폼에서 동시에 굴립니다.</p>
+    <a class="btn" href="index.html#subscription" style="text-decoration:none;display:inline-block">월 ₩25,000 · 구매하기 <span class="arrow">→</span></a>
+  </section>
+
+  <footer>
+    <span>© 2026 Postia · NOBLE ARC</span>
+    <span class="mono">NOBLE&nbsp;ARC</span>
+  </footer>
+
+</div>
+
+
+<div style="background:#0b0b14;color:#8a8aa0;text-align:center;padding:30px 20px;font-size:12px;line-height:1.9;font-family:'Segoe UI','Malgun Gothic',sans-serif">© 2026 NOBLE ARC. All rights reserved. · <a href="privacy.html" style="color:#8a8aa0;text-decoration:underline">개인정보처리방침</a><br>상호: 노블아크(NobleArc) · 대표: 채정옥 · 사업자등록번호: 451-01-03916<br>통신판매업신고: 제 2026-안양동안-0412 호<br>사업장: 경기도 안양시 동안구 관평로69번길 8-13, 1층 일부호(평촌동)<br>이메일: doedoo291@gmail.com · 전화: 010-3387-0352 · 전화상담 가능시간 09:00~18:00</div></body></html>

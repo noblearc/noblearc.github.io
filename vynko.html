@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VYNKO 쇼핑쇼츠 자동화 | NOBLE ARC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#FFFFFF;
+  --black:#0A0A0C;
+  --ink:#141416;
+  --ink2:#57575E;
+  --ink3:#9C9CA4;
+  --line:#ECECEF;
+
+  --purple:#6B2FE0;
+  --purple-deep:#4D1FB0;
+  --purple-tint:#F1E9FF;
+  --red:#FF2D3D;
+  --red-deep:#E01426;
+  --red-tint:#FFE7E8;
+  --amber:#FFB020;
+  --amber-deep:#E8930A;
+  --green:#00CC7A;
+  --green-deep:#00A863;
+  --sky:#2D8CFF;
+  --sky-deep:#136FE0;
+
+  --max:740px;
+}
+html{background:var(--white)}
+body{
+  font-family:'Noto Sans KR',-apple-system,'Malgun Gothic',sans-serif;
+  background:var(--white);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  font-size:19px;line-height:1.75;font-weight:500;
+}
+.wrap{max-width:var(--max);margin:0 auto}
+.disp{font-family:'Noto Sans KR';font-weight:900}
+.script{font-family:'Gaegu',cursive;font-weight:700}
+img{max-width:100%;display:block}
+b{font-weight:900}
+.mk{padding:0 .28em;border-radius:5px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+.beat{padding:90px 26px}
+.beat.blk{background:var(--black);color:var(--white)}
+.beat.pur{background:linear-gradient(160deg,var(--purple-deep),var(--purple));color:var(--white)}
+.beat.gray{background:#F7F7F9}
+.inner{max-width:var(--max);margin:0 auto;position:relative}
+.center{text-align:center}
+
+.kicker{font-family:'Gaegu';font-weight:700;font-size:24px;color:var(--red);margin-bottom:6px;display:inline-block}
+.beat.blk .kicker,.beat.pur .kicker{color:var(--amber)}
+
+.big{font-family:'Noto Sans KR';font-weight:900;font-size:clamp(34px,7vw,52px);line-height:1.5;letter-spacing:-.5px}
+.huge{font-family:'Noto Sans KR';font-weight:900;font-size:clamp(56px,14vw,110px);line-height:1.4;letter-spacing:-1px}
+.mute{color:var(--ink3)}
+.beat.blk .mute,.beat.pur .mute{color:rgba(255,255,255,.4)}
+
+.lead{font-size:18px;color:var(--ink2);line-height:1.8;font-weight:700;margin-top:22px}
+.beat.blk .lead,.beat.pur .lead{color:rgba(255,255,255,.78)}
+
+.gap-s{height:28px}.gap-m{height:56px}.gap-l{height:88px}
+
+.badge-row{display:flex;flex-direction:column;gap:14px;align-items:flex-start;margin:20px 0}
+.pill{display:inline-flex;align-items:center;gap:10px;background:#1C1C20;border:1px solid #333;border-radius:14px;padding:12px 18px}
+.pill .coin{width:26px;height:26px;border-radius:50%;background:var(--purple);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0}
+.pill span{font-size:19px;font-weight:900;color:#fff}
+
+.mk-purple{background:var(--purple);color:#fff}
+.mk-red{background:var(--red);color:#fff}
+.mk-amber{background:var(--amber);color:var(--black)}
+.mk-green{background:var(--green);color:#fff}
+
+.bubble{display:inline-block;background:var(--black);color:#fff;border-radius:20px;padding:16px 26px;font-weight:900;font-size:17px;position:relative;margin:26px 0}
+.bubble::after{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);border:12px solid transparent;border-top-color:var(--black)}
+
+.prob-grid{display:flex;flex-direction:column;gap:0;margin-top:36px}
+.prob-row{display:flex;gap:18px;align-items:flex-start;padding:26px 0;border-bottom:2px solid var(--line)}
+.prob-row:first-child{padding-top:0}
+.prob-emoji{font-size:32px;width:44px;flex-shrink:0;text-align:center}
+.prob-row h4{font-size:19px;font-weight:900;margin-bottom:6px}
+.prob-row p{font-size:15px;color:var(--ink2);line-height:1.7;font-weight:600}
+
+.receipt{background:var(--black);border-radius:4px;padding:0;margin:40px 0;position:relative}
+.receipt::before,.receipt::after{content:'';display:block;height:14px;
+  background:repeating-linear-gradient(115deg,var(--white) 0 9px,transparent 9px 18px);}
+.receipt-body{padding:8px 30px 30px}
+.receipt-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px dashed #333;font-weight:900;color:#fff;font-size:16px}
+.receipt-row.you{color:var(--green);font-size:19px;border-bottom:none;padding-top:22px}
+.receipt-row .p{color:var(--ink3);font-weight:700}
+.receipt-row.you .p{color:var(--green)}
+
+.dossier{padding:0}
+.d-hero{padding:80px 26px 60px;color:#fff}
+.d-kicker{font-size:15px;font-weight:900;opacity:.8;margin-bottom:14px}
+.d-title{font-family:'Noto Sans KR';font-weight:900;font-size:clamp(32px,7vw,48px);line-height:1.25;margin-bottom:20px}
+.d-pitch{font-size:17px;line-height:1.85;font-weight:700;opacity:.94;max-width:640px}
+
+.flow3{padding:44px 26px 6px}
+.flow3-inner{max-width:var(--max);margin:0 auto}
+.flow3-row{display:flex;gap:20px;position:relative;padding-bottom:32px}
+.flow3-row:last-child{padding-bottom:0}
+.flow3-row:not(:last-child)::before{content:'';position:absolute;left:19px;top:40px;bottom:-2px;width:2px;background:var(--line)}
+.flow3-node{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Noto Sans KR';font-weight:900;font-size:16px;color:#fff;position:relative;z-index:1}
+.flow3-t{font-size:17px;font-weight:900;margin-bottom:5px;padding-top:7px}
+.flow3-d{font-size:13.5px;color:var(--ink2);font-weight:600;line-height:1.6}
+
+.feat3{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:14px 26px 44px;max-width:var(--max);margin:0 auto}
+.feat3-card{border:2px solid var(--line);border-radius:18px;padding:22px 18px}
+.feat3-card .ico{font-size:26px;margin-bottom:12px}
+.feat3-card h4{font-size:15px;font-weight:900;margin-bottom:6px;line-height:1.35}
+.feat3-card p{font-size:12.5px;color:var(--ink2);font-weight:600;line-height:1.6}
+.feat3-h{font-size:13px;font-weight:900;color:var(--ink3);text-transform:uppercase;letter-spacing:.04em;max-width:var(--max);margin:0 auto;padding:0 26px 6px}
+@media(max-width:480px){.feat3{grid-template-columns:1fr}}
+
+.spec2{background:var(--black);color:#fff;padding:34px 26px}
+.spec2-inner{max-width:var(--max);margin:0 auto}
+.spec2-h{font-family:'Noto Sans KR';font-weight:900;font-size:20px;margin-bottom:22px}
+.spec2-row{display:flex;gap:16px;padding:18px 0;border-top:1px solid #2A2A2E}
+.spec2-row:first-child{border-top:none}
+.spec2-num{font-family:'Noto Sans KR';font-weight:900;font-size:15px;color:var(--amber);width:28px;flex-shrink:0}
+.spec2-t{font-size:16px;font-weight:900;margin-bottom:3px}
+.spec2-d{font-size:13px;color:#B0B0B8;font-weight:600;line-height:1.6}
+
+.tg2{display:flex;flex-direction:column;gap:0;margin-top:36px}
+.tg2-row{display:flex;gap:16px;align-items:center;padding:22px 0;border-bottom:2px solid var(--line)}
+.tg2-ico{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.tg2-row h4{font-size:16.5px;font-weight:900;margin-bottom:3px}
+.tg2-row p{font-size:13.5px;color:var(--ink2);font-weight:600}
+
+.plan3{display:flex;flex-direction:column;gap:16px;margin-top:36px}
+.plan-card{border:3px solid var(--line);border-radius:24px;padding:28px 26px;position:relative}
+.plan-card.best{border-color:var(--purple);background:var(--purple-tint)}
+.plan-badge{position:absolute;top:-16px;left:24px;background:var(--red);color:#fff;font-weight:900;font-size:13px;padding:7px 16px;border-radius:20px}
+.plan-name{font-size:19px;font-weight:900;margin-bottom:6px}
+.plan-price{font-family:'Noto Sans KR';font-weight:900;font-size:34px;margin-bottom:4px}
+.plan-permonth{font-size:13.5px;color:var(--ink3);font-weight:700;margin-bottom:14px}
+.plan-list{display:flex;flex-direction:column;gap:8px}
+.plan-list li{list-style:none;font-size:14px;font-weight:700;color:var(--ink2);padding-left:22px;position:relative}
+.plan-list li::before{content:'✓';position:absolute;left:0;color:var(--purple-deep);font-weight:900}
+
+.faq2{display:flex;flex-direction:column;margin-top:36px}
+.faq2-item{padding:24px 0;border-bottom:2px solid var(--line)}
+.faq2-q{font-size:17px;font-weight:900;margin-bottom:10px;display:flex;gap:10px}
+.faq2-q span{color:var(--purple)}
+.faq2-a{font-size:14.5px;color:var(--ink2);line-height:1.8;padding-left:24px;font-weight:600}
+
+.notice2{background:var(--amber);border-radius:20px;padding:30px 26px;margin-top:36px;color:var(--black)}
+.notice2 h4{font-family:'Noto Sans KR';font-weight:900;font-size:18px;margin-bottom:16px}
+.notice2 li{font-size:13.5px;line-height:1.7;font-weight:700;padding-left:16px;position:relative;list-style:none;margin-bottom:8px}
+.notice2 li::before{content:'•';position:absolute;left:0}
+
+.foot-note{margin-top:30px;font-size:12.5px;color:#8A8A92;font-weight:700}
+
+@media(max-width:600px){
+  body{font-size:17px}
+}
+
+.comic-char{
+  position:absolute;z-index:4;pointer-events:none;
+  filter:drop-shadow(0 8px 10px rgba(0,0,0,.12));
+}
+.comic-char .body{
+  width:86px;height:86px;border-radius:50% 50% 44% 44%;
+  background:linear-gradient(145deg,#fff,#ececf2);
+  border:4px solid #15151a;position:relative;
+}
+.comic-char .eye{
+  position:absolute;top:25px;width:12px;height:16px;border-radius:50%;
+  background:#15151a;
+}
+.comic-char .eye.l{left:23px}.comic-char .eye.r{right:23px}
+.comic-char .mouth{
+  position:absolute;left:34px;top:48px;width:18px;height:10px;
+  border-bottom:4px solid #15151a;border-radius:0 0 18px 18px;
+}
+.comic-char .antenna{
+  position:absolute;left:39px;top:-27px;width:4px;height:28px;background:#15151a;
+}
+.comic-char .antenna::after{
+  content:'';position:absolute;left:-6px;top:-8px;width:14px;height:14px;
+  border-radius:50%;background:#FFB020;border:3px solid #15151a;
+}
+.comic-char .bubble{
+  margin:0;position:absolute;white-space:nowrap;left:72px;top:-20px;
+  background:#fff;color:#111;border:3px solid #111;border-radius:18px;
+  padding:10px 15px;font-size:14px;line-height:1.45;font-weight:900;
+  box-shadow:4px 5px 0 rgba(0,0,0,.12);
+}
+.comic-char .bubble::after{
+  content:'';position:absolute;left:14px;bottom:-13px;top:auto;
+  border:7px solid transparent;border-top-color:#111;transform:rotate(18deg);
+}
+.char-right .bubble{left:auto;right:72px}
+.char-right .bubble::after{left:auto;right:14px;transform:rotate(-18deg)}
+.char-left{left:0px;top:-64px}.char-right{right:0px;top:-64px}
+.beat,.dossier{position:relative;overflow:hidden}
+@media(max-width:600px){
+  .comic-char .body{width:66px;height:66px;border-width:3px}
+  .comic-char .eye{top:19px;width:9px;height:12px}.comic-char .eye.l{left:17px}.comic-char .eye.r{right:17px}
+  .comic-char .mouth{left:26px;top:37px;width:14px;height:8px;border-width:3px}
+  .comic-char .antenna{left:30px}.comic-char .bubble{font-size:11px;padding:7px 10px;left:52px;top:-16px}
+  .char-right .bubble{left:auto;right:52px}
+  .char-left{left:8px}.char-right{right:8px}
+}
+</style>
+<style id="hp-css">
+#hpnav{position:fixed;top:0;left:0;right:0;z-index:2147483000;height:54px;background:rgba(10,10,20,.94);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;border-bottom:1px solid rgba(255,255,255,.1);box-sizing:border-box}
+#hpnav a{color:#fff;text-decoration:none;font-size:14px;font-weight:700;letter-spacing:0}
+#hpnav .lg{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:900}
+#hpnav .lg img{height:28px;border-radius:7px}
+#hpnav .lk{display:flex;align-items:center;gap:18px}
+#hpnav .lk a.b{background:#FF5A5F;color:#fff;padding:8px 16px;border-radius:9px;font-weight:900}
+#hpfloat{position:fixed;right:18px;bottom:18px;z-index:2147483000;background:#FF5A5F;color:#fff;font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-weight:900;font-size:15px;padding:14px 22px;border-radius:99px;box-shadow:0 10px 30px rgba(0,0,0,.35);text-decoration:none}
+body{padding-top:54px!important}
+@media(max-width:560px){#hpnav .lk a:not(.b){display:none}#hpfloat{left:14px;right:14px;text-align:center}}
+</style></head>
+<body><div id="hpnav"><a class="lg" href="index.html"><img src="logo.png" alt="">노블아크(NOBLE ARC)</a><div class="lk"><a href="index.html#lineup">프로그램</a><a href="index.html#manuals">사용설명서</a><a class="b" href="index.html#subscription">구매하기</a></div></div><a id="hpfloat" href="index.html#subscription">월 27,000원 · 구매하기</a>
+
+<!-- HERO -->
+<section class="beat blk center">
+  <div class="inner">
+    <div class="comic-char char-right"><div class="body"><div class="antenna"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div><div class="bubble">라이선스 키 하나면<br>바로 시작!</div></div></div>
+    <span class="kicker script">쿠팡파트너스 쇼핑쇼츠 자동화</span>
+    <div class="huge">설치 한 번,<br>기간만큼 <span class="mk mk-purple">씁니다</span></div>
+    <div class="gap-s"></div>
+    <p class="lead">상품 검색부터 대본, 영상 제작, 유튜브 업로드까지.<br>라이선스 키 하나로 <b style="color:#fff">내 PC에서 바로</b> 씁니다.</p>
+  </div>
+  <div class="gap-s"></div>
+  <img src="pimg/vynko/hero_visual.jpg" alt="" style="max-width:380px;width:80%;margin:0 auto;border-radius:20px">
+</section>
+
+<!-- WHY SHOPPING SHORTS -->
+<section class="beat center">
+  <div class="inner">
+    <div class="comic-char char-left"><div class="body"><div class="antenna"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div><div class="bubble">나도 할 수 있을까?</div></div></div>
+    <span class="kicker">그거 아세요?</span>
+    <div class="big">영상 속 상품 태그를 누르면<br><span class="mk mk-red">수수료</span>가 붙습니다</div>
+    <div class="gap-s"></div>
+    <p class="lead">쿠팡파트너스 정책상 태그 클릭 후 24시간 안에 일어난 구매는, 원래 누르려던 상품이 아니어도 수수료가 발생합니다. 그래서 조회수보다 클릭과 구매 전환이 핵심입니다.</p>
+  </div>
+</section>
+
+<section class="beat pur center">
+  <div class="inner">
+    <div class="comic-char char-right"><div class="body"><div class="antenna"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div><div class="bubble">진입장벽도<br>낮아졌어요!</div></div></div>
+    <div class="big">2026년 3월부터<br><span class="mk" style="background:#fff;color:var(--purple-deep)">구독자 500명</span>이면<br>쇼핑 태그를 달 수 있습니다</div>
+    <div class="gap-s"></div>
+    <p class="lead" style="color:rgba(255,255,255,.85)">유튜브 자체적으로도 쇼츠 하나에 상품 태그를 최대 60개까지 달 수 있게 넓혔습니다. 이렇게 진입장벽은 낮아졌는데, 정작 영상 제작과 발행을 자동화하지 않으면 여전히 손이 많이 갑니다.</p>
+  </div>
+</section>
+
+<!-- PROBLEM DETAIL -->
+<section class="beat">
+  <div class="inner">
+    <div class="comic-char char-right"><div class="body"><div class="antenna"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div><div class="bubble">시간도 없고…<br>개발은 더더욱!</div></div></div>
+    <span class="kicker">그래서 다들 여기서 막힙니다</span>
+    <div class="big" style="font-size:clamp(26px,5vw,34px)">쇼핑쇼츠 자동화, 이게 진짜 문제</div>
+    <div class="prob-grid">
+      <div class="prob-row"><div class="prob-emoji">⏰</div><div><h4>영상 한 편에 몇 시간</h4><p>소재 찾고, 대본 쓰고, 편집하고, 태그 달아 업로드까지 혼자 하면 하루가 그냥 사라집니다.</p></div></div>
+      <div class="prob-row"><div class="prob-emoji">💸</div><div><h4>직접 만들려니 비용이 부담스러움</h4><p>개발자 섭외부터 수개월 개발까지. 팔릴지도 모르는데 큰돈이 먼저 나갑니다.</p></div></div>
+      <div class="prob-row"><div class="prob-emoji">😩</div><div><h4>결국 "언젠가 해야지"</h4><p>시작도 못 하고 미루는 사이, 먼저 시작한 사람만 계속 앞서갑니다.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="beat blk center">
+  <div class="inner">
+    <div class="comic-char char-right"><div class="body"><div class="antenna"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div><div class="bubble">짜잔!</div></div></div>
+    <span class="kicker script">그래서 준비했습니다</span>
+    <div class="huge">이미 완성된<br><span class="mk mk-amber" style="color:var(--black)">프로그램</span></div>
+    <div class="gap-s"></div>
+    <p class="lead">개발도, 수개월도 필요 없습니다.<br>라이선스 키 발급받고 <b style="color:#fff">설치만</b> 하면 바로 시작할 수 있습니다.</p>
+  </div>
+</section>
+
+<!-- PRODUCT DOSSIER -->
+<section class="dossier">
+  <div class="d-hero" style="background:linear-gradient(160deg,var(--red-deep),#8E0D1B)">
+    <div class="inner">
+      <div class="d-kicker">SHOPPING SHORTS AUTOMATION</div>
+      <div class="d-title">🛍️ 쇼핑쇼츠<br>자동화 프로그램</div>
+      <p class="d-pitch"><b>쿠팡파트너스</b> 상품 검색부터 대본, 영상 제작, 유튜브 업로드까지. 완성된 자동화 파이프라인을 이용권으로 만나보세요.</p>
+    </div>
+  </div>
+
+  <div class="flow3"><div class="flow3-inner">
+    <div class="flow3-row"><div class="flow3-node" style="background:var(--red-deep)">1</div><div><div class="flow3-t">상품 소싱</div><div class="flow3-d">쿠팡파트너스 상품 검색 + 딥링크 자동생성, 또는 보유 상품 직접 등록</div></div></div>
+    <div class="flow3-row"><div class="flow3-node" style="background:var(--red-deep)">2</div><div><div class="flow3-t">AI 대본 생성</div><div class="flow3-d">상품소개·반전스토리·생활꿀팁·비포애프터·UGC 내돈내산·지인추천 6종 카테고리</div></div></div>
+    <div class="flow3-row"><div class="flow3-node" style="background:var(--red-deep)">3</div><div><div class="flow3-t">영상 소재 확보</div><div class="flow3-d">상품 이미지 합성, AI 이미지 생성으로 다양한 상품샷 구성</div></div></div>
+    <div class="flow3-row"><div class="flow3-node" style="background:var(--red-deep)">4</div><div><div class="flow3-t">음성 제작</div><div class="flow3-d">TTS 나레이션 + 보이스 필터, 무음구간·숨소리 자동 제거</div></div></div>
+    <div class="flow3-row"><div class="flow3-node" style="background:var(--red-deep)">5</div><div><div class="flow3-t">렌더링</div><div class="flow3-d">자막 싱크 + "(광고)" 표시 자동 삽입(공정위 지침 대응)</div></div></div>
+    <div class="flow3-row"><div class="flow3-node" style="background:var(--red-deep)">6</div><div><div class="flow3-t">발행</div><div class="flow3-d">유튜브 쇼츠 자동 업로드, 지정 시각 예약 발행 지원</div></div></div>
+  </div></div>
+
+  <div class="feat3-h">위 흐름만으론 안 보이는 것</div>
+  <div class="feat3">
+    <div class="feat3-card"><div class="ico">🔇</div><h4>무음·숨소리 자동 제거</h4><p>완주율을 높이는 핵심 디테일, 기본 켜짐.</p></div>
+    <div class="feat3-card"><div class="ico">🎭</div><h4>보이스 필터 15종</h4><p>딥보이스, 로봇, 라디오, 동굴울림 등 성우 효과 선택 가능.</p></div>
+    <div class="feat3-card"><div class="ico">📢</div><h4>"(광고)" 자동 표시</h4><p>제휴 링크 사용 시 공정위 표시광고 지침에 맞춰 자동 삽입.</p></div>
+    <div class="feat3-card"><div class="ico">💾</div><h4>스타일 프리셋 저장</h4><p>카테고리·톤·설정 조합을 저장해두고 다음 영상에 바로 재사용.</p></div>
+    <div class="feat3-card"><div class="ico">🌏</div><h4>레퍼런스 영상 소싱</h4><p>참고할 해외 영상 링크를 붙여넣어 소재로 활용(최대 8개).</p></div>
+    <div class="feat3-card"><div class="ico">☁️</div><h4>상품 모음 공용 링크</h4><p>제작한 상품들을 한 페이지에 모아 채널 프로필에 걸어두는 링크(일명 '링크인바이오'). 영상 볼 때마다 새로 검색할 필요 없이 한 곳에서 확인·구매 유도.</p></div>
+    <div class="feat3-card"><div class="ico">🎬</div><h4>자체 영상전환 기능 보유</h4><p>상품 사진 앞뒤는 실사진 그대로, 가운데 장면만 최대 15초간 실제로 움직이는 영상으로 전환. 신뢰도는 지키면서 역동성은 살리는 구조(이 기능은 무료로 제공해 드립니다).</p></div>
+  </div>
+
+  <div class="spec2"><div class="spec2-inner">
+    <div class="spec2-h">📦 이용권에 포함되는 것</div>
+    <div class="spec2-row"><div class="spec2-num">01</div><div><div class="spec2-t">프로그램 라이선스 키</div><div class="spec2-d">선택하신 이용기간 동안 내 PC에서 프로그램을 실행할 수 있는 키</div></div></div>
+    <div class="spec2-row"><div class="spec2-num">02</div><div><div class="spec2-t">설치 및 사용 가이드</div><div class="spec2-d">설치부터 API 키 등록, 실행까지 안내하는 가이드</div></div></div>
+    <div class="spec2-row"><div class="spec2-num">03</div><div><div class="spec2-t">이용기간 중 기술지원</div><div class="spec2-d">사용 중 문의 대응 및 오류 지원</div></div></div>
+  </div></div>
+</section>
+
+<!-- COST COMPARISON -->
+<section class="beat blk center">
+  <div class="inner">
+    <span class="kicker script">냉정하게 계산해보면</span>
+    <div class="big">직접 개발했으면<br><span class="mk mk-red">얼마 나왔을까요</span></div>
+    <div class="receipt">
+      <div class="receipt-body">
+        <div class="receipt-row"><span>아이템 기획 · 조사</span><span class="p">2주+</span></div>
+        <div class="receipt-row"><span>개발자 섭외 · 견적</span><span class="p">3주+</span></div>
+        <div class="receipt-row"><span>개발 · 테스트</span><span class="p">2~4개월</span></div>
+        <div class="receipt-row"><span>예상 총비용</span><span class="p">엄두가 안 나는 금액</span></div>
+        <div class="receipt-row you"><span>월 이용료</span><span>27,000원</span></div>
+      </div>
+    </div>
+    <p class="foot-note" style="text-align:center">※ 일반적인 외주 개발 기준 추정치입니다.</p>
+    <div class="bubble">😮‍💨 한 달로 따지면 커피 몇 잔 값</div>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="beat">
+  <div class="inner">
+    <span class="kicker">이런 분들 주목</span>
+    <div class="big" style="font-size:clamp(26px,5vw,34px)">당신 얘기일 수도 있습니다</div>
+    <div class="tg2">
+      <div class="tg2-row"><div class="tg2-ico" style="background:var(--red-tint)">🛍️</div><div><h4>쿠팡파트너스 부업을 자동화하고 싶은 분</h4><p>소재 발굴부터 업로드까지 손이 덜 가는 구조가 필요한 분</p></div></div>
+      <div class="tg2-row"><div class="tg2-ico" style="background:var(--purple-tint)">🏪</div><div><h4>자사 상품을 숏폼으로 알리고 싶은 셀러</h4><p>내 상품 등록 모드로 제휴 없이도 활용 가능</p></div></div>
+      <div class="tg2-row"><div class="tg2-ico" style="background:#E5FFF3">📺</div><div><h4>이미 유튜브 쇼츠를 운영 중인 크리에이터</h4><p>제작 시간 부족, 자동화로 발행량 UP</p></div></div>
+      <div class="tg2-row" style="border-bottom:none"><div class="tg2-ico" style="background:var(--amber)">🚀</div><div><h4>부업 콘텐츠를 가볍게 시작해보고 싶은 분</h4><p>큰 돈 들이지 않고 이용권으로 먼저 경험해보고 싶은 분</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="beat pur">
+  <div class="inner">
+    <div class="comic-char char-right"><div class="body"><div class="antenna"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div><div class="bubble">딱 5단계면<br>준비 끝!</div></div></div>
+    <span class="kicker">이용 시작까지 딱</span>
+    <div class="huge" style="font-size:clamp(70px,18vw,130px)">5단계</div>
+    <div class="gap-m"></div>
+    <div class="tg2" style="text-align:left">
+      <div class="tg2-row" style="border-bottom-color:rgba(255,255,255,.2)"><div class="tg2-ico" style="background:rgba(255,255,255,.15);color:#fff">1</div><div><h4 style="color:#fff">회원가입 · 로그인</h4><p style="color:rgba(255,255,255,.7)">홈페이지에서 1분이면 가입</p></div></div>
+      <div class="tg2-row" style="border-bottom-color:rgba(255,255,255,.2)"><div class="tg2-ico" style="background:rgba(255,255,255,.15);color:#fff">2</div><div><h4 style="color:#fff">월 이용권 결제</h4><p style="color:rgba(255,255,255,.7)">카드 결제로 바로 완료</p></div></div>
+      <div class="tg2-row" style="border-bottom-color:rgba(255,255,255,.2)"><div class="tg2-ico" style="background:rgba(255,255,255,.15);color:#fff">3</div><div><h4 style="color:#fff">라이선스 키 발급</h4><p style="color:rgba(255,255,255,.7)">결제 직후 이메일로 라이선스 키 발송</p></div></div>
+      <div class="tg2-row" style="border-bottom-color:rgba(255,255,255,.2)"><div class="tg2-ico" style="background:rgba(255,255,255,.15);color:#fff">4</div><div><h4 style="color:#fff">설치 및 키 등록</h4><p style="color:rgba(255,255,255,.7)">가이드에 따라 PC에 설치 후 라이선스 키 입력</p></div></div>
+      <div class="tg2-row" style="border-bottom:none"><div class="tg2-ico" style="background:#fff;color:var(--purple-deep)">5</div><div><h4 style="color:#fff">이용 시작</h4><p style="color:rgba(255,255,255,.7)">API 키 등록 후 바로 제작 시작</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" style="background:#150a2e;color:#fff;padding:70px 22px;text-align:center;font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;box-sizing:border-box">
+<div style="font-size:13px;font-weight:900;letter-spacing:.2em;color:#FF5A5F;margin-bottom:10px">PRICING</div>
+<div style="font-size:30px;font-weight:900;line-height:1.35;margin-bottom:26px">월 단위로 부담 없이 시작하세요</div>
+<div style="max-width:440px;margin:0 auto;border:2px solid #FF5A5F;border-radius:22px;padding:34px 26px;background:rgba(255,255,255,.04);box-sizing:border-box">
+<div style="font-size:18px;font-weight:800;opacity:.9">VYNKO 1개월 이용권</div>
+<div style="font-size:54px;font-weight:900;margin:8px 0;color:#fff">27,000<span style="font-size:20px;font-weight:700;opacity:.8">원 / 월</span></div>
+<div style="font-size:14px;opacity:.7;margin-bottom:18px">월 단위 결제 · 이용 기간 종료 후 재결제</div>
+<ul style="text-align:left;margin:0 0 24px;padding:0"><li style="padding:7px 0;font-size:16px;line-height:1.5;list-style:none"><span style="color:#FF5A5F;font-weight:900;margin-right:10px">✔</span>프로그램 라이선스 키 (1 PC)</li><li style="padding:7px 0;font-size:16px;line-height:1.5;list-style:none"><span style="color:#FF5A5F;font-weight:900;margin-right:10px">✔</span>설치 및 사용 가이드 제공</li><li style="padding:7px 0;font-size:16px;line-height:1.5;list-style:none"><span style="color:#FF5A5F;font-weight:900;margin-right:10px">✔</span>이용기간 중 기술지원</li><li style="padding:7px 0;font-size:16px;line-height:1.5;list-style:none"><span style="color:#FF5A5F;font-weight:900;margin-right:10px">✔</span>상품 이미지 → 영상 전환 무료 제공</li></ul>
+<a href="index.html#subscription" style="display:block;background:#FF5A5F;color:#fff;text-decoration:none;font-weight:900;font-size:18px;padding:17px;border-radius:14px">홈페이지에서 구매하기</a>
+</div>
+<div style="max-width:440px;margin:18px auto 0;font-size:13px;line-height:1.7;opacity:.7;text-align:left">· API 사용료는 이용료와 별도이며 본인 API 키 기준으로 발생합니다.<br>· 프로그램당 1대의 PC에서 사용할 수 있으며, 기기 초기화로 기기를 변경할 수 있습니다.<br>· 프로그램별 동시 사용이 가능하나 API 키가 중복되면 순차적 사용을 권장합니다.<br>· 라이선스 키를 활성화하기 전이라면 구매일로부터 7일 이내 전액 환불이 가능합니다. 활성화 후에는 디지털 콘텐츠 특성상 환불이 어렵습니다.</div>
+</section><!-- NOTICE -->
+<section class="beat gray">
+  <div class="inner">
+    <div class="comic-char char-right"><div class="body"><div class="antenna"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div><div class="bubble">구매 전<br>꼭 확인해주세요!</div></div></div>
+    <span class="kicker">놓치면 안 되는 것</span>
+    <div class="big" style="font-size:clamp(26px,5vw,32px)">꼭 확인해주세요</div>
+    <div class="notice2">
+      <h4>📌 안내사항</h4>
+      <ul>
+        <li>이 상품은 프로그램 "이용권"이며, 소스코드 제공 및 재판매 권한은 포함되지 않습니다</li>
+        <li>라이선스는 1 PC 기준이며, 기기 초기화를 통해 기기를 변경할 수 있습니다. 다른 프로그램과 동시 사용도 가능하나 API 키가 중복되면 순차 사용을 권장합니다</li>
+        <li>라이선스 키를 아직 활성화하지 않으셨다면 <b>구매일로부터 7일 이내 전액 환불이 가능합니다.</b> 프로그램에 키를 입력해 활성화한 이후에는 디지털 콘텐츠의 특성상 환불이 어렵습니다.</li>
+        <li>이용 기간이 종료되면 라이선스가 만료되며, 재구매(연장)를 통해 계속 이용 가능합니다</li>
+        <li>이용 기간 중 기술지원이 제공됩니다</li>
+        <li>라이선스의 무단 공유, 재배포, 재판매는 금지됩니다</li>
+        <li>프로그램은 사용자가 발급받은 API 키(쿠팡파트너스, YouTube 등)로 동작하며, <b>API 사용료는 이용료와 별도</b>로 각 서비스에 청구됩니다. <b>상품 이미지를 영상으로 전환하는 기능은 무료로 이용하실 수 있도록 제공</b>해 드립니다</li>
+        <li>쿠팡파트너스 등 제휴 마케팅 활동 시 표시광고 관련 법령 준수는 구매자 책임입니다</li>
+        <li>레퍼런스 영상을 소재로 활용할 경우 저작권 관련 책임은 구매자에게 있습니다</li>
+        <li>현재 완전자동 발행은 유튜브 쇼츠 기준이며, 다른 채널 확장은 별도 문의해 주세요</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="beat">
+  <div class="inner">
+    <span class="kicker">궁금하신 것</span>
+    <div class="big" style="font-size:clamp(26px,5vw,32px)">자주 묻는 질문</div>
+    <div class="faq2">
+      <div class="faq2-item"><div class="faq2-q"><span>Q.</span>코딩을 몰라도 사용할 수 있나요?</div><div class="faq2-a">네, 가능합니다. 설치 프로그램을 실행하고 API 키를 입력란에 붙여넣기만 하면 되는 구조라 별도 코딩 지식이 필요 없습니다. 가이드를 그대로 따라오시면 됩니다.</div></div>
+      <div class="faq2-item"><div class="faq2-q"><span>Q.</span>AI 비용이 따로 많이 나가나요?</div><div class="faq2-a">API 사용료는 이용료와 별도이며, 사용한 만큼만 각 서비스에 청구됩니다. 상품 이미지를 영상으로 전환하는 기능은 무료로 제공해 드립니다.</div></div>
+      <div class="faq2-item"><div class="faq2-q"><span>Q.</span>여러 대의 PC에서 쓸 수 있나요?</div><div class="faq2-a">라이선스는 1 PC 기준이며, 기기 초기화를 통해 기기를 변경할 수 있습니다.</div></div>
+      <div class="faq2-item"><div class="faq2-q"><span>Q.</span>이용 기간이 끝나면 어떻게 되나요?</div><div class="faq2-a">라이선스가 만료되어 프로그램을 더 이상 실행할 수 없습니다. 홈페이지에서 재결제하시면 즉시 이어서 이용하실 수 있습니다.</div></div>
+      <div class="faq2-item"><div class="faq2-q"><span>Q.</span>계속 드는 비용이 있나요?</div><div class="faq2-a">이용권 금액 외에 별도 구독료는 없습니다. 다만 사용하는 AI 서비스 API 요금은 사용한 만큼 각 서비스에 별도로 청구됩니다.</div></div>
+      <div class="faq2-item" style="border-bottom:none"><div class="faq2-q"><span>Q.</span>쿠팡파트너스 계정이 꼭 있어야 하나요?</div><div class="faq2-a">쿠팡파트너스 상품 소싱 기능을 쓰려면 필요합니다. 계정이 없으셔도 보유 중인 상품을 직접 등록하는 "내 상품" 모드로도 제작 가능합니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="beat blk center">
+  <div class="inner">
+    <div class="comic-char char-right"><div class="body"><div class="antenna"></div><div class="eye l"></div><div class="eye r"></div><div class="mouth"></div><div class="bubble">이제 진짜<br>시작해볼까요?</div></div></div>
+    <span class="kicker script">자, 이제</span>
+    <div class="huge">시작할 시간<span class="mk mk-purple">입니다</span></div>
+    <div class="gap-s"></div>
+    <p class="lead">완성된 프로그램으로<br>쇼핑쇼츠 제작을 바로 시작하세요.</p>
+    <div class="gap-m"></div>
+    <div style="margin:10px 0 6px"><a href="index.html#subscription" style="display:inline-block;margin-top:8px;background:#FF5A5F;color:#fff;text-decoration:none;font-weight:900;font-size:20px;padding:17px 34px;border-radius:16px;font-family:'Segoe UI','Malgun Gothic',sans-serif">월 27,000원 · 구매하기</a></div>
+<p class="foot-note">라이선스 키 즉시 발급 · 이용기간 중 기술지원 · 1 PC 기준 · API 사용료 별도</p>
+    <div class="gap-s"></div>
+    <p class="foot-note" style="font-size:14px;font-weight:900;color:#fff;opacity:.9">노블아크 NobleArc</p>
+    <div class="gap-s" style="height:14px"></div>
+    
+  </div>
+</section>
+
+<div style="background:#0b0b14;color:#8a8aa0;text-align:center;padding:30px 20px;font-size:12px;line-height:1.9;font-family:'Segoe UI','Malgun Gothic',sans-serif">© 2026 NOBLE ARC. All rights reserved. · <a href="privacy.html" style="color:#8a8aa0;text-decoration:underline">개인정보처리방침</a><br>상호: 노블아크(NobleArc) · 대표: 채정옥 · 사업자등록번호: 451-01-03916<br>통신판매업신고: 제 2026-안양동안-0412 호<br>사업장: 경기도 안양시 동안구 관평로69번길 8-13, 1층 일부호(평촌동)<br>이메일: doedoo291@gmail.com · 전화: 010-3387-0352 · 전화상담 가능시간 09:00~18:00</div></body>
+</html>
