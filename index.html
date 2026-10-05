@@ -838,32 +838,35 @@ document.addEventListener('click', e => {
   if (!panel.contains(e.target) && e.target !== avatar) panel.classList.remove('open');
 });
 
+function escHtml(v) { return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+const MYAPI = 'https://noble-arc-payment.vercel.app/api';
 async function loadMyLicenses(email) {
   const container = document.getElementById('mypageLicenses');
   container.innerHTML = '<div class="license-empty">불러오는 중...</div>';
   try {
-    const colLabels = { shorts_licenses:'SHORTS', longform_licenses:'LONGFORM', bundle_licenses:'BUNDLE', trial_licenses:'체험' };
+    const user = auth && auth.currentUser;
+    if (!user) throw new Error('not logged in');
+    const token = await user.getIdToken();
+    const res = await fetch(MYAPI + '/my-licenses', { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } });
+    const data = await res.json();
+    if (!res.ok || !data.ok) throw new Error(data.error || 'failed');
     let html = '';
-    for (const [col, label] of Object.entries(colLabels)) {
-      const snap = await db.collection(col).where('buyerEmail','==',email).get();
-      snap.forEach(doc => {
-        const d = doc.data();
-        const toDate  = v => v?.toDate ? v.toDate() : (v ? new Date(v) : null);
-        const isActive = d.active !== false;
-        const isTrial = col === 'trial_licenses';
-        const date    = d.activatedAt ? toDate(d.activatedAt)?.toLocaleDateString('ko-KR') : '';
-        const typeTxt = isTrial ? '2일 무료체험' : (d.type === 'lifetime' ? '영구' : (d.months ? `${d.months}개월 구독` : '구독'));
-        const expTxt  = isActive && d.expiresAt ? ` · ${toDate(d.expiresAt)?.toLocaleDateString('ko-KR')} 만료` : '';
-        const statusTxt = !isActive ? ' · <span style="color:#f87171;font-weight:700;">비활성화</span>' : '';
-        const machineBtn = !isTrial && isActive && d.machineId
-          ? `<button class="btn-reset-machine" onclick="resetMachineId('${col}','${doc.id}')">기기 초기화</button>`
-          : '';
-        html += `<div class="license-item" style="${!isActive ? 'opacity:0.5;' : ''}">
-          <div class="license-key">${doc.id}</div>
-          <div class="license-meta">${label} · ${typeTxt}${expTxt} · ${date}${statusTxt}</div>
+    for (const d of data.licenses) {
+      const toDate = v => v ? new Date(v) : null;
+      const isActive = d.active !== false;
+      const isTrial = !!d.trial;
+      const date = d.activatedAt ? toDate(d.activatedAt).toLocaleDateString('ko-KR') : '';
+      const typeTxt = isTrial ? '2일 무료체험' : (d.type === 'lifetime' ? '영구' : (d.months ? `${d.months}개월 구독` : '구독'));
+      const expTxt = isActive && d.expiresAt ? ` · ${toDate(d.expiresAt).toLocaleDateString('ko-KR')} 만료` : '';
+      const statusTxt = !isActive ? ' · <span style="color:#f87171;font-weight:700;">비활성화</span>' : '';
+      const machineBtn = !isTrial && isActive && d.bound
+        ? `<button class="btn-reset-machine" data-col="${escHtml(d.collection)}" data-key="${escHtml(d.key)}" onclick="resetMachineId(this.dataset.col, this.dataset.key)">기기 초기화</button>`
+        : '';
+      html += `<div class="license-item" style="${!isActive ? 'opacity:0.5;' : ''}">
+          <div class="license-key">${escHtml(d.key)}</div>
+          <div class="license-meta">${escHtml(d.label)} · ${typeTxt}${expTxt}${date ? ' · ' + date : ''}${statusTxt}</div>
           ${machineBtn}
         </div>`;
-      });
     }
     container.innerHTML = html || '<div class="license-empty">구매 내역이 없습니다.</div>';
   } catch(e) {
@@ -872,19 +875,22 @@ async function loadMyLicenses(email) {
 }
 async function resetMachineId(collection, licKey) {
   if (!confirm('이 라이선스의 기기 바인딩을 초기화하시겠습니까?\n초기화 후 다른 PC에서 활성화할 수 있습니다.')) return;
-  const url = `https://firestore.googleapis.com/v1/projects/${FB_PROJECT}/databases/(default)/documents/${collection}/${licKey}?key=${FB_API_KEY}&updateMask.fieldPaths=machineId`;
   try {
-    const res = await fetch(url, {
-      method:'PATCH', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({fields:{ machineId:{nullValue:null} }})
+    const user = auth && auth.currentUser;
+    if (!user) { alert('로그인이 필요합니다.'); return; }
+    const token = await user.getIdToken();
+    const res = await fetch(MYAPI + '/reset-device', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ collection, licenseKey: licKey })
     });
-    if (res.ok) { alert('기기 초기화 완료. 이제 새 PC에서 활성화할 수 있습니다.'); loadMyLicenses(auth.currentUser.email); }
-    else { alert('초기화 실패. 다시 시도해주세요.'); }
-  } catch(e) { alert('오류: '+e.message); }
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data.ok) { alert('기기 초기화 완료. 이제 새 PC에서 활성화할 수 있습니다.'); loadMyLicenses(auth.currentUser.email); }
+    else { alert(data.error || '초기화 실패. 다시 시도해주세요.'); }
+  } catch(e) { alert('오류: ' + e.message); }
 }
 
 // ── 구독 요금제 ─────────────────────────────────────────
-const PRODUCTS = {"shorts": {"name": "노블아크 쇼츠", "order": "쇼츠", "amount": 22000, "collection": "shorts_licenses", "server": false, "enabled": true}, "longform": {"name": "노블아크 롱폼", "order": "롱폼", "amount": 29000, "collection": "longform_licenses", "server": false, "enabled": true}, "bundle": {"name": "노블아크 쇼츠+롱폼", "order": "쇼츠+롱폼", "amount": 45000, "collection": "bundle_licenses", "server": false, "enabled": true}, "vynko": {"name": "VYNKO 쇼핑쇼츠", "order": "VYNKO 쇼핑쇼츠", "amount": 27000, "collection": "vynko_licenses", "server": true, "enabled": true}, "postia": {"name": "포스티아 블로그 자동화", "order": "포스티아 블로그 자동화", "amount": 25000, "collection": "blog_licenses", "server": true, "enabled": true}, "backtest": {"name": "백테스트 자동화", "order": "백테스트 자동화", "amount": 25000, "collection": "pbt_licenses", "server": true, "enabled": true}, "postvane": {"name": "POSTVANE 스레드 자동화", "order": "POSTVANE 스레드 자동화", "amount": 19000, "collection": "postvane_licenses", "server": true, "enabled": true}, "aionbook": {"name": "AIONBOOK 전자책 자동화", "order": "AIONBOOK 전자책 자동화", "amount": 9000, "collection": "aionbook_licenses", "server": true, "enabled": true}};
+const PRODUCTS = {"shorts": {"name": "노블아크 쇼츠", "order": "쇼츠", "amount": 22000, "collection": "shorts_licenses", "server": true, "enabled": true}, "longform": {"name": "노블아크 롱폼", "order": "롱폼", "amount": 29000, "collection": "longform_licenses", "server": true, "enabled": true}, "bundle": {"name": "노블아크 쇼츠+롱폼", "order": "쇼츠+롱폼", "amount": 45000, "collection": "bundle_licenses", "server": true, "enabled": true}, "vynko": {"name": "VYNKO 쇼핑쇼츠", "order": "VYNKO 쇼핑쇼츠", "amount": 27000, "collection": "vynko_licenses", "server": true, "enabled": true}, "postia": {"name": "포스티아 블로그 자동화", "order": "포스티아 블로그 자동화", "amount": 25000, "collection": "blog_licenses", "server": true, "enabled": true}, "backtest": {"name": "백테스트 자동화", "order": "백테스트 자동화", "amount": 25000, "collection": "pbt_licenses", "server": true, "enabled": true}, "postvane": {"name": "POSTVANE 스레드 자동화", "order": "POSTVANE 스레드 자동화", "amount": 19000, "collection": "postvane_licenses", "server": true, "enabled": true}, "aionbook": {"name": "AIONBOOK 전자책 자동화", "order": "AIONBOOK 전자책 자동화", "amount": 9000, "collection": "aionbook_licenses", "server": true, "enabled": true}};
 const ISSUE_API = 'https://noble-arc-payment.vercel.app/api/issue';
 const PRICES = { shorts:22000, longform:29000, bundle:45000 };
 const PRICES_SUB = { shorts:20000, longform:27000, bundle:43000 };
