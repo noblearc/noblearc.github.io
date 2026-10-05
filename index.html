@@ -856,12 +856,19 @@ async function loadMyLicenses(email) {
       const isActive = d.active !== false;
       const isTrial = !!d.trial;
       const date = d.activatedAt ? toDate(d.activatedAt).toLocaleDateString('ko-KR') : '';
-      const typeTxt = isTrial ? '2일 무료체험' : (d.type === 'lifetime' ? '영구' : (d.months ? `${d.months}개월 구독` : '구독'));
+      const typeTxt = d.collection === 'master_licenses'
+        ? (d.months === 0 ? '6종 전체 · 영구' : `6종 전체 · ${d.months || ''}개월`)
+        : (isTrial ? '2일 무료체험' : (d.type === 'lifetime' ? '영구' : (d.months ? `${d.months}개월 구독` : '구독')));
       const expTxt = isActive && d.expiresAt ? ` · ${toDate(d.expiresAt).toLocaleDateString('ko-KR')} 만료` : '';
       const statusTxt = !isActive ? ' · <span style="color:#f87171;font-weight:700;">비활성화</span>' : '';
-      const machineBtn = !isTrial && isActive && d.bound
-        ? `<button class="btn-reset-machine" data-col="${escHtml(d.collection)}" data-key="${escHtml(d.key)}" onclick="resetMachineId(this.dataset.col, this.dataset.key)">기기 초기화</button>`
-        : '';
+      let machineBtn = '';
+      if (d.collection === 'master_licenses') {
+        // 마스터키: 프로그램(슬롯)마다 기기가 따로 등록되므로 프로그램별로 초기화 버튼을 보여준다
+        machineBtn = (d.slots || []).filter(sl => sl.bound && isActive).map(sl =>
+          `<button class="btn-reset-machine" data-col="master_licenses" data-key="${escHtml(d.key)}" data-slot="${escHtml(sl.slot)}" onclick="resetMachineId(this.dataset.col, this.dataset.key, this.dataset.slot)">${escHtml(sl.name)} 기기 초기화</button>`).join(' ');
+      } else if (!isTrial && isActive && d.bound) {
+        machineBtn = `<button class="btn-reset-machine" data-col="${escHtml(d.collection)}" data-key="${escHtml(d.key)}" onclick="resetMachineId(this.dataset.col, this.dataset.key)">기기 초기화</button>`;
+      }
       html += `<div class="license-item" style="${!isActive ? 'opacity:0.5;' : ''}">
           <div class="license-key">${escHtml(d.key)}</div>
           <div class="license-meta">${escHtml(d.label)} · ${typeTxt}${expTxt}${date ? ' · ' + date : ''}${statusTxt}</div>
@@ -873,7 +880,7 @@ async function loadMyLicenses(email) {
     container.innerHTML = '<div class="license-empty">불러오기 실패</div>';
   }
 }
-async function resetMachineId(collection, licKey) {
+async function resetMachineId(collection, licKey, slot) {
   if (!confirm('이 라이선스의 기기 바인딩을 초기화하시겠습니까?\n초기화 후 다른 PC에서 활성화할 수 있습니다.')) return;
   try {
     const user = auth && auth.currentUser;
@@ -881,7 +888,7 @@ async function resetMachineId(collection, licKey) {
     const token = await user.getIdToken();
     const res = await fetch(MYAPI + '/reset-device', {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify({ collection, licenseKey: licKey })
+      body: JSON.stringify({ collection, licenseKey: licKey, slot })
     });
     const data = await res.json().catch(() => ({}));
     if (res.ok && data.ok) { alert('기기 초기화 완료. 이제 새 PC에서 활성화할 수 있습니다.'); loadMyLicenses(auth.currentUser.email); }
