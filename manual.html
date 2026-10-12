@@ -46,13 +46,11 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
     <li><a href="#sec-2-프로그램-구매">2. 프로그램 구매</a></li>
     <li><a href="#sec-3프로그램-설치">3.프로그램 설치</a></li>
     <li><a href="#sec-4API키-관리-탭-설정">4.API키 관리 탭 설정</a></li>
-    <li class="sub"><a href="#sec-41-vertex-json-발급-및-등록-방법필수">4-1 vertex json 발급 및 등록 방법(필수)</a></li>
+    <li class="sub"><a href="#sec-41-OPENAI-API키-발급받기필수">4-1 OPENAI API키 발급받기(필수)</a></li>
     <li class="sub"><a href="#sec-42-GROQ-API키-발급받기필수">4-2 GROQ API키 발급받기(필수)</a></li>
-    <li class="sub"><a href="#sec-43-OPENAI-API키-발급받기선택">4-3 OPENAI API키 발급받기(선택)</a></li>
-    <li class="sub"><a href="#sec-44-MINIMAX-API키-발급받기선택">4-4 MINIMAX API키 발급받기(선택)</a></li>
-    <li class="sub"><a href="#sec-45-일레븐랩스-API키-발급받기선택">4-5 일레븐랩스 API키 발급받기(선택)</a></li>
-    <li class="sub"><a href="#sec-46-유튜브-API키-발급받기필수">4-6 유튜브 API키 발급받기(필수)</a></li>
-    <li class="sub"><a href="#sec-48-Kling-AI-API키-발급받기선택">4-8 Kling AI API 키 발급 받기(선택)</a></li>
+    <li class="sub"><a href="#sec-43-일레븐랩스-API키-발급받기선택">4-3 일레븐랩스 API키 발급받기(선택)</a></li>
+    <li class="sub"><a href="#sec-44-유튜브-API키-발급받기필수">4-4 유튜브 API키 발급받기(필수)</a></li>
+    <li class="sub"><a href="#sec-45-Kling-AI-API키-발급받기선택">4-5 Kling AI API 키 발급 받기(선택)</a></li>
     <li><a href="#sec-5롱폼-전용프로그램-사용법">5.롱폼 전용프로그램 사용법</a></li>
     <li><a href="#sec-6쇼츠-전용프로그램-사용법">6.쇼츠 전용프로그램 사용법</a></li>
     <li><a href="#sec-7리서치센터-사용법">7.리서치센터 사용법</a></li>
@@ -62,6 +60,8 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
     <li><a href="#sec-8유튜브-자동업로드-설정-방법">8.유튜브 자동업로드 설정 방법</a></li>
     <li><a href="#sec-9쇼츠-영상-대량생산탭-운영방법">9.쇼츠 영상 대량생산탭 운영방법</a></li>
     <li><a href="#sec-10이미지-영상으로-전환-후-씬-편집기에서-영상-등록-방법">10.이미지 영상으로 전환 후 씬 편집기에서 영상 등록 방법</a></li>
+    <li class="sub"><a href="#sec-101-flow-이미지-대량-생성">10-1 Google Flow로 이미지 대량 생성하고 씬에 자동 배치하기</a></li>
+    <li class="sub"><a href="#sec-102-이미지를-영상으로-전환">10-2 이미지를 영상으로 전환하고 등록하기</a></li>
     <li><a href="#sec-11-AI-에이전트-탭-사용법">11. AI 에이전트 탭 사용법</a></li>
     <li><a href="#sec-12-기타-안내사항">12. 기타 안내사항</a></li>
     <li class="sub"><a href="#sec-12-1-기기초기화">12-1 기기초기화</a></li>
@@ -109,149 +109,47 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <p>프로그램이 실행된 화면입니다. 이제 프로그램을 사용하실 1단계 준비가 끝났습니다.</p>
 <p>다음으로 프로그램 사용법이 먼저 궁굼하시면 목차에서 5번과 6번을 선택하시고 프로그램 사용법을 아시기에 앞서 준비물인 API키 발급 받는 방법에 대해 궁금하시면 다음 4번 목차를 선택하시면 됩니다.</p>
 <h2 id="sec-4API키-관리-탭-설정">4.API키 관리 탭 설정</h2>
-<p>프로그램 설치를 마치셨다면 필수로 3가지를 설정 하시면 바로 유튜브 영상 제작이 가능합니다. 바로 3가지 api 발급받기입니다. 4-1 vertex json 발급 , 4-2 GROQ API키 발급 , 4-6 유튜브 API키 발급  이 3가지를 필수로 발급받아 프로그램내에 저장해서 보관하세요. 그러면 소재 발굴부터 대본, 이미지, 음성더빙, 자막, 랜더링까지 모두 다 할 수 있습니다.</p>
-<h3 id="sec-41-vertex-json-발급-및-등록-방법필수">4-1 vertex json 발급 및 등록 방법(필수)</h3>
-<p>저희 프로그램에서 가장 기본이 되는 설정 사항입니다. 프로그램 사용전 한번만 하시면 됩니다. 이후에는 자동 저장되어 계속 신경쓰지 않고 프로그램을 사용하실 수 있습니다. Vertex AI 서비스 계정 JSON 키를 반드시 발급 받으셔야 합니다.  Vertex AI를 통해 대본, 이미지, TTS 등이 생성됩니다.  Vertex AI를  이용하는 이유는 300달려(43만원 상당~44만원 상당)의 유료 크레딧을 무료로 지급하고 있기 때문입니다. 44만원 상당의 크레딧으로 엄청난 양의 대본과 이미지 TTS를 사용할 수 있어 비용 없이 영상을 만들 수 있습니다. 최저의 비용으로 최상의 동영상 자동 생성 프로그램을 목표로 하는 저희 프로그램에 딱 맞는 필수 키입니다. 거기에 300달러(44만원 상당)의 크레딧을 모두 다 사용한 경우 추가로 다른 계정을 만들어서 또 300달러 크레딧을 받아서 사용하시면 됩니다.</p>
-<div style="margin:1.2rem 0;padding:1rem 1.4rem;border:1.5px solid #555;border-radius:10px;">
-  <p style="margin:0;line-height:1.8;">구글 300달러 크레딧을 추가로 발급받고자 하신다면, 명의를 달리하시고 전화번호와 카드번호를 다른 것으로 하여 새 구글 계정으로 발급받으시는 것을 권장드립니다. 아울러 IP 주소도 달리하시는 것을 권장드립니다.</p>
+<p>프로그램 설치를 마치셨다면 필수로 3가지를 설정 하시면 바로 유튜브 영상 제작이 가능합니다. 바로 3가지 api 발급받기입니다. 4-1 OPENAI API키 발급 , 4-2 GROQ API키 발급 , 4-4 유튜브 API키 발급  이 3가지를 필수로 발급받아 프로그램내에 저장해서 보관하세요. 그러면 소재 발굴부터 대본, 이미지, 음성더빙, 자막, 랜더링까지 모두 다 할 수 있습니다. 음성 더빙은 기본값인 Edge TTS가 무료이며 키가 필요 없습니다.</p>
+<div class="img-wrap"><img src="imgs/n_apikey_long.png" loading="lazy" alt="API키 관리 탭 - 롱폼"></div>
+<p>위 화면은 롱폼 프로그램의 API키 관리 탭입니다. OpenAI API는 대본·이미지·썸네일·음성에 모두 쓰는 필수 키이고, Groq API는 자막 분할을 돕는 무료 필수 키입니다. ElevenLabs와 Kling AI는 선택 사항입니다. 쇼츠 프로그램도 같은 구성입니다.</p>
+<div class="img-wrap"><img src="imgs/n_apikey_shorts.png" loading="lazy" alt="API키 관리 탭 - 쇼츠"></div>
+<h3 id="sec-41-OPENAI-API키-발급받기필수">4-1 OPENAI API키 발급받기(필수)</h3>
+<div style="margin:0 0 1.5rem 0;padding:1rem 1.4rem;background:rgba(251,146,60,0.08);border:1.5px solid rgba(251,146,60,0.4);border-radius:10px;">
+  <p style="margin:0;color:#fb923c;font-size:13.5px;font-weight:600;line-height:1.8;">OpenAI API는 사용한 만큼 요금이 차감되는 선결제(충전) 방식의 유료 서비스입니다. 별도로 OpenAI 사이트에서 결제하셔서 이용하시는 사항입니다. 반드시 필요한 키이니 아래 순서대로 발급받아 주세요.</p>
 </div>
-<p>추가로 구글의 300달러 크레딧 무료지급 정책은 구글의 정책 변화에 따라 바뀔수 있는 점은 미리 안내드립니다.</p>
-<p>https://cloud.google.com 접속</p>
-<p>먼저 위의 주소를 클릭하여 해당 구글 클라우드 사이트로 접속하여주세요. 구글 로그인도 같이 해주세요.</p>
-<div class="img-wrap"><img src="imgs/image12.png" loading="lazy" alt="스크린샷"></div>
-<p>또는 구글 검색에 구글 클라우드 콘솔 이라고 검색하셔서 나오는 결과를 클릭하시고 들어가셔도 됩니다.</p>
-<div class="img-wrap"><img src="imgs/image13.png" loading="lazy" alt="스크린샷"></div>
-<div class="img-wrap"><img src="imgs/image14.png" loading="lazy" alt="스크린샷"></div>
-<p>그럼 위와 같은 화면이 나옵니다. 여기서 무료로 시작하기 버튼을 클릭해주세요 화면이 위와 같이 다르게 나오는데 둘다 같습니다. 똑같이 무료로 시작하기 누르시면 되요.</p>
-<div class="img-wrap"><img src="imgs/image15.png" loading="lazy" alt="스크린샷"></div>
-<p>그럼 위와 같은 화면이 나오는데 오른쪽에 300달러의 무료크레딧이라고 써있는 계정만 300달러 무료체험을 신청해서 이용할 수 있습니다. 만약 저런 문구가 뜨지 않는다면 구글의 다른 유료 서비스를 이용하여서 300달러 크레딧 사용이 막힌 경우입니다. 저런 문구가 안뜨면 다른 계정으로 다시 시도해주셔야 합니다.</p>
-<p>또한 이 사항을 진행하셔서 오른쪽에 자동 청구 없음이라는 안내문에서 보이듯이 크레딧을 다 사용하시더라도 추가로 요금이 다시 자동 청구 되는 일은 없습니다. 다만 크레딧을 모두 사용하고 나서도 계속 같은 계정을 사용하시면 사용한만큼 요금이 청구됩니다. 그러므로 300달러 크레딧을 모두 소진하셨다면 다른 계정을 만드셔서 추가로 300달러 크레딧을 받으시면 됩니다.</p>
-<p>주의사항: 구글클라우드, 구글맵에서 유료 고객으로 등록하신 이력이 없으신 계정으로 하셔야 합니다.</p>
-<p>국가를 대한민국으로 해주시고 서비스 약관 동의 체크 해줍니다. 그리고 하단에 계속 버튼을 클릭해주세요</p>
-<div class="img-wrap"><img src="imgs/image16.png" loading="lazy" alt="스크린샷"></div>
-<p>자 다음 화면입니다. 여기서 계좌유형은 개인으로 해주시고 주소는 자신의 주소를 입력해주세요. 우편번호까지 입력하셔야 합니다. 전화번호는 선택사항으로 적지 않으셔도 됩니다.</p>
-<p>유효기간이 90일이기 때문에 90일 안에 크레딧을 모두 다 사용하시길 권장드립니다.</p>
-<div class="img-wrap"><img src="imgs/image17.png" loading="lazy" alt="스크린샷"></div>
-<p>이용하는 사람마다 다르게 나타나는 안내창입니다. 어떤분은 아예 이런 창이 안뜨는 분도 있고 어떤분은 이렇게 15000원 일회성 선불결제를 해야한다고 나옵니다. 하지만 걱정하지 않으셔도 됩니다. 구글이 가져가는 금액이 아니고 90일이 지나면 반환되는 금액입니다.(또는 그 전에 해지시 바로 환급) 300달러 크레딧은 그 자체로 무료로 지급되는 사항입니다.</p>
-<p>영상을 무료로 생성할 수 있는 크레딧을 지급 받았으니 이제 Vertex AI joson을 다운로드 받아야할 차례입니다. 지금부터 설명드리겠습니다.</p>
-<div class="img-wrap"><img src="imgs/new_proj_top_click.png" loading="lazy" alt="상단 프로젝트 클릭"></div>
-<p>우선 상단에 현재 선택된 <strong>프로젝트 이름</strong>을 클릭합니다.</p>
-<div class="img-wrap"><img src="imgs/new_proj_select.png" loading="lazy" alt="새 프로젝트 클릭"></div>
-<p>프로젝트 선택 창이 열리면 우측 상단의 <strong>"새 프로젝트"</strong> 버튼을 클릭합니다.</p>
-<div class="img-wrap"><img src="imgs/new_proj_form.png" loading="lazy" alt="새 프로젝트 생성 폼"></div>
-<p>프로젝트 이름은 <strong>아무 이름이나 자유롭게</strong> 입력하시고, 조직은 <strong>"조직 없음"</strong>으로 설정한 후 <strong>"만들기"</strong>를 클릭합니다.</p>
-<div style="margin:1.5rem 0;padding:1.2rem 1.6rem;background:rgba(255,80,80,0.08);border:2px solid rgba(255,100,100,0.5);border-radius:10px;">
-  <p style="margin:0;color:#ff8080;font-size:14px;font-weight:700;line-height:1.8;">새 프로젝트를 발급 받으시고 나서 새로 만드신 프로젝트로 선택되어있는지 확인하세요. 만약 새로 만드신 프로젝트로 선택되어 있지 않으면 새로 만드신 프로젝트를 선택하신 후 아래 사항 진행해주세요.</p>
-</div>
-<div class="img-wrap"><img src="imgs/image18.png" loading="lazy" alt="스크린샷"></div>
-<p>클라우드 처음 화면에서 왼쪽 최상단에 탐색 버튼을 클릭해주세요</p>
-<div class="img-wrap"><img src="imgs/image19.png" loading="lazy" alt="스크린샷"></div>
-<p>그러면 위와 같은 화면이 나오는데 여기서 IAM 및 관리자 탭을 클릭하시면 오른쪽에 창이 하나 뜹니다. 여기서 중간에 있는 서비스 계정을 클릭하여 줍니다.</p>
-<div class="img-wrap"><img src="imgs/image20.png" loading="lazy" alt="스크린샷"></div>
-<p>이제 상단에 있는 서비스 계정 만들기를 클릭해줍니다.</p>
-<div class="img-wrap"><img src="imgs/image21.png" loading="lazy" alt="스크린샷"></div>
-<p>그럼 위와 같은 화면이 나오는데 서비스 계정 이름에 자신이 원하는 이름을 아무거나 입력해줍니다. 그럼 바로 밑에 서비스 계정 ID는 자동으로 발급 됩니다. 그 아래 만들고 계속하기 버튼을 클릭하시면 됩니다.</p>
-<div class="img-wrap">
-  <canvas id="canvas-image22" style="max-width:100%;height:auto;display:block;margin:0 auto;"></canvas>
-  <script>
-  (function(){
-    var canvas = document.getElementById('canvas-image22');
-    var ctx = canvas.getContext('2d');
-    var img = new Image();
-    img.src = 'imgs/image22.png';
-    img.onload = function(){
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      ctx.drawImage(img, 0, 0);
-      var fontSize = Math.max(20, Math.floor(img.naturalWidth * 0.032));
-      var text = 'Agent Platform 사용자 선택하세요';
-      var x = img.naturalWidth * 0.5;
-      var y = Math.floor(img.naturalHeight * 0.1);
-      var padX = fontSize * 0.8;
-      var padY = fontSize * 0.5;
-      ctx.font = 'bold ' + fontSize + 'px "Noto Sans KR", sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      var textW = ctx.measureText(text).width;
-      ctx.fillStyle = 'rgba(220, 38, 38, 0.88)';
-      ctx.beginPath();
-      ctx.roundRect(x - textW/2 - padX, y - fontSize/2 - padY, textW + padX*2, fontSize + padY*2, 8);
-      ctx.fill();
-      ctx.strokeStyle = 'white';
-      ctx.lineWidth = Math.max(2, fontSize * 0.07);
-      ctx.strokeText(text, x, y);
-      ctx.fillStyle = '#ffffff';
-      ctx.fillText(text, x, y);
-    };
-    img.onerror = function(){
-      canvas.style.display = 'none';
-      var fallback = document.createElement('img');
-      fallback.src = 'imgs/image22.png';
-      fallback.alt = '스크린샷';
-      fallback.style.maxWidth = '100%';
-      canvas.parentNode.insertBefore(fallback, canvas);
-    };
-  })();
-  </script>
-</div>
-<p>그럼 위와 같은 화면이 나오는데 여기서 역할 선택을 선택하신 후 검색창에 agent pla 라고 검색해주세요 그러면 Agent Platform 사용자라고 뜹니다. 이것을 선택하시고 밑에 있는 완료 버튼을 눌러주세요</p>
-<div class="img-wrap"><img src="imgs/image23.png" loading="lazy" alt="스크린샷"></div>
-<p>완료 버튼을 누르시면 위와 같은 화면이 뜹니다. 여기서 이메일이라고 적힌 곳 아래 이메일 주소를 클릭해주세요</p>
-<div class="img-wrap"><img src="imgs/image24.png" loading="lazy" alt="스크린샷"></div>
-<p>주소를 클릭하면 위와 같은 화면이 뜹니다. 여기서 키라는 탭을 바로 클릭해주세요</p>
-<div class="img-wrap"><img src="imgs/image25.png" loading="lazy" alt="스크린샷"></div>
-<p>키 탭을 클릭하시면 위와 같은 화면이 뜨는데 여기서 키추가를 클릭하시면 하단에 새 키 만들기라고 뜹니다. 그것을 클릭해주세요</p>
-<div class="img-wrap"><img src="imgs/image26.png" loading="lazy" alt="스크린샷"></div>
-<p>다음으로 뜨는 창에서 JSON이 선택되어 있을겁니다. 그대로 유지하신채 오른쪽 밑에 만들기 버튼을 클릭해주세요!!</p>
-<div class="img-wrap"><img src="imgs/image27.png" loading="lazy" alt="스크린샷"></div>
-<p>그럼 이렇게 비공개 키가 컴퓨터에 저장됨이라고 뜨게 됩니다. 확인하시고 닫기 버튼을 클릭해주세요</p>
-<div class="img-wrap"><img src="imgs/image28.png" loading="lazy" alt="스크린샷"></div>
-<p>자 그럼 성공적으로 Vertex AI 서비스 계정 JSON 키 발급을 마쳤습니다.</p>
-<div class="img-wrap"><img src="imgs/image29.png" loading="lazy" alt="스크린샷"></div>
-<p>발급 받으신 JSON 파일을 프로그램 API키 관리 탭에 들어가셔서 맨위에 JSON업로드 버튼을 클릭하시면 프로그램에 자동 적용되고 저장 됩니다.</p>
-<p>주의사항: JOSN파일은 단 한번만 다운로드가 가능합니다 그렇기 때문에 업로드 하셨더라도 따로 잘 보관해놓으시기 바랍니다.</p>
-<p>다음으로</p>
-<div class="img-wrap"><img src="imgs/image30.png" loading="lazy" alt="스크린샷"></div>
-<div class="img-wrap"><img src="imgs/image31.png" loading="lazy" alt="스크린샷"></div>
-<p>다음으로 해주실 사항은 왼쪽 맨위에 탐색 버튼을 클릭하신 후 결제 버튼을 클릭해주세요</p>
-<p>그 다음 결제 화면으로 이동해주세요</p>
-<div class="img-wrap"><img src="imgs/billing_activate.png" loading="lazy" alt="결제 활성화 버튼"></div>
-<p>결제 화면으로 이동하면 위와 같은 화면이 오른쪽 하단에 또는 중앙에 보이실 겁니다. 여기서 파란색 활성화 버튼을 눌러주세요. 그런데 이 활성화 버튼이 어떤 분은 화면 최상단에 뜨는 경우도 있습니다. 구글이 UI를 다소 복잡하게 해놨기 때문에 뜨는 곳이 한두 군데 중복된 경우가 있더군요. 활성화 파란색 버튼이 뜬다면 바로 활성화 버튼을 눌러주세요.</p>
-<div style="margin:1.2rem 0;padding:1rem 1.4rem;border:1.5px solid #555;border-radius:10px;">
-  <p style="margin:0;line-height:1.8;">이 설정 부분은 계정에 따라 하지 않으셔도 되는 분들이 있습니다. 위의 화면처럼 뜨지 않는 경우에는 그냥 넘어가셔도 됩니다.</p>
-</div>
-<div class="img-wrap"><img src="imgs/billing_general_activate.png" loading="lazy" alt="일반계정 활성화 버튼"></div>
-<p>지금까지 진행하던 프로젝트를 다시 클릭해서 처음으로 돌아오셔서 위와 같이 일반계정 활성화 버튼이 보인다면 일반계정 활성화 버튼을 눌러주세요. 만약 위와 같은 일반계정 활성화 버튼이 나오지 않는다면 활성화 적용이 잘 된 것입니다.</p>
-<div class="img-wrap"><img src="imgs/image33.png" loading="lazy" alt="스크린샷"></div>
-<p>마지막으로 다시 왼쪽 최상단의 탐색창을 클릭하시고 API 및 서비스 버튼을 클릭해주세요</p>
-
-<div style="margin:2rem 0;padding:1.2rem 1.5rem;background:rgba(251,191,36,0.08);border:1.5px solid rgba(251,191,36,0.35);border-radius:12px;">
-  <p style="margin:0 0 0.8rem 0;font-weight:700;color:#fbbf24;font-size:1.05em;">Vertex AI API 사용설정을 해야합니다.</p>
-  <p style="margin:0;color:#ccc;font-size:0.95em;">Google Cloud Console의 상단 검색창을 활용하여 Vertex AI API를 찾아 활성화합니다.</p>
-</div>
-
-<p><strong>① Google Cloud Console 화면 맨 위 검색창에 <code>vertex</code> 라고 입력하세요.</strong> 자동완성 목록이 나타납니다.</p>
-<div class="img-wrap"><img src="imgs/vertex_alt_step1.png" loading="lazy" alt="Google Cloud 상단 검색창에 vertex 입력"></div>
-
-<p><strong>② 검색 버튼을 누른 후 검색 결과 목록에서 <code>Vertex AI (Agent Platform)</code> 항목을 클릭하세요.</strong> 목록 최상단에 표시됩니다.</p>
-<div class="img-wrap"><img src="imgs/vertex_alt_step2.png" loading="lazy" alt="검색 결과에서 Vertex AI Agent Platform 클릭"></div>
-
-<p><strong>③ Vertex AI (Agent Platform) 페이지에 진입하면 <code>Enable APIs</code> 버튼이 보입니다. 해당 버튼을 클릭하세요.</strong> 이 버튼을 눌러야 Vertex AI API가 프로젝트에 활성화됩니다.</p>
-<div class="img-wrap"><img src="imgs/vertex_alt_step3.png" loading="lazy" alt="Enable APIs 버튼 클릭"></div>
-
-<p><strong>④ API 활성화가 완료되면 아래와 같이 인증 방법 선택 화면이 나타납니다.</strong> 여기서는 별도로 조작할 필요 없이 창을 닫으셔도 됩니다. Vertex AI API가 정상적으로 활성화된 것이므로, 이전 단계로 돌아가 서비스 계정 JSON 발급을 계속 진행하시면 됩니다.</p>
-<div class="img-wrap"><img src="imgs/vertex_alt_step4.png" loading="lazy" alt="API 활성화 완료 후 인증 화면"></div>
-
-<p>아래 사항은 해당되시는분들만 참고하세요</p>
-<div class="img-wrap"><img src="imgs/image36.png" loading="lazy" alt="스크린샷"></div>
-<p>만약 이런 화면이 뜨는 분들이 계신다면 아래 설명대로 한번 해보세요</p>
-<p>조직 정책 차단 시 해결 방법</p>
-<p>가장 먼저 프로젝트 이름을 클릭하세요. 그리고 나서 새 프로젝트를 클릭합니다. 새로운 프로젝트로 다시 시도하는 방법입니다.</p>
-<div class="img-wrap"><img src="imgs/new_project_click.png" loading="lazy" alt="새 프로젝트 클릭 화면"></div>
-<p>프로젝트 이름을 자유롭게 입력하고, 조직은 <strong>"조직 없음"</strong>으로 설정한 후 <strong>"만들기"</strong>를 클릭합니다.</p>
-<div class="img-wrap"><img src="imgs/new_project_create.png" loading="lazy" alt="새 프로젝트 생성 화면"></div>
-<p>만들어진 새프로젝트 선택하신 후 다시 위에서 설명드렸던 vertex json 발급 받는 법을 다시 해주시면 됩니다. 결제설정 말고 vertex json 발급 받는 법 이 부분만 참고하세요.</p>
-
+<p>OpenAI API 키는 NOBLE ARC의 <strong>메인 키</strong>입니다. 대본 생성, 이미지 생성, 썸네일, 제목·설명·태그(메타데이터), AI 에이전트의 판단까지 모두 이 키 하나로 처리됩니다. 음성 더빙도 OpenAI TTS를 선택하시면 같은 키를 사용합니다. (음성 더빙 기본값인 Edge TTS는 무료이며 키가 필요 없습니다.)</p>
+<p>사용량은 만드는 영상의 길이와 이미지 개수에 따라 달라집니다. 처음에는 소액을 충전하여 영상 한두 개를 만들어 보시고, 사용량 대시보드에서 얼마가 차감되는지 확인하신 뒤 필요한 만큼 충전하시는 것을 권장드립니다.</p>
+<p>API키 발급도 간단하기 때문에 잘 따라오시면 될 거 같습니다.</p>
+<p>platform.openai.com  이 주소를 주소창에 복사 붙여넣기 하셔서 접속하여 줍니다.</p>
+<div class="img-wrap"><img src="imgs/image43.png" loading="lazy" alt="스크린샷"></div>
+<p>여기서 구글로 계속하기 버튼을 클릭해줍니다.</p>
+<div class="img-wrap"><img src="imgs/image44.png" loading="lazy" alt="스크린샷"></div>
+<p>다음 사항에 모두 동의합니다에 체크를 해줍니다. 그리고 아래 계정생성 끝내기를 누르시면 간단하게 가입이 완료됩니다.</p>
+<div class="img-wrap"><img src="imgs/image45.png" loading="lazy" alt="스크린샷"></div>
+<p>입력란에 아무거나 입력하신 후 Create organization 버튼을 클릭해줍니다.</p>
+<div class="img-wrap"><img src="imgs/image46.png" loading="lazy" alt="스크린샷"></div>
+<p>그 다음 이메일 주소를 적으신 후 continue 버튼을 클릭해주세요</p>
+<div class="img-wrap"><img src="imgs/image47.png" loading="lazy" alt="스크린샷"></div>
+<p>그 다음 Generate API Key 버튼을 클릭해 줍니다.</p>
+<p>그럼 그 다음에는 결제 화면이 뜨는데요. OpenAI API는 먼저 금액을 충전해 두고 사용한 만큼 차감되는 방식이므로 결제(충전)를 해주셔야 사용하실 수 있습니다.</p>
+<div class="img-wrap"><img src="imgs/image48.png" loading="lazy" alt="스크린샷"></div>
+<p>우선 5달러~10달러 정도의 소액부터 충전하시길 권장드립니다. 사용해 보시고 필요한 만큼 추가로 충전하시면 됩니다. (참고로 OpenAI TTS 음성만 사용할 경우 5달러로 약 33만자의 음성을 만들 수 있습니다.)</p>
+<div class="img-wrap"><img src="imgs/image49.png" loading="lazy" alt="스크린샷"></div>
+<p>결제가 완료되셨다면 위와 같은 화면이 나옵니다. 여기서 API KEYS를 클릭해줍니다</p>
+<div class="img-wrap"><img src="imgs/image50.png" loading="lazy" alt="스크린샷"></div>
+<p>오른쪽 상단의 Create new secret key 버튼을 클릭하세요</p>
+<div class="img-wrap"><img src="imgs/image51.png" loading="lazy" alt="스크린샷"></div>
+<p>이름을 아무거나 설정하신 후 Create secret key 버튼을 클릭하시면 됩니다. 이제 api키가 생성이 됩니다.</p>
+<div class="img-wrap"><img src="imgs/image52.png" loading="lazy" alt="스크린샷"></div>
+<p>API키는 한번만 보유줍니다. 그렇기 때문에 따로 보관해놓으시는 것을 추천드립니다. COPY 버튼을 클릭해서 복사해줍니다. 타인에게 노출되지 않도록 주의하세요.</p>
+<div class="img-wrap"><img src="imgs/image53.png" loading="lazy" alt="스크린샷"></div>
+<p>마지막으로 NOBLE ARC 프로그램으로 돌아오셔서 API키 관리 탭에 OPENAI API 키 입력란에 붙여넣기 하시고 저장하기 버튼을 클릭하시면 됩니다. 역시 한번 저장하면 계속 보관되어 저장된 상태가 유지됩니다.</p>
+<p>추가 안내사항</p>
+<p>사용 한도 설정 (권장)</p>
+<p>의도치 않은 과금을 방지하려면 한도 설정을 꼭 해두세요.</p>
+<p>platform.openai.com/settings/limits 접속</p>
+<p>Monthly budget (월 예산 한도) 설정</p>
+<p>한도 도달 시 자동으로 API 차단됨</p>
 <h3 id="sec-42-GROQ-API키-발급받기필수">4-2 GROQ API키 발급받기(필수)</h3>
 <p>GROQ API는 자막을 잘 분할하고 씽크를 맞춰주는 서비스로 필수 API키입니다 가입과  API발급이 매우 간단하고 하루 120분 분량의 무료 사용량이 있어 마음놓고 이용하실 수 있습니다. 하지만 이 API키가 없더라도 프로그램 자체적으로 자막 분할과 씽크를 맞추는 프로그램이 내장되어 있어 120분을 모두 사용하신 경우라도 걱정없이 영상을 생성하실 수 있습니다. 그럼 지금부터 GROQ API키 발급 받는 방법을 알려드리겠습니다.</p>
 <p>https://console.groq.com/home</p>
@@ -269,73 +167,11 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <p>키가 생성되었다면 즉시 COPY 버튼을 클릭하여 줍니다. 따로 메모장에 보관해놓으셔도 됩니다.</p>
 <div class="img-wrap"><img src="imgs/image42.png" loading="lazy" alt="스크린샷"></div>
 <p>다시 프로그램으로 오셔서 API키 관리 탭을 클릭하시고 GROQ API키 키 입력란에 복사한 키를 붙여넣기 하시고 저장 버튼을 누르시면 됩니다. 역시 한번 저장을 클릭하시면 자동으로 계속 보관되어 다시 키를 저장하실 필요가 없습니다.</p>
-<h3 id="sec-43-OPENAI-API키-발급받기선택">4-3 OPENAI API키 발급받기(선택)</h3>
+<h3 id="sec-43-일레븐랩스-API키-발급받기선택">4-3 일레븐랩스 API키 발급받기(선택)</h3>
 <div style="margin:0 0 1.5rem 0;padding:1rem 1.4rem;background:rgba(251,146,60,0.08);border:1.5px solid rgba(251,146,60,0.4);border-radius:10px;">
   <p style="margin:0;color:#fb923c;font-size:13.5px;font-weight:600;line-height:1.8;">이 API키 발급은 유료 선택사항입니다. 별도로 각 해당 사이트에서 별도 결제하셔서 이용하시는 사항입니다. 참고하시고 이용하시기 바랍니다.</p>
 </div>
-<p>OpenAI API 를 이용하는 경우는 OpenAI의 저렴한 음성 더빙시스템 TTS를 이용하기 위해서입니다. 대략 5달러(8000원대)의 요금으로 약 33만자의 TTS를 생성할 수 있어 가성비가 좋은 TTS 입니다. 다만 다른 TTS 서비스인 MINIMAX TTS 와 일레븐랩스 TTS 보다는 품질이 조금 떨어집니다. 다만 목소리를 어떻게 활용하느냐에 따라 충분히 활용한 TTS 입니다. 100만자의 경우에는 20분이상 영상을 100~120개 가까이 만들 수 있는 상당히 많은 분량의 음성지원입니다. 특히 영어의 경우 매우 자연스러운 고품질 TTS를 지원합니다.</p>
-<p>API키 발급도 간단하기 때문에 잘 따라오시면 될 거 같습니다.</p>
-<p>platform.openai.com  이 주소를 주소창에 복사 붙여넣기 하셔서 접속하여 줍니다.</p>
-<div class="img-wrap"><img src="imgs/image43.png" loading="lazy" alt="스크린샷"></div>
-<p>여기서 구글로 계속하기 버튼을 클릭해줍니다.</p>
-<div class="img-wrap"><img src="imgs/image44.png" loading="lazy" alt="스크린샷"></div>
-<p>다음 사항에 모두 동의합니다에 체크를 해줍니다. 그리고 아래 계정생성 끝내기를 누르시면 간단하게 가입이 완료됩니다.</p>
-<div class="img-wrap"><img src="imgs/image45.png" loading="lazy" alt="스크린샷"></div>
-<p>입력란에 아무거나 입력하신 후 Create organization 버튼을 클릭해줍니다.</p>
-<div class="img-wrap"><img src="imgs/image46.png" loading="lazy" alt="스크린샷"></div>
-<p>그 다음 이메일 주소를 적으신 후 continue 버튼을 클릭해주세요</p>
-<div class="img-wrap"><img src="imgs/image47.png" loading="lazy" alt="스크린샷"></div>
-<p>그 다음 Generate API Key 버튼을 클릭해 줍니다.</p>
-<p>그럼 그 다음에는 결제 화면이 뜨는데요 OPENAI API를 사용하기로 결정되셨다면 결제를 해주셔야 합니다.</p>
-<div class="img-wrap"><img src="imgs/image48.png" loading="lazy" alt="스크린샷"></div>
-<p>우선 5달러부터 사용하시길 권장드립니다. 100만자의 충분한 TTS를 제공하기 때문입니다.</p>
-<div class="img-wrap"><img src="imgs/image49.png" loading="lazy" alt="스크린샷"></div>
-<p>결제가 완료되셨다면 위와 같은 화면이 나옵니다. 여기서 API KEYS를 클릭해줍니다</p>
-<div class="img-wrap"><img src="imgs/image50.png" loading="lazy" alt="스크린샷"></div>
-<p>오른쪽 상단의 Create new secret key 버튼을 클릭하세요</p>
-<div class="img-wrap"><img src="imgs/image51.png" loading="lazy" alt="스크린샷"></div>
-<p>이름을 아무거나 설정하신 후 Create secret key 버튼을 클릭하시면 됩니다. 이제 api키가 생성이 됩니다.</p>
-<div class="img-wrap"><img src="imgs/image52.png" loading="lazy" alt="스크린샷"></div>
-<p>API키는 한번만 보유줍니다. 그렇기 때문에 따로 보관해놓으시는 것을 추천드립니다. COPY 버튼을 클릭해서 복사해줍니다. 타인에게 노출되지 않도록 주의하세요.</p>
-<div class="img-wrap"><img src="imgs/image53.png" loading="lazy" alt="스크린샷"></div>
-<p>마지막으로 NOBLE ARC 프로그램으로 돌아오셔서 API키 관리 탭에 OPENAI API 키 입력란에 붙여넣기 하시고 저장하기 버튼을 클릭하시면 됩니다. 역시 한번 저장하면 계속 보관되어 저장된 상태가 유지됩니다.</p>
-<p>추가 안내사항</p>
-<p>사용 한도 설정 (권장)</p>
-<p>의도치 않은 과금을 방지하려면 한도 설정을 꼭 해두세요.</p>
-<p>platform.openai.com/settings/limits 접속</p>
-<p>Monthly budget (월 예산 한도) 설정</p>
-<p>한도 도달 시 자동으로 API 차단됨</p>
-<h3 id="sec-44-MINIMAX-API키-발급받기선택">4-4 MINIMAX API키 발급받기(선택)</h3>
-<div style="margin:0 0 1.5rem 0;padding:1rem 1.4rem;background:rgba(251,146,60,0.08);border:1.5px solid rgba(251,146,60,0.4);border-radius:10px;">
-  <p style="margin:0;color:#fb923c;font-size:13.5px;font-weight:600;line-height:1.8;">이 API키 발급은 유료 선택사항입니다. 별도로 각 해당 사이트에서 별도 결제하셔서 이용하시는 사항입니다. 참고하시고 이용하시기 바랍니다.</p>
-</div>
-<p>MINIMAX API는 TTS 서비스로서 4.5달러 요금제로 10만자의 음성을 생성하는 가성비가 좋은 서비스입니다. 일레븐랩스 대비해서 ¼ 가격으로 매우 저렴합니다. 거기에 요금제를 높여서 결제하실 경우 훨씬 효율 좋은 가성비로 이용하실 수 있습니다. 거기에 음성 품질이 일레븐랩스 못지 않고 다양한 언어를 자연스러운 더빙이 가능하도록 고품질의 TTS를 지원합니다. 그래서 저는 MINIMAX API , OPENAI API , 일레븐랩스 API 키 중에서 선택을 하신다면 MINIMAX API를 선택하시길 가장 권장드립니다.  저렴한 비용으로 가장 고품질의 TTS 서비스를 이용할 수 있기 때문입니다.</p>
-<p>자 그렇다면 MINIMAX API키 발급 받는 방법을 자세히 안내드리겠습니다. 어렵지 않습니다.</p>
-<p>platform.minimax.io</p>
-<p>위 주소를 클릭하여 MINIMAX 사이트로 이동하시거나 주소창에 복사 붙여넣기하여 이동하시면 됩니다.</p>
-<div class="img-wrap"><img src="imgs/image54.png" loading="lazy" alt="스크린샷"></div>
-<p>접속하시면 우측 상단에 SIGN UP 버튼이 있습니다. 해당 버튼을 클릭해주세요</p>
-<div class="img-wrap"><img src="imgs/image55.png" loading="lazy" alt="스크린샷"></div>
-<p>여기서 continue with google 버튼을 클릭해주세요</p>
-<p>구글로 가입하실 수 있습니다.</p>
-<div class="img-wrap"><img src="imgs/image56.png" loading="lazy" alt="스크린샷"></div>
-<p>그럼 다음과 같은 화면이 뜨는데요 여기서 API KEYS 버튼을 클릭해줍니다.</p>
-<div class="img-wrap"><img src="imgs/image57.png" loading="lazy" alt="스크린샷"></div>
-<p>[Create new secret key] 클릭</p>
-<p>키 이름 입력 후 생성</p>
-<p>발급된 키 즉시 복사 후 안전하게 보관</p>
-<p>⚠️ OpenAI와 동일하게, 창을 닫으면 다시 볼 수 없습니다!</p>
-<div class="img-wrap"><img src="imgs/image58.png" loading="lazy" alt="스크린샷"></div>
-<p>자 이제 NOBLE ARC 프로그램 들어오서셔 API키 관리 탭을 클릭하신 후 MINIMAX TTS API키 입력란에 복사한 키를 입력하시고 저장 버튼을 누르시면 됩니다. 역시 이번에도 저장을 누르면 다음에 또 저장하실 필요없이 보관된 상태로 꾸준히 이용하실 수 있습니다.</p>
-<div class="img-wrap"><img src="imgs/image59.png" loading="lazy" alt="스크린샷"></div>
-<p>그리고 왼쪽 사이드바 하단에 Subscribe → AUDIO 를 클릭해주시고 CHANGE PLAN 버튼을 클릭하셔서 결제 창으로 넘어갑니다.</p>
-<div class="img-wrap"><img src="imgs/image60.png" loading="lazy" alt="스크린샷"></div>
-<p>여기서 마음에 드는 요금제를 선택하셔서 결제하시면 됩니다. 저는 STARTER를 먼저 결제하셔서 충분히 경험을 해보신 후 나중에 높은 요금제를 선택하여 조금 더 높은 가성비효과를 누릴 수 있는 결제를 하시는 것을 추천드립니다.</p>
-<h3 id="sec-45-일레븐랩스-API키-발급받기선택">4-5 일레븐랩스 API키 발급받기(선택)</h3>
-<div style="margin:0 0 1.5rem 0;padding:1rem 1.4rem;background:rgba(251,146,60,0.08);border:1.5px solid rgba(251,146,60,0.4);border-radius:10px;">
-  <p style="margin:0;color:#fb923c;font-size:13.5px;font-weight:600;line-height:1.8;">이 API키 발급은 유료 선택사항입니다. 별도로 각 해당 사이트에서 별도 결제하셔서 이용하시는 사항입니다. 참고하시고 이용하시기 바랍니다.</p>
-</div>
-<p>일레븐랩스 API TTS 서비스는 가장 고품질의 자연스러운 음성 생성을 할 수 있는 음성 더빙 서비스입니다. 하지만 가격이 가장 비싸다는 단점이 있습니다.  그래도 영상에 가장 고품질의 음성을 사용하셔야 된다고 생각하신다면 이 설명서대로 진행하셔서 API키를 발급받으시면 됩니다. 무료사용량도 있기는한데 매우 적고 한국어 음성의 경우 무료로 잘 지원을 해주지 않습니다.</p>
+<p>일레븐랩스 API TTS 서비스는 가장 고품질의 자연스러운 음성 생성을 할 수 있는 음성 더빙 서비스입니다. 하지만 가격이 가장 비싸다는 단점이 있습니다.  그래도 영상에 가장 고품질의 음성을 사용하셔야 된다고 생각하신다면 이 설명서대로 진행하셔서 API키를 발급받으시면 됩니다. 무료사용량도 있기는한데 매우 적고 한국어 음성의 경우 무료로 잘 지원을 해주지 않습니다. 무료로 음성 더빙을 하시려면 프로그램에 기본으로 들어있는 Edge TTS를 이용하세요.</p>
 <p>elevenlabs.io</p>
 <p>이 주소를 인터넷 주소창에 복사해서 붙여넣기 해주세요</p>
 <p>아니면 구글 검색-&gt; 일레븐랩스 검색을 해서 접속하는 방법도 있습니다.</p>
@@ -355,7 +191,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <p>다시 NOBLE ARC 프로그램으로 오셔서 API키 관리 탭을 클릭하시고 일레븐랩스 API키 입력란에 복사한 API키를 붙여넣기 하신 후 저장 버튼을 누르시면 됩니다. 역시 한번 저장해놓으면 계속 보관되서 재입력하실 필요가 없습니다.</p>
 <div class="img-wrap"><img src="imgs/image68.png" loading="lazy" alt="스크린샷"></div>
 <p>다시 일레븐랩스 홈페이지 하단에 UPGRADE 버튼을 누르시면 유료요금제 결제를 하실 수가 있습니다.</p>
-<h3 id="sec-46-유튜브-API키-발급받기필수">4-6 유튜브 API키 발급받기(필수)</h3>
+<h3 id="sec-44-유튜브-API키-발급받기필수">4-4 유튜브 API키 발급받기(필수)</h3>
 <p>유튜브 API의 경우 리서치센터를 이용하기 위해 필수로 다운로드 받으셔야 합니다. 유튜브 API는 무료로 이용 가능합니다. 다만 리서치센터의 검색 관련 기능(떡상영상 검색, 경쟁자 채널 분석, 트렌드 검색어 검색 등)은 유튜브 정책상 하루 약 100회까지 무료로 이용 가능한 점 참고 부탁드립니다.  즉 무료 사용이 가능하며 필수인 유튜브 API 입니다. 지금부터 발급 받는 방법을 안내해드리겠습니다.</p>
 <p>console.cloud.google.com</p>
 <p>위 주소를 클릭하여 구글 클라우드 콘솔 서비스로 이동하셔야 합니다. 해당 주소를 복사해서 인터넷 주소창에 붙여넣기 하셔도 됩니다.</p>
@@ -383,7 +219,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <p>자 이제 유튜브 API 키가 생성되었습니다. 복사버튼을 눌러 NOBLE ARC 프로그램에 입력 저장해놓으시면 됩니다. 그래도 따로 보관해놓으시길 권장드립니다.</p>
 <div class="img-wrap"><img src="imgs/image79.png" loading="lazy" alt="스크린샷"></div>
 <p>유튜브 API키는 다른 API키와는 다르게 리서치센터에 저장공간이 따로 있습니다. 여기서 키를 관리하시면 됩니다. 리서치센터 전용 API키입니다.</p>
-<h3 id="sec-48-Kling-AI-API키-발급받기선택">4-8 Kling AI API 키 발급 받기(선택) <span style="font-size:0.75em;color:#a78bfa;font-weight:600;background:rgba(167,139,250,0.12);padding:2px 10px;border-radius:20px;vertical-align:middle;">선택사항</span></h3>
+<h3 id="sec-45-Kling-AI-API키-발급받기선택">4-5 Kling AI API 키 발급 받기(선택) <span style="font-size:0.75em;color:#a78bfa;font-weight:600;background:rgba(167,139,250,0.12);padding:2px 10px;border-radius:20px;vertical-align:middle;">선택사항</span></h3>
 <div style="margin:0 0 1.5rem 0;padding:1rem 1.4rem;background:rgba(251,146,60,0.08);border:1.5px solid rgba(251,146,60,0.4);border-radius:10px;">
   <p style="margin:0;color:#fb923c;font-size:13.5px;font-weight:600;line-height:1.8;">이 API키 발급은 유료 선택사항입니다. 별도로 각 해당 사이트에서 별도 결제하셔서 이용하시는 사항입니다. 참고하시고 이용하시기 바랍니다.</p>
 </div>
@@ -410,7 +246,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <h2 id="sec-5롱폼-전용프로그램-사용법">5.롱폼 전용프로그램 사용법</h2>
 <p>지금부터 NOBLE ARC 롱폼 유튜브 자동화 프로그램 사용법에 대해서 자세히 설명드리겠습니다.</p>
 <p>저희 NOBLE ARC 롱폼 유튜브 자동화 프로그램은 상당히 직관적이고 단순한 인터페이스를 가지고 있어서 조금만 사용하셔도 금방 익숙해지실 수 있습니다. 그러면서도 많은 기능을 담고 있습니다. 타사 대비 더 많은 기능을 가지고 있는 프로그램입니다. 지금 부터 시작합니다.</p>
-<p>VERTEX AI JSON을 활용하면 영상 제작의 모든 것을 비용 없이 만들 수 있습니다. 그 외에는 프로그램 사용자의 선택에 따라 추가 기능을 이용하여(API 비용이 발생하는) 영상제작도 가능합니다.</p>
+<p>NOBLE ARC는 OpenAI API 키 하나로 대본, 이미지, 썸네일, 메타데이터까지 제작할 수 있습니다. 음성 더빙은 무료 Edge TTS를 기본으로 사용하실 수 있어 음성 비용이 들지 않으며, 대본과 이미지 생성에는 OpenAI 사용량 요금이 발생합니다. 그 외에는 프로그램 사용자의 선택에 따라 추가 기능을 이용하여(API 비용이 발생하는) 영상제작도 가능합니다.</p>
 <div class="img-wrap"><img src="imgs/image80.png" loading="lazy" alt="스크린샷"></div>
 <p>위의 화면은 설치하신 후 라이선스 인증까지 마치셨다면 나오는 첫 화면입니다.</p>
 <p>첫 화면은 홈/생성 탭으로써 여기서 대본에 생성에 대한 것들을 결정하게 됩니다.</p>
@@ -443,8 +279,8 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <div class="img-wrap"><img src="imgs/image87.png" loading="lazy" alt="스크린샷"></div>
 <h3>캐릭터 참조 이미지 업로드 (이미지 직접 사용)</h3>
 <p>텍스트로 캐릭터를 설명하는 방식 외에, <strong>직접 보유하고 있는 캐릭터 이미지를 업로드</strong>하여 해당 캐릭터를 모든 씬에 반영시키는 방법도 있습니다. 홈/생성 탭에서 이미지 생성 모델 섹션 아래에 <strong>캐릭터 참조 이미지(선택)</strong> 항목이 있습니다.</p>
-<div class="img-wrap"><img src="imgs/image_char_upload_long.png" loading="lazy" alt="캐릭터 참조 이미지 업로드 - 롱폼"></div>
-<p>이미지 선택 버튼을 눌러 원하는 캐릭터 이미지 파일을 업로드하면 해당 인물 이미지를 AI가 캐릭터 레퍼런스로 활용하여 모든 씬에 동일한 캐릭터가 등장하도록 이미지를 생성합니다. Imagen 3, Gemini 2.5 모델 모두 Vertex AI 300달러 무료 크레딧으로 이미지 생성됩니다. Imagen 3는 텍스트 방식으로 고정 캐릭터를 넣을 수 있으며, Gemini 2.5는 캐릭터 이미지 업로드 방식으로 고정 캐릭터를 넣을 수 있습니다.</p>
+<div class="img-wrap"><img src="imgs/n_char_long.png" loading="lazy" alt="캐릭터 참조 이미지 업로드 - 롱폼"></div>
+<p>이미지 선택 버튼을 눌러 원하는 캐릭터 이미지 파일을 업로드하면 해당 인물 이미지를 AI가 캐릭터 레퍼런스로 활용하여 모든 씬에 동일한 캐릭터가 등장하도록 이미지를 생성합니다. 이미지 생성은 OpenAI 이미지 모델(gpt-image)이 담당하며, 고정 캐릭터는 텍스트 설명 방식과 참조 이미지 업로드 방식을 모두 사용하실 수 있습니다.</p>
 <p>업로드할 이미지는 <strong>16:9 롱폼 사이즈에 맞는 이미지</strong>를 사용하시는 것을 권장드립니다. 텍스트 설명 없이 이미지만 업로드해도 일관된 캐릭터가 유지됩니다.</p>
 <p>위에서 선택 사항을 마쳤다면 가장 하단에는 딸깍 버튼과 단계별 생성 버튼이 있습니다.</p>
 <p>딸깍 버튼은 키워드나 벤치마킹 대본을 입력하고 해당 딸깍 버튼을 누르면 대본 생성과 이미지 생성 그리고 음성더빙과 자막생성까지의 과정이 모두 한번에 자동화되어 이루어지며. 이 모든것을 하나로 합쳐 영상으로 만들어내는 과정까지!! 모든 전 과정을 자동화하는 기능입니다.</p>
@@ -455,13 +291,13 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <div class="img-wrap"><img src="imgs/image89.png" loading="lazy" alt="스크린샷"></div>
 <p>대본 검토가 끝났다면 대본 재생성 버튼을 누르시거나(대본이 마음에 안드신경우) 다음 단계인 세부설정으로 이동하기 버튼을 누르시면 됩니다. 대본 재생성 버튼을 누르실경우 처음 홈/생성 탭으로 이동하여 단계별 생성 버튼을 한번 더 누르실 수 있습니다. 단계별 생성 버튼을 한번 더 누르시면 대본이 재생성 되며 다시 대본 검토 탭으로 이동하여 다시 검토하실 수 있습니다.</p>
 <div class="img-wrap"><img src="imgs/image90.png" loading="lazy" alt="스크린샷"></div>
-<p>다음으로 세부설정 탭입니다. 여기서 선택하신 사항은 딸깍 버튼에도 모두 적용됩니다. 가장 처음에는 성우를 선택하는 겁니다. 저희 NOBLE ARC 유튜브 자동화 프로그램은 총 4가지의 TTS 음성더빙 시스템을 지원합니다. 가장 기본은 Gemini TTS 입니다. 발급받으신 무료 구글 크레딧에서 크레딧이 소모되면서 음성더빙이 생성 되기 때문에 무료입니다. 품질도 상당히 고품질입니다. 각 음성별로 미리듣기가 지원되고 있어 미리 들어보시고 음성을 선택하시면 됩니다. 무료이면서 고품질이지만 다른 TTS 대비 생성 속도가 조금 느립니다.</p>
-<p>하지만 자동화 프로그램 특성상 자동화하고 다른일을 하시면서 영상을 만드실 수 있기 때문에 무료로  Gemini TTS로 생성하시는 것을 권장드립니다. 좀 더 고품질의 TTS 음성 더빙을 원하실경우 MINIMAX TTS 도는 일레븐랩스 TTS를 이용하시면 됩니다.</p>
-<div class="img-wrap"><img src="imgs/image91.png" loading="lazy" alt="스크린샷"></div>
-<div class="img-wrap"><img src="imgs/image92.png" loading="lazy" alt="스크린샷"></div>
-<p>다음으로 MINIMAX TTS 입니다. 5달러 요금제로 10만자의 음성더빙을 지원하면서 품질은 매우 고품질입니다. 가성비로 좋은 TTS 입니다. 특히 다국어(일본어, 스페인어, 독일어 등등)를 하실때 사용하시면 매우 좋은 TTS 입니다. API키를 발급받아야 사용하실 수 있는데 따로 API키 발급 받는 방법을 설명드렸으니 참고 해주세요 하단에 음성 속도 및 피치 조절이 가능한데 기본으로 설정된대로 하시는 것을 권장드립니다.</p>
-<p>다음으로 MINIMAX TTS 밑에 OPENAI TTS가 있습니다. 유료 요금제를 결제해야 사용할 수 있는 TTS 입니다. 5달러로 약 33만자의 음성을 생성할 수 있어 가성비가 좋습니다. 속도도 빠릅니다. 하지만 음성 품질이 영어를 제외하면 조금은 떨어집니다. 역시 음성 미리듣기가 가능합니다</p>
-<p>마지막으로 일레븐랩스 TTS를 선택하실 수 있습니다. 한국어 음성 역시 뛰어난 음질로 지원합니다. 가장 고품질입니다. 하지만 가격이 가장 비쌉니다. MINIMAX TTS 보다 3~4배정도 더 비싼 가격입니다. 처음에는 무료로 지원해드리는 TTS를 이용하시거나 고품질의 가성비 TTS인 MINIMAX TTS를 이용하시고 나중에 수익화가 많이 이루어지시면 일레븐랩스로 업그레이드 하시는 것도 좋은 방법입니다.</p>
+<p>다음으로 세부설정 탭입니다. 여기서 선택하신 사항은 딸깍 버튼에도 모두 적용됩니다. 가장 처음에는 성우를 선택하는 겁니다. 저희 NOBLE ARC 유튜브 자동화 프로그램은 총 3가지의 TTS 음성더빙 시스템을 지원합니다. 가장 기본은 <strong>Edge TTS</strong>입니다. 무료이고 API 키가 필요 없어서 비용 없이 음성 더빙을 만드실 수 있습니다.</p>
+<div class="img-wrap"><img src="imgs/n_voice_edge_long.png" loading="lazy" alt="세부설정 성우 탭 - Edge TTS"></div>
+<p>Edge TTS를 선택하면 아래에 음성 선택 창이 나옵니다. 한국어, 영어, 일본어, 스페인어, 독일어, 아랍어, 포르투갈어(브라질) 7개 언어 탭이 있으니, <strong>대본 언어와 같은 언어의 음성</strong>을 고르세요. 한국어에는 선희(여성), 인준(남성), 현수(남성·다국어) 음성이 있습니다. 속도 조절 슬라이더가 있고, <strong>미리 듣기</strong> 버튼으로 해당 언어에 맞는 샘플 문장을 들어보실 수 있습니다.</p>
+<p>다음으로 <strong>OpenAI TTS</strong>입니다. OpenAI API 키로 사용하며 유료입니다. Nova, Alloy, Onyx, Echo, Fable, Shimmer 6가지 음성이 있고, 5달러로 약 33만자의 음성을 생성할 수 있어 가성비가 좋으며 속도도 빠릅니다. 특히 영어가 매우 자연스럽고, 영어 외의 언어는 품질이 조금 떨어질 수 있습니다. 미리 듣기는 소량의 크레딧이 차감됩니다.</p>
+<div class="img-wrap"><img src="imgs/n_voice_openai_long.png" loading="lazy" alt="세부설정 성우 탭 - OpenAI TTS"></div>
+<p>마지막으로 <strong>ElevenLabs TTS</strong>를 선택하실 수 있습니다. API키 관리 탭에 ElevenLabs 키를 저장한 뒤 <strong>음성 목록 불러오기</strong>를 누르면 음성을 고르실 수 있고, 음성을 선택한 뒤 <strong>미리 듣기</strong>(소량의 크레딧이 차감됩니다)로 대본 언어에 맞는 샘플 문장을 들어보실 수 있습니다. 한국어 음성 역시 뛰어난 음질로 지원하며 가장 고품질입니다. 하지만 가격이 가장 비쌉니다. 처음에는 무료인 Edge TTS를 이용하시거나 가성비 좋은 OpenAI TTS를 이용하시고, 나중에 수익화가 많이 이루어지시면 ElevenLabs로 업그레이드 하시는 것도 좋은 방법입니다.</p>
+<div class="img-wrap"><img src="imgs/n_voice_eleven_long.png" loading="lazy" alt="세부설정 성우 탭 - ElevenLabs"></div>
 <div class="img-wrap"><img src="imgs/image93.png" loading="lazy" alt="스크린샷"></div>
 <p>다음으로 효과 설정 탭입니다. 여러가지를 설정하실 수 있습니다. 가장 먼저 왼쪽 상단에 보시면 씬과 씬 사이에 화면 전환 효과를 설정하실 수 있는데 최근 유튜브 흐름은 화면 전환 효과를 넣지 않는 편이라서 없음을 기본으로 설정해놨습니다.</p>
 <p>씬전환효과 오른쪽에는 카메라 이동 설정이 있는데 꼭 1가지는 설정하실 것을 추천드립니다. 잘 모르실경우 랜덤 효과를 집어넣으셔도 좋습니다. 카메라 이동 설정을 하시면 정지된 화면에 움직임 효과를 주어 좀더 시청자들의 몰입도를 높일 수 있고. 휴먼터치 감을 주어 유튜브로부터 사람이 직접 만들었다는 것으로 인식을 시켜줄 수 있습니다.</p>
@@ -474,7 +310,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 메타데이터에서 별도로 메타데이터를 생성하지 마세요.</p>
 <div class="img-wrap"><img src="imgs/image95.png" loading="lazy" alt="스크린샷"></div>
 <p>다음으로 메타데이터 탭입니다. 롱폼 전용 프로그램에만 있는 기능입니다. 위의 AI 자동생성 버튼을 클릭하시면 화면에서 보시는바와 같이 대본에 맞는 제목과 설명문구가 작성됩니다. 하단에는 태그도 자동 생성 됩니다. 해당 부분을 유튜브 업로드하실 때 복사 붙여넣기 해서 사용하시면 됩니다.</p>
-<p>그리고 그 밑에는 AI 썸네일 자동생성이 있습니다. 대본에 맞는 썸네일 이미지를 자동 생성해줍니다. 제목이 썸네일에 문구로 자동으로 들어간 확실한 썸네일 이미지가 생성됩니다. 썸네일 생성은 <strong>Vertex AI(Imagen3) + Canvas</strong> 조합으로 처리되며, <strong>별도 Gemini API 키 없이 서비스 계정만으로 사용 가능합니다.</strong> 유튜브 자동 업로드 토글을 켠 경우 영상 설정 탭에서 <strong>썸네일 자동 생성 포함</strong> 토글을 켜두시면 업로드 시 자동으로 썸네일도 함께 업로드됩니다.</p>
+<p>그리고 그 밑에는 AI 썸네일 자동생성이 있습니다. 대본에 맞는 썸네일 이미지를 자동 생성해줍니다. 제목이 썸네일에 문구로 자동으로 들어간 확실한 썸네일 이미지가 생성됩니다. 썸네일 생성은 <strong>OpenAI 이미지 모델(gpt-image)</strong>로 처리되며, <strong>별도 키 없이 OpenAI API 키만 있으면 사용 가능합니다.</strong> 이미지 생성 요금(유료)이 발생합니다. 유튜브 자동 업로드 토글을 켠 경우 영상 설정 탭에서 <strong>썸네일 자동 생성 포함</strong> 토글을 켜두시면 업로드 시 자동으로 썸네일도 함께 업로드됩니다.</p>
 <div class="img-wrap"><img src="imgs/image96.png" loading="lazy" alt="스크린샷"></div>
 <p>메타데이터까지 완성이 되었다면 다음으로 이미지 스타일 버튼을 선택해줍니다.</p>
 <div class="img-wrap"><img src="imgs/image97.png" loading="lazy" alt="스크린샷"></div>
@@ -493,12 +329,17 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <div class="img-wrap"><img src="imgs/image103.png" loading="lazy" alt="스크린샷"></div>
 <p>자막 편집 하단에는 아까 말씀드렸다시피 각씬별로 이미지 배치와 대본을 확인하실 수 있고 사용된 이미지 프롬프트도 확인하실 수 있습니다. 그리고 각 씬마다 이미지 재생성 버튼이 있으므로 마음에 안드는 이미지는 재생성 버튼을 클릭하셔서 이미지를 바꾸실 수 있습니다. 또는 옆에 이미지/영상 버튼이 있는데 해당 버튼은 갖고 계신 이미지나 동영상을 올려서 자신만의 이미지나 동영상으로 씬 화면을 전환시키는 기능입니다.</p>
 <div class="img-wrap"><img src="imgs/image104.png" loading="lazy" alt="스크린샷"></div>
-<p>생성된 이미지는 이미지 폴더 열기를 열면 생성된 이미지들이 모여있는 위치로 이동하게 됩니다. 거기있는 이미지를 영상만들기 사이트에서 영상으로 전환하신 후(FLOW,그록,RUNWAY 등) 이곳에 업로드해서 영상으로 변환하실 수 있습니다. 보다 더 자세한 사항은 목차10번에서 좀더 자세히 설명을 드리도록 하겠습니다.</p>
+<p>생성된 이미지는 이미지 폴더 열기를 열면 생성된 이미지들이 모여있는 위치로 이동하게 됩니다. 거기있는 이미지를 영상만들기 사이트에서 영상으로 전환하신 후(FLOW,그록,RUNWAY 등) 이곳에 업로드해서 영상으로 변환하실 수 있습니다. 보다 더 자세한 사항은 목차 10-2번에서 좀더 자세히 설명을 드리도록 하겠습니다. 또한 이미지 자체를 <strong>Google Flow로 한꺼번에 만들어 씬에 자동 배치</strong>하는 방법은 목차 10-1번에서 설명드립니다.</p>
 <div class="img-wrap"><img src="imgs/image105.png" loading="lazy" alt="스크린샷"></div>
 <p>또한 씬 추가 씬삭제 버튼을 클릭하셔서 씬을 추가하거나 삭제하실 수 있습니다.  씬추가의 경우 가장 마지막 씬으로 배치됩니다. 또한 ▲ ▼ 버튼을 이용해서 씬 위치를 변경하실 수 있습니다.(최신버전 기준)</p>
 <div class="img-wrap"><img src="imgs/image106.png" loading="lazy" alt="스크린샷"></div>
 <p>자막과 씬 화면이 최정 확인되셨다면 하단에 음성 더빙 생성 버튼을 클릭합니다. 그러면 자동으로 음성 더빙이 시작됩니다.</p>
 <div class="img-wrap"><img src="imgs/image107.png" loading="lazy" alt="스크린샷"></div>
+<h3>씬별로 목소리 다르게 하기</h3>
+<p>씬 편집기의 각 씬 카드 하단에는 <strong>목소리 선택 상자</strong>와 <strong>이 씬 음성 생성</strong> 버튼이 있습니다. 기본값은 세부설정 성우 탭에서 고른 목소리이며, 별도로 고르지 않은 씬은 모두 그 목소리로 만들어집니다. 특정 씬만 다른 목소리로 하고 싶다면 해당 씬의 목소리 선택 상자에서 원하는 음성을 고르시면 됩니다. 대화 장면이나 인물이 바뀌는 장면에서 활용하기 좋습니다.</p>
+<div class="img-wrap"><img src="imgs/n_scene_voice_long.png" loading="lazy" alt="씬별 목소리 선택 - 롱폼"></div>
+<p>하단의 <strong>음성 더빙 생성</strong> 버튼을 누르면 전체 씬이 각자의 목소리로 만들어지고, <strong>이 씬 음성 생성</strong> 버튼을 누르면 그 씬 하나만 다시 만들어집니다(다른 씬의 음성은 그대로 유지됩니다). 목소리를 바꾼 씬만 빠르게 다시 확인해 보실 수 있습니다.</p>
+<p>한 영상 안에서 씬마다 목소리가 달라도 렌더링에는 문제가 없으며 씬별 볼륨도 자동으로 맞춰집니다. 다만 <strong>가급적 같은 엔진(Edge, OpenAI, ElevenLabs 중 하나) 안에서 목소리만 다르게 쓰시는 것을 권장드립니다.</strong> 엔진을 섞어서 쓰실 경우에는 사용하는 엔진의 API 키가 모두 등록되어 있어야 합니다.</p>
 <p>음성 더빙 생성이 끝났다면 하단에 랜더링으로 이동 버튼을 클릭해줍니다.</p>
 <div class="img-wrap"><img src="imgs/image108.png" loading="lazy" alt="스크린샷"></div>
 <p>마지막으로 랜더링 시작 버튼을 클릭해주면 자동으로 그동안 확인했던 모든 사항이 여기서 최종 편집되어 완성된 영상 결과물을 보여주게 됩니다. 완성된 결과물은 다운로드 하셔서 직접 업로드 하시거나 업로드 설정으로 자동 업로드 되게 하실 수 있습니다. 유튜브 자동 업로드 설정 방법은 목차8번에서 확인하시기 바랍니다.</p>
@@ -513,7 +354,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <h2 id="sec-6쇼츠-전용프로그램-사용법">6.쇼츠 전용프로그램 사용법</h2>
 <p>지금부터 NOBLE ARC  쇼츠 유튜브 자동화 프로그램 사용법에 대해서 자세히 설명드리겠습니다</p>
 <p>저희 NOBLE ARC 쇼츠 유튜브 자동화 프로그램은 상당히 직관적이고 단순한 인터페이스를 가지고 있어서 조금만 사용하셔도 금방 익숙해지실 수 있습니다. 그러면서도 많은 기능을 담고 있습니다. 타사 대비 더 많은 기능을 가지고 있는 프로그램입니다. 지금 부터 시작합니다.</p>
-<p>VERTEX AI JSON을 활용하면 영상 제작의 모든 것을 비용 없이 만들 수 있습니다. 그 외에는 프로그램 사용자의 선택에 따라 추가 기능을 이용하여(API 비용이 발생하는) 영상제작도 가능합니다.</p>
+<p>NOBLE ARC는 OpenAI API 키 하나로 대본, 이미지, 썸네일, 메타데이터까지 제작할 수 있습니다. 음성 더빙은 무료 Edge TTS를 기본으로 사용하실 수 있어 음성 비용이 들지 않으며, 대본과 이미지 생성에는 OpenAI 사용량 요금이 발생합니다. 그 외에는 프로그램 사용자의 선택에 따라 추가 기능을 이용하여(API 비용이 발생하는) 영상제작도 가능합니다.</p>
 <div class="img-wrap"><img src="imgs/image110.png" loading="lazy" alt="스크린샷"></div>
 <p>위의 화면은 설치하신 후 라이선스 인증까지 마치셨다면 나오는 첫 화면입니다.</p>
 <p>첫 화면은 홈/생성 탭으로써 여기서 대본에 생성에 대한 것들을 결정하게 됩니다.</p>
@@ -549,13 +390,11 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <div class="img-wrap"><img src="imgs/image119.png" loading="lazy" alt="스크린샷"></div>
 <p>대본 검토가 끝났다면 대본 재생성 버튼을 누르시거나(대본이 마음에 안드신경우) 다음 단계인 세부설정으로 이동하기 버튼을 누르시면 됩니다. 대본 재생성 버튼을 누르실경우 처음 홈/생성 탭으로 이동하여 단계별 생성 버튼을 한번 더 누르실 수 있습니다. 단계별 생성 버튼을 한번 더 누르시면 대본이 재생성 되며 다시 대본 검토 탭으로 이동하여 다시 검토하실 수 있습니다</p>
 <div class="img-wrap"><img src="imgs/image120.png" loading="lazy" alt="스크린샷"></div>
-<p>다음으로 세부설정 탭입니다. 여기서 선택하신 사항은 딸깍 버튼에도 모두 적용됩니다. 가장 처음에는 성우를 선택하는 겁니다. 저희 NOBLE ARC 유튜브 자동화 프로그램은 총 4가지의 TTS 음성더빙 시스템을 지원합니 다. 가장 기본은 Gemini TTS 입니다. 발급받으신 무료 구글 크레딧에서 크레딧이 소모되면서 음성더빙이 생 성 되기 때문에 무료입니다. 품질도 상당히 고품질입니다. 각 음성별로 미리듣기가 지원되고 있어 미리 들어보 시고 음성을 선택하시면 됩니다. 무료이면서 고품질이지만 다른 TTS 대비 생성 속도가 조금 느립니다.</p>
-<p>하지만 자동화 프로그램 특성상 자동화하고 다른일을 하시면서 영상을 만드실 수 있기 때문에 무료로 Gemini TTS로 생성하시는 것을 권장드립니다. 좀 더 고품질의 TTS 음성 더빙을 원하실경우 MINIMAX TTS 도는 일레븐랩스 TTS를 이용하시면 됩니다.</p>
-<div class="img-wrap"><img src="imgs/image121.png" loading="lazy" alt="스크린샷"></div>
-<p>다음으로 MINIMAX TTS 입니다. 5달러 요금제로 10만자의 음성더빙을 지원하면서 품질은 매우 고품질입니 다. 가성비로 좋은 TTS 입니다. 특히 다국어(일본어, 스페인어, 독일어 등등)를 하실때 사용하시면 매우 좋은 TTS 입니다. API키를 발급받아야 사용하실 수 있는데 따로 API키 발급 받는 방법을 설명드렸으니 참고 해주세 요 하단에 음성 속도 및 피티 조절이 가능한데 기본으로 설정된대로 하시는 것을 권장드립니다</p>
-<div class="img-wrap"><img src="imgs/image122.png" loading="lazy" alt="스크린샷"></div>
-<p>다음으로 MINIMAX TTS 옆에 OPENAI TTS가 있습니다. 유료 요금제를 결제해야 사용할 수 있는 TTS 입니 다. 5달러로 약 33만자의 음성을 생성할 수 있어 가성비가 좋습니다. 속도도 빠릅니다. 하지만 음 성 품질이 영어를 제외하면 조금은 떨어집니다. 역시 음성 미리듣기가 가능합니다</p>
-<p>마지막으로 일레븐랩스 TTS를 선택하실 수 있습니다. 한국어 음성 역시 뛰어난 음질로 지원합니다. 가장 고품 질입니다. 하지만 가격이 가장 비쌉니다. MINIMAX TTS 보다 3~4배정도 더 비싼 가격입니다. 하지만 쇼츠의 경우 음성 더빙량이 많지 않아 고품질의 일레븐랩스를 사용하셔도 비용적으로 큰 부담은 되지 않습니다. 처음에는 무료 로 지원해드리는 TTS를 이용하시거나 고품질의 가성비 TTS인 MINIMAX TTS를 이용하시고 나중에 수익화가 많이 이루어지시면 일레븐랩스로 업그레이드 하시는 것도 좋은 방법입니다.</p>
+<p>다음으로 세부설정 탭입니다. 여기서 선택하신 사항은 딸깍 버튼에도 모두 적용됩니다. 가장 처음에는 성우를 선택하는 겁니다. 저희 NOBLE ARC 유튜브 자동화 프로그램은 총 3가지의 TTS 음성더빙 시스템을 지원합니다. 가장 기본은 <strong>Edge TTS(무료)</strong>입니다. 무료이고 API 키가 필요 없어서 비용 없이 음성 더빙을 만드실 수 있습니다.</p>
+<div class="img-wrap"><img src="imgs/n_voice_edge_shorts.png" loading="lazy" alt="세부설정 성우 탭 - Edge TTS 쇼츠"></div>
+<p>Edge TTS를 선택하면 7개 언어 탭(한국어, 영어, 일본어, 스페인어, 독일어, 아랍어, 포르투갈어)이 나오니 대본 언어와 같은 언어의 음성을 고르세요. 속도 조절과 <strong>미리 듣기</strong>가 가능합니다.</p>
+<p>다음으로 <strong>OpenAI TTS</strong>가 있습니다. 유료 요금제를 결제해야 사용할 수 있는 TTS 입니다. 5달러로 약 33만자의 음성을 생성할 수 있어 가성비가 좋습니다. 속도도 빠릅니다. 하지만 음성 품질이 영어를 제외하면 조금은 떨어집니다. 역시 음성 미리듣기가 가능합니다.</p>
+<p>마지막으로 <strong>ElevenLabs TTS</strong>를 선택하실 수 있습니다. 한국어 음성 역시 뛰어난 음질로 지원합니다. 가장 고품질입니다. 하지만 가격이 가장 비쌉니다. 쇼츠의 경우 음성 더빙량이 많지 않아 고품질의 ElevenLabs를 사용하셔도 비용적으로 큰 부담은 되지 않습니다. 음성 목록에서 음성을 선택한 뒤 <strong>미리 듣기</strong>(소량의 크레딧 차감)로 들어보실 수 있습니다. 처음에는 무료인 Edge TTS를 이용하시고 나중에 수익화가 많이 이루어지시면 ElevenLabs로 업그레이드 하시는 것도 좋은 방법입니다.</p>
 <div class="img-wrap"><img src="imgs/image123.png" loading="lazy" alt="스크린샷"></div>
 <p>다음으로 효과 설정 탭입니다. 여러가지를 설정하실 수 있습니다. 중앙에 보시면 씬과 씬 사이 에 화면 전환 효과를 설정하실 수 있는데 최근 유튜브 흐름은 화면 전환 효과를 넣지 않는 편이라서 없음을 기본으로 설정해놨습니다. 화면전환 효과를 주시려면 옆에 페이드를 선택하시면 됩니다.</p>
 <p>씬전환효과 위에는 카메라 이동 설정이 있는데 꼭 1가지는 설정하실 것을 추천드립니다. 카메라 이동 설정을 하시면 정지된 화면에 움직임 효과를 주어 좀더 시청자 들의 몰입도를 높일 수 있고. 휴먼터치 감을 주어 유튜브로부터 사람이 직접 만들었다는 것으로 인식을 시켜줄 수 있습니다.</p>
@@ -570,8 +409,8 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <div class="img-wrap"><img src="imgs/image128.png" loading="lazy" alt="스크린샷"></div>
 <h3>캐릭터 참조 이미지 업로드 (이미지 직접 사용)</h3>
 <p>텍스트로 캐릭터를 설명하는 방식 외에, <strong>직접 보유하고 있는 캐릭터 이미지를 업로드</strong>하여 해당 캐릭터를 모든 씬에 반영시킬 수 있습니다. 세부설정의 <strong>캐릭터 탭</strong>에서 이미지 생성 모델 아래 <strong>캐릭터 참조 이미지(선택)</strong> 항목을 찾으실 수 있습니다.</p>
-<div class="img-wrap"><img src="imgs/image_char_upload_shorts.png" loading="lazy" alt="캐릭터 참조 이미지 업로드 - 쇼츠"></div>
-<p>이미지 선택 버튼을 눌러 원하는 캐릭터 이미지 파일을 업로드하면 AI가 해당 인물 이미지를 캐릭터 레퍼런스로 활용하여 모든 씬에 동일한 캐릭터가 등장하도록 이미지를 생성합니다. Imagen 3, Gemini 2.5 모델 모두 Vertex AI 300달러 무료 크레딧으로 이미지 생성됩니다. Imagen 3는 텍스트 방식으로 고정 캐릭터를 넣을 수 있으며, Gemini 2.5는 캐릭터 이미지 업로드 방식으로 고정 캐릭터를 넣을 수 있습니다.</p>
+<div class="img-wrap"><img src="imgs/n_char_shorts.png" loading="lazy" alt="캐릭터 참조 이미지 업로드 - 쇼츠"></div>
+<p>이미지 선택 버튼을 눌러 원하는 캐릭터 이미지 파일을 업로드하면 해당 인물 이미지를 AI가 캐릭터 레퍼런스로 활용하여 모든 씬에 동일한 캐릭터가 등장하도록 이미지를 생성합니다. 이미지 생성은 OpenAI 이미지 모델(gpt-image)이 담당하며, 고정 캐릭터는 텍스트 설명 방식과 참조 이미지 업로드 방식을 모두 사용하실 수 있습니다.</p>
 <p>업로드할 이미지는 <strong>9:16 쇼츠 사이즈에 맞는 이미지</strong>를 사용하시는 것을 권장드립니다. 텍스트 설명 없이 이미지만 업로드해도 일관된 캐릭터가 유지됩니다.</p>
 <p>세부설정이 끝나셨다면 이미지스타일 이동 버튼을 클릭해줍니다. 영상탭에 이미지 스타일로 이동버튼이 있습니다. 또는 왼쪽 탭에서 이미지 스타일 탭을 클릭하시면 됩니다.</p>
 <div class="img-wrap"><img src="imgs/image129.png" loading="lazy" alt="스크린샷"></div>
@@ -589,12 +428,16 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <div class="img-wrap"><img src="imgs/image134.png" loading="lazy" alt="스크린샷"></div>
 <p>자막 편집 하단에는 아까 말씀드렸다시피 각씬별로 이미지 배치와 대본을 확인하실 수 있고 사 각 씬마다 이미지 재생성 버튼이 있으므로 마음에 안드는 이미지는 재 생성 버튼을 클릭하셔서 이미지를 바꾸실 수 있습니다. 또는 옆에 이미지/영상 버튼이 있는데 해당 버튼은 갖 고 계신 이미지나 동영상을 올려서 자신만의 이미지나 동영상으로 씬 화면을 전환시키는 기능입니다.</p>
 <div class="img-wrap"><img src="imgs/image135.png" loading="lazy" alt="스크린샷"></div>
-<p>생성된 이미지는 이미지 폴더 열기를 열면 생성된 이미지들이 모여있는 위치로 이동하게 됩니다. 거기있는 이 미지를 영상만들기 사이트에서 영상으로 전환하신 후(FLOW,그록,RUNWAY 등) 이곳에 업로드해서 영상으로 변환하실 수 있습니다. 보다 더 자세한 사항은 목차10번에서 좀더 자세히 설명을 드리도록 하겠습니다.</p>
+<p>생성된 이미지는 이미지 폴더 열기를 열면 생성된 이미지들이 모여있는 위치로 이동하게 됩니다. 거기있는 이 미지를 영상만들기 사이트에서 영상으로 전환하신 후(FLOW,그록,RUNWAY 등) 이곳에 업로드해서 영상으로 변환하실 수 있습니다. 보다 더 자세한 사항은 목차 10-2번에서 좀더 자세히 설명을 드리도록 하겠습니다. 또한 이미지 자체를 <strong>Google Flow로 한꺼번에 만들어 씬에 자동 배치</strong>하는 방법은 목차 10-1번에서 설명드립니다.</p>
 <div class="img-wrap"><img src="imgs/image136.png" loading="lazy" alt="스크린샷"></div>
 <p>또한 씬 추가 씬삭제 버튼을 클릭하셔서 씬을 추가하거나 삭제하실 수 있습니다. 씬추가의 경우 가장 마지막 씬으로 배치됩니다. 또한 ▲ ▼ 버튼을 이용해서 씬 위치를 변경하실 수 있습니다.(최신버전 기준)</p>
 <div class="img-wrap"><img src="imgs/image137.png" loading="lazy" alt="스크린샷"></div>
 <p>자막과 씬 화면이 최종 확인되셨다면 하단에 음성 더빙 생성 버튼을 클릭합니다. 그러면 자동으로 음성 더빙이 시작됩니다.</p>
 <div class="img-wrap"><img src="imgs/image138.png" loading="lazy" alt="스크린샷"></div>
+<h3>씬별로 목소리 다르게 하기</h3>
+<p>씬 편집기의 각 씬 카드 하단에는 <strong>목소리 선택 상자</strong>와 <strong>이 씬 음성 생성</strong> 버튼이 있습니다. 기본값은 세부설정 성우 탭에서 고른 목소리이며, 별도로 고르지 않은 씬은 모두 그 목소리로 만들어집니다. 특정 씬만 다른 목소리로 하고 싶다면 해당 씬의 목소리 선택 상자에서 원하는 음성을 고르시면 됩니다.</p>
+<div class="img-wrap"><img src="imgs/n_scene_voice_shorts.png" loading="lazy" alt="씬별 목소리 선택 - 쇼츠"></div>
+<p>하단의 <strong>음성 더빙 생성</strong> 버튼을 누르면 전체 씬이 각자의 목소리로 만들어지고, <strong>이 씬 음성 생성</strong> 버튼을 누르면 그 씬 하나만 다시 만들어집니다(다른 씬의 음성은 그대로 유지됩니다). 한 영상 안에서 목소리가 달라도 렌더링에는 문제가 없으며 씬별 볼륨도 자동으로 맞춰집니다. 가급적 같은 엔진 안에서 목소리만 다르게 쓰시는 것을 권장드리며, 엔진을 섞어 쓰실 경우 해당 엔진의 API 키가 모두 등록되어 있어야 합니다.</p>
 <p>다음으로 랜더링 버튼을 눌러주세요</p>
 <div class="img-wrap"><img src="imgs/image139.png" loading="lazy" alt="스크린샷"></div>
 <p>마지막으로 랜더링 시작 버튼을 클릭해주면 자동으로 그동안 확인했던 모든 사항이 여기서 최종 편집되어 완 성된 영상 결과물을 보여주게 됩니다. 완성된 결과물은 다운로드 하셔서 직접 업로드 하시거나 업로드 설정으 로 자동 업로드 되게 하실 수 있습니다. 유튜브 자동 업로드 설정 방법은 목차8번에서 확인하시기 바랍니다.</p>
@@ -637,7 +480,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <p>여기까지 NOBLE ARC 유튜브 자동화 쇼츠 전용 프로그램에 대한 사용법 설명을 마치겠습니다.</p>
 <h2 id="sec-7리서치센터-사용법">7.리서치센터 사용법</h2>
 <div class="img-wrap"><img src="imgs/image142.png" loading="lazy" alt="스크린샷"></div>
-<p>자 이제부터 리서치센터에 대해서 자세히 알려드리겠습니다. 저희 NOBLE ARC 프로그램은 리서치센터를 통해 좋은 소재를 발굴할 수 있는 시스템을 지원해드리고 있습니다. 유튜브에서 엄청난 조회수를 기록한 떡상 인기 영상을 검색해서 찾아낼 수 있고 그 영상을 벤치마킹 할 수 있고 경쟁자 채널분석을 통해 유명 유튜버들의 유튜브 채널 운영 형태를 분석해낼 수도 있습니다. 또한 최근 트렌드 검색을 통해 뜨고있는 검색어 키워드를 쉽게 찾아 낼 수 있으며 해당 키워드의 뉴스 정보도 쉽게 검색해서 소재를 발굴하실 수 있도록 지원해드리고 있습니다. 리서치센터를 이용하시기 위해서는 유튜브 API키를 반드시 발급 받으셔야 합니다. 아직 발급을 받지 않으셨다면 4-6 목차에서 유튜브 API키 발급 방법 설명을 보시면서 먼저 발급받고 오시기를 권해드립니다.</p>
+<p>자 이제부터 리서치센터에 대해서 자세히 알려드리겠습니다. 저희 NOBLE ARC 프로그램은 리서치센터를 통해 좋은 소재를 발굴할 수 있는 시스템을 지원해드리고 있습니다. 유튜브에서 엄청난 조회수를 기록한 떡상 인기 영상을 검색해서 찾아낼 수 있고 그 영상을 벤치마킹 할 수 있고 경쟁자 채널분석을 통해 유명 유튜버들의 유튜브 채널 운영 형태를 분석해낼 수도 있습니다. 또한 최근 트렌드 검색을 통해 뜨고있는 검색어 키워드를 쉽게 찾아 낼 수 있으며 해당 키워드의 뉴스 정보도 쉽게 검색해서 소재를 발굴하실 수 있도록 지원해드리고 있습니다. 리서치센터를 이용하시기 위해서는 유튜브 API키를 반드시 발급 받으셔야 합니다. 아직 발급을 받지 않으셨다면 4-4 목차에서 유튜브 API키 발급 방법 설명을 보시면서 먼저 발급받고 오시기를 권해드립니다.</p>
 <p>자 그러면 각 기능별로 자세히 설명드리겟습니다.</p>
 <p>롱폼 프로그램에서의 리서치센터, 쇼츠프로그램에서의 리서치센터 모두 사용법이 동일합니다.</p>
 <h3 id="sec-71떡상영상-검색법">7-1떡상영상 검색법</h3>
@@ -675,7 +518,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <h2 id="sec-8유튜브-자동업로드-설정-방법">8.유튜브 자동업로드 설정 방법</h2>
 <p>NOBLE ARC 프로그램은 유튜브 자동 업로드를 지원합니다. 단. 업로드 할때 비공개로 업로드하시길 권장드립니다. 공개하시기전 한번 쯤 확인하고 공개전환 하시는게 좋습니다. 또한 유튜브 자동 업로드 방법은 조금 복잡합니다. 잘 따라오시기 바랍니다.</p>
 <p>아참 주의 사항이 있습니다. 유튜브 업로드는 1계정당 6회 업로드로 제한되어 있습니다. 무료 API사용 기준 구글에서 6회 업로드 제한을 걸어놨으므로 참고하시기 바랍니다.</p>
-<p>롱폼 기준, 자동 업로드 설정 시 제목·설명문구·태그 등의 메타데이터가 자동으로 업로드됩니다. 썸네일 자동 생성은 <strong>세부설정 → 영상 탭</strong>에서 <strong>썸네일 자동 생성 포함</strong> 토글을 켰을 때만 동작하며, Gemini API 키가 등록되어 있어야 합니다. 썸네일 생성은 <strong>유료 기능</strong>입니다(Gemini 3 Pro Image 모델 사용, 사용량 요금 청구). 원하시는 분만 선택적으로 사용하시면 됩니다. 쇼츠의 경우 썸네일 개념이 없으므로 메타데이터만 자동으로 업로드됩니다.</p>
+<p>롱폼 기준, 자동 업로드 설정 시 제목·설명문구·태그 등의 메타데이터가 자동으로 업로드됩니다. 썸네일 자동 생성은 <strong>세부설정 → 영상 탭</strong>에서 <strong>썸네일 자동 생성 포함</strong> 토글을 켰을 때만 동작하며, OpenAI API 키가 등록되어 있어야 합니다. 썸네일 생성은 <strong>유료 기능</strong>입니다(OpenAI 이미지 모델 사용, 사용량 요금 청구). 원하시는 분만 선택적으로 사용하시면 됩니다. 쇼츠의 경우 썸네일 개념이 없으므로 메타데이터만 자동으로 업로드됩니다.</p>
 <p>console.cloud.google.com</p>
 <p>위 주소를 클릭하여 구글 클라우드 콘솔로 이동을 합니다. 또는 인터넷 창에 복사 붙여넣기 해서 구글 클라우드콘솔로 이동하세요  상단의 프로젝트에서 유튜브 API 만들었던 프로젝트를 선택해줍니다.</p>
 <div class="img-wrap"><img src="imgs/image158.png" loading="lazy" alt="스크린샷"></div>
@@ -768,6 +611,32 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 </ul>
 <p>모든 설정이 완료되면 <strong style="color:#e91e63">🚀 대량 생산 시작</strong> 버튼을 누릅니다. 이후 등록된 소재 수만큼 영상이 자동으로 연속 제작됩니다. 대량 생산이 진행되는 동안 다른 작업을 하셔도 무방하며, 완료 후 결과 카드의 <strong>📂 OUTPUT 폴더 열기</strong> 버튼을 클릭하면 완성된 영상이 저장된 폴더가 바로 열립니다.</p>
 <h2 id="sec-10이미지-영상으로-전환-후-씬-편집기에서-영상-등록-방법">10.이미지 영상으로 전환 후 씬 편집기에서 영상 등록 방법</h2>
+<h3 id="sec-101-flow-이미지-대량-생성">10-1 Google Flow로 이미지 대량 생성하고 씬에 자동 배치하기</h3>
+<p><strong>이미지 스타일</strong> 탭에는 OpenAI로 바로 이미지를 만드는 <strong>방법 ①</strong> 아래에 <strong>방법 ② Google Flow 이미지 대량 생성</strong> 카드가 있습니다. 구글 계정의 Flow(Gemini 유료 구독 크레딧 등)를 이용해 모든 씬의 이미지를 한꺼번에 만들고, 만들어진 이미지를 <strong>폴더만 연결하면 씬별로 자동 배치</strong>해 주는 기능입니다. 롱폼과 쇼츠 프로그램 모두에서 같은 방식으로 사용하실 수 있습니다. (AI 에이전트의 자동 운영에서는 사용되지 않습니다.)</p>
+<p><strong>1단계 — 프롬프트 내보내기.</strong> 대본 생성을 마친 뒤 <strong>이미지 스타일</strong> 탭에서 원하는 스타일을 고르고, 아래쪽 <strong>방법 ② Google Flow</strong> 카드(OpenAI "이미지 생성" 버튼은 누르지 않습니다)의 <strong>Flow용 프롬프트 내보내기(.txt)</strong> 버튼을 클릭합니다. 선택하신 이미지 스타일과 고정 캐릭터가 반영된 씬별 이미지 프롬프트가 txt 파일 하나로 저장됩니다. (파일로 저장하는 대신 <strong>클립보드로 복사</strong> 버튼을 눌러도 됩니다.)</p>
+<div class="img-wrap"><img src="imgs/flow_01.png" loading="lazy" alt="Flow용 프롬프트 내보내기"></div>
+<p><strong>2단계 — 프롬프트 복사.</strong> 저장된 txt 파일을 열어 내용 전체를 선택하고 복사합니다. 맨 윗부분의 지시문과 [scene_001] 형식의 씬별 프롬프트가 모두 들어 있으니 그대로 전체를 복사하시면 됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_02.png" loading="lazy" alt="프롬프트 txt 전체 복사"></div>
+<p><strong>3단계 — Flow에서 새 프로젝트 시작.</strong> 구글 Flow 사이트에 구글 계정으로 로그인한 뒤 <strong>새 프로젝트</strong>를 클릭합니다.</p>
+<div class="img-wrap"><img src="imgs/flow_03.png" loading="lazy" alt="Flow 새 프로젝트"></div>
+<p><strong>4단계 — 에이전트에 붙여넣기.</strong> 입력창 아래에서 <strong>에이전트</strong>가 선택되어 있는지 확인한 뒤 복사한 프롬프트를 붙여넣습니다.</p>
+<div class="img-wrap"><img src="imgs/flow_04.png" loading="lazy" alt="Flow 에이전트 입력창에 붙여넣기"></div>
+<p><strong>5단계 — 에이전트 설정 확인.</strong> 에이전트 설정에서 이미지 생성 개수가 <strong>x1(한 장씩)</strong>으로 되어 있는지 확인하고, 이미지 사이즈를 <strong>롱폼은 16:9, 쇼츠는 9:16</strong>으로 바꿔 주세요. 생성 전 확인이 <strong>항상</strong>으로 되어 있으면 생성하기 전에 확인 창이 뜨니 <strong>생성 시작</strong>을 눌러 주시면 되고, <strong>안 함</strong>으로 해두시면 중간에 멈추지 않고 크레딧을 자동으로 사용하며 진행됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_05.png" loading="lazy" alt="Flow 에이전트 설정"></div>
+<p><strong>6단계 — 이미지 생성.</strong> 이렇게 모든 이미지가 한 번에 생성되며 매우 빠르게 완료됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_06.png" loading="lazy" alt="Flow 이미지 생성 진행"></div>
+<p><strong>7단계 — 이미지 전체 다운로드.</strong> 이미지 생성이 모두 끝나면 모든 이미지를 드래그하여 선택한 뒤 마우스 우클릭 메뉴에서 <strong>다운로드</strong>를 누르면 압축된 하나의 파일에 모든 이미지가 담겨 저장됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_07.png" loading="lazy" alt="Flow 이미지 선택 후 다운로드"></div>
+<p><strong>8단계 — 압축 풀기.</strong> 다운로드된 압축 파일(zip)을 풀어 폴더로 만들어 주세요. 이제 이 폴더를 프로그램에 연결하면 끝입니다.</p>
+<div class="img-wrap"><img src="imgs/flow_08.png" loading="lazy" alt="다운로드 압축 해제"></div>
+<p><strong>9단계 — 폴더 연결.</strong> Flow 카드의 폴더 경로 입력란에 압축을 푼 폴더의 경로를 입력하거나 <strong>폴더 선택</strong> 버튼으로 폴더를 고른 뒤, <strong>폴더 읽기</strong> 버튼을 누르면 씬별 이미지 배치 결과가 나타납니다.</p>
+<div class="img-wrap"><img src="imgs/flow_09.png" loading="lazy" alt="폴더 연결 후 폴더 읽기"></div>
+<p><strong>10단계 — 배치 확인 후 적용.</strong> 씬별로 어떤 이미지가 배치될지 미리보기로 확인하실 수 있습니다. 잘못 배치된 씬은 씬 오른쪽의 선택 상자에서 다른 이미지로 바꾸실 수 있습니다. 확인이 끝났다면 맨 아래 <strong>N장을 씬에 적용</strong> 버튼을 눌러 주세요. 적용이 끝나면 자동으로 씬 편집기로 이동합니다.</p>
+<div class="img-wrap"><img src="imgs/flow_10.png" loading="lazy" alt="씬별 이미지 배치 미리보기"></div>
+<p><strong>완료.</strong> 씬 편집기에서 이렇게 씬별로 이미지가 배치된 것을 보실 수 있습니다. 이후 과정(음성 더빙, 렌더링)은 일반 순서와 동일합니다.</p>
+<div class="img-wrap"><img src="imgs/flow_11.png" loading="lazy" alt="씬에 이미지가 배치된 모습"></div>
+<div style="margin:1.2rem 0;padding:1rem 1.4rem;border:1.5px solid #555;border-radius:10px;"><p style="margin:0;line-height:1.8;"><strong>이미지를 씬에 맞추는 방법</strong><br>① 파일 이름에 <code>scene_001</code> 같은 씬 번호가 있으면 그 번호대로 배치합니다(Flow가 파일 이름에 씬 번호를 넣어 주는 경우).<br>② 번호가 없는 경우에는 파일에 들어 있는 숫자 또는 <strong>저장된 시간 순서</strong>로 배치합니다. 이때는 화면에 노란 안내문이 뜨니 미리보기에서 그림과 씬이 맞는지 꼭 확인하세요.<br>③ 이미지가 씬보다 적거나 많으면 부족한 씬과 남는 이미지를 안내해 드리며, 하위 폴더의 이미지도 함께 읽습니다.</p></div>
+<h3 id="sec-102-이미지를-영상으로-전환">10-2 이미지를 영상으로 전환하고 등록하기</h3>
 <p>먼저 프로그램에서 생성된 이미지를 확인합니다. 이미지를 영상으로 전환할 때는 <strong><a href="https://docs.google.com/videos" target="_blank" style="color:#00d2d3;">https://docs.google.com/videos</a></strong> (Google Vids)를 이용하시면 <strong style="color:#4ade80;">무료로 이미지를 영상으로 전환</strong>하실 수 있습니다. 구글 계정만 있으면 별도의 구독 없이 Google Veo 3.1 AI 기술을 활용해 이미지를 자연스럽게 움직이는 영상으로 변환할 수 있습니다. 아래 순서대로 따라하시면 됩니다.</p>
 <div class="img-wrap"><img src="새%20폴더/1.png" loading="lazy" alt="스크린샷"></div>
 <p>씬 편집기 화면 최상단에 있는 <strong>이미지 폴더 열기</strong> 버튼을 클릭합니다. 이미지 생성이 완료된 시점에서 진행하세요.</p>
@@ -840,7 +709,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <ul>
   <li><strong>소재 발굴</strong> — 리서치센터의 떡상검색기를 통해 트렌드 영상 소재를 자동으로 탐색합니다.</li>
   <li><strong>대본 생성</strong> — 발굴된 소재를 바탕으로 고품질 영상 대본을 자동으로 작성합니다.</li>
-  <li><strong>TTS / BGM / 메타데이터 설정</strong> — 음성 합성, 배경음악 선택, 제목·설명·태그 등 메타데이터까지 자동으로 구성합니다.</li>
+  <li><strong>TTS / BGM / 메타데이터 설정</strong> — 음성 합성, 배경음악 선택, 제목·설명·태그 등 메타데이터까지 자동으로 구성합니다. 음성은 ElevenLabs 키가 있으면 ElevenLabs를, 없으면 무료 Edge TTS를 사용하며 Edge TTS를 쓸 수 없을 때는 OpenAI TTS를 사용합니다.</li>
   <li><strong>이미지 생성 및 영상 제작</strong> — 대본에 맞는 이미지를 AI로 생성하고 완성형 영상을 자동으로 제작합니다.</li>
   <li><strong>유튜브 자동 업로드</strong> — 완성된 영상을 설정된 일정에 따라 유튜브 채널에 자동으로 업로드합니다.</li>
   <li><strong>댓글 자동 관리</strong> — 업로드된 영상에 달리는 댓글을 설정된 말투와 방식으로 자동으로 관리합니다.</li>
@@ -855,7 +724,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 </ul>
 <p>YouTube API 할당량과 관련하여 중요한 사항을 안내드립니다. 구글에서 제공하는 YouTube API는 하루 사용량에 제한이 있으며, 1개의 구글 계정으로는 5개 이하의 채널 운영을 권장합니다. 또한 채널당 하루 업로드 횟수는 5회 이내로 설정하시는 것이 안정적입니다. 이 기준을 초과하면 API 할당량이 소진되어 업로드가 일시 중단될 수 있으니 참고하시기 바랍니다.</p>
 <div class="img-wrap"><img src="imgs/image205.png" loading="lazy" alt="스크린샷"></div>
-<p>Kling AI를 이용한 초반 씬 영상 변환 기능은 선택 사항입니다. 이 기능을 사용하시려면 목차 4-8번의 Kling AI API 키 발급 안내를 먼저 참고하시기 바랍니다. 초반 씬 변환 개수를 0으로 설정하면 카메라 효과만 적용되며, Kling AI를 사용하지 않습니다.</p>
+<p>Kling AI를 이용한 초반 씬 영상 변환 기능은 선택 사항입니다. 이 기능을 사용하시려면 목차 4-5번의 Kling AI API 키 발급 안내를 먼저 참고하시기 바랍니다. 초반 씬 변환 개수를 0으로 설정하면 카메라 효과만 적용되며, Kling AI를 사용하지 않습니다.</p>
 <div class="img-wrap"><img src="imgs/image206.png" loading="lazy" alt="스크린샷"></div>
 <p>댓글 자동 관리 기능은 활성/비활성 중에서 선택할 수 있으며, 댓글에 답변할 말투 스타일도 함께 설정할 수 있습니다. 활성으로 설정하면 AI가 댓글을 분석하여 적절한 답변을 자동으로 작성합니다.</p>
 <div class="img-wrap"><img src="imgs/image207.png" loading="lazy" alt="스크린샷"></div>
