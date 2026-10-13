@@ -60,8 +60,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
     <li><a href="#sec-8유튜브-자동업로드-설정-방법">8.유튜브 자동업로드 설정 방법</a></li>
     <li><a href="#sec-9쇼츠-영상-대량생산탭-운영방법">9.쇼츠 영상 대량생산탭 운영방법</a></li>
     <li><a href="#sec-10이미지-영상으로-전환-후-씬-편집기에서-영상-등록-방법">10.이미지 영상으로 전환 후 씬 편집기에서 영상 등록 방법</a></li>
-    <li class="sub"><a href="#sec-101-flow-이미지-대량-생성">10-1 Google Flow로 이미지 대량 생성하고 씬에 자동 배치하기</a></li>
-    <li class="sub"><a href="#sec-102-이미지를-영상으로-전환">10-2 이미지를 영상으로 전환하고 등록하기</a></li>
+    <li class="sub"><a href="#sec-101-이미지를-영상으로-전환">10-1 이미지를 영상으로 전환하고 등록하기</a></li>
     <li><a href="#sec-11-AI-에이전트-탭-사용법">11. AI 에이전트 탭 사용법</a></li>
     <li><a href="#sec-12-기타-안내사항">12. 기타 안내사항</a></li>
     <li class="sub"><a href="#sec-12-1-기기초기화">12-1 기기초기화</a></li>
@@ -318,6 +317,31 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <div class="img-wrap"><img src="imgs/image98.png" loading="lazy" alt="스크린샷"></div>
 <p>이미지 스타일이 선택되셨다면 하단에 있는 이미지 생성 버튼을 클릭해줍니다.  그럼 그 밑에 이미지 생성 과정이 보입니다. 지금까지 몇개의 이미지가 만들어졌는지 표시가 됩니다. 이미지가 다 만들어지면 바로 자동으로 씬 편집기 화면으로 넘어가게 됩니다.</p>
 <div class="img-wrap"><img src="imgs/image99.png" loading="lazy" alt="스크린샷"></div>
+<h3 id="sec-5-flow-이미지-대량-생성">Google Flow로 이미지 대량 생성하고 씬에 자동 배치하기</h3>
+<p><strong>이미지 스타일</strong> 탭에는 OpenAI로 바로 이미지를 만드는 <strong>방법 ①</strong> 아래에 <strong>방법 ② Google Flow 이미지 대량 생성</strong> 카드가 있습니다. 구글 계정의 Flow(Gemini 유료 구독 크레딧 등)를 이용해 모든 씬의 이미지를 한꺼번에 만들고, 만들어진 이미지를 <strong>폴더만 연결하면 씬별로 자동 배치</strong>해 주는 기능입니다. 롱폼과 쇼츠 프로그램 모두에서 같은 방식으로 사용하실 수 있습니다. (AI 에이전트의 자동 운영에서는 사용되지 않습니다.)</p>
+<p><strong>1단계 — 프롬프트 내보내기.</strong> 대본 생성을 마친 뒤 <strong>이미지 스타일</strong> 탭에서 원하는 스타일을 고르고, 아래쪽 <strong>방법 ② Google Flow</strong> 카드(OpenAI "이미지 생성" 버튼은 누르지 않습니다)의 <strong>Flow용 프롬프트 내보내기(.txt)</strong> 버튼을 클릭합니다. 선택하신 이미지 스타일과 고정 캐릭터가 반영된 씬별 이미지 프롬프트가 txt 파일 하나로 저장됩니다. (파일로 저장하는 대신 <strong>클립보드로 복사</strong> 버튼을 눌러도 됩니다.)</p>
+<div class="img-wrap"><img src="imgs/flow_01.png" loading="lazy" alt="Flow용 프롬프트 내보내기"></div>
+<p><strong>2단계 — 프롬프트 복사.</strong> 저장된 txt 파일을 열어 내용 전체를 선택하고 복사합니다. 맨 윗부분의 지시문과 [scene_001] 형식의 씬별 프롬프트가 모두 들어 있으니 그대로 전체를 복사하시면 됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_02.png" loading="lazy" alt="프롬프트 txt 전체 복사"></div>
+<p><strong>3단계 — Flow에서 새 프로젝트 시작.</strong> 구글 Flow 사이트에 구글 계정으로 로그인한 뒤 <strong>새 프로젝트</strong>를 클릭합니다.</p>
+<div class="img-wrap"><img src="imgs/flow_03.png" loading="lazy" alt="Flow 새 프로젝트"></div>
+<p><strong>4단계 — 에이전트에 붙여넣기.</strong> 입력창 아래에서 <strong>에이전트</strong>가 선택되어 있는지 확인한 뒤 복사한 프롬프트를 붙여넣습니다.</p>
+<div class="img-wrap"><img src="imgs/flow_04.png" loading="lazy" alt="Flow 에이전트 입력창에 붙여넣기"></div>
+<p><strong>5단계 — 에이전트 설정 확인.</strong> 에이전트 설정에서 이미지 생성 개수가 <strong>x1(한 장씩)</strong>으로 되어 있는지 확인하고, 이미지 사이즈를 <strong>롱폼은 16:9, 쇼츠는 9:16</strong>으로 바꿔 주세요. 생성 전 확인이 <strong>항상</strong>으로 되어 있으면 생성하기 전에 확인 창이 뜨니 <strong>생성 시작</strong>을 눌러 주시면 되고, <strong>안 함</strong>으로 해두시면 중간에 멈추지 않고 크레딧을 자동으로 사용하며 진행됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_05.png" loading="lazy" alt="Flow 에이전트 설정"></div>
+<p><strong>6단계 — 이미지 생성.</strong> 이렇게 모든 이미지가 한 번에 생성되며 매우 빠르게 완료됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_06.png" loading="lazy" alt="Flow 이미지 생성 진행"></div>
+<p><strong>7단계 — 이미지 전체 다운로드.</strong> 이미지 생성이 모두 끝나면 모든 이미지를 드래그하여 선택한 뒤 마우스 우클릭 메뉴에서 <strong>다운로드</strong>를 누르면 압축된 하나의 파일에 모든 이미지가 담겨 저장됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_07.png" loading="lazy" alt="Flow 이미지 선택 후 다운로드"></div>
+<p><strong>8단계 — 압축 풀기.</strong> 다운로드된 압축 파일(zip)을 풀어 폴더로 만들어 주세요. 이제 이 폴더를 프로그램에 연결하면 끝입니다.</p>
+<div class="img-wrap"><img src="imgs/flow_08.png" loading="lazy" alt="다운로드 압축 해제"></div>
+<p><strong>9단계 — 폴더 연결.</strong> Flow 카드의 폴더 경로 입력란에 압축을 푼 폴더의 경로를 입력하거나 <strong>폴더 선택</strong> 버튼으로 폴더를 고른 뒤, <strong>폴더 읽기</strong> 버튼을 누르면 씬별 이미지 배치 결과가 나타납니다.</p>
+<div class="img-wrap"><img src="imgs/flow_09.png" loading="lazy" alt="폴더 연결 후 폴더 읽기"></div>
+<p><strong>10단계 — 배치 확인 후 적용.</strong> 씬별로 어떤 이미지가 배치될지 미리보기로 확인하실 수 있습니다. 잘못 배치된 씬은 씬 오른쪽의 선택 상자에서 다른 이미지로 바꾸실 수 있습니다. 확인이 끝났다면 맨 아래 <strong>N장을 씬에 적용</strong> 버튼을 눌러 주세요. 적용이 끝나면 자동으로 씬 편집기로 이동합니다.</p>
+<div class="img-wrap"><img src="imgs/flow_10.png" loading="lazy" alt="씬별 이미지 배치 미리보기"></div>
+<p><strong>완료.</strong> 씬 편집기에서 이렇게 씬별로 이미지가 배치된 것을 보실 수 있습니다. 이후 과정(음성 더빙, 렌더링)은 일반 순서와 동일합니다.</p>
+<div class="img-wrap"><img src="imgs/flow_11.png" loading="lazy" alt="씬에 이미지가 배치된 모습"></div>
+<div style="margin:1.2rem 0;padding:1rem 1.4rem;border:1.5px solid #555;border-radius:10px;"><p style="margin:0;line-height:1.8;"><strong>이미지를 씬에 맞추는 방법</strong><br>① 파일 이름에 <code>scene_001</code> 같은 씬 번호가 있으면 그 번호대로 배치합니다(Flow가 파일 이름에 씬 번호를 넣어 주는 경우).<br>② 번호가 없는 경우에는 파일에 들어 있는 숫자 또는 <strong>저장된 시간 순서</strong>로 배치합니다. 이때는 화면에 노란 안내문이 뜨니 미리보기에서 그림과 씬이 맞는지 꼭 확인하세요.<br>③ 이미지가 씬보다 적거나 많으면 부족한 씬과 남는 이미지를 안내해 드리며, 하위 폴더의 이미지도 함께 읽습니다.</p></div>
 <p>다음으로 씬편집기 화면입니다. 이미지 생성을 마쳤다면 이곳으로 오게됩니다. 맨 위에는 자막 스타일설정이 있고 그 밑에는 각 씬별로 대본과 이미지가 배치되어 있습니다.  먼저 자막 설정에 대해서 설명드리겠습니다.</p>
 <div class="img-wrap"><img src="imgs/image100.png" loading="lazy" alt="스크린샷"></div>
 <p>다양한 자막폰트가 준비되어 있습니다. 마음에 드는 폰트를 미리보기 화면을 통해 확인하신 후 폰트를 선택하시면 됩니다.</p>
@@ -418,6 +442,31 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <div class="img-wrap"><img src="imgs/image130.png" loading="lazy" alt="스크린샷"></div>
 <p>이미지 스타일이 선택되셨다면 하단에 있는 이미지 생성 버튼을 클릭해줍니다. 그럼 그 밑에 이미지 생성 과정 이 보입니다. 지금까지 몇개의 이미지가 만들어졌는지 표시가 됩니다. 이미지가 다 만들어지면 바로 자동으로 씬 편집기 화면으로 넘어가게 됩니다.</p>
 <div class="img-wrap"><img src="imgs/image131.png" loading="lazy" alt="스크린샷"></div>
+<h3 id="sec-6-flow-이미지-대량-생성">Google Flow로 이미지 대량 생성하고 씬에 자동 배치하기</h3>
+<p><strong>이미지 스타일</strong> 탭에는 OpenAI로 바로 이미지를 만드는 <strong>방법 ①</strong> 아래에 <strong>방법 ② Google Flow 이미지 대량 생성</strong> 카드가 있습니다. 구글 계정의 Flow(Gemini 유료 구독 크레딧 등)를 이용해 모든 씬의 이미지를 한꺼번에 만들고, 만들어진 이미지를 <strong>폴더만 연결하면 씬별로 자동 배치</strong>해 주는 기능입니다. 롱폼과 쇼츠 프로그램 모두에서 같은 방식으로 사용하실 수 있습니다. (AI 에이전트의 자동 운영에서는 사용되지 않습니다.)</p>
+<p><strong>1단계 — 프롬프트 내보내기.</strong> 대본 생성을 마친 뒤 <strong>이미지 스타일</strong> 탭에서 원하는 스타일을 고르고, 아래쪽 <strong>방법 ② Google Flow</strong> 카드(OpenAI "이미지 생성" 버튼은 누르지 않습니다)의 <strong>Flow용 프롬프트 내보내기(.txt)</strong> 버튼을 클릭합니다. 선택하신 이미지 스타일과 고정 캐릭터가 반영된 씬별 이미지 프롬프트가 txt 파일 하나로 저장됩니다. (파일로 저장하는 대신 <strong>클립보드로 복사</strong> 버튼을 눌러도 됩니다.)</p>
+<div class="img-wrap"><img src="imgs/flow_01.png" loading="lazy" alt="Flow용 프롬프트 내보내기"></div>
+<p><strong>2단계 — 프롬프트 복사.</strong> 저장된 txt 파일을 열어 내용 전체를 선택하고 복사합니다. 맨 윗부분의 지시문과 [scene_001] 형식의 씬별 프롬프트가 모두 들어 있으니 그대로 전체를 복사하시면 됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_02.png" loading="lazy" alt="프롬프트 txt 전체 복사"></div>
+<p><strong>3단계 — Flow에서 새 프로젝트 시작.</strong> 구글 Flow 사이트에 구글 계정으로 로그인한 뒤 <strong>새 프로젝트</strong>를 클릭합니다.</p>
+<div class="img-wrap"><img src="imgs/flow_03.png" loading="lazy" alt="Flow 새 프로젝트"></div>
+<p><strong>4단계 — 에이전트에 붙여넣기.</strong> 입력창 아래에서 <strong>에이전트</strong>가 선택되어 있는지 확인한 뒤 복사한 프롬프트를 붙여넣습니다.</p>
+<div class="img-wrap"><img src="imgs/flow_04.png" loading="lazy" alt="Flow 에이전트 입력창에 붙여넣기"></div>
+<p><strong>5단계 — 에이전트 설정 확인.</strong> 에이전트 설정에서 이미지 생성 개수가 <strong>x1(한 장씩)</strong>으로 되어 있는지 확인하고, 이미지 사이즈를 <strong>롱폼은 16:9, 쇼츠는 9:16</strong>으로 바꿔 주세요. 생성 전 확인이 <strong>항상</strong>으로 되어 있으면 생성하기 전에 확인 창이 뜨니 <strong>생성 시작</strong>을 눌러 주시면 되고, <strong>안 함</strong>으로 해두시면 중간에 멈추지 않고 크레딧을 자동으로 사용하며 진행됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_05.png" loading="lazy" alt="Flow 에이전트 설정"></div>
+<p><strong>6단계 — 이미지 생성.</strong> 이렇게 모든 이미지가 한 번에 생성되며 매우 빠르게 완료됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_06.png" loading="lazy" alt="Flow 이미지 생성 진행"></div>
+<p><strong>7단계 — 이미지 전체 다운로드.</strong> 이미지 생성이 모두 끝나면 모든 이미지를 드래그하여 선택한 뒤 마우스 우클릭 메뉴에서 <strong>다운로드</strong>를 누르면 압축된 하나의 파일에 모든 이미지가 담겨 저장됩니다.</p>
+<div class="img-wrap"><img src="imgs/flow_07.png" loading="lazy" alt="Flow 이미지 선택 후 다운로드"></div>
+<p><strong>8단계 — 압축 풀기.</strong> 다운로드된 압축 파일(zip)을 풀어 폴더로 만들어 주세요. 이제 이 폴더를 프로그램에 연결하면 끝입니다.</p>
+<div class="img-wrap"><img src="imgs/flow_08.png" loading="lazy" alt="다운로드 압축 해제"></div>
+<p><strong>9단계 — 폴더 연결.</strong> Flow 카드의 폴더 경로 입력란에 압축을 푼 폴더의 경로를 입력하거나 <strong>폴더 선택</strong> 버튼으로 폴더를 고른 뒤, <strong>폴더 읽기</strong> 버튼을 누르면 씬별 이미지 배치 결과가 나타납니다.</p>
+<div class="img-wrap"><img src="imgs/flow_09.png" loading="lazy" alt="폴더 연결 후 폴더 읽기"></div>
+<p><strong>10단계 — 배치 확인 후 적용.</strong> 씬별로 어떤 이미지가 배치될지 미리보기로 확인하실 수 있습니다. 잘못 배치된 씬은 씬 오른쪽의 선택 상자에서 다른 이미지로 바꾸실 수 있습니다. 확인이 끝났다면 맨 아래 <strong>N장을 씬에 적용</strong> 버튼을 눌러 주세요. 적용이 끝나면 자동으로 씬 편집기로 이동합니다.</p>
+<div class="img-wrap"><img src="imgs/flow_10.png" loading="lazy" alt="씬별 이미지 배치 미리보기"></div>
+<p><strong>완료.</strong> 씬 편집기에서 이렇게 씬별로 이미지가 배치된 것을 보실 수 있습니다. 이후 과정(음성 더빙, 렌더링)은 일반 순서와 동일합니다.</p>
+<div class="img-wrap"><img src="imgs/flow_11.png" loading="lazy" alt="씬에 이미지가 배치된 모습"></div>
+<div style="margin:1.2rem 0;padding:1rem 1.4rem;border:1.5px solid #555;border-radius:10px;"><p style="margin:0;line-height:1.8;"><strong>이미지를 씬에 맞추는 방법</strong><br>① 파일 이름에 <code>scene_001</code> 같은 씬 번호가 있으면 그 번호대로 배치합니다(Flow가 파일 이름에 씬 번호를 넣어 주는 경우).<br>② 번호가 없는 경우에는 파일에 들어 있는 숫자 또는 <strong>저장된 시간 순서</strong>로 배치합니다. 이때는 화면에 노란 안내문이 뜨니 미리보기에서 그림과 씬이 맞는지 꼭 확인하세요.<br>③ 이미지가 씬보다 적거나 많으면 부족한 씬과 남는 이미지를 안내해 드리며, 하위 폴더의 이미지도 함께 읽습니다.</p></div>
 <p>다음으로 씬편집기 화면입니다. 이미지 생성을 마쳤다면 이곳으로 오게됩니다. 맨 위에는 자막 스타일설정이 있고 그 밑에는 각 씬별로 대본과 이미지가 배치되어 있습니다. 먼저 자막 설정에 대해서 설명드리겠습니다.</p>
 <div class="img-wrap"><img src="imgs/image132.png" loading="lazy" alt="스크린샷"></div>
 <p>다양한 자막폰트가 준비되어 있습니다. 마음에 드는 폰트를 미리보기 화면을 통해 확인하신 후 폰트를 선택하 시면 됩니다.</p>
@@ -611,32 +660,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 </ul>
 <p>모든 설정이 완료되면 <strong style="color:#e91e63">🚀 대량 생산 시작</strong> 버튼을 누릅니다. 이후 등록된 소재 수만큼 영상이 자동으로 연속 제작됩니다. 대량 생산이 진행되는 동안 다른 작업을 하셔도 무방하며, 완료 후 결과 카드의 <strong>📂 OUTPUT 폴더 열기</strong> 버튼을 클릭하면 완성된 영상이 저장된 폴더가 바로 열립니다.</p>
 <h2 id="sec-10이미지-영상으로-전환-후-씬-편집기에서-영상-등록-방법">10.이미지 영상으로 전환 후 씬 편집기에서 영상 등록 방법</h2>
-<h3 id="sec-101-flow-이미지-대량-생성">10-1 Google Flow로 이미지 대량 생성하고 씬에 자동 배치하기</h3>
-<p><strong>이미지 스타일</strong> 탭에는 OpenAI로 바로 이미지를 만드는 <strong>방법 ①</strong> 아래에 <strong>방법 ② Google Flow 이미지 대량 생성</strong> 카드가 있습니다. 구글 계정의 Flow(Gemini 유료 구독 크레딧 등)를 이용해 모든 씬의 이미지를 한꺼번에 만들고, 만들어진 이미지를 <strong>폴더만 연결하면 씬별로 자동 배치</strong>해 주는 기능입니다. 롱폼과 쇼츠 프로그램 모두에서 같은 방식으로 사용하실 수 있습니다. (AI 에이전트의 자동 운영에서는 사용되지 않습니다.)</p>
-<p><strong>1단계 — 프롬프트 내보내기.</strong> 대본 생성을 마친 뒤 <strong>이미지 스타일</strong> 탭에서 원하는 스타일을 고르고, 아래쪽 <strong>방법 ② Google Flow</strong> 카드(OpenAI "이미지 생성" 버튼은 누르지 않습니다)의 <strong>Flow용 프롬프트 내보내기(.txt)</strong> 버튼을 클릭합니다. 선택하신 이미지 스타일과 고정 캐릭터가 반영된 씬별 이미지 프롬프트가 txt 파일 하나로 저장됩니다. (파일로 저장하는 대신 <strong>클립보드로 복사</strong> 버튼을 눌러도 됩니다.)</p>
-<div class="img-wrap"><img src="imgs/flow_01.png" loading="lazy" alt="Flow용 프롬프트 내보내기"></div>
-<p><strong>2단계 — 프롬프트 복사.</strong> 저장된 txt 파일을 열어 내용 전체를 선택하고 복사합니다. 맨 윗부분의 지시문과 [scene_001] 형식의 씬별 프롬프트가 모두 들어 있으니 그대로 전체를 복사하시면 됩니다.</p>
-<div class="img-wrap"><img src="imgs/flow_02.png" loading="lazy" alt="프롬프트 txt 전체 복사"></div>
-<p><strong>3단계 — Flow에서 새 프로젝트 시작.</strong> 구글 Flow 사이트에 구글 계정으로 로그인한 뒤 <strong>새 프로젝트</strong>를 클릭합니다.</p>
-<div class="img-wrap"><img src="imgs/flow_03.png" loading="lazy" alt="Flow 새 프로젝트"></div>
-<p><strong>4단계 — 에이전트에 붙여넣기.</strong> 입력창 아래에서 <strong>에이전트</strong>가 선택되어 있는지 확인한 뒤 복사한 프롬프트를 붙여넣습니다.</p>
-<div class="img-wrap"><img src="imgs/flow_04.png" loading="lazy" alt="Flow 에이전트 입력창에 붙여넣기"></div>
-<p><strong>5단계 — 에이전트 설정 확인.</strong> 에이전트 설정에서 이미지 생성 개수가 <strong>x1(한 장씩)</strong>으로 되어 있는지 확인하고, 이미지 사이즈를 <strong>롱폼은 16:9, 쇼츠는 9:16</strong>으로 바꿔 주세요. 생성 전 확인이 <strong>항상</strong>으로 되어 있으면 생성하기 전에 확인 창이 뜨니 <strong>생성 시작</strong>을 눌러 주시면 되고, <strong>안 함</strong>으로 해두시면 중간에 멈추지 않고 크레딧을 자동으로 사용하며 진행됩니다.</p>
-<div class="img-wrap"><img src="imgs/flow_05.png" loading="lazy" alt="Flow 에이전트 설정"></div>
-<p><strong>6단계 — 이미지 생성.</strong> 이렇게 모든 이미지가 한 번에 생성되며 매우 빠르게 완료됩니다.</p>
-<div class="img-wrap"><img src="imgs/flow_06.png" loading="lazy" alt="Flow 이미지 생성 진행"></div>
-<p><strong>7단계 — 이미지 전체 다운로드.</strong> 이미지 생성이 모두 끝나면 모든 이미지를 드래그하여 선택한 뒤 마우스 우클릭 메뉴에서 <strong>다운로드</strong>를 누르면 압축된 하나의 파일에 모든 이미지가 담겨 저장됩니다.</p>
-<div class="img-wrap"><img src="imgs/flow_07.png" loading="lazy" alt="Flow 이미지 선택 후 다운로드"></div>
-<p><strong>8단계 — 압축 풀기.</strong> 다운로드된 압축 파일(zip)을 풀어 폴더로 만들어 주세요. 이제 이 폴더를 프로그램에 연결하면 끝입니다.</p>
-<div class="img-wrap"><img src="imgs/flow_08.png" loading="lazy" alt="다운로드 압축 해제"></div>
-<p><strong>9단계 — 폴더 연결.</strong> Flow 카드의 폴더 경로 입력란에 압축을 푼 폴더의 경로를 입력하거나 <strong>폴더 선택</strong> 버튼으로 폴더를 고른 뒤, <strong>폴더 읽기</strong> 버튼을 누르면 씬별 이미지 배치 결과가 나타납니다.</p>
-<div class="img-wrap"><img src="imgs/flow_09.png" loading="lazy" alt="폴더 연결 후 폴더 읽기"></div>
-<p><strong>10단계 — 배치 확인 후 적용.</strong> 씬별로 어떤 이미지가 배치될지 미리보기로 확인하실 수 있습니다. 잘못 배치된 씬은 씬 오른쪽의 선택 상자에서 다른 이미지로 바꾸실 수 있습니다. 확인이 끝났다면 맨 아래 <strong>N장을 씬에 적용</strong> 버튼을 눌러 주세요. 적용이 끝나면 자동으로 씬 편집기로 이동합니다.</p>
-<div class="img-wrap"><img src="imgs/flow_10.png" loading="lazy" alt="씬별 이미지 배치 미리보기"></div>
-<p><strong>완료.</strong> 씬 편집기에서 이렇게 씬별로 이미지가 배치된 것을 보실 수 있습니다. 이후 과정(음성 더빙, 렌더링)은 일반 순서와 동일합니다.</p>
-<div class="img-wrap"><img src="imgs/flow_11.png" loading="lazy" alt="씬에 이미지가 배치된 모습"></div>
-<div style="margin:1.2rem 0;padding:1rem 1.4rem;border:1.5px solid #555;border-radius:10px;"><p style="margin:0;line-height:1.8;"><strong>이미지를 씬에 맞추는 방법</strong><br>① 파일 이름에 <code>scene_001</code> 같은 씬 번호가 있으면 그 번호대로 배치합니다(Flow가 파일 이름에 씬 번호를 넣어 주는 경우).<br>② 번호가 없는 경우에는 파일에 들어 있는 숫자 또는 <strong>저장된 시간 순서</strong>로 배치합니다. 이때는 화면에 노란 안내문이 뜨니 미리보기에서 그림과 씬이 맞는지 꼭 확인하세요.<br>③ 이미지가 씬보다 적거나 많으면 부족한 씬과 남는 이미지를 안내해 드리며, 하위 폴더의 이미지도 함께 읽습니다.</p></div>
-<h3 id="sec-102-이미지를-영상으로-전환">10-2 이미지를 영상으로 전환하고 등록하기</h3>
+<h3 id="sec-101-이미지를-영상으로-전환">10-1 이미지를 영상으로 전환하고 등록하기</h3>
 <p>먼저 프로그램에서 생성된 이미지를 확인합니다. 이미지를 영상으로 전환할 때는 <strong><a href="https://docs.google.com/videos" target="_blank" style="color:#00d2d3;">https://docs.google.com/videos</a></strong> (Google Vids)를 이용하시면 <strong style="color:#4ade80;">무료로 이미지를 영상으로 전환</strong>하실 수 있습니다. 구글 계정만 있으면 별도의 구독 없이 Google Veo 3.1 AI 기술을 활용해 이미지를 자연스럽게 움직이는 영상으로 변환할 수 있습니다. 아래 순서대로 따라하시면 됩니다.</p>
 <div class="img-wrap"><img src="새%20폴더/1.png" loading="lazy" alt="스크린샷"></div>
 <p>씬 편집기 화면 최상단에 있는 <strong>이미지 폴더 열기</strong> 버튼을 클릭합니다. 이미지 생성이 완료된 시점에서 진행하세요.</p>
