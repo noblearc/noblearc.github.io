@@ -212,37 +212,134 @@ td{padding:10px 14px;border:1px solid #1e2130;color:#ccc;vertical-align:top;line
   <p>리서치 센터의 키워드 검색량 분석 기능(네이버 키워드 도구, 데이터랩, 키워드 발굴 탭)을 사용하시려면 네이버 API 키 등록이 필요합니다. 리서치 센터를 사용하지 않으실 분은 이 항목을 건너뛰셔도 됩니다.</p>
 
   <div class="img-wrap"><img src="imgs/settings_research.png" loading="lazy" alt="설정 탭 — 리서치 API 입력 필드"></div>
-  <p>설정 탭의 <strong>리서치 API (필수)</strong> 섹션(처음에는 접혀 있으니 제목을 눌러 펼칩니다)에 총 5개의 항목을 입력해야 합니다. 위 3개는 네이버 검색광고(SA) API 키이고, 아래 2개는 네이버 데이터랩 API 키입니다. 아래 안내에 따라 각 키를 발급받아 입력해주세요.</p>
+  <p>설정 탭의 <strong>리서치 API</strong> 섹션(처음에는 접혀 있으니 제목을 눌러 펼칩니다)에 총 5개의 항목을 입력해야 합니다. 위 3개는 <strong>네이버 검색광고(SA) API</strong> 키이고, 아래 2개는 <strong>데이터랩 API</strong> 키입니다. 두 가지는 발급받는 곳이 서로 다릅니다.</p>
+  <table>
+    <tr><th>설정 탭 입력칸</th><th>발급받는 곳</th></tr>
+    <tr><td>검색광고 API Key · 검색광고 Secret Key · 검색광고 고객 ID</td><td>네이버 검색광고 (searchad.naver.com)</td></tr>
+    <tr><td>데이터랩 Client ID · 데이터랩 Secret</td><td>NAVER API HUB (네이버 클라우드 플랫폼, ncloud.com)</td></tr>
+  </table>
 
   <h4 style="margin:2rem 0 0.8rem 0;font-size:1.05em;color:#60a5fa;">① 검색광고 API 발급 (위쪽 3개 항목)</h4>
   <p>발급 항목: <strong>검색광고 API Key, 검색광고 Secret Key, 검색광고 고객 ID</strong></p>
 
-  <div class="img-wrap"><img src="imgs/searchad_main.png" loading="lazy" alt="네이버 검색광고 메인 — searchad.naver.com"></div>
-  <p><strong>searchad.naver.com</strong>으로 접속합니다. 네이버 광고주 계정으로 로그인하거나 회원가입을 진행합니다. 로그인 후 오른쪽 상단의 <strong>[광고시스템]</strong> 버튼을 클릭하여 광고 대시보드로 진입합니다.</p>
+  <div class="img-wrap"><img src="imgs/api_sa_01.png" loading="lazy" alt="크롬 주소창에 searchad.naver.com 입력"></div>
+  <p>크롬 주소창에 <strong>searchad.naver.com</strong>을 입력하고 접속합니다. 자동완성에 "네이버 광고주센터"가 보이면 그것을 눌러도 됩니다.</p>
 
-  <div class="img-wrap"><img src="imgs/searchad_api_keys.png" loading="lazy" alt="SA API 사용 관리 — 액세스 라이선스키와 비밀키 복사"></div>
-  <p>광고시스템 대시보드에서 왼쪽 사이드바의 <strong>[도구]</strong> 탭을 클릭한 뒤 <strong>[API 사용 관리]</strong> 탭을 클릭합니다. 화면에 표시된 <strong>액세스 라이선스키</strong>를 복사하여 설정 탭의 "검색광고 API Key" 항목에 붙여넣고, <strong>비밀키</strong>를 복사하여 "검색광고 Secret Key" 항목에 붙여넣습니다.</p>
+  <div class="img-wrap"><img src="imgs/api_sa_02.png" loading="lazy" alt="네이버 광고주센터 회원가입 — 네이버 ID로 광고 시작하기"></div>
+  <p>처음이라면 오른쪽 위의 <strong>[회원가입]</strong>을 누른 뒤 <strong>[네이버 ID로 광고 시작하기]</strong>를 눌러 가입합니다. 이미 가입했다면 <strong>[로그인]</strong>을 누르고 네이버 계정으로 로그인합니다. 광고비를 쓰지 않아도 API 키는 발급받을 수 있습니다.</p>
 
-  <div class="img-wrap"><img src="imgs/searchad_customer_id.png" loading="lazy" alt="주소창 고객 ID 확인"></div>
-  <p>같은 페이지에서 브라우저 상단의 주소창을 확인합니다. URL 형식은 <code>ads.naver.com/manage/ad-accounts/<strong>숫자</strong>/sa/tool/api</code>입니다. 이 URL 중간의 <strong>숫자 부분</strong>이 고객 ID입니다. 해당 숫자를 복사하여 설정 탭의 "검색광고 고객 ID" 항목에 붙여넣습니다.</p>
+  <div class="img-wrap"><img src="imgs/api_sa_03.png" loading="lazy" alt="광고주센터 대시보드 — 왼쪽 메뉴에서 도구 선택"></div>
+  <p>로그인하면 광고주센터 대시보드가 열립니다. 왼쪽 메뉴에서 <strong>[도구]</strong>를 클릭해 펼칩니다.</p>
 
-  <h4 style="margin:2rem 0 0.8rem 0;font-size:1.05em;color:#60a5fa;">② 데이터랩 API 발급 (아래쪽 2개 항목)</h4>
-  <p>발급 항목: <strong>데이터랩 Client ID, 데이터랩 Secret</strong></p>
+  <div class="img-wrap"><img src="imgs/api_sa_04.png" loading="lazy" alt="도구 메뉴 — SA API 사용 관리"></div>
+  <p>펼쳐진 목록 맨 아래쪽에 있는 <strong>[SA API 사용 관리]</strong>를 클릭합니다.</p>
 
-  <div class="img-wrap"><img src="imgs/naver_dev_main.png" loading="lazy" alt="네이버 개발자 센터 — developers.naver.com"></div>
-  <p><strong>developers.naver.com</strong>으로 접속합니다. 네이버 아이디로 로그인합니다.</p>
-
-  <div class="img-wrap"><img src="imgs/naver_dev_app_register.png" loading="lazy" alt="Application → 애플리케이션 등록 클릭"></div>
-  <p>상단 메뉴에서 <strong>[Application]</strong>을 클릭한 뒤 드롭다운에서 <strong>[애플리케이션 등록]</strong>을 클릭합니다.</p>
-
-  <div class="img-wrap"><img src="imgs/naver_dev_app_form.png" loading="lazy" alt="애플리케이션 등록 폼 — 데이터랩 검색어트렌드 선택"></div>
-  <p>애플리케이션 등록 폼이 열립니다.</p>
+  <div class="img-wrap"><img src="imgs/api_sa_05.png" loading="lazy" alt="SA API 사용 관리 — 엑세스라이선스, 비밀키, CUSTOMER_ID"></div>
+  <p>이 화면에 3가지 값이 모두 있습니다. (화면의 값은 가려져 있습니다.)</p>
   <ul>
-    <li><strong>애플리케이션 이름</strong>: 원하는 이름을 자유롭게 입력합니다. (예: 키워드 리서치 툴)</li>
-    <li><strong>사용 API</strong>: 드롭다운에서 <strong>[데이터랩(검색어트렌드)]</strong>를 찾아 선택합니다. 필요에 따라 데이터랩(쇼핑인사이트)도 함께 추가할 수 있습니다.</li>
-    <li><strong>로그인 오픈 API 서비스 환경</strong>: 웹(Web)을 선택하고 웹 서비스 URL에 <code>http://localhost</code>를 입력합니다.</li>
+    <li><strong>엑세스라이선스</strong> 오른쪽의 <strong>[복사]</strong> 버튼을 눌러 복사한 뒤, 설정 탭의 <strong>검색광고 API Key</strong>에 붙여넣습니다.</li>
+    <li><strong>비밀키</strong> 오른쪽의 <strong>[복사]</strong> 버튼을 눌러 복사한 뒤, 설정 탭의 <strong>검색광고 Secret Key</strong>에 붙여넣습니다.</li>
+    <li>표 위쪽의 <strong>"현재 접근 중인 광고계정 : CUSTOMER_ID = 숫자"</strong>에서 <strong>숫자</strong>가 고객 ID입니다. 숫자만 복사해 설정 탭의 <strong>검색광고 고객 ID</strong>에 붙여넣습니다.</li>
   </ul>
-  <p>입력 후 하단의 <strong>[등록하기]</strong> 버튼을 클릭합니다. 등록이 완료되면 <strong>[Application] → [내 애플리케이션]</strong>에서 방금 만든 앱을 선택하고 <strong>[개요]</strong> 탭에서 <strong>Client ID</strong>와 <strong>Client Secret</strong>을 복사하여 설정 탭에 각각 입력합니다.</p>
+  <p>처음 이용하는 계정에서는 이 화면 위쪽에 "네이버 검색광고 API 서비스 신청" 같은 신청 버튼이 먼저 보일 수 있습니다. 그럴 때는 약관에 동의하고 신청을 마친 뒤 위 값이 나타나는지 확인하세요.</p>
+  <div class="notice">
+    <p>⚠️ 비밀키는 비밀번호와 같습니다. 다른 사람에게 보여 주거나 인터넷에 올리지 마세요. 노출이 걱정되면 같은 화면의 <strong>[재발급]</strong>을 누르면 되지만, 재발급하면 이전 값은 더 이상 쓸 수 없으니 새 값을 설정 탭에 다시 입력해야 합니다.</p>
+    <p>화면 위쪽에 "비즈머니 잔액이 부족하여 광고가 일시 중지되었습니다"라는 빨간 안내가 보여도, 이것은 광고 집행에 관한 안내입니다. API 키 발급과는 관계가 없습니다.</p>
+  </div>
+
+  <h4 style="margin:2rem 0 0.8rem 0;font-size:1.05em;color:#60a5fa;">② 데이터랩 API 발급 — NAVER API HUB (아래쪽 2개 항목)</h4>
+  <p>발급 항목: <strong>데이터랩 Client ID, 데이터랩 Secret</strong></p>
+  <div class="notice">
+    <p>⚠️ <strong>발급 방법이 바뀌었습니다.</strong> 네이버는 개발자센터(developers.naver.com)의 검색 API·데이터랩(검색어 트렌드·쇼핑 인사이트)을 NAVER API HUB(네이버 클라우드 플랫폼)로 옮기고 있습니다. 공식 공지에 따라 2026년 7월 31일부터 개발자센터에서는 신규 신청이 막혀 있어, 새로 발급받으시는 분은 아래의 <strong>NAVER API HUB</strong>에서 발급받으셔야 합니다.</p>
+    <p>이미 개발자센터에서 키를 발급받아 쓰고 계신 분은 2027년 6월 30일까지 기존 키를 그대로 입력해 사용할 수 있습니다. 포스티아는 새 키(NAVER API HUB)와 기존 키(개발자센터)를 같은 입력칸에서 자동으로 구분합니다. (공식 공지: developers.naver.com/notice/article/32530)</p>
+  </div>
+
+  <p><strong>2-1. 네이버 클라우드 플랫폼 회원가입</strong></p>
+  <div class="img-wrap"><img src="imgs/api_hub_01.png" loading="lazy" alt="네이버 클라우드 플랫폼 ncloud.com 메인"></div>
+  <p>크롬 주소창에 <strong>ncloud.com</strong>을 입력해 네이버 클라우드 플랫폼에 접속합니다. 오른쪽 위의 <strong>[회원 가입]</strong>을 클릭합니다. (이미 가입한 계정이 있다면 [로그인]을 누르고 2-3 단계부터 진행하세요.)</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_02.png" loading="lazy" alt="회원 가입 시작 — 이메일 입력"></div>
+  <p>"회원 가입을 시작합니다." 화면에서 사용할 <strong>이메일 주소</strong>를 입력하고 <strong>[이메일로 가입하기]</strong>를 누릅니다. 이 이메일이 로그인 아이디가 됩니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_03.png" loading="lazy" alt="회원 가입 유형 선택 — 거주 국가, 사업자 회원 또는 개인 회원"></div>
+  <p><strong>회원 가입 유형</strong>을 고릅니다. 거주 국가는 <strong>한국</strong>으로 두고, 회원 유형은 <strong>개인 회원</strong> 또는 <strong>사업자 회원</strong> 중에서 선택한 뒤 <strong>[다음]</strong>을 누릅니다. 거주 국가에 따라 결제 통화가 정해지며 가입 후에는 바꿀 수 없습니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_04.png" loading="lazy" alt="약관 및 개인정보 수집, 이용 안내 동의"></div>
+  <p><strong>[필수] 서비스 이용 약관</strong>에 체크합니다. 광고성 정보 수신 동의는 선택이므로 체크하지 않아도 됩니다. <strong>[다음]</strong>을 누릅니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_05.png" loading="lazy" alt="로그인 정보 입력 — 아이디, 비밀번호, 이메일 인증"></div>
+  <p>아이디(이메일)는 앞에서 입력한 값이 들어와 있습니다. 오른쪽의 <strong>[이메일 인증]</strong>을 눌러 인증 메일을 보낸 뒤, <strong>비밀번호</strong>와 <strong>비밀번호 확인</strong>을 입력합니다. 비밀번호 칸에 "적정"이 표시되면 사용할 수 있는 비밀번호입니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_06.png" loading="lazy" alt="네이버 클라우드 플랫폼 메일인증 안내 메일"></div>
+  <p>입력한 이메일의 받은편지함을 열어 <strong>"네이버 클라우드 플랫폼 — 메일인증 안내입니다."</strong> 메일을 찾아, 안의 <strong>[메일 인증]</strong> 버튼을 클릭합니다. 메일이 보이지 않으면 스팸함도 확인하세요.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_07.png" loading="lazy" alt="계정 소유자 정보 입력 — 실명 인증, 주소"></div>
+  <p>마지막 4단계는 <strong>계정 소유자 정보</strong>입니다. 이름과 휴대 전화번호는 <strong>[실명 인증]</strong> 버튼을 눌러 본인 인증을 하면 자동으로 채워집니다. 이어서 <strong>[주소 검색]</strong>으로 기본 주소를 찾고 상세 주소를 입력한 뒤 <strong>[다음]</strong>을 누릅니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_08.png" loading="lazy" alt="회원 가입이 완료되었습니다 — 결제 수단 등록, 콘솔 이동"></div>
+  <p>"회원 가입이 완료되었습니다." 화면이 나옵니다. 왼쪽에는 <strong>결제 수단 등록</strong>과 무료 이용 크레딧 안내가, 오른쪽에는 <strong>[콘솔 이동]</strong> 버튼이 있습니다.</p>
+
+  <p><strong>2-2. 결제 수단 등록 (필수)</strong></p>
+  <div class="img-wrap"><img src="imgs/api_hub_09.png" loading="lazy" alt="서비스 이용이 불가능한 계정입니다 — 결제수단을 등록하지 않은 계정"></div>
+  <p>결제 수단을 등록하지 않은 상태에서 콘솔에 들어가면 위와 같이 <strong>"서비스 이용이 불가능한 계정입니다."</strong>라는 안내가 나옵니다. 안내 문구대로 <strong>[과금정보 및 비용관리 &gt; 결제 정보 관리]</strong>에서 결제수단을 등록해야 정상적으로 이용할 수 있습니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_10.png" loading="lazy" alt="오른쪽 위 계정 메뉴 — 과금 정보 및 비용 관리"></div>
+  <p>콘솔 오른쪽 위의 <strong>계정(내 이름) 아이콘</strong>을 눌러 메뉴를 열고 <strong>[과금 정보 및 비용 관리]</strong>를 클릭합니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_11.png" loading="lazy" alt="결제 정보 관리 — 결제 수단 등록"></div>
+  <p>왼쪽 메뉴의 <strong>[결제 정보 관리]</strong>로 들어가 <strong>자동이체</strong> 항목의 <strong>[결제 수단 등록]</strong> 버튼을 누르고, 화면 안내에 따라 카드를 등록합니다. 화면의 안내 문구에 따르면 개인 고객은 <strong>신용카드 자동납부</strong>만 지원되고, 한국 외 이용자는 3D Secure 신용카드만 등록할 수 있습니다.</p>
+  <div class="notice">
+    <p>⚠️ <strong>결제 관련 꼭 확인하세요.</strong></p>
+    <p>• NAVER API HUB는 현재 <strong>한시적으로 무료</strong>로 제공된다고 네이버가 공지했습니다. 다만 이후 유료 요금제가 도입될 수 있다고 함께 안내되어 있으니, Application 등록 화면의 <strong>[요금 안내]</strong> 버튼으로 요금 정책을 가끔 확인하세요.</p>
+    <p>• 이 가이드에서는 NAVER API HUB 외의 <strong>서버, 스토리지 등 다른 서비스를 신청하지 않습니다.</strong> 다른 서비스를 신청하면 사용한 만큼 요금이 청구될 수 있습니다.</p>
+    <p>• <strong>[청구서]</strong> 화면에서 청구 내역이 없는지(0건) 가끔 확인하면 안심할 수 있습니다. 비용 데이터는 매일 오전에 갱신됩니다.</p>
+  </div>
+
+  <p><strong>2-3. NAVER API HUB 서비스 이용 신청</strong></p>
+  <div class="img-wrap"><img src="imgs/api_hub_12.png" loading="lazy" alt="콘솔의 Menu — All Services"></div>
+  <p>콘솔 왼쪽 위의 <strong>[Menu]</strong>를 클릭해 메뉴를 열고 <strong>[All Services]</strong>를 클릭합니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_13.png" loading="lazy" alt="All Services — Application Services의 NAVER API HUB"></div>
+  <p>전체 서비스 목록에서 <strong>Application Services</strong> 항목 맨 위에 있는 <strong>[NAVER API HUB]</strong>를 클릭합니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_14.png" loading="lazy" alt="NAVER API HUB — 서비스 이용 신청"></div>
+  <p>NAVER API HUB 소개 화면이 열립니다. 이 서비스는 <strong>Data Lab(쇼핑인사이트 및 검색어 트렌드 조회)</strong>과 <strong>NAVER 검색(블로그, 이미지, 뉴스 등 검색)</strong> API를 제공합니다. 처음 이용할 때는 <strong>[+ 서비스 이용 신청]</strong> 버튼이 있습니다. 클릭합니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_15.png" loading="lazy" alt="서비스 이용 신청 — 이용약관과 개인정보 제3자 제공 동의"></div>
+  <p>"서비스 이용 신청" 팝업에서 <strong>(필수) 이용 약관에 동의합니다</strong>와 <strong>(필수) 개인정보 제3자 제공에 동의합니다</strong> 두 곳에 모두 체크한 뒤 <strong>[확인]</strong>을 누릅니다.</p>
+
+  <p><strong>2-4. Application 등록과 키 확인</strong></p>
+  <div class="img-wrap"><img src="imgs/api_hub_16.png" loading="lazy" alt="NAVER API HUB Application — Application 등록"></div>
+  <p>신청이 끝나면 같은 화면의 버튼이 <strong>[+ Application 등록]</strong>으로 바뀝니다. 클릭합니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_17.png" loading="lazy" alt="Application 등록 — API 선택 (쇼핑인사이트, 검색어트렌드, 블로그)"></div>
+  <p>"Application 등록" 1단계 <strong>API 선택</strong> 화면에서 카드 오른쪽 위의 체크 박스로 사용할 API를 고릅니다. 포스티아에서는 아래 3가지를 체크하세요.</p>
+  <ul>
+    <li><strong>쇼핑인사이트</strong> (Data Lab Shopping Insight API) — 데이터랩 쇼핑인사이트 탭에 필요합니다.</li>
+    <li><strong>검색어트렌드</strong> (Data Lab Search Trend API) — 데이터랩 통합검색 트렌드 탭과 키워드 판단에 필요합니다.</li>
+    <li><strong>블로그</strong> (NAVER Search Blog API) — 선택 사항입니다. 체크해 두면 키워드 발굴에서 블로그 문서 수로 경쟁도를 더 정밀하게 재는 데 쓰입니다.</li>
+  </ul>
+  <p>카드의 <strong>[요금 안내]</strong>와 <strong>[개발 가이드]</strong> 버튼으로 요금과 사용법을 확인할 수 있습니다. 선택이 끝나면 아래 <strong>[다음]</strong>을 누릅니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_18.png" loading="lazy" alt="Application 정보 입력 — Application 이름"></div>
+  <p>2단계 <strong>Application 정보 입력</strong>입니다. 위쪽 "선택한 Application"에 방금 체크한 3가지가 표시됩니다. <strong>Application 이름</strong>에 알아보기 쉬운 이름을 입력하고(예: postia) <strong>[완료]</strong>를 누릅니다.</p>
+
+  <div class="img-wrap"><img src="imgs/api_hub_19.png" loading="lazy" alt="인증 정보 — Client ID와 Client Secret"></div>
+  <p>왼쪽 목록에서 방금 만든 Application을 선택한 뒤 <strong>API 관리</strong> 아래의 <strong>[인증 정보]</strong> 버튼을 누르면 "인증 정보" 팝업이 열립니다. (화면의 값은 가려져 있습니다.)</p>
+  <ul>
+    <li><strong>Client ID</strong>(X-NCP-APIGW-API-KEY-ID) 오른쪽의 복사 아이콘을 눌러 복사한 뒤, 설정 탭의 <strong>데이터랩 Client ID</strong>에 붙여넣습니다.</li>
+    <li><strong>Client Secret</strong>(X-NCP-APIGW-API-KEY) 오른쪽의 복사 아이콘을 눌러 복사한 뒤, 설정 탭의 <strong>데이터랩 Secret</strong>에 붙여넣습니다.</li>
+  </ul>
+  <p>팝업 뒤쪽의 표에서 API별 사용량 한도를 확인할 수 있습니다. 예시 화면에서는 블로그 검색이 하루 25,000회·한 달 775,000회, 데이터랩이 한 달 50,000회로 표시되어 있습니다. 한도를 넘으면 해당 기능이 "호출 한도 초과" 메시지를 보여 줍니다.</p>
+  <div class="notice">
+    <p>⚠️ Client Secret이 다른 사람에게 노출되었다면 같은 팝업의 <strong>[재발급]</strong>을 눌러 새로 받으세요. 재발급하면 이전 Secret은 사용할 수 없습니다.</p>
+  </div>
+
+  <p><strong>2-5. 포스티아에 입력하고 확인하기</strong></p>
+  <p>설정 탭의 <strong>리서치 API</strong> 섹션에 5개 값을 모두 입력하고 오른쪽 아래 <strong>[저장 및 적용]</strong>을 누릅니다. 그다음 <strong>리서치 센터 → 데이터랩</strong> 탭을 열어 맨 위의 상태가 <strong>"● API 연결됨"</strong>(초록)인지 확인하고, 통합검색 트렌드와 쇼핑인사이트에서 키워드를 한 번 조회해 보세요.</p>
+  <div class="tip">
+    <p>💡 조회가 안 되고 "인증 실패" 안내가 나오면, (1) Application을 만들 때 <strong>검색어트렌드·쇼핑인사이트</strong>를 체크했는지, (2) Client ID와 Client Secret을 서로 바꿔 붙여넣지 않았는지, (3) 앞뒤에 공백이 섞이지 않았는지를 확인하세요. 검색광고 키(위쪽 3개)는 <strong>리서치 센터 → 네이버 키워드 도구</strong> 탭에서 조회가 되는지로 확인할 수 있습니다.</p>
+  </div>
 
   <h3 id="sec-5-3">5-3 IndexNow 설정 (워드프레스 전용, 선택)</h3>
   <p>IndexNow는 워드프레스 블로그에서만 사용 가능한 기능입니다. 새 글을 발행한 직후 네이버와 빙(Bing) 검색엔진에 즉시 색인을 요청하는 기능으로, 검색 노출 속도를 높이는 데 도움이 됩니다.</p>
@@ -459,7 +556,7 @@ td{padding:10px 14px;border:1px solid #1e2130;color:#ccc;vertical-align:top;line
   <h2 id="sec-11">11. 리서치 센터</h2>
   <p>리서치 센터는 블로그 운영에 필요한 키워드 분석, 트렌드 파악, 공공데이터 수집을 한 곳에서 처리할 수 있는 탭입니다. 뉴스 트렌드 · 네이버 키워드 도구 · 데이터랩 · 키워드 발굴 · 구글 롱테일 키워드 · 공공데이터 총 6개의 서브 탭으로 구성되어 있습니다.</p>
   <div class="notice">
-    <p>⚠️ 네이버 키워드 도구 · 데이터랩 · 키워드 발굴 탭은 네이버 검색광고 API 또는 데이터랩 API 키가 등록되어 있어야 사용 가능합니다. 5-2 리서치 API 설정 항목을 먼저 완료하세요.</p>
+    <p>⚠️ 네이버 키워드 도구 · 데이터랩 · 키워드 발굴 탭은 네이버 검색광고 API 또는 데이터랩 API 키가 등록되어 있어야 사용 가능합니다. 5-2 리서치 API 설정 항목을 먼저 완료하세요. (데이터랩 키는 NAVER API HUB에서 발급받습니다.)</p>
   </div>
 
   <h3>뉴스 트렌드</h3>
