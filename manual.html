@@ -50,7 +50,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
     <li class="sub"><a href="#sec-42-GROQ-API키-발급받기필수">4-2 GROQ API키 발급받기(필수)</a></li>
     <li class="sub"><a href="#sec-43-일레븐랩스-API키-발급받기선택">4-3 일레븐랩스 API키 발급받기(선택)</a></li>
     <li class="sub"><a href="#sec-44-유튜브-API키-발급받기필수">4-4 유튜브 API키 발급받기(필수)</a></li>
-    <li class="sub"><a href="#sec-45-Kling-AI-API키-발급받기선택">4-5 Kling AI API 키 발급 받기(선택)</a></li>
+    <li class="sub"><a href="#sec-45-Grok-API키-발급받기선택">4-5 Grok(xAI) 영상 API 키 발급 받기(선택)</a></li>
     <li><a href="#sec-5롱폼-전용프로그램-사용법">5.롱폼 전용프로그램 사용법</a></li>
     <li><a href="#sec-6쇼츠-전용프로그램-사용법">6.쇼츠 전용프로그램 사용법</a></li>
     <li><a href="#sec-7리서치센터-사용법">7.리서치센터 사용법</a></li>
@@ -110,7 +110,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <h2 id="sec-4API키-관리-탭-설정">4.API키 관리 탭 설정</h2>
 <p>프로그램 설치를 마치셨다면 필수로 3가지를 설정 하시면 바로 유튜브 영상 제작이 가능합니다. 바로 3가지 api 발급받기입니다. 4-1 OPENAI API키 발급 , 4-2 GROQ API키 발급 , 4-4 유튜브 API키 발급  이 3가지를 필수로 발급받아 프로그램내에 저장해서 보관하세요. 그러면 소재 발굴부터 대본, 이미지, 음성더빙, 자막, 랜더링까지 모두 다 할 수 있습니다. 음성 더빙은 기본값인 Edge TTS가 무료이며 키가 필요 없습니다.</p>
 <div class="img-wrap"><img src="imgs/n_apikey_long.png" loading="lazy" alt="API키 관리 탭 - 롱폼"></div>
-<p>위 화면은 롱폼 프로그램의 API키 관리 탭입니다. OpenAI API는 대본·이미지·썸네일·음성에 모두 쓰는 필수 키이고, Groq API는 자막 분할을 돕는 무료 필수 키입니다. ElevenLabs와 Kling AI는 선택 사항입니다. 쇼츠 프로그램도 같은 구성입니다.</p>
+<p>위 화면은 롱폼 프로그램의 API키 관리 탭입니다. OpenAI API는 대본·이미지·썸네일·음성에 모두 쓰는 필수 키이고, Groq API는 자막 분할을 돕는 무료 필수 키입니다. ElevenLabs와 Grok 영상 API(xAI)는 선택 사항입니다. 쇼츠 프로그램도 같은 구성입니다.</p>
 <div class="img-wrap"><img src="imgs/n_apikey_shorts.png" loading="lazy" alt="API키 관리 탭 - 쇼츠"></div>
 <h3 id="sec-41-OPENAI-API키-발급받기필수">4-1 OPENAI API키 발급받기(필수)</h3>
 <div style="margin:0 0 1.5rem 0;padding:1rem 1.4rem;background:rgba(251,146,60,0.08);border:1.5px solid rgba(251,146,60,0.4);border-radius:10px;">
@@ -218,30 +218,42 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <p>자 이제 유튜브 API 키가 생성되었습니다. 복사버튼을 눌러 NOBLE ARC 프로그램에 입력 저장해놓으시면 됩니다. 그래도 따로 보관해놓으시길 권장드립니다.</p>
 <div class="img-wrap"><img src="imgs/image79.png" loading="lazy" alt="스크린샷"></div>
 <p>유튜브 API키는 다른 API키와는 다르게 리서치센터에 저장공간이 따로 있습니다. 여기서 키를 관리하시면 됩니다. 리서치센터 전용 API키입니다.</p>
-<h3 id="sec-45-Kling-AI-API키-발급받기선택">4-5 Kling AI API 키 발급 받기(선택) <span style="font-size:0.75em;color:#a78bfa;font-weight:600;background:rgba(167,139,250,0.12);padding:2px 10px;border-radius:20px;vertical-align:middle;">선택사항</span></h3>
+<h3 id="sec-45-Grok-API키-발급받기선택">4-5 Grok(xAI) 영상 API 키 발급 받기(선택) <span style="font-size:0.75em;color:#a78bfa;font-weight:600;background:rgba(167,139,250,0.12);padding:2px 10px;border-radius:20px;vertical-align:middle;">선택사항</span></h3>
 <div style="margin:0 0 1.5rem 0;padding:1rem 1.4rem;background:rgba(251,146,60,0.08);border:1.5px solid rgba(251,146,60,0.4);border-radius:10px;">
   <p style="margin:0;color:#fb923c;font-size:13.5px;font-weight:600;line-height:1.8;">이 API키 발급은 유료 선택사항입니다. 별도로 각 해당 사이트에서 별도 결제하셔서 이용하시는 사항입니다. 참고하시고 이용하시기 바랍니다.</p>
 </div>
-<p>Kling AI API 키는 NOBLE ARC 씬편집기에서 이미지를 즉석에서 영상으로 전환하는 기능을 사용하기 위해 필요합니다. 선택사항이며, 사용을 원하시는 분만 발급받으시면 됩니다.</p>
-<p>먼저 개발자용 콘솔로 이동합니다:</p>
-<p>👉 <strong>https://app.klingai.com/global/dev</strong></p>
-<p>여기서 로그인 또는 회원가입을 진행하세요. (Google / Apple / 이메일 가능)</p>
-<div class="img-wrap"><img src="imgs/image194.png" loading="lazy" alt="스크린샷"></div>
-<p>Kling AI 개발자 플랫폼 메인 화면입니다. 우측 상단의 <strong>Sign In</strong> 버튼을 클릭하여 회원가입 또는 로그인을 진행합니다.</p>
-<div class="img-wrap"><img src="imgs/image195.png" loading="lazy" alt="스크린샷"></div>
-<p>로그인 후 메인 화면으로 돌아오면 중앙에 <strong>Go to Console</strong> 버튼이 있습니다. 해당 버튼을 클릭합니다.</p>
-<div class="img-wrap"><img src="imgs/image196.png" loading="lazy" alt="스크린샷"></div>
-<p>처음 접속하면 Kling AI Developer Console 환영 화면이 뜹니다. 하단의 <strong>Get Started</strong> 버튼을 클릭하여 시작합니다.</p>
-<div class="img-wrap"><img src="imgs/image197.png" loading="lazy" alt="스크린샷"></div>
-<p>API Keys 관리 화면입니다. 우측 상단에 있는 <strong>+ Create a new API Key</strong> 버튼을 클릭합니다.</p>
-<div class="img-wrap"><img src="imgs/image198.png" loading="lazy" alt="스크린샷"></div>
-<p>키 생성 팝업이 뜨면 관리하기 편한 아무 이름이나 입력한 후 <strong>Confirm</strong> 버튼을 클릭합니다.</p>
-<div class="img-wrap"><img src="imgs/image199.png" loading="lazy" alt="스크린샷"></div>
-<p>API 키가 생성되면 <strong>Access Key</strong>와 <strong>Secret Key</strong>가 표시됩니다. <strong>Copy All</strong> 버튼을 눌러 키를 복사한 후 반드시 따로 보관해 주세요. Secret Key는 이 화면에서만 확인 가능하며 이후에는 다시 볼 수 없습니다. 복사한 키를 NOBLE ARC 프로그램의 API 키 입력란에 붙여넣기 하시면 됩니다.</p>
-<div class="img-wrap"><img src="imgs/image200.png" loading="lazy" alt="스크린샷"></div>
-<p>API 키를 발급받으셨다면 이제 요금제 결제가 필요합니다. 메인 화면에서 상단의 <strong>Pricing</strong> 버튼을 클릭합니다.</p>
-<div class="img-wrap"><img src="imgs/image201.png" loading="lazy" alt="스크린샷"></div>
-<p>요금제 선택 화면입니다. 처음 이용하시는 분은 <strong>Trial Package $9.8 (100유닛)</strong> 가장 낮은 요금제를 추천드립니다. 원하시는 요금제를 선택하여 결제하시면 그때부터 바로 사용 가능합니다.</p>
+<p>Grok(xAI) 영상 API 키는 NOBLE ARC 씬편집기에서 이미지를 즉석에서 영상으로 전환하는 기능(롱폼·쇼츠 공통)과, 롱폼 AI 에이전트의 초반 씬 자동 영상 변환 기능을 사용하기 위해 필요합니다. 선택사항이며, 사용을 원하시는 분만 발급받으시면 됩니다. 영상은 씬(음성) 길이에 맞춰 자동으로 생성됩니다.</p>
+<p>먼저 구글에서 <strong>grok api</strong>를 검색합니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_01.png" loading="lazy" alt="grok api 구글 검색"></div>
+<p>검색 결과 맨 위에 나오는 xAI 공식 사이트(<strong>https://x.ai/api</strong>)를 클릭합니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_02.png" loading="lazy" alt="grok api 검색 결과"></div>
+<p>xAI API 소개 화면입니다. 왼쪽의 <strong>Get your API key</strong> 버튼을 클릭합니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_03.png" loading="lazy" alt="Get your API key 버튼"></div>
+<p>로그인 화면이 나오면 Google, X, Apple, GitHub 계정 중 편하신 방법으로 로그인하거나 이메일로 가입합니다. 처음이시라면 하단의 Sign up으로 회원가입을 먼저 진행하시면 됩니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_04.png" loading="lazy" alt="xAI 로그인 화면"></div>
+<p>구글 계정으로 진행하는 경우 사용하실 계정을 선택해 주시면 됩니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_05.png" loading="lazy" alt="구글 계정 선택"></div>
+<p>로그인이 끝나면 xAI 콘솔(console.x.ai) 대시보드가 열립니다. 왼쪽 메뉴의 <strong>API Keys</strong>를 클릭하거나, 오른쪽 위의 <strong>Create API key</strong> 버튼을 클릭하면 됩니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_06.png" loading="lazy" alt="xAI 콘솔 대시보드"></div>
+<p>API keys 화면입니다. 오른쪽 위의 <strong>Create API key</strong> 버튼을 클릭합니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_07.png" loading="lazy" alt="API keys 화면"></div>
+<p>키 이름을 입력하는 창이 뜨면 관리하기 편한 아무 이름이나 입력한 후 <strong>Create API key</strong> 버튼을 클릭합니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_08.png" loading="lazy" alt="API 키 이름 입력"></div>
+<p>이름 아래의 <strong>Advanced settings</strong>를 펼치면 사용할 모델·엔드포인트 제한, 분당 사용량 제한, 만료일을 정할 수 있습니다. 특별한 이유가 없다면 기본값(All models / All endpoints / No expiry) 그대로 두고 생성하시면 됩니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_09.png" loading="lazy" alt="Advanced settings"></div>
+<p>API 키가 생성되었습니다. 이 화면에서만 키 전체를 확인할 수 있으며 닫으면 다시 볼 수 없습니다. <strong>Copy API Key</strong> 버튼을 눌러 키를 복사한 후 반드시 따로 보관해 주세요. 복사한 키를 NOBLE ARC 프로그램의 <strong>API 키 관리</strong> 탭 → <strong>Grok 영상 API (xAI)</strong> 칸에 붙여넣고 저장하시면 됩니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_10.png" loading="lazy" alt="API 키 복사"></div>
+<p>만들어 둔 키는 API keys 목록에서 확인할 수 있습니다. 오른쪽 점 세 개 메뉴에서 키를 일시 중지(Disable)하거나 새로 교체(Rotate), 삭제(Delete)할 수 있으니 키가 유출되었다고 의심되면 바로 삭제하고 새 키를 발급받으세요.</p>
+<div class="img-wrap"><img src="imgs/grok_api_11.png" loading="lazy" alt="API 키 목록 및 관리 메뉴"></div>
+<p>API 키를 발급받으셨다면 이제 크레딧 충전(결제)이 필요합니다. 콘솔 화면 왼쪽 맨 아래에 남은 크레딧이 표시된 버튼이 있습니다. 이 버튼을 클릭합니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_12.png" loading="lazy" alt="크레딧 결제 버튼"></div>
+<p>Billing(결제) 화면입니다. 현재 남은 크레딧을 확인할 수 있고, <strong>Add credits</strong> 버튼으로 크레딧을 충전합니다. 결제 카드는 <strong>Add payment method</strong>로 등록합니다. <strong>Manage auto top-up</strong>을 켜 두면 잔액이 정한 금액 이하로 떨어질 때 자동으로 충전되므로, 원하지 않으시면 설정을 꼭 확인하세요.</p>
+<div class="img-wrap"><img src="imgs/grok_api_13.png" loading="lazy" alt="Billing 화면"></div>
+<p>결제 수단 등록 창입니다. 카드 번호, 유효기간, CVC를 입력하고 국가를 선택한 후 <strong>Add</strong> 버튼을 클릭합니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_14.png" loading="lazy" alt="결제 수단 추가"></div>
+<p>충전할 금액을 선택합니다. $5 / $10 / $20 중에서 고르거나 원하는 금액을 직접 입력할 수 있습니다. 창 아래쪽에 선택한 금액으로 사용할 수 있는 대략적인 분량(예: $5는 영상 약 2.8분)이 안내됩니다. 처음 이용하시는 분은 가장 낮은 금액인 $5로 먼저 테스트해 보시길 추천드립니다. 금액을 정하고 하단의 결제 버튼을 누르면 충전이 완료되고 바로 사용할 수 있습니다.</p>
+<div class="img-wrap"><img src="imgs/grok_api_15.png" loading="lazy" alt="크레딧 충전"></div>
+<p>키 저장 후에는 <strong>연결 테스트</strong> 버튼으로 키가 정상인지 확인할 수 있습니다. 이후 씬편집기의 <strong>Grok 영상전환</strong> 버튼을 누르면 해당 씬의 이미지가 영상으로 변환되며, 롱폼 AI 에이전트에서는 <strong>초반 씬 영상 변환</strong>의 자동 변환 씬 수를 설정하시면 됩니다.</p>
 <h2 id="sec-5롱폼-전용프로그램-사용법">5.롱폼 전용프로그램 사용법</h2>
 <p>지금부터 NOBLE ARC 롱폼 유튜브 자동화 프로그램 사용법에 대해서 자세히 설명드리겠습니다.</p>
 <p>저희 NOBLE ARC 롱폼 유튜브 자동화 프로그램은 상당히 직관적이고 단순한 인터페이스를 가지고 있어서 조금만 사용하셔도 금방 익숙해지실 수 있습니다. 그러면서도 많은 기능을 담고 있습니다. 타사 대비 더 많은 기능을 가지고 있는 프로그램입니다. 지금 부터 시작합니다.</p>
@@ -525,7 +537,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
   <li>가운데 모델 선택 드롭다운(예: Video 1.5 Pro)과 오른쪽 <strong>영상 길이</strong>(예: 12초)를 원하시는 대로 설정합니다.</li>
   <li>입력창에 영상 프롬프트(씬편집기에서 자동 복사된 프롬프트를 붙여넣기)를 넣고 전송 버튼을 누르면 영상 생성이 시작됩니다.</li>
 </ul>
-<p>생성이 완료되면 Library 탭에서 영상을 다운로드하신 후, NOBLE ARC 씬편집기의 <strong>업로드</strong> 버튼으로 등록하시면 됩니다. Kling API처럼 별도 API 키 발급이나 결제 없이도 무료로 이미지를 영상으로 전환하고 싶으신 분들께 추천드리는 방법입니다.</p>
+<p>생성이 완료되면 Library 탭에서 영상을 다운로드하신 후, NOBLE ARC 씬편집기의 <strong>업로드</strong> 버튼으로 등록하시면 됩니다. Grok API처럼 별도 API 키 발급이나 결제 없이도 무료로 이미지를 영상으로 전환하고 싶으신 분들께 추천드리는 방법입니다.</p>
 <p>여기까지 NOBLE ARC 유튜브 자동화 쇼츠 전용 프로그램에 대한 사용법 설명을 마치겠습니다.</p>
 <h2 id="sec-7리서치센터-사용법">7.리서치센터 사용법</h2>
 <div class="img-wrap"><img src="imgs/image142.png" loading="lazy" alt="스크린샷"></div>
@@ -695,24 +707,24 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 <p>각자 사용하시는 영상 제작 AI 서비스가 있다면 그것을 이용하시거나 제가 추천드리는 서비스를 이용하시면 될거 같습니다.</p>
 <p><strong>🎥 이미지-투-비디오 구독 서비스 가성비 Top 5</strong></p>
 <ul>
-  <li><strong>1. Kling AI</strong> — NOBLE ARC 프로그램과 API 직접 연동 지원. 트라이얼 패키지 $9.8(100유닛)부터 시작 가능. 자연스러운 움직임과 높은 프롬프트 이해력이 특징이며 가성비가 뛰어납니다.</li>
+  <li><strong>1. Grok Imagine (xAI)</strong> — NOBLE ARC 프로그램과 API 직접 연동 지원. 크레딧을 선불로 충전해 쓰는 방식이며 영상 길이(초)만큼 과금됩니다. 자연스러운 움직임이 특징이며 씬 길이에 맞춰 영상이 생성됩니다.</li>
   <li><strong>2. Runway</strong> — Gen-3 Alpha 모델 탑재. 월 $15 Standard 플랜부터 이용 가능. 안정적인 품질과 직관적인 편집 인터페이스를 제공합니다.</li>
   <li><strong>3. Pika Labs</strong> — 월 $8부터 시작하는 저렴한 요금제. 빠른 생성 속도와 간단한 사용법으로 입문자에게 적합합니다.</li>
   <li><strong>4. Luma AI (Dream Machine)</strong> — 사실적인 영상 품질이 장점. 월 $29.99 플랜 제공. 일부 무료 크레딧으로 먼저 체험해 볼 수 있습니다.</li>
   <li><strong>5. Hailuo AI (MiniMax)</strong> — 무료 크레딧 제공으로 초기 비용 없이 체험 가능. 합리적인 가격대로 부담 없이 시작할 수 있습니다.</li>
 </ul>
-<p>위의 서비스들은 그나마 저렴한 영상 제작 도구입니다. 이미지를 영상으로 전환해주는 기능이 있습니다. NOBLE ARC 유튜브 자동화 프로그램은 씬편집기에서 kling 영상전환 버튼을 누르면 이미지가 바로 즉석에서 영상으로 변환되는 기능을 지원하고 있습니다. 이 기능을 사용하고자 하신다면 kling ai api 키를 따로 발급받으셔야 합니다. 단 선택사항이며 해당 사이트에서 별도로 유료요금제에 가입하셔야 사용하실 수 있습니다. kling ai api 키를 발급 받는 방법은 4번 섹션 api키 관리 탭 설정 설명서를 참고하시기 바랍니다. 하지만 API를 이용해서 영상으로 전환하는 것보다 프로그램에서 생성된 이미지를 사이트에서 직접 영상으로 전환하여 NOBLE ARC 프로그램에 재업로드 하시는 방식이 가장 저렴합니다. 비용부분 때문에라도 이렇게 안내를 먼저 해드리고 있습니다.</p>
+<p>위의 서비스들은 그나마 저렴한 영상 제작 도구입니다. 이미지를 영상으로 전환해주는 기능이 있습니다. NOBLE ARC 유튜브 자동화 프로그램은 씬편집기에서 Grok 영상전환 버튼을 누르면 이미지가 바로 즉석에서 영상으로 변환되는 기능을 지원하고 있습니다. 이 기능을 사용하고자 하신다면 Grok(xAI) 영상 API 키를 따로 발급받으셔야 합니다. 단 선택사항이며 xAI 사이트에서 별도로 크레딧을 충전하셔야 사용하실 수 있습니다. Grok API 키를 발급 받는 방법은 4번 섹션 api키 관리 탭 설정 설명서(4-5)를 참고하시기 바랍니다. 하지만 API를 이용해서 영상으로 전환하는 것보다 프로그램에서 생성된 이미지를 사이트에서 직접 영상으로 전환하여 NOBLE ARC 프로그램에 재업로드 하시는 방식이 가장 저렴합니다. 비용부분 때문에라도 이렇게 안내를 먼저 해드리고 있습니다.</p>
 
-<h3 style="font-size:17px;border-left:3px solid #7c4dff;background:rgba(124,77,255,.08);color:#b39ddb;margin-top:40px;">🎥 영상 프롬프트 생성 기능 (Kling 영상전환 연동)</h3>
-<p>씬편집기에는 <strong>영상 프롬프트</strong>라는 별도 입력란이 이미지 프롬프트 바로 아래에 있습니다. 이 영상 프롬프트는 대본 내용을 반영하면서 카메라무빙(팬, 틸트, 줌, 트래킹 등)과 화면 속 움직임·변화가 풍부하게 들어가도록 AI가 자동으로 작성해주는 문구입니다. 이 프롬프트가 <strong>Kling 영상전환 버튼을 누를 때 실제로 그대로 사용</strong>되어, 더 자연스럽고 역동적인 움직임의 영상이 만들어집니다.</p>
+<h3 style="font-size:17px;border-left:3px solid #7c4dff;background:rgba(124,77,255,.08);color:#b39ddb;margin-top:40px;">🎥 영상 프롬프트 생성 기능 (Grok 영상전환 연동)</h3>
+<p>씬편집기에는 <strong>영상 프롬프트</strong>라는 별도 입력란이 이미지 프롬프트 바로 아래에 있습니다. 이 영상 프롬프트는 대본 내용을 반영하면서 카메라무빙(팬, 틸트, 줌, 트래킹 등)과 화면 속 움직임·변화가 풍부하게 들어가도록 AI가 자동으로 작성해주는 문구입니다. 이 프롬프트가 <strong>Grok 영상전환 버튼을 누를 때 실제로 그대로 사용</strong>되어, 더 자연스럽고 역동적인 움직임의 영상이 만들어집니다.</p>
 <p>영상 프롬프트를 만드는 버튼은 두 가지입니다.</p>
-<div class="img-wrap"><img src="imgs/kling_video_prompt_buttons.png" loading="lazy" alt="영상 프롬프트 생성 버튼 - 전체 씬 및 개별 씬"></div>
+<div class="img-wrap"><img src="imgs/grok_video_prompt_buttons.png" loading="lazy" alt="영상 프롬프트 생성 버튼 - 전체 씬 및 개별 씬"></div>
 <ul>
   <li><strong>전체 씬 영상 프롬프트 생성</strong> (화면 상단) — 여러 씬을 한꺼번에 영상으로 전환하실 계획이라면 이 버튼을 눌러 모든 씬의 영상 프롬프트를 한 번에 생성하세요.</li>
   <li><strong>영상 프롬프트 생성</strong> (각 씬 카드 하단) — 몇몇 씬만 골라서 영상으로 전환하실 경우, 해당 씬에서만 개별로 버튼을 눌러 생성하시면 됩니다.</li>
 </ul>
-<p>버튼을 누르지 않고 바로 <strong>Kling 영상전환</strong> 버튼을 눌러도 괜찮습니다 — 영상 프롬프트가 비어있으면 변환 시점에 자동으로 생성되어 사용됩니다. 물론 미리 생성해서 내용을 직접 확인하거나 수정하고 싶으신 분들을 위해 두 버튼을 별도로 제공해드리고 있습니다.</p>
-<p>또한 이 영상 프롬프트는 이미지 프롬프트와 마찬가지로 화면에 그대로 표시되기 때문에, Kling API를 사용하지 않고 <strong>FLOW·Google Vids·RUNWAY 등 외부 영상 제작 사이트에서 직접 영상을 만드실 때도 복사해서 활용</strong>하실 수 있습니다.</p>
+<p>버튼을 누르지 않고 바로 <strong>Grok 영상전환</strong> 버튼을 눌러도 괜찮습니다 — 영상 프롬프트가 비어있으면 변환 시점에 자동으로 생성되어 사용됩니다. 물론 미리 생성해서 내용을 직접 확인하거나 수정하고 싶으신 분들을 위해 두 버튼을 별도로 제공해드리고 있습니다.</p>
+<p>또한 이 영상 프롬프트는 이미지 프롬프트와 마찬가지로 화면에 그대로 표시되기 때문에, Grok API를 사용하지 않고 <strong>FLOW·Google Vids·RUNWAY 등 외부 영상 제작 사이트에서 직접 영상을 만드실 때도 복사해서 활용</strong>하실 수 있습니다.</p>
 
 <div class="img-wrap"><img src="imgs/image185.png" loading="lazy" alt="스크린샷"></div>
 <p>제가 이용하는 서비스는 FLOW 입니다. 이 서비스도 꽤 괜찮습니다 특히 제미나이 AI 유료모델을 구독중이시라면 제공되는 크레딧을 이용하시면 FLOW에서 많은 영상을 제작하실 수 있습니다.</p>
@@ -748,7 +760,7 @@ p{font-size:14px;line-height:1.9;color:#ccc;margin-bottom:12px;padding:0 4px}
 </ul>
 <p>YouTube API 할당량과 관련하여 중요한 사항을 안내드립니다. 구글에서 제공하는 YouTube API는 하루 사용량에 제한이 있으며, 1개의 구글 계정으로는 5개 이하의 채널 운영을 권장합니다. 또한 채널당 하루 업로드 횟수는 5회 이내로 설정하시는 것이 안정적입니다. 이 기준을 초과하면 API 할당량이 소진되어 업로드가 일시 중단될 수 있으니 참고하시기 바랍니다.</p>
 <div class="img-wrap"><img src="imgs/image205.png" loading="lazy" alt="스크린샷"></div>
-<p>Kling AI를 이용한 초반 씬 영상 변환 기능은 선택 사항입니다. 이 기능을 사용하시려면 목차 4-5번의 Kling AI API 키 발급 안내를 먼저 참고하시기 바랍니다. 초반 씬 변환 개수를 0으로 설정하면 카메라 효과만 적용되며, Kling AI를 사용하지 않습니다.</p>
+<p>Grok(xAI)를 이용한 초반 씬 영상 변환 기능은 선택 사항입니다. 이 기능을 사용하시려면 목차 4-5번의 Grok(xAI) 영상 API 키 발급 안내를 먼저 참고하시기 바랍니다. 초반 씬 변환 개수를 0으로 설정하면 카메라 효과만 적용되며, Grok 영상 변환을 사용하지 않습니다.</p>
 <div class="img-wrap"><img src="imgs/image206.png" loading="lazy" alt="스크린샷"></div>
 <p>댓글 자동 관리 기능은 활성/비활성 중에서 선택할 수 있으며, 댓글에 답변할 말투 스타일도 함께 설정할 수 있습니다. 활성으로 설정하면 AI가 댓글을 분석하여 적절한 답변을 자동으로 작성합니다.</p>
 <div class="img-wrap"><img src="imgs/image207.png" loading="lazy" alt="스크린샷"></div>
