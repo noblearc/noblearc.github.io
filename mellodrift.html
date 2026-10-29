@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mellodrift 음악 플레이리스트 자동화 | NOBLE ARC</title>
+<meta name="description" content="카테고리만 고르면 AI가 음악·가사 자막·영상·썸네일을 만들고 유튜브 예약 업로드까지 끝내는 음악 플레이리스트 채널 자동화 프로그램">
+<link rel="icon" href="pimg/mellodrift/icon.jpg">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{background:#060a22}
+body{max-width:800px;margin:0 auto;background:#060a22;color:#eef0ff;font-family:'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;width:100%;height:auto}
+.top{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:rgba(6,10,34,.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(160,170,255,.15)}
+.top a{color:#cfd4ff;text-decoration:none;font-size:14px;font-weight:700}
+.top .brand{display:flex;align-items:center;gap:10px;color:#fff;font-size:17px;font-weight:900}
+.top .brand img{width:30px;height:30px;border-radius:8px}
+.top .buy{padding:8px 16px;border-radius:999px;background:linear-gradient(90deg,#7dd8ff,#6f8dff 45%,#b17cff);color:#0b0f2e}
+.videos{padding:10px 24px 60px;background:#060a22}
+.videos h3{text-align:center;font-size:24px;font-weight:900;margin:0 0 22px}
+.yt{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;margin-bottom:12px;border:1px solid rgba(160,170,255,.25);background:#000}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-cap{font-size:15px;font-weight:700;color:#9aa3d6;margin:0 0 26px 4px}
+#pricing{padding:80px 24px;text-align:center;background:radial-gradient(ellipse 70% 50% at 50% 30%,#18206a,#060a22 70%)}
+#pricing .eb{font-size:14px;font-weight:800;letter-spacing:.22em;color:#7dd8ff}
+#pricing h2{margin-top:14px;font-size:36px;font-weight:900;line-height:1.35}
+.card{max-width:480px;margin:34px auto 0;padding:38px 30px 32px;border-radius:26px;border:1.5px solid rgba(160,140,255,.75);background:linear-gradient(160deg,rgba(111,141,255,.16),rgba(177,124,255,.10) 60%,rgba(255,255,255,.03));box-shadow:0 0 60px rgba(130,110,255,.25);text-align:left}
+.card .nm{font-size:19px;font-weight:800}
+.card .pr{margin:8px 0 4px;font-size:54px;font-weight:900;letter-spacing:-.03em}
+.card .pr small{font-size:20px;font-weight:700;opacity:.8}
+.card .sub{font-size:14px;color:#9aa3d6}
+.card ul{list-style:none;margin:22px 0 26px;padding-top:18px;border-top:1px solid rgba(160,170,255,.2)}
+.card li{padding:6px 0 6px 28px;position:relative;font-size:16px;line-height:1.5;color:#d6daf7}
+.card li::before{content:'✔';position:absolute;left:4px;color:#7dd8ff;font-weight:900}
+.btn{display:block;text-align:center;padding:17px;border-radius:14px;background:linear-gradient(90deg,#7dd8ff,#6f8dff 45%,#b17cff);color:#0b0f2e;text-decoration:none;font-size:18px;font-weight:900}
+.fine{max-width:480px;margin:18px auto 0;text-align:left;font-size:13px;line-height:1.8;color:#9aa3d6}
+.foot{background:#04061a;color:#8a8aa0;text-align:center;padding:30px 20px;font-size:12px;line-height:1.9}
+.foot a{color:#8a8aa0}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="brand" href="index.html"><img src="pimg/mellodrift/icon.jpg" alt="">Mellodrift</a>
+  <div style="display:flex;gap:14px;align-items:center"><a href="mellodrift-manual.html">사용설명서</a><a class="buy" href="#pricing">월 22,000원 구매</a></div>
+</div>
+
+<img src="pimg/mellodrift/s01_intro.gif" alt="카테고리만 고르세요. 음악부터 유튜브 업로드까지, Mellodrift가 합니다.">
+<img src="pimg/mellodrift/s02_problem.gif" alt="플레이리스트 채널 운영의 반복 작업을 전부 자동으로" loading="lazy">
+<img src="pimg/mellodrift/s03_pipeline.gif" alt="이 9단계를 버튼 한 번으로" loading="lazy">
+<img src="pimg/mellodrift/s03_record.gif" alt="실제 프로그램 화면" loading="lazy">
+<img src="pimg/mellodrift/s04_header.png" alt="이 영상들, 전부 Mellodrift가 만들었습니다" loading="lazy">
+<img src="pimg/mellodrift/s04_mosaic.gif" alt="Mellodrift로 만든 예시 영상" loading="lazy">
+
+<section class="videos">
+  <h3>🎧 실제 결과물 영상</h3>
+  <div class="yt"><iframe src="https://www.youtube.com/embed/azQ3wTq4yUg" title="카페 BGM 30분" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p class="yt-cap">☕ 카페 BGM · 30분 롱폼</p>
+  <div class="yt"><iframe src="https://www.youtube.com/embed/lmLVjo8eFmc" title="시티팝 비 오는 밤 드라이브" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p class="yt-cap">🌃 시티팝 · 비 오는 밤 드라이브</p>
+  <div class="yt"><iframe src="https://www.youtube.com/embed/kTlrNW1hwTY" title="K-pop 가사 자막" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p class="yt-cap">🎤 K-pop · 한글 가사 자막</p>
+  <div class="yt"><iframe src="https://www.youtube.com/embed/leKlzy_4QBQ" title="수면 음악" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p class="yt-cap">❄️ 수면 · 눈 오는 기차</p>
+  <div class="yt"><iframe src="https://www.youtube.com/embed/y89onMvmL0o" title="러닝 음악" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p class="yt-cap">🏃 러닝 · 워크아웃</p>
+</section>
+
+<img src="pimg/mellodrift/s05_numbers.gif" alt="장르 25 · 상황 12 · 보컬 19 · 연출 7 · 최대 30곡" loading="lazy">
+<img src="pimg/mellodrift/s06_genres.gif" alt="25개 장르" loading="lazy">
+<img src="pimg/mellodrift/s07_combo.gif" alt="장르 · 상황 · 보컬 조합" loading="lazy">
+<img src="pimg/mellodrift/s08_templates.gif" alt="영상 연출 7종" loading="lazy">
+<img src="pimg/mellodrift/s09_lyrics.gif" alt="가사 자막 자동" loading="lazy">
+<img src="pimg/mellodrift/s10_thumbs.gif" alt="커버아트와 썸네일 자동" loading="lazy">
+<img src="pimg/mellodrift/s11_longform.gif" alt="30분부터 90분까지 롱폼 믹스" loading="lazy">
+<img src="pimg/mellodrift/s12_target.png" alt="이런 분들을 위해 만들었습니다" loading="lazy">
+<img src="pimg/mellodrift/s13_schedule.gif" alt="예약 자동 업로드" loading="lazy">
+<img src="pimg/mellodrift/s14_cost.png" alt="크레딧 충전 없이 생성 원가로" loading="lazy">
+<img src="pimg/mellodrift/s15_start.gif" alt="설치부터 첫 영상까지 3단계" loading="lazy">
+<img src="pimg/mellodrift/web_ebook.png" alt="AI 플레이리스트 채널 수익화 강의전자책 증정" loading="lazy">
+
+<section id="pricing">
+  <div class="eb">PRICING</div>
+  <h2>월 단위로 부담 없이 시작하세요</h2>
+  <div class="card">
+    <div class="nm">Mellodrift 1개월 이용권</div>
+    <div class="pr">22,000<small>원 / 월</small></div>
+    <div class="sub">월 단위 결제 · 이용 기간 종료 후 재결제</div>
+    <ul>
+      <li>Mellodrift 라이선스 키 (1 PC)</li>
+      <li>장르 25 · 상황 12 · 보컬 19 · 연출 7종 전부</li>
+      <li>음악 → 가사 자막 → 영상 → 썸네일 → 유튜브 예약 업로드 자동</li>
+      <li>사용설명서 · 설치와 API 세팅 안내</li>
+      <li>🎁 『AI 플레이리스트 채널 수익화 강의전자책』 증정</li>
+      <li>이용 기간 중 업데이트 무료 · 기술 지원</li>
+    </ul>
+    <a class="btn" href="index.html#mellodrift">홈페이지에서 구매하기</a>
+  </div>
+  <div class="fine">
+    · AI 사용료(API)는 이용료와 별도이며 본인 API 키 기준으로 발생합니다. 크레딧 충전은 없습니다.<br>
+    · 1대의 PC에서 사용할 수 있으며, 기기 초기화로 기기를 변경할 수 있습니다. Windows 10 · 11 (64비트) 전용입니다.<br>
+    · 이용 기간은 라이선스 키를 프로그램에 처음 활성화한 시점부터 계산됩니다.<br>
+    · 라이선스 키를 활성화하기 전이라면 구매일로부터 7일 이내 전액 환불이 가능합니다. 활성화 후에는 디지털 콘텐츠 특성상 환불이 어렵습니다.
+  </div>
+</section>
+
+<img src="pimg/mellodrift/web_maker.png" alt="메이커 소개 · 노블아크 개발팀" loading="lazy">
+<img src="pimg/mellodrift/web_notice.png" alt="꼭 확인해 주세요" loading="lazy">
+<img src="pimg/mellodrift/s17_faq.png" alt="자주 묻는 질문" loading="lazy">
+<a href="#pricing"><img src="pimg/mellodrift/web_outro.gif" alt="오늘 고른 카테고리가, 내일 아침 내 채널에 올라가 있습니다" loading="lazy"></a>
+
+<div class="foot">© 2026 NOBLE ARC. All rights reserved. · <a href="privacy.html">개인정보처리방침</a><br>상호: 노블아크(NobleArc) · 대표: 채정옥 · 사업자등록번호: 451-01-03916<br>통신판매업신고: 제 2026-안양동안-0412 호<br>사업장: 경기도 안양시 동안구 관평로69번길 8-13, 1층 일부호(평촌동)<br>이메일: doedoo291@gmail.com · 전화: 010-3387-0352 · 전화상담 가능시간 09:00~18:00</div>
+</body>
+</html>
