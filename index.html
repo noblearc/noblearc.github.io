@@ -3,172 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NOBLE ARC | AI 콘텐츠 자동화 솔루션 6종</title>
+<title>NOBLE ARC | AI 콘텐츠 자동화 솔루션 8종</title>
+<meta name="description" content="NOBLE ARC — 유튜브·쇼핑쇼츠·블로그·스레드·전자책·음악·웹소설·백테스트까지, AI 콘텐츠 자동화 프로그램 8종을 월 단위로 시작하세요.">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script src="https://cdn.portone.io/v2/browser-sdk.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
-<meta name="description" content="NOBLE ARC는 AI 기반 유튜브 롱폼/숏폼 콘텐츠 자동화 솔루션입니다.">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --ac:#6d28d9;
-  --ac2:#7c3aed;
-  --ac3:#a78bfa;
-  --cy:#0891b2;
-  --bg:#ffffff;
-  --bg2:#f8f7ff;
-  --bg3:#f0eeff;
-  --bg4:#e9e5ff;
-  --wd:#1a1a2e;
-  --muted:#6b7280;
-  --muted2:#9ca3af;
-  --border:#e5e7eb;
-  --border-ac:rgba(109,40,217,0.25);
-  --shadow:0 1px 3px rgba(0,0,0,0.08),0 8px 24px rgba(109,40,217,0.06);
-  --shadow-lg:0 4px 6px rgba(0,0,0,0.05),0 20px 48px rgba(109,40,217,0.12);
-}
-html{scroll-behavior:smooth;}
-body{font-family:'Segoe UI','Apple SD Gothic Neo','Malgun Gothic',sans-serif;background:var(--bg);color:var(--wd);line-height:1.6;overflow-x:hidden;}
-a{text-decoration:none;color:inherit;}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px;}
-
-/* ── NAV ── */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:999;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 60px;height:80px;
-  background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);
-}
-.nav-logo{
-  display:flex;align-items:center;gap:12px;
-}
-.nav-logo-img{
-  width:48px;height:48px;object-fit:cover;
-  border-radius:10px;flex-shrink:0;
-}
-.nav-logo-text{
-  font-size:26px;font-weight:900;letter-spacing:2px;
-  background:linear-gradient(135deg,var(--ac),#2563eb);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  line-height:1;
-}
-.nav-links{display:flex;gap:40px;position:absolute;left:50%;transform:translateX(-50%);}
-.nav-links a{
-  font-size:17px;font-weight:600;color:var(--muted);
-  transition:color .2s;position:relative;padding-bottom:4px;
-}
-.nav-links a::after{
-  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
-  background:var(--ac);border-radius:2px;
-  transform:scaleX(0);transition:transform .2s;
-}
-.nav-links a:hover{color:var(--ac);}
-.nav-links a:hover::after{transform:scaleX(1);}
-.nav-right{display:flex;align-items:center;gap:12px;}
-.nav-login{font-size:15px;font-weight:600;color:var(--muted);padding:8px 16px;border-radius:8px;transition:color .2s,background .2s;}
-.nav-login:hover{color:var(--ac);background:var(--bg3);}
-.nav-cta{
-  font-size:15px;font-weight:700;padding:10px 24px;
-  background:var(--ac);color:#fff;border-radius:10px;
-  transition:background .2s,transform .15s,box-shadow .2s;
-  box-shadow:0 4px 16px rgba(109,40,217,0.3);
-}
-.nav-cta:hover{background:#5b21b6;transform:translateY(-1px);}
-/* logged in state */
-.nav-user{display:none;align-items:center;gap:10px;}
-.nav-avatar{width:36px;height:36px;border-radius:50%;background:var(--bg4);border:2px solid var(--border-ac);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--ac);cursor:pointer;}
-.nav-user-email{font-size:13px;color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-
-/* ── HERO ── */
-.hero{
-  position:relative;min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:80px 24px 60px;overflow:hidden;
-  background:linear-gradient(180deg,#faf8ff 0%,#f0ecff 40%,#e8f4ff 100%);
-}
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background-image:radial-gradient(rgba(109,40,217,0.06) 1.5px,transparent 1.5px);
-  background-size:28px 28px;
-}
-.hero-orb1{
-  position:absolute;top:20%;left:15%;
-  width:400px;height:400px;border-radius:50%;
-  background:radial-gradient(circle,rgba(124,58,237,0.12),transparent 70%);
-  pointer-events:none;
-}
-.hero-orb2{
-  position:absolute;bottom:20%;right:10%;
-  width:300px;height:300px;border-radius:50%;
-  background:radial-gradient(circle,rgba(8,145,178,0.1),transparent 70%);
-  pointer-events:none;
-}
-.hero-tag{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:7px 20px;border:1.5px solid var(--border-ac);border-radius:99px;
-  font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--ac2);
-  background:rgba(109,40,217,0.06);margin-bottom:32px;
-  animation:fadeUp .6s ease both;
-}
-.hero-tag::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--ac3);animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
-.hero h1{
-  font-size:clamp(46px,7vw,92px);font-weight:900;
-  line-height:1.05;letter-spacing:-2px;margin-bottom:28px;
-  animation:fadeUp .7s .1s ease both;
-}
-.hero h1 .line1{display:block;color:var(--wd);}
-.hero h1 .line2{
-  display:block;
-  background:linear-gradient(120deg,var(--ac) 0%,#2563eb 60%,var(--cy) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-}
-.hero-sub{
-  font-size:clamp(15px,2vw,20px);color:var(--muted);
-  max-width:560px;margin-bottom:48px;line-height:1.75;
-  animation:fadeUp .7s .2s ease both;
-}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;animation:fadeUp .7s .3s ease both;}
-.btn-main{
-  padding:15px 40px;background:var(--ac);color:#fff;
-  font-size:16px;font-weight:700;border-radius:12px;
-  box-shadow:0 4px 20px rgba(109,40,217,0.35);
-  transition:background .2s,transform .15s,box-shadow .2s;
-}
-.btn-main:hover{background:#5b21b6;transform:translateY(-2px);box-shadow:0 8px 32px rgba(109,40,217,0.45);}
-.btn-ghost{
-  padding:15px 40px;color:var(--ac);
-  font-size:16px;font-weight:700;border-radius:12px;
-  border:2px solid var(--border-ac);
-  background:rgba(109,40,217,0.04);
-  transition:background .2s,transform .15s;
-}
-.btn-ghost:hover{background:rgba(109,40,217,0.1);transform:translateY(-2px);}
-.hero-scroll{
-  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  font-size:10px;letter-spacing:3px;color:var(--muted2);
-  animation:fadeUp .7s .6s ease both;
-}
-.scroll-mouse{width:22px;height:34px;border:1.5px solid var(--muted2);border-radius:11px;display:flex;justify-content:center;padding-top:6px;}
-.scroll-mouse::after{content:'';width:3px;height:7px;background:var(--muted2);border-radius:2px;animation:scrollDown 1.8s infinite;}
-@keyframes scrollDown{0%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(10px);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-
-/* ── STATS ── */
-.stats-band{background:linear-gradient(135deg,#f5f0ff,#eef4ff);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.stats-headline{
-  font-size:clamp(18px,2.5vw,28px);font-weight:800;color:var(--wd);
-  line-height:1.5;letter-spacing:-.5px;margin-bottom:14px;
-}
-.stats-sub{font-size:clamp(14px,1.5vw,17px);color:var(--muted);}
-
-/* ── SUBSCRIPTION (상단 배치) ── */
-.sub-section{background:var(--bg2);border-bottom:1px solid var(--border);}
 .sec{max-width:1160px;margin:0 auto;padding:100px 24px;}
 .sec.tight{padding:80px 24px;}
 .eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--ac2);text-transform:uppercase;margin-bottom:16px;}
@@ -177,88 +24,6 @@ nav{
 .reveal{opacity:1;transform:none;}
 .js-ready .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
 .js-ready .reveal.visible{opacity:1;transform:none;}
-
-/* sub tabs */
-.sub-tabs-wrap{display:flex;justify-content:center;margin-bottom:48px;}
-.sub-tabs{display:inline-flex;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:5px;gap:4px;box-shadow:var(--shadow);}
-.sub-tab{padding:10px 28px;border-radius:10px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border:none;background:transparent;transition:background .2s,color .2s;}
-.sub-tab.on{background:linear-gradient(135deg,var(--ac),#2563eb);color:#fff;box-shadow:0 2px 12px rgba(109,40,217,0.3);}
-.sub-tab:hover:not(.on){color:var(--ac);}
-
-/* pricing grid */
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.pricing-card{
-  background:#fff;border-radius:20px;padding:40px 32px;
-  border:1.5px solid var(--border);
-  box-shadow:var(--shadow);
-  transition:transform .2s,box-shadow .2s,border-color .2s;
-  position:relative;
-}
-.pricing-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
-.pricing-card.highlight{
-  border-color:var(--ac2);
-  background:linear-gradient(160deg,#faf8ff 0%,#fff 100%);
-  box-shadow:0 4px 6px rgba(0,0,0,0.04),0 20px 48px rgba(109,40,217,0.18);
-}
-.pricing-badge{
-  display:inline-block;padding:5px 16px;border-radius:99px;
-  font-size:11px;font-weight:800;letter-spacing:1.5px;
-  background:linear-gradient(135deg,var(--ac),#2563eb);color:#fff;
-  margin-bottom:20px;
-}
-.pricing-name{font-size:20px;font-weight:800;margin-bottom:6px;color:var(--wd);}
-.pricing-desc{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.5;}
-.pricing-price-row{display:flex;align-items:flex-end;gap:4px;margin-bottom:2px;}
-.pricing-price{font-size:46px;font-weight:900;line-height:1;color:var(--ac);}
-.pricing-unit{font-size:14px;color:var(--muted);margin-bottom:6px;}
-.pricing-original{font-size:13px;color:var(--muted2);text-decoration:line-through;margin-bottom:2px;}
-.pricing-discount{font-size:12px;font-weight:700;color:#059669;margin-bottom:6px;}
-.pricing-billing{font-size:12px;color:var(--muted);margin-bottom:28px;}
-.pricing-features{list-style:none;margin-bottom:32px;}
-.pricing-features li{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--wd);}
-.pricing-features li:last-child{border-bottom:none;}
-.pricing-features li::before{content:'✓';color:var(--ac2);font-weight:800;flex-shrink:0;font-size:14px;}
-.pricing-btn{width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:transform .15s,box-shadow .2s,background .2s;}
-.pricing-btn.primary{background:var(--ac);color:#fff;box-shadow:0 4px 16px rgba(109,40,217,0.3);}
-.pricing-btn.primary:hover{background:#5b21b6;transform:translateY(-1px);}
-.pricing-btn.secondary{background:var(--bg3);color:var(--ac);border:1.5px solid var(--border-ac);}
-.pricing-btn.secondary:hover{background:var(--bg4);transform:translateY(-1px);}
-.pricing-note{text-align:center;font-size:13px;color:var(--muted);margin-top:24px;}
-.trial-banner{background:linear-gradient(135deg,#059669,#047857);color:#fff;text-align:center;padding:24px 32px;border-radius:16px;margin-top:28px;}
-.trial-banner h3{font-size:17px;font-weight:800;margin-bottom:6px;}
-.trial-banner p{font-size:13px;opacity:0.88;margin-bottom:16px;}
-.trial-btn{background:#fff;color:#047857;font-size:14px;font-weight:700;padding:10px 28px;border:none;border-radius:8px;cursor:pointer;transition:opacity .15s;}
-.trial-btn:hover{opacity:0.88;}
-.pay-type-toggle{display:flex;background:var(--bg3);border-radius:12px;padding:4px;width:fit-content;margin:0 auto 40px;border:1.5px solid var(--border-ac);}
-.pay-type-btn{padding:10px 28px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .2s;white-space:nowrap;}
-.pay-type-btn.on{background:var(--ac);color:#fff;box-shadow:0 2px 12px rgba(109,40,217,0.3);}
-.pay-type-save{display:inline-block;margin-left:8px;background:#059669;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;vertical-align:middle;}
-.sub-notice-banner{display:none;background:#fffbeb;border:1.5px solid #f59e0b;border-radius:12px;padding:14px 20px;margin-bottom:24px;font-size:13px;color:#92400e;text-align:center;line-height:1.6;}
-.sub-notice-banner strong{color:#b45309;}
-
-
-/* ── FEATURES ── */
-.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto auto;gap:16px;margin-top:56px;}
-.bento-card{background:#fff;border-radius:16px;padding:32px 28px;border:1.5px solid var(--border);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s;}
-.bento-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--border-ac);}
-.bento-card.wide{grid-column:span 2;}
-.bento-num{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--ac3);margin-bottom:14px;}
-.bento-title{font-size:18px;font-weight:800;margin-bottom:10px;color:var(--wd);}
-.bento-desc{font-size:14px;color:var(--muted);line-height:1.7;}
-.bento-accent{display:block;width:32px;height:3px;background:linear-gradient(90deg,var(--ac),var(--cy));border-radius:2px;margin-bottom:14px;}
-.bento-highlight{background:linear-gradient(135deg,#f5f0ff,#eef4ff);border-color:var(--border-ac);}
-
-/* ── WORKFLOW ── */
-.workflow-wrap{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
-.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:56px;position:relative;}
-.steps::before{content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,var(--border-ac) 20%,var(--border-ac) 80%,transparent);}
-.step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 12px;}
-.step-num{width:56px;height:56px;border-radius:50%;background:#fff;border:2px solid var(--border-ac);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:var(--ac);margin-bottom:18px;position:relative;z-index:1;box-shadow:var(--shadow);transition:background .3s,box-shadow .3s;}
-.step:hover .step-num{background:var(--bg3);box-shadow:0 0 0 4px rgba(109,40,217,0.1);}
-.step-title{font-size:14px;font-weight:800;margin-bottom:6px;color:var(--wd);}
-.step-desc{font-size:12px;color:var(--muted);line-height:1.6;}
-
-/* ── FAQ ── */
 .faq-list{max-width:720px;margin:48px auto 0;}
 .faq-item{border-bottom:1px solid var(--border);}
 .faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:15px;font-weight:700;cursor:pointer;transition:color .2s;color:var(--wd);}
@@ -267,8 +32,6 @@ nav{
 .faq-item.open .faq-q::after{transform:rotate(45deg);}
 .faq-a{font-size:14px;color:var(--muted);line-height:1.8;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s;}
 .faq-item.open .faq-a{max-height:400px;padding-bottom:20px;}
-
-/* ── BOARD ── */
 .board-tabs{display:flex;gap:8px;margin-bottom:0;}
 .board-tab{padding:10px 28px;border-radius:10px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border:1.5px solid var(--border);background:#fff;transition:all .2s;}
 .board-tab.on{background:linear-gradient(135deg,var(--ac),#2563eb);color:#fff;border-color:transparent;box-shadow:0 2px 12px rgba(109,40,217,0.3);}
@@ -307,38 +70,12 @@ nav{
 .reply-input-wrap{display:flex;gap:8px;margin-top:12px;}
 .reply-input-wrap input{flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;outline:none;font-family:inherit;}
 .reply-input-wrap input:focus{border-color:var(--ac);}
-.btn-reply{padding:10px 16px;background:var(--ac);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;}
 .img-attach-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:1.5px dashed var(--border);border-radius:8px;font-size:13px;color:var(--muted);cursor:pointer;background:var(--bg2);transition:border-color .2s;}
 .img-attach-btn:hover{border-color:var(--ac);color:var(--ac);}
 .img-preview{margin-top:10px;position:relative;display:inline-block;}
 .img-preview img{max-width:100%;max-height:200px;border-radius:10px;border:1.5px solid var(--border);}
 .img-preview-remove{position:absolute;top:-8px;right:-8px;width:22px;height:22px;background:#ef4444;color:#fff;border:none;border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;}
 .post-image{width:100%;max-height:400px;object-fit:contain;border-radius:12px;margin-bottom:20px;border:1.5px solid var(--border);}
-
-/* ── CTA BAND ── */
-.cta-band{
-  background:linear-gradient(135deg,var(--ac) 0%,#2563eb 60%,var(--cy) 100%);
-  padding:100px 24px;text-align:center;position:relative;overflow:hidden;
-}
-.cta-band::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1.5px,transparent 1.5px);background-size:28px 28px;pointer-events:none;}
-.cta-band h2{font-size:clamp(28px,4vw,52px);font-weight:900;letter-spacing:-1px;margin-bottom:16px;color:#fff;position:relative;}
-.cta-band p{font-size:18px;color:rgba(255,255,255,0.8);margin-bottom:40px;position:relative;}
-.btn-white{padding:16px 52px;background:#fff;color:var(--ac);font-size:16px;font-weight:800;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.15);transition:transform .15s,box-shadow .2s;}
-.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.2);}
-
-/* ── FOOTER ── */
-footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px;}
-.footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;margin-bottom:48px;}
-.footer-brand .logo{font-size:18px;font-weight:900;letter-spacing:3px;background:linear-gradient(135deg,var(--ac),#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;}
-.footer-brand p{font-size:13px;color:var(--muted);max-width:260px;line-height:1.7;}
-.footer-links{display:flex;gap:60px;}
-.footer-col h4{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--muted2);text-transform:uppercase;margin-bottom:16px;}
-.footer-col a{display:block;font-size:13px;color:var(--muted);margin-bottom:10px;transition:color .2s;}
-.footer-col a:hover{color:var(--ac);}
-.footer-bottom{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted2);flex-wrap:wrap;gap:12px;}
-.footer-biz{font-size:11px;color:var(--muted2);line-height:1.8;text-align:right;}
-
-/* ── AUTH MODALS ── */
 .modal{display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);backdrop-filter:blur(8px);}
 .modal-box{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:44px 40px;width:90%;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,0.15);}
 .modal-box h3{font-size:22px;font-weight:900;color:var(--wd);margin-bottom:8px;}
@@ -355,8 +92,6 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
 .btn-cancel-modal{background:var(--bg3);color:var(--muted);}
 .modal-switch{text-align:center;font-size:13px;color:var(--muted);margin-top:16px;}
 .modal-switch a{color:var(--ac);font-weight:700;cursor:pointer;}
-
-/* 구글 로그인 버튼 */
 .btn-google{
   width:100%;padding:13px;border-radius:10px;font-size:14px;font-weight:600;
   background:#fff;color:var(--wd);border:1.5px solid var(--border);
@@ -367,8 +102,6 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
 .btn-google:hover{background:#f9fafb;box-shadow:var(--shadow-lg);}
 .divider{display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:12px;color:var(--muted2);}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
-
-/* 마이페이지 패널 */
 .mypage-panel{
   display:none;position:fixed;top:80px;right:60px;z-index:800;
   background:#fff;border:1.5px solid var(--border);border-radius:16px;
@@ -386,104 +119,222 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
 .btn-reset-machine{margin-top:6px;padding:4px 10px;background:#fee2e2;color:#dc2626;border:none;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;}
 .btn-reset-machine:hover{background:#fecaca;}
 .btn-logout:hover{background:var(--bg4);}
-
-/* 결제 모달 */
 .license-key-box{background:var(--bg3);border:1.5px solid var(--border-ac);border-radius:10px;padding:20px;font-size:17px;font-weight:800;letter-spacing:2px;text-align:center;color:var(--ac);margin:20px 0;font-family:monospace;}
 #copyBtn{width:100%;padding:13px;background:var(--ac);color:#fff;border-radius:10px;font-size:14px;font-weight:700;border:none;cursor:pointer;}
 #copyBtn:hover{background:#5b21b6;}
 
-/* ── RESPONSIVE ── */
-@media(max-width:960px){
-  nav{padding:0 24px;height:72px;}
-  .nav-links{display:none;}
-  .bento{grid-template-columns:1fr;}
-  .bento-card.wide{grid-column:span 1;}
-  .steps{grid-template-columns:repeat(2,1fr);gap:32px;}
-  .steps::before{display:none;}
-  .pricing-grid{grid-template-columns:1fr;}
-
-  footer{padding:48px 24px 32px;}
-  .footer-top{flex-direction:column;}
-  .footer-links{flex-direction:column;gap:32px;}
-  .footer-biz{text-align:left;}
-  .mypage-panel{right:24px;width:calc(100vw - 48px);}
+:root{
+  --ac:#8b5cf6;--ac2:#a78bfa;--ac3:#c4b5fd;--cy:#22d3ee;
+  --bg:#07070d;--bg2:#0e0e18;--bg3:#151524;--bg4:#1d1d32;
+  --wd:#f4f4f9;--muted:#a1a1b8;--muted2:#70708a;
+  --border:rgba(255,255,255,.09);--border-ac:rgba(167,139,250,.38);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.35);--shadow-lg:0 24px 64px rgba(0,0,0,.55);
+  --grad:linear-gradient(120deg,#a78bfa 0%,#6d8bff 48%,#22d3ee 100%);
+  --r:20px;
 }
-</style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;background:var(--bg);color:var(--wd);line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased;word-break:keep-all}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+.bgfx{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(900px 520px at 12% -6%,rgba(139,92,246,.20),transparent 62%),
+  radial-gradient(800px 480px at 92% 8%,rgba(34,211,238,.10),transparent 60%),var(--bg)}
 
-<style id="hub-css">
-.sec-wide{max-width:1180px;margin:0 auto;padding:96px 28px}
-.hub-hero{padding:150px 28px 90px;text-align:center;background:linear-gradient(180deg,#f5f1ff 0%,#fff 100%);position:relative;overflow:hidden}
-.hub-hero .tag{display:inline-block;padding:8px 20px;border:1px solid var(--border-ac);background:#fff;border-radius:99px;font-size:13px;font-weight:700;color:var(--ac);letter-spacing:.06em}
-.hub-hero h1{font-size:clamp(34px,6vw,68px);line-height:1.2;font-weight:900;margin:26px 0 20px;letter-spacing:-.02em}
-.hub-hero h1 em{font-style:normal;background:linear-gradient(90deg,#6d28d9,#2563eb);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hub-hero p.sub{font-size:clamp(15px,2.2vw,19px);color:var(--muted);max-width:720px;margin:0 auto}
-.hub-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:36px}
-.hub-btn{padding:15px 30px;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer;border:1.5px solid var(--border-ac);background:#fff;color:var(--ac);display:inline-block}
-.hub-btn.main{background:var(--ac);color:#fff;border-color:var(--ac);box-shadow:0 8px 24px rgba(109,40,217,.3)}
-.chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:44px}
-.chips a{padding:9px 18px;border-radius:99px;font-size:14px;font-weight:800;border:1.5px solid;background:#fff}
-.hub-title{text-align:center;margin-bottom:48px}
-.hub-title .eyebrow{font-size:13px;font-weight:800;letter-spacing:.2em;color:var(--ac);margin-bottom:12px}
-.hub-title h2{font-size:clamp(28px,4.4vw,44px);font-weight:900;line-height:1.3;letter-spacing:-.02em}
-.hub-title p{color:var(--muted);margin-top:12px;font-size:16px}
-.lineup{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:22px}
-.lcard{background:#fff;border:1px solid var(--border);border-radius:20px;padding:30px 28px;border-top:5px solid var(--c);box-shadow:var(--shadow);display:flex;flex-direction:column}
-.lcard .n{font-size:12px;font-weight:900;letter-spacing:.16em;color:var(--c)}
-.lcard h3{font-size:26px;font-weight:900;margin:8px 0 4px;color:var(--c)}
-.lcard .sb{font-size:13px;color:var(--muted2);font-weight:700;margin-bottom:12px}
-.lcard p{font-size:15px;color:#374151;line-height:1.65;flex:1}
-.lcard ul{margin:14px 0 18px;padding-left:0;list-style:none}
-.lcard li{font-size:14px;color:var(--muted);padding:4px 0 4px 20px;position:relative}
-.lcard li::before{content:'✔';position:absolute;left:0;color:var(--c);font-weight:900;font-size:12px;top:6px}
-.lcard .pr{font-size:14px;color:var(--muted);margin-bottom:14px}
-.lcard .pr b{font-size:24px;color:var(--wd);font-weight:900}
-.lcard .bt{display:flex;gap:8px}
-.lcard .bt a,.lcard .bt button{flex:1;text-align:center;padding:12px;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer;border:1.5px solid var(--c);background:#fff;color:var(--c)}
-.lcard .bt button{background:var(--c);color:#fff}
-.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
-.pcd{background:#fff;border:1.5px solid var(--border);border-radius:20px;padding:30px 24px;text-align:center;position:relative;box-shadow:var(--shadow)}
-.pcd.hl{border-color:var(--ac);box-shadow:var(--shadow-lg)}
-.pcd .bd{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--c);margin-bottom:8px}
-.pcd .nm{font-size:21px;font-weight:900}
-.pcd .ds{font-size:13px;color:var(--muted);margin:8px 0 18px;min-height:40px}
-.pcd .pc{font-size:34px;font-weight:900;color:var(--wd)}
-.pcd .pc small{font-size:14px;color:var(--muted);font-weight:700}
-.pcd .og{font-size:13px;color:var(--muted2);text-decoration:line-through;margin-top:4px}
-.pcd .dc{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;background:#059669;color:#fff;border-radius:99px;padding:3px 10px}
-.pcd .bl{font-size:12px;color:var(--muted2);margin:14px 0 16px}
-.pcd button{width:100%;padding:13px;border:none;border-radius:11px;font-weight:800;font-size:14px;cursor:pointer;background:var(--c);color:#fff}
-.pcd button:disabled{background:#d1d5db;cursor:not-allowed}
-.pcd .nt{font-size:11.5px;color:var(--muted2);margin-top:10px;line-height:1.5}
-.pnote{margin:34px auto 0;max-width:820px;font-size:13.5px;color:var(--muted);line-height:1.9;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px 26px}
-.pnote b{color:var(--wd)}
-.mlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:10px}
-.mlist a{display:block;padding:18px 20px;border:1.5px solid var(--border);border-radius:14px;background:#fff;font-weight:800;font-size:15px}
-.mlist a span{display:block;font-size:12px;color:var(--muted2);font-weight:600;margin-top:4px}
-.mlist a.off{opacity:.55;pointer-events:none}
-@media(max-width:640px){.sec-wide{padding:70px 18px}.hub-hero{padding:120px 18px 60px}}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;
+  background:rgba(7,7,13,.72);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:11px}
+.nav-logo img{width:36px;height:36px;border-radius:9px;object-fit:cover}
+.nav-logo b{font-size:19px;font-weight:800;letter-spacing:.14em}
+.nav-logo em{font-style:normal;font-size:12px;font-weight:600;color:var(--muted2);letter-spacing:.02em}
+.nav-links{display:flex;gap:6px;position:absolute;left:50%;transform:translateX(-50%)}
+.nav-links a{font-size:15px;font-weight:600;color:var(--muted);padding:9px 16px;border-radius:10px;transition:color .2s,background .2s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-login{font-size:14px;font-weight:600;color:var(--muted);padding:9px 14px;border-radius:10px;cursor:pointer;transition:color .2s}
+.nav-login:hover{color:#fff}
+.nav-cta{font-size:14px;font-weight:700;padding:10px 20px;background:#fff;color:#0b0b14;border-radius:10px;cursor:pointer;transition:transform .15s,box-shadow .2s}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(167,139,250,.35)}
+.nav-user{display:none;align-items:center;gap:10px}
+.nav-user-email{font-size:13px;color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-avatar{width:36px;height:36px;border-radius:50%;background:var(--bg4);border:1.5px solid var(--border-ac);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--ac3);cursor:pointer}
+.nav-burger{display:none;width:40px;height:40px;border:1px solid var(--border);background:transparent;border-radius:10px;color:#fff;font-size:20px;cursor:pointer}
+
+/* HERO */
+.hero{position:relative;padding:168px 0 40px;text-align:center}
+.pill{display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border:1px solid var(--border-ac);border-radius:99px;background:rgba(139,92,246,.10);font-size:13px;font-weight:700;color:var(--ac3);letter-spacing:.02em}
+.pill::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--cy);box-shadow:0 0 12px var(--cy);animation:pulse 2.2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero h1{margin-top:26px;font-size:clamp(40px,7vw,84px);font-weight:900;line-height:1.08;letter-spacing:-.035em}
+.hero h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{margin:26px auto 0;max-width:620px;font-size:clamp(16px,2vw,19px);color:var(--muted);line-height:1.8}
+.cta-row{margin-top:38px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 30px;border-radius:13px;font-size:15.5px;font-weight:800;cursor:pointer;border:0;transition:transform .15s,box-shadow .2s,background .2s}
+.btn.main{background:var(--grad);color:#07070d;box-shadow:0 8px 32px rgba(109,139,255,.35)}
+.btn.main:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(109,139,255,.5)}
+.btn.line{background:rgba(255,255,255,.05);color:#fff;border:1px solid var(--border)}
+.btn.line:hover{background:rgba(255,255,255,.1)}
+.stage{position:relative;margin:64px auto 0;max-width:1080px;aspect-ratio:16/8.6;border-radius:26px;border:1px solid var(--border-ac);overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.03),0 40px 120px rgba(109,139,255,.22);
+  background:radial-gradient(ellipse at 30% 20%,rgba(139,92,246,.45),transparent 55%),radial-gradient(ellipse at 80% 85%,rgba(34,211,238,.28),transparent 55%),linear-gradient(160deg,#12122a,#0a0a16)}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.stats{margin:44px auto 0;max-width:1080px;display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:18px;background:rgba(255,255,255,.025);overflow:hidden}
+.stat{padding:22px 16px;text-align:center;border-right:1px solid var(--border)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-size:26px;font-weight:900;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:13px;color:var(--muted)}
+
+/* SECTION */
+.block{padding:120px 0 0}
+.head{text-align:center;margin-bottom:56px}
+.head .eb{font-size:12px;font-weight:800;letter-spacing:.28em;color:var(--ac2);text-transform:uppercase}
+.head h2{margin-top:14px;font-size:clamp(30px,4.6vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1.15}
+.head p{margin:16px auto 0;max-width:560px;color:var(--muted);font-size:16.5px}
+
+/* PRODUCT CARDS */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.pcard{display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
+.pcard:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 24px 60px -18px color-mix(in srgb,var(--c) 45%,transparent)}
+.pimg{position:relative;display:block;aspect-ratio:3/2;overflow:hidden;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 22%,#0c0c18),#0a0a14)}
+.pimg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.pcard:hover .pimg img{transform:scale(1.05)}
+.pglow{position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,color-mix(in srgb,var(--c) 40%,transparent),transparent 60%)}
+.pmark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:92px;font-weight:900;color:color-mix(in srgb,var(--c) 55%,transparent);opacity:.55}
+.ptag{position:absolute;top:12px;left:12px;z-index:2;font-size:11.5px;font-weight:800;padding:5px 11px;border-radius:99px;background:rgba(7,7,13,.72);backdrop-filter:blur(8px);border:1px solid color-mix(in srgb,var(--c) 55%,transparent);color:var(--c)}
+.pbody{display:flex;flex-direction:column;flex:1;padding:22px 22px 22px}
+.psub{font-size:12px;font-weight:700;color:var(--c);letter-spacing:.04em}
+.pbody h3{margin-top:4px;font-size:23px;font-weight:900;letter-spacing:-.02em}
+.pbody p{margin-top:10px;font-size:14px;color:var(--muted);line-height:1.7;min-height:72px}
+.pbody ul{margin:14px 0 20px;list-style:none;display:grid;gap:7px;font-size:13.5px;color:#d3d3e2}
+.pbody li{position:relative;padding-left:20px}
+.pbody li::before{content:'';position:absolute;left:2px;top:.55em;width:9px;height:5px;border-left:2px solid var(--c);border-bottom:2px solid var(--c);transform:rotate(-45deg)}
+.pfoot{margin-top:auto;padding-top:16px;border-top:1px solid var(--border)}
+.pprice{font-size:24px;font-weight:900;letter-spacing:-.02em}
+.pprice small{font-size:13px;font-weight:600;color:var(--muted2);margin-right:4px}
+.pbtns{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pbtns a,.pbtns span{min-height:46px;display:flex;align-items:center;justify-content:center;text-align:center;padding:11px 8px;border-radius:11px;font-size:13px;font-weight:800;line-height:1.3}
+.pbtns .go{background:var(--c);color:#0a0a12}
+.pbtns .ghost{border:1px solid var(--border);color:var(--muted)}
+.pbtns .ghost:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+.pbtns .off{font-size:11.5px;color:var(--muted2);font-weight:600}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s}
+.step{position:relative;padding:34px 28px;border:1px solid var(--border);border-radius:var(--r);background:rgba(255,255,255,.025)}
+.step::before{counter-increment:s;content:'0' counter(s);display:block;font-size:44px;font-weight:900;letter-spacing:-.03em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:12px}
+.step h3{font-size:20px;font-weight:800}
+.step p{margin-top:8px;color:var(--muted);font-size:14.5px}
+
+/* PRICING */
+.prows{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prow{display:flex;align-items:center;gap:16px;padding:18px 20px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.025);transition:border-color .2s,background .2s}
+.prow:hover{border-color:color-mix(in srgb,var(--c) 55%,transparent);background:rgba(255,255,255,.045)}
+.prow .dot{flex:none;width:10px;height:10px;border-radius:50%;background:var(--c);box-shadow:0 0 14px var(--c)}
+.pr-main{flex:1;min-width:0}
+.pr-main b{display:block;font-size:16px;font-weight:800}
+.pr-main span{display:block;font-size:12.5px;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr-price{flex:none;font-size:21px;font-weight:900;letter-spacing:-.02em}
+.pr-price small{font-size:12px;color:var(--muted2);font-weight:600}
+.prow button{flex:none;padding:11px 20px;border:0;border-radius:11px;background:var(--c);color:#0a0a12;font-weight:800;font-size:13.5px;cursor:pointer;transition:filter .15s,transform .15s}
+.prow button:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.pnote{margin-top:28px;padding:24px 28px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.025);font-size:13.5px;line-height:2;color:var(--muted)}
+.pnote b{color:#e8e8f4}
+.pnote b:first-child{display:block;margin-bottom:6px;color:var(--ac3);font-size:14.5px}
+.paynote{margin-top:22px;text-align:center;color:var(--muted2);font-size:13.5px}
+
+/* MANUAL */
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mitem{display:flex;flex-direction:column;gap:4px;padding:20px 22px;border:1px solid var(--border);border-left:3px solid var(--c);border-radius:14px;background:rgba(255,255,255,.025);transition:background .2s,transform .2s}
+a.mitem:hover{background:rgba(255,255,255,.06);transform:translateY(-2px)}
+.mitem b{font-size:15.5px;font-weight:800}
+.mitem span{font-size:12.5px;color:var(--muted2)}
+.mitem.off{opacity:.65}
+
+/* FAQ / COMMUNITY (기존 컴포넌트 다크 보정) */
+.sec{max-width:1200px;margin:0 auto;padding:120px 28px 0}
+.eyebrow{display:block;font-size:12px;font-weight:800;letter-spacing:.28em;color:var(--ac2);text-transform:uppercase;margin-bottom:14px;text-align:center}
+.sec-title{text-align:center;font-size:clamp(30px,4.6vw,52px);font-weight:900;letter-spacing:-.03em;line-height:1.15;color:var(--wd)}
+.sec-sub{max-width:560px;color:var(--muted);font-size:16.5px;text-align:center}
+.faq-list{max-width:780px;margin:48px auto 0}
+.faq-item{border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,.025);margin-bottom:10px;padding:0 24px}
+.faq-q{padding:20px 0;font-size:16px}
+.faq-q:hover{color:var(--ac3)}
+.board-tab{background:transparent;color:var(--muted);border-color:var(--border)}
+.board-tab.on{background:var(--grad);color:#07070d;border-color:transparent;box-shadow:none}
+.board-write-btn{background:#fff;color:#0b0b14}
+.board-list{background:rgba(255,255,255,.025);border-color:var(--border)}
+.board-item:hover{background:rgba(255,255,255,.04)}
+.board-modal,.modal-box{background:#10101c;border-color:var(--border-ac);color:var(--wd)}
+.board-type-btn{background:transparent}
+.board-modal input,.board-modal textarea,.modal-box input,.reply-input-wrap input{background:#0a0a14;color:var(--wd);border-color:var(--border)}
+.modal-box input:focus{background:#0a0a14}
+.modal{background:rgba(0,0,0,.65)}
+.btn-primary-modal,.btn-reply,.btn-board-submit,#copyBtn{background:var(--grad);color:#07070d;font-weight:800}
+.btn-cancel-modal,.btn-board-cancel{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn-google{background:#fff;color:#111}
+.mypage-panel{top:80px;background:#10101c;border-color:var(--border-ac);color:var(--wd)}
+.license-item{background:var(--bg3)}
+
+/* FINAL CTA */
+.final{position:relative;margin:140px 28px 0;border-radius:32px;overflow:hidden;padding:96px 28px;text-align:center;border:1px solid var(--border-ac);
+  background:radial-gradient(ellipse at 20% 0%,rgba(139,92,246,.5),transparent 55%),radial-gradient(ellipse at 90% 100%,rgba(34,211,238,.3),transparent 55%),#0b0b18}
+.final img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+.final>div{position:relative}
+.final h2{font-size:clamp(28px,4.4vw,50px);font-weight:900;letter-spacing:-.03em;line-height:1.2}
+.final p{margin:14px auto 30px;color:#c9c9dc;max-width:520px}
+
+/* FOOTER */
+footer{margin-top:120px;border-top:1px solid var(--border);background:#05050a;padding:64px 40px 110px}
+.fwrap{max-width:1200px;margin:0 auto}
+.footer-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:44px}
+.footer-brand .logo{font-size:18px;font-weight:900;letter-spacing:.2em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:12px}
+.footer-brand p{font-size:13px;color:var(--muted);max-width:300px;line-height:1.7}
+.footer-links{display:flex;gap:64px}
+.footer-col h4{font-size:11px;font-weight:800;letter-spacing:.2em;color:var(--muted2);text-transform:uppercase;margin-bottom:16px}
+.footer-col a{display:block;font-size:13.5px;color:var(--muted);margin-bottom:10px;transition:color .2s}
+.footer-col a:hover{color:#fff}
+.footer-bottom{border-top:1px solid var(--border);padding-top:26px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:var(--muted2)}
+.footer-biz{font-size:11.5px;line-height:1.9;text-align:right}
+.footer-bottom a{color:var(--muted);text-decoration:underline}
+
+/* REVEAL */
+.js-ready .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.js-ready .reveal.visible{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js-ready .reveal{opacity:1;transform:none;transition:none}.pill::before{animation:none}html{scroll-behavior:auto}}
+
+/* RESPONSIVE */
+@media (max-width:1100px){.pgrid{grid-template-columns:repeat(2,1fr)}.mgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:900px){
+  nav{padding:0 18px}.nav-links{display:none;position:fixed;top:72px;left:0;right:0;transform:none;flex-direction:column;gap:0;padding:12px 18px 20px;background:rgba(7,7,13,.97);border-bottom:1px solid var(--border)}
+  nav.open .nav-links{display:flex}.nav-links a{padding:14px 10px;font-size:16px}.nav-burger{display:block}.nav-logo em{display:none}
+  .steps{grid-template-columns:1fr}.prows{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--border)}
+  .footer-bottom{flex-direction:column}.footer-biz{text-align:left}.footer-links{gap:40px}
+}
+@media (max-width:640px){
+  .wrap,.sec{padding-left:18px;padding-right:18px}.hero{padding-top:128px}.block{padding-top:84px}.sec{padding-top:84px}
+  .pgrid{grid-template-columns:1fr}.mgrid{grid-template-columns:1fr 1fr}.pbody p{min-height:0}
+  .nav-cta,.nav-login{padding:8px 11px;font-size:13px}.nav-user-email{display:none}
+  .prow{flex-wrap:wrap}.pr-main{flex-basis:calc(100% - 30px)}.prow button{flex:1}.pr-price{flex:1}
+  .final{margin:90px 14px 0;padding:64px 20px;border-radius:24px}footer{padding:48px 20px 32px}.stage{border-radius:18px;margin-top:44px}
+}
+
 </style>
 </head>
 <body>
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="/" style="cursor:pointer;">
-    <img class="nav-logo-img" src="logo.png" alt="NOBLE ARC">
-    <span class="nav-logo-text">노블아크(NOBLE ARC)</span>
-  </a>
+
+<div class="bgfx"></div>
+<nav id="topnav">
+  <a class="nav-logo" href="/"><img src="logo.png" alt="NOBLE ARC"><b>NOBLE ARC</b><em>노블아크</em></a>
   <div class="nav-links">
-<a href="#lineup">프로그램</a>
-<a href="#subscription">요금제</a>
-<a href="#manuals">사용설명서</a>
-<a href="#faq">FAQ</a>
-<a href="#community">커뮤니티</a>
-</div>
+    <a href="#programs">프로그램</a><a href="#pricing">요금제</a><a href="#manuals">사용설명서</a><a href="#faq">FAQ</a><a href="#community">커뮤니티</a>
+  </div>
   <div class="nav-right">
-    <div class="nav-user" id="navUser">
-      <div class="nav-user-email" id="navUserEmail"></div>
-      <div class="nav-avatar" id="navAvatar" onclick="toggleMypage()">U</div>
-    </div>
+    <div class="nav-user" id="navUser"><div class="nav-user-email" id="navUserEmail"></div><div class="nav-avatar" id="navAvatar" onclick="toggleMypage()">U</div></div>
     <a class="nav-login" id="navLoginBtn" onclick="openAuthModal('login')">로그인</a>
     <a class="nav-cta" id="navSignupBtn" onclick="openAuthModal('signup')">회원가입</a>
+    <button class="nav-burger" id="navBurger" aria-label="메뉴">☰</button>
   </div>
 </nav>
 
@@ -496,79 +347,212 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
   </div>
   <button class="btn-logout" onclick="doLogout()">로그아웃</button>
 </div>
-<section class="hub-hero"><span class="tag">AI 콘텐츠 자동화 6종 라인업</span>
-<h1>콘텐츠 자동화,<br><em>노블아크 하나로</em></h1>
-<p class="sub">유튜브 · 쇼핑쇼츠 · 블로그 · 스레드 · 전자책 · 백테스트.<br>필요한 프로그램을 골라 월 단위로 시작하세요.</p>
-<div class="hub-btns"><a class="hub-btn main" href="#subscription">요금제 보기</a><a class="hub-btn" href="#lineup">프로그램 둘러보기</a><a class="hub-btn" href="#manuals">📖 사용설명서</a></div>
-<div class="chips"><a href="noblearc.html" style="color:#F2B544;border-color:#F2B544">노블아크</a><a href="vynko.html" style="color:#FF5A5F;border-color:#FF5A5F">VYNKO</a><a href="postia.html" style="color:#2FD6A0;border-color:#2FD6A0">포스티아</a><a href="backtest.html" style="color:#4DA3FF;border-color:#4DA3FF">백테스트 자동화</a><a href="postvane.html" style="color:#FF8A3D;border-color:#FF8A3D">POSTVANE</a><a href="aionbook.html" style="color:#9B7BFF;border-color:#9B7BFF">AIONBOOK</a></div></section>
-<section class="sec-wide" id="lineup"><div class="hub-title"><div class="eyebrow">LINE-UP</div><h2>6종 프로그램, 한눈에</h2><p>필요한 프로그램만 월 단위로 이용하세요.</p></div><div class="lineup"><div class="lcard" style="--c:#F2B544"><div class="n">PROGRAM 01</div><h3>노블아크</h3><div class="sb">NOBLE ARC · 롱폼 + 쇼츠</div>
-<p>키워드 하나로 완성형 유튜브 영상을 만드는 롱폼 · 쇼츠 자동화</p><ul><li>딸깍 전자동 제작</li><li>7개 언어 다국어 채널</li><li>롱폼 AI 에이전트</li></ul><div class="pr">쇼츠 22,000원 · 롱폼 29,000원 · 번들 <b>45,000원</b></div>
-<div class="bt"><a href="noblearc.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#FF5A5F"><div class="n">PROGRAM 02</div><h3>VYNKO</h3><div class="sb">쿠팡파트너스 쇼핑쇼츠</div>
-<p>쿠팡파트너스 쇼핑쇼츠를 상품 검색부터 업로드까지 자동 제작</p><ul><li>상품 소싱 + 딥링크 자동</li><li>대본 6종 + 보이스 필터 15종</li><li>(광고) 표시 자동 삽입</li></ul><div class="pr">월 <b>27,000원</b></div>
-<div class="bt"><a href="vynko.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#2FD6A0"><div class="n">PROGRAM 03</div><h3>포스티아</h3><div class="sb">Postia · 블로그 자동화</div>
-<p>키워드 하나로 4개 블로그 플랫폼에 글을 자동 발행</p><ul><li>SEO 본문 자동 작성</li><li>자는 동안에도 발행</li><li>4가지 발행 모드</li></ul><div class="pr">월 <b>25,000원</b></div>
-<div class="bt"><a href="postia.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#4DA3FF"><div class="n">PROGRAM 04</div><h3>백테스트 자동화</h3><div class="sb">대화형 AI 정밀 백테스트</div>
-<p>코딩 없이 대화로 매매 아이디어를 1분봉까지 정밀 검증</p><ul><li>대화로 끝내는 조건 설정</li><li>신호와 체결을 분리 판정</li><li>현물부터 선물까지</li></ul><div class="pr">월 <b>25,000원</b></div>
-<div class="bt"><a href="backtest.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#FF8A3D"><div class="n">PROGRAM 05</div><h3>POSTVANE</h3><div class="sb">스레드 계정 자동 운영</div>
-<p>운영 방향만 정하면 스레드 계정이 알아서 굴러가는 자동 운영</p><ul><li>수집 → 점수화 → 내 말투로 재작성</li><li>4컷 만화 자동 생성</li><li>천천히, 안전하게 발행</li></ul><div class="pr">월 <b>19,000원</b></div>
-<div class="bt"><a href="postvane.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div><div class="lcard" style="--c:#9B7BFF"><div class="n">PROGRAM 06</div><h3>AIONBOOK</h3><div class="sb">AI 전자책 제작 에디터</div>
-<p>주제 하나로 기획 · 집필 · 표지 · 조판까지 전자책 한 권 완성</p><ul><li>기획·집필·표지·조판 올인원</li><li>디자인 5종 · 문체 4종</li><li>유페이퍼·작가와 등록정보</li></ul><div class="pr">월 <b>9,000원</b></div>
-<div class="bt"><a href="aionbook.html">자세히 보기</a><button onclick="document.getElementById('subscription').scrollIntoView({behavior:'smooth'})">요금제 보기</button></div></div></div></section>
-<section id="mellodrift" style="padding:90px 24px 80px;background:radial-gradient(ellipse 70% 55% at 50% 35%,#18206a 0%,#060a22 72%);color:#eef0ff;font-family:'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif">
-<div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:44px;align-items:center;justify-content:center">
-<div style="flex:1 1 440px;max-width:560px">
-<div style="display:inline-block;padding:7px 16px;border-radius:999px;background:linear-gradient(90deg,#7dd8ff,#6f8dff 45%,#b17cff);color:#0b0f2e;font-size:13px;font-weight:900;letter-spacing:.08em">NEW · 별도 상품</div>
-<h2 style="margin-top:18px;font-size:40px;font-weight:900;line-height:1.3;color:#fff">설정 1분이면 끝!<br><span style="background:linear-gradient(90deg,#7dd8ff,#6f8dff 45%,#b17cff);-webkit-background-clip:text;background-clip:text;color:transparent">유튜브 음악 플레이리스트 채널 100% 자동화</span></h2>
-<p style="margin-top:18px;font-size:17px;line-height:1.8;color:#c9cef0">카테고리만 고르면 AI가 음악 · 가사 자막 · 영상 · 썸네일을 만들고 유튜브 예약 업로드까지 끝냅니다. 장르 25 · 상황 12 · 보컬 19 · 연출 7종, 최대 30곡 롱폼 믹스. 크레딧 충전 없이 본인 API로 생성 원가 그대로 씁니다.</p>
-<div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:10px"><a href="mellodrift.html" style="padding:13px 22px;border-radius:12px;border:1px solid rgba(160,170,255,.45);color:#fff;text-decoration:none;font-weight:800">자세히 보기</a><a href="mellodrift-manual.html" target="_blank" style="padding:13px 22px;border-radius:12px;border:1px solid rgba(160,170,255,.25);color:#cfd4ff;text-decoration:none;font-weight:700">📖 사용설명서</a></div>
-</div>
-<div style="flex:0 1 380px;width:100%;max-width:400px;padding:34px 28px 28px;border-radius:24px;border:1.5px solid rgba(160,140,255,.75);background:linear-gradient(160deg,rgba(111,141,255,.16),rgba(177,124,255,.10) 60%,rgba(255,255,255,.03));box-shadow:0 0 60px rgba(130,110,255,.25)">
-<div style="display:flex;align-items:center;gap:12px"><img src="pimg/mellodrift/icon.jpg" alt="" style="width:46px;height:46px;border-radius:12px"><div><div style="font-size:12px;font-weight:800;letter-spacing:.16em;color:#7dd8ff">MELLODRIFT</div><div style="font-size:18px;font-weight:900;color:#fff">Mellodrift 1개월 이용권</div></div></div>
-<div style="margin:16px 0 2px;font-size:46px;font-weight:900;color:#fff">₩22,000<span style="font-size:17px;font-weight:700;opacity:.75"> /월</span></div>
-<div style="font-size:13px;color:#9aa3d6">월 단위 결제 · 이용 기간 종료 후 재결제</div>
-<ul style="list-style:none;margin:18px 0 22px;padding:16px 0 0;border-top:1px solid rgba(160,170,255,.2);font-size:15px;line-height:1.9;color:#d6daf7"><li>✔ 라이선스 키 (1 PC) · 사용설명서</li><li>✔ 음악부터 유튜브 예약 업로드까지 자동</li><li>✔ 🎁 AI 플레이리스트 채널 수익화 강의전자책</li><li>✔ 이용 기간 중 업데이트 무료</li></ul>
-<button onclick="openBuyModal('mellodrift')" style="width:100%;padding:16px;border:0;border-radius:14px;background:linear-gradient(90deg,#7dd8ff,#6f8dff 45%,#b17cff);color:#0b0f2e;font-size:17px;font-weight:900;cursor:pointer">시작하기</button>
-<div style="margin-top:10px;font-size:12px;color:#9aa3d6">※ API 사용료 별도 · Windows 10 · 11 (64비트) 전용</div>
-</div></div></section>
-<section id="geniusnovel" style="padding:90px 24px 80px;background:radial-gradient(ellipse 70% 55% at 50% 35%,#17204a 0%,#070a18 72%);color:#f5efe2;font-family:'Pretendard','Noto Sans KR','Malgun Gothic',sans-serif">
-<div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:44px;align-items:center;justify-content:center">
-<div style="flex:1 1 440px;max-width:560px">
-<div style="display:inline-block;padding:7px 16px;border-radius:999px;background:linear-gradient(90deg,#fff1c4,#e8c97a 45%,#c9a84c);color:#1a1408;font-size:13px;font-weight:900;letter-spacing:.08em">NEW · 별도 상품</div>
-<h2 style="margin-top:18px;font-size:40px;font-weight:900;line-height:1.3;color:#fff;word-break:keep-all">설정 꼬임 끝!<br><span style="background:linear-gradient(90deg,#fff1c4,#e8c97a 45%,#c9a84c);-webkit-background-clip:text;background-clip:text;color:transparent">웹소설 작가를 위한 올인원 AI 집필 스튜디오</span></h2>
-<p style="margin-top:18px;font-size:17px;line-height:1.8;color:#d9d3c4">원고는 작가가 쓰고, AI는 필요할 때만 거듭니다. 인물 · 플롯 · 세계관 설정 관리, 막힐 때 이어쓰기와 다시쓰기 6종, 설정과 어긋난 문장을 찾는 일관성 검사, 맞춤법 · 클리셰 · 독자 반응 퇴고 도구, 유페이퍼 · 작가와 출간용 PDF와 표지까지 한 프로그램에서.</p>
-<div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:10px"><a href="geniusnovel.html" style="padding:13px 22px;border-radius:12px;border:1px solid rgba(232,201,122,.5);color:#fff;text-decoration:none;font-weight:800">자세히 보기</a><a href="geniusnovel-manual.html" target="_blank" style="padding:13px 22px;border-radius:12px;border:1px solid rgba(232,201,122,.28);color:#e6dfcf;text-decoration:none;font-weight:700">📖 사용설명서</a></div>
-</div>
-<div style="flex:0 1 380px;width:100%;max-width:400px;padding:34px 28px 28px;border-radius:24px;border:1.5px solid rgba(232,201,122,.7);background:linear-gradient(160deg,rgba(232,201,122,.12),rgba(155,140,255,.08) 60%,rgba(255,255,255,.03));box-shadow:0 0 60px rgba(232,201,122,.18)">
-<div style="display:flex;align-items:center;gap:12px"><img src="pimg/geniusnovel/icon.jpg" alt="" style="width:46px;height:46px;border-radius:12px"><div><div style="font-size:12px;font-weight:800;letter-spacing:.16em;color:#e8c97a">GENIUS NOVEL</div><div style="font-size:18px;font-weight:900;color:#fff">Genius Novel 1개월 이용권</div></div></div>
-<div style="margin:16px 0 2px;font-size:46px;font-weight:900;color:#fff">₩19,000<span style="font-size:17px;font-weight:700;opacity:.75"> /월</span></div>
-<div style="font-size:13px;color:#a9a6b8">월 단위 결제 · 이용 기간 종료 후 재결제</div>
-<ul style="list-style:none;margin:18px 0 22px;padding:16px 0 0;border-top:1px solid rgba(232,201,122,.22);font-size:15px;line-height:1.9;color:#e6dfcf"><li>✔ 라이선스 키 (1 PC) · 사용설명서 · 사용설명 영상</li><li>✔ 기획 · 집필 · 자료 · 편집 · 출판 5개 작업실</li><li>✔ 유페이퍼 · 작가와 출간용 PDF · AI 표지</li><li>✔ 이용 기간 중 업데이트 무료</li></ul>
-<button onclick="openBuyModal('geniusnovel')" style="width:100%;padding:16px;border:0;border-radius:14px;background:linear-gradient(90deg,#fff1c4,#e8c97a 45%,#c9a84c);color:#1a1408;font-size:17px;font-weight:900;cursor:pointer">시작하기</button>
-<div style="margin-top:10px;font-size:12px;color:#a9a6b8">※ API 사용료 별도 · Windows 10 · 11 (64비트) 전용</div>
-</div></div></section>
-<div class="sub-section" id="subscription"><section class="sec-wide"><div class="hub-title"><div class="eyebrow">이용 요금</div><h2>합리적인 가격으로 시작하세요</h2><p>월 단위 단건 결제로 부담 없이 시작하세요.</p></div>
-<div class="pay-type-toggle" id="payTypeToggle" style="display:none"><button class="pay-type-btn on" id="btnSingle"></button><button class="pay-type-btn" id="btnSub"></button></div><div id="subNoticeBanner" style="display:none"></div>
-<div class="pgrid"><div class="pcd" style="--c:#F2B544" data-prod="shorts"><div class="bd">NOBLE ARC · SHORTS</div><div class="nm">노블아크 쇼츠</div><div class="ds">쇼츠 채널 전용 자동화</div>
-<div class="pc">₩22,000<small> /월</small></div><div class="og">₩34,000/월</div><div class="dc">35% 할인</div><div class="bl">월 단위 결제 · 수동 갱신</div>
-<button onclick="openBuyModal('shorts')">시작하기</button><div class="nt">※ API 사용료 별도 · Google $300 무료 크레딧 활용 가능</div></div><div class="pcd hl" style="--c:#F2B544" data-prod="longform"><div class="bd">NOBLE ARC · LONGFORM</div><div class="nm">노블아크 롱폼</div><div class="ds">롱폼 채널 전용 고급 자동화</div>
-<div class="pc">₩29,000<small> /월</small></div><div class="og">₩42,000/월</div><div class="dc">31% 할인</div><div class="bl">월 단위 결제 · 수동 갱신</div>
-<button onclick="openBuyModal('longform')">시작하기</button><div class="nt">※ API 사용료 별도 · Google $300 무료 크레딧 활용 가능</div></div><div class="pcd" style="--c:#F2B544" data-prod="bundle"><div class="bd">NOBLE ARC · BUNDLE</div><div class="nm">노블아크 쇼츠+롱폼</div><div class="ds">두 가지를 모두 운영하는 스마트한 선택</div>
-<div class="pc">₩45,000<small> /월</small></div><div class="og">₩65,000/월</div><div class="dc">31% 할인</div><div class="bl">월 단위 결제 · 수동 갱신</div>
-<button onclick="openBuyModal('bundle')">시작하기</button><div class="nt">※ API 사용료 별도 · Google $300 무료 크레딧 활용 가능</div></div><div class="pcd" style="--c:#FF5A5F" data-prod="vynko"><div class="bd">VYNKO</div><div class="nm">VYNKO 쇼핑쇼츠</div><div class="ds">쿠팡파트너스 쇼핑쇼츠 자동화</div>
-<div class="pc">₩27,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
-<button onclick="openBuyModal('vynko')">시작하기</button><div class="nt">※ API 사용료 별도 · 상품 이미지 → 영상 전환 무료 제공</div></div><div class="pcd" style="--c:#2FD6A0" data-prod="postia"><div class="bd">POSTIA</div><div class="nm">포스티아 블로그</div><div class="ds">4개 플랫폼 블로그 자동 발행</div>
-<div class="pc">₩25,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
-<button onclick="openBuyModal('postia')">시작하기</button><div class="nt">※ API 사용료 별도 · Google $300 무료 크레딧 활용 가능</div></div><div class="pcd" style="--c:#4DA3FF" data-prod="backtest"><div class="bd">BACKTEST</div><div class="nm">백테스트 자동화</div><div class="ds">대화형 AI 정밀 백테스트</div>
-<div class="pc">₩25,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
-<button onclick="openBuyModal('backtest')">시작하기</button><div class="nt">※ API 사용료 별도</div></div><div class="pcd" style="--c:#FF8A3D" data-prod="postvane"><div class="bd">POSTVANE</div><div class="nm">POSTVANE 스레드</div><div class="ds">스레드 계정 자동 운영</div>
-<div class="pc">₩19,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
-<button onclick="openBuyModal('postvane')">시작하기</button><div class="nt">※ API 사용료 별도</div></div><div class="pcd" style="--c:#9B7BFF" data-prod="aionbook"><div class="bd">AIONBOOK</div><div class="nm">AIONBOOK 전자책</div><div class="ds">AI 전자책 제작 에디터</div>
-<div class="pc">₩9,000<small> /월</small></div><div class="bl">월 단위 결제 · 수동 갱신</div>
-<button onclick="openBuyModal('aionbook')">시작하기</button><div class="nt">※ API 사용료 별도</div></div></div>
-<p class="pricing-note" id="priceNote" style="text-align:center;margin-top:26px;color:var(--muted);font-size:14px">결제 후 즉시 라이선스 발급 · 이용 기간 종료 후 재결제 방식</p>
-<div class="pnote"><b>꼭 확인해 주세요</b><br>· 각 프로그램은 <b>1대의 PC</b>에서 사용할 수 있으며, 기기 초기화를 통해 기기를 변경할 수 있습니다.<br>· 프로그램별 <b>동시 사용</b>이 가능합니다. 단, API 키가 중복된 경우 <b>순차적 사용</b>을 권장합니다.<br>· <b>API 사용료는 이용료와 별도</b>이며 본인 API 키 기준으로 발생합니다.<br>· Google $300 무료 크레딧은 노블아크, 포스티아에서 활용할 수 있습니다 (Google 신규 가입 조건 적용).<br>· VYNKO의 상품 이미지 → 영상 전환 기능은 무료로 제공해 드립니다.<br>· 백테스트는 과거 데이터 기반 검증 도구이며 수익이나 승률을 보장하지 않습니다.<br>· Windows 10 이상 · 설치형 데스크톱 프로그램입니다.</div></section></div>
-<section class="sec-wide" id="manuals" style="padding-top:20px"><div class="hub-title"><div class="eyebrow">MANUAL</div><h2>사용설명서</h2></div><div class="mlist"><a href="manual.html" target="_blank" style="border-color:#F2B544">노블아크 사용설명서<span>바로 보기</span></a><a class="off">VYNKO 사용설명서<span>구매 후 이메일로 안내</span></a><a href="postia-manual.html" target="_blank" style="border-color:#2FD6A0">포스티아 사용설명서<span>바로 보기</span></a><a class="off">백테스트 자동화 사용설명서<span>구매 후 이메일로 안내</span></a><a class="off">POSTVANE 사용설명서<span>구매 후 이메일로 안내</span></a><a href="aionbook-manual.html" target="_blank" style="border-color:#9B7BFF">AIONBOOK 사용설명서<span>바로 보기</span></a><a href="mellodrift-manual.html" target="_blank" style="border-color:#8C7BFF">Mellodrift 사용설명서<span>바로 보기</span></a><a href="geniusnovel-manual.html" target="_blank" style="border-color:#E8C97A">Genius Novel 사용설명서<span>바로 보기</span></a></div></section>
+
+
+<header class="hero"><div class="wrap">
+  <span class="pill">AI 콘텐츠 자동화 솔루션 8종</span>
+  <h1>만드는 일은 AI에게,<br><span>당신은 성장에만</span></h1>
+  <p class="lead">유튜브 · 쇼핑쇼츠 · 블로그 · 스레드 · 전자책 · 음악 · 웹소설 · 백테스트.<br>필요한 프로그램만 골라 월 단위로 시작하세요.</p>
+  <div class="cta-row"><a class="btn main" href="#pricing">요금제 보기</a><a class="btn line" href="#programs">프로그램 둘러보기</a></div>
+  <div class="stage reveal"><img src="hp/hero.jpg" alt="NOBLE ARC 프로그램 화면" onerror="this.remove()"></div>
+  <div class="stats reveal">
+    <div class="stat"><b>8종</b><span>AI 자동화 프로그램</span></div>
+    <div class="stat"><b>9,000원~</b><span>월 이용료</span></div>
+    <div class="stat"><b>즉시</b><span>결제 후 키 발급</span></div>
+    <div class="stat"><b>1 PC</b><span>기기 초기화로 변경 가능</span></div>
+  </div>
+</div></header>
+
+<section class="block" id="programs"><div class="wrap">
+  <div class="head reveal"><div class="eb">Programs</div><h2>8가지 자동화, 한눈에</h2><p>필요한 프로그램만 골라 월 단위로 이용하세요.</p></div>
+  <div class="pgrid">
+    <article class="pcard reveal" style="--c:#F2B544">
+      <a class="pimg" href="noblearc.html" aria-label="노블아크 자세히 보기">
+        <span class="pglow"></span><span class="pmark">노</span>
+        <img src="hp/p-noblearc.jpg" alt="노블아크 화면" loading="lazy" onerror="this.remove()">
+        <span class="ptag">유튜브 영상</span>
+      </a>
+      <div class="pbody">
+        <div class="psub">NOBLE ARC · 롱폼 + 쇼츠</div>
+        <h3>노블아크</h3>
+        <p>키워드 하나로 완성형 유튜브 영상을 만드는 롱폼 · 쇼츠 자동화</p>
+        <ul><li>딸깍 전자동 제작</li><li>7개 언어 다국어 채널</li><li>롱폼 AI 에이전트</li></ul>
+        <div class="pfoot"><div class="pprice"><small>월</small> 22,000원~</div>
+          <div class="pbtns"><a class="go" href="noblearc.html">자세히 보기</a><a class="ghost" href="manual.html" target="_blank" rel="noopener">사용설명서</a></div></div>
+      </div>
+    </article>
+    <article class="pcard reveal" style="--c:#FF5A5F">
+      <a class="pimg" href="vynko.html" aria-label="VYNKO 자세히 보기">
+        <span class="pglow"></span><span class="pmark">V</span>
+        <img src="hp/p-vynko.jpg" alt="VYNKO 화면" loading="lazy" onerror="this.remove()">
+        <span class="ptag">쇼핑 쇼츠</span>
+      </a>
+      <div class="pbody">
+        <div class="psub">쿠팡파트너스 쇼핑쇼츠</div>
+        <h3>VYNKO</h3>
+        <p>쿠팡파트너스 쇼핑쇼츠를 상품 검색부터 업로드까지 자동 제작</p>
+        <ul><li>상품 소싱 + 딥링크 자동</li><li>대본 6종 + 보이스 필터 15종</li><li>(광고) 표시 자동 삽입</li></ul>
+        <div class="pfoot"><div class="pprice"><small>월</small> 27,000원</div>
+          <div class="pbtns"><a class="go" href="vynko.html">자세히 보기</a><a class="ghost" href="vynko-manual.pdf" target="_blank" rel="noopener">사용설명서</a></div></div>
+      </div>
+    </article>
+    <article class="pcard reveal" style="--c:#2FD6A0">
+      <a class="pimg" href="postia.html" aria-label="포스티아 자세히 보기">
+        <span class="pglow"></span><span class="pmark">포</span>
+        <img src="hp/p-postia.jpg" alt="포스티아 화면" loading="lazy" onerror="this.remove()">
+        <span class="ptag">블로그</span>
+      </a>
+      <div class="pbody">
+        <div class="psub">Postia · 블로그 자동화</div>
+        <h3>포스티아</h3>
+        <p>키워드 하나로 4개 블로그 플랫폼에 글을 자동 발행</p>
+        <ul><li>SEO 본문 자동 작성</li><li>자는 동안에도 발행</li><li>4가지 발행 모드</li></ul>
+        <div class="pfoot"><div class="pprice"><small>월</small> 25,000원</div>
+          <div class="pbtns"><a class="go" href="postia.html">자세히 보기</a><a class="ghost" href="postia-manual.html" target="_blank" rel="noopener">사용설명서</a></div></div>
+      </div>
+    </article>
+    <article class="pcard reveal" style="--c:#4DA3FF">
+      <a class="pimg" href="backtest.html" aria-label="백테스트 자동화 자세히 보기">
+        <span class="pglow"></span><span class="pmark">백</span>
+        <img src="hp/p-backtest.jpg" alt="백테스트 자동화 화면" loading="lazy" onerror="this.remove()">
+        <span class="ptag">투자 검증</span>
+      </a>
+      <div class="pbody">
+        <div class="psub">대화형 AI 정밀 백테스트</div>
+        <h3>백테스트 자동화</h3>
+        <p>코딩 없이 대화로 매매 아이디어를 1분봉까지 정밀 검증</p>
+        <ul><li>대화로 끝내는 조건 설정</li><li>신호와 체결을 분리 판정</li><li>현물부터 선물까지</li></ul>
+        <div class="pfoot"><div class="pprice"><small>월</small> 25,000원</div>
+          <div class="pbtns"><a class="go" href="backtest.html">자세히 보기</a><a class="ghost" href="https://precision-backtest-payment.vercel.app/api/download?file=manual" target="_blank" rel="noopener">사용설명서</a></div></div>
+      </div>
+    </article>
+    <article class="pcard reveal" style="--c:#FF8A3D">
+      <a class="pimg" href="postvane.html" aria-label="POSTVANE 자세히 보기">
+        <span class="pglow"></span><span class="pmark">P</span>
+        <img src="hp/p-postvane.jpg" alt="POSTVANE 화면" loading="lazy" onerror="this.remove()">
+        <span class="ptag">스레드</span>
+      </a>
+      <div class="pbody">
+        <div class="psub">스레드 계정 자동 운영</div>
+        <h3>POSTVANE</h3>
+        <p>운영 방향만 정하면 스레드 계정이 알아서 굴러가는 자동 운영</p>
+        <ul><li>수집 → 점수화 → 내 말투로 재작성</li><li>4컷 만화 자동 생성</li><li>천천히, 안전하게 발행</li></ul>
+        <div class="pfoot"><div class="pprice"><small>월</small> 19,000원</div>
+          <div class="pbtns"><a class="go" href="postvane.html">자세히 보기</a><a class="ghost" href="postvane-manual.pdf" target="_blank" rel="noopener">사용설명서</a></div></div>
+      </div>
+    </article>
+    <article class="pcard reveal" style="--c:#9B7BFF">
+      <a class="pimg" href="aionbook.html" aria-label="AIONBOOK 자세히 보기">
+        <span class="pglow"></span><span class="pmark">A</span>
+        <img src="hp/p-aionbook.jpg" alt="AIONBOOK 화면" loading="lazy" onerror="this.remove()">
+        <span class="ptag">전자책</span>
+      </a>
+      <div class="pbody">
+        <div class="psub">AI 전자책 제작 에디터</div>
+        <h3>AIONBOOK</h3>
+        <p>주제 하나로 기획 · 집필 · 표지 · 조판까지 전자책 한 권 완성</p>
+        <ul><li>기획·집필·표지·조판 올인원</li><li>디자인 5종 · 문체 4종</li><li>유페이퍼·작가와 등록정보</li></ul>
+        <div class="pfoot"><div class="pprice"><small>월</small> 9,000원</div>
+          <div class="pbtns"><a class="go" href="aionbook.html">자세히 보기</a><a class="ghost" href="aionbook-manual.html" target="_blank" rel="noopener">사용설명서</a></div></div>
+      </div>
+    </article>
+    <article class="pcard reveal" style="--c:#7DB8FF">
+      <a class="pimg" href="mellodrift.html" aria-label="Mellodrift 자세히 보기">
+        <span class="pglow"></span><span class="pmark">M</span>
+        <img src="hp/p-mellodrift.jpg" alt="Mellodrift 화면" loading="lazy" onerror="this.remove()">
+        <span class="ptag">NEW · 음악</span>
+      </a>
+      <div class="pbody">
+        <div class="psub">AI 음악 플레이리스트 채널</div>
+        <h3>Mellodrift</h3>
+        <p>카테고리만 고르면 음악 · 가사 자막 · 영상 · 썸네일을 만들고 유튜브 예약 업로드까지</p>
+        <ul><li>장르 25 · 상황 12 · 보컬 19</li><li>최대 30곡 롱폼 믹스</li><li>강의전자책 무료 제공</li></ul>
+        <div class="pfoot"><div class="pprice"><small>월</small> 22,000원</div>
+          <div class="pbtns"><a class="go" href="mellodrift.html">자세히 보기</a><a class="ghost" href="mellodrift-manual.html" target="_blank" rel="noopener">사용설명서</a></div></div>
+      </div>
+    </article>
+    <article class="pcard reveal" style="--c:#E8C97A">
+      <a class="pimg" href="geniusnovel.html" aria-label="Genius Novel 자세히 보기">
+        <span class="pglow"></span><span class="pmark">G</span>
+        <img src="hp/p-geniusnovel.jpg" alt="Genius Novel 화면" loading="lazy" onerror="this.remove()">
+        <span class="ptag">NEW · 웹소설</span>
+      </a>
+      <div class="pbody">
+        <div class="psub">AI 웹소설 집필 스튜디오</div>
+        <h3>Genius Novel</h3>
+        <p>원고는 작가가 쓰고, AI는 필요할 때만 거듭니다. 설정 관리부터 출간용 PDF까지</p>
+        <ul><li>인물 · 플롯 · 세계관 설정 관리</li><li>이어쓰기·다시쓰기 6종 + 일관성 검사</li><li>유페이퍼 · 작가와 출간 PDF</li></ul>
+        <div class="pfoot"><div class="pprice"><small>월</small> 19,000원</div>
+          <div class="pbtns"><a class="go" href="geniusnovel.html">자세히 보기</a><a class="ghost" href="geniusnovel-manual.html" target="_blank" rel="noopener">사용설명서</a></div></div>
+      </div>
+    </article>
+  </div>
+</div></section>
+
+<section class="block" id="how"><div class="wrap">
+  <div class="head reveal"><div class="eb">How it works</div><h2>구매부터 실행까지, 3단계</h2></div>
+  <div class="steps">
+    <div class="step reveal"><h3>프로그램 선택 · 결제</h3><p>원하는 프로그램을 고르고 결제하면 즉시 라이선스 키가 발급됩니다.</p></div>
+    <div class="step reveal"><h3>이메일 확인</h3><p>라이선스 키와 다운로드 링크, 사용설명서, 사용설명 영상이 메일로 도착합니다.</p></div>
+    <div class="step reveal"><h3>설치 · 키 입력</h3><p>설치 후 키를 한 번만 입력하면 바로 사용할 수 있습니다.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="pricing"><div class="wrap">
+  <div class="head reveal"><div class="eb">Pricing</div><h2>합리적인 가격, 월 단위 결제</h2><p>약정 없이 필요한 달만 이용하세요.</p></div>
+  <div class="prows reveal">
+      <div class="prow" style="--c:#F2B544" data-prod="shorts"><i class="dot"></i>
+        <div class="pr-main"><b>노블아크 쇼츠</b><span>쇼츠 채널 전용 자동화</span></div>
+        <div class="pr-price">₩22,000<small>/월</small></div>
+        <button onclick="openBuyModal('shorts')">시작하기</button></div>
+      <div class="prow" style="--c:#F2B544" data-prod="longform"><i class="dot"></i>
+        <div class="pr-main"><b>노블아크 롱폼</b><span>롱폼 채널 전용 고급 자동화</span></div>
+        <div class="pr-price">₩29,000<small>/월</small></div>
+        <button onclick="openBuyModal('longform')">시작하기</button></div>
+      <div class="prow" style="--c:#F2B544" data-prod="bundle"><i class="dot"></i>
+        <div class="pr-main"><b>노블아크 쇼츠 + 롱폼</b><span>두 가지를 모두 운영하는 스마트한 선택</span></div>
+        <div class="pr-price">₩45,000<small>/월</small></div>
+        <button onclick="openBuyModal('bundle')">시작하기</button></div>
+      <div class="prow" style="--c:#FF5A5F" data-prod="vynko"><i class="dot"></i>
+        <div class="pr-main"><b>VYNKO 쇼핑쇼츠</b><span>쿠팡파트너스 쇼핑쇼츠 자동화</span></div>
+        <div class="pr-price">₩27,000<small>/월</small></div>
+        <button onclick="openBuyModal('vynko')">시작하기</button></div>
+      <div class="prow" style="--c:#2FD6A0" data-prod="postia"><i class="dot"></i>
+        <div class="pr-main"><b>포스티아 블로그</b><span>4개 플랫폼 블로그 자동 발행</span></div>
+        <div class="pr-price">₩25,000<small>/월</small></div>
+        <button onclick="openBuyModal('postia')">시작하기</button></div>
+      <div class="prow" style="--c:#4DA3FF" data-prod="backtest"><i class="dot"></i>
+        <div class="pr-main"><b>백테스트 자동화</b><span>대화형 AI 정밀 백테스트</span></div>
+        <div class="pr-price">₩25,000<small>/월</small></div>
+        <button onclick="openBuyModal('backtest')">시작하기</button></div>
+      <div class="prow" style="--c:#FF8A3D" data-prod="postvane"><i class="dot"></i>
+        <div class="pr-main"><b>POSTVANE 스레드</b><span>스레드 계정 자동 운영</span></div>
+        <div class="pr-price">₩19,000<small>/월</small></div>
+        <button onclick="openBuyModal('postvane')">시작하기</button></div>
+      <div class="prow" style="--c:#9B7BFF" data-prod="aionbook"><i class="dot"></i>
+        <div class="pr-main"><b>AIONBOOK 전자책</b><span>AI 전자책 제작 에디터</span></div>
+        <div class="pr-price">₩9,000<small>/월</small></div>
+        <button onclick="openBuyModal('aionbook')">시작하기</button></div>
+      <div class="prow" style="--c:#7DB8FF" data-prod="mellodrift"><i class="dot"></i>
+        <div class="pr-main"><b>Mellodrift 음악</b><span>AI 음악 플레이리스트 자동화</span></div>
+        <div class="pr-price">₩22,000<small>/월</small></div>
+        <button onclick="openBuyModal('mellodrift')">시작하기</button></div>
+      <div class="prow" style="--c:#E8C97A" data-prod="geniusnovel"><i class="dot"></i>
+        <div class="pr-main"><b>Genius Novel 웹소설</b><span>AI 웹소설 집필 스튜디오</span></div>
+        <div class="pr-price">₩19,000<small>/월</small></div>
+        <button onclick="openBuyModal('geniusnovel')">시작하기</button></div>
+  </div>
+  <p class="paynote" id="priceNote">결제 후 즉시 라이선스 발급 · 이용 기간 종료 후 재결제 방식</p>
+  <div class="pnote"><b>꼭 확인해 주세요</b><br>· 각 프로그램은 <b>1대의 PC</b>에서 사용할 수 있으며, 기기 초기화를 통해 기기를 변경할 수 있습니다.<br>· 프로그램별 <b>동시 사용</b>이 가능합니다. 단, API 키가 중복된 경우 <b>순차적 사용</b>을 권장합니다.<br>· <b>API 사용료는 이용료와 별도</b>이며 본인 API 키 기준으로 발생합니다.<br>· Google $300 무료 크레딧은 노블아크, 포스티아에서 활용할 수 있습니다 (Google 신규 가입 조건 적용).<br>· VYNKO의 상품 이미지 → 영상 전환 기능은 무료로 제공해 드립니다.<br>· 백테스트는 과거 데이터 기반 검증 도구이며 수익이나 승률을 보장하지 않습니다.<br>· Windows 10 이상 · 설치형 데스크톱 프로그램입니다.</div>
+</div></section>
+
+<section class="block" id="manuals"><div class="wrap">
+  <div class="head reveal"><div class="eb">Manual</div><h2>사용설명서</h2></div>
+  <div class="mgrid reveal"><a class="mitem" style="--c:#F2B544" href="manual.html" target="_blank" rel="noopener"><b>노블아크</b><span>바로 보기 →</span></a><a class="mitem" style="--c:#FF5A5F" href="vynko-manual.pdf" target="_blank" rel="noopener"><b>VYNKO</b><span>바로 보기 →</span></a><a class="mitem" style="--c:#2FD6A0" href="postia-manual.html" target="_blank" rel="noopener"><b>포스티아</b><span>바로 보기 →</span></a><a class="mitem" style="--c:#4DA3FF" href="https://precision-backtest-payment.vercel.app/api/download?file=manual" target="_blank" rel="noopener"><b>백테스트 자동화</b><span>바로 보기 →</span></a><a class="mitem" style="--c:#FF8A3D" href="postvane-manual.pdf" target="_blank" rel="noopener"><b>POSTVANE</b><span>바로 보기 →</span></a><a class="mitem" style="--c:#9B7BFF" href="aionbook-manual.html" target="_blank" rel="noopener"><b>AIONBOOK</b><span>바로 보기 →</span></a><a class="mitem" style="--c:#7DB8FF" href="mellodrift-manual.html" target="_blank" rel="noopener"><b>Mellodrift</b><span>바로 보기 →</span></a><a class="mitem" style="--c:#E8C97A" href="geniusnovel-manual.html" target="_blank" rel="noopener"><b>Genius Novel</b><span>바로 보기 →</span></a></div>
+</div></section>
+
 <section class="sec" id="faq" style="padding-top:80px;"><div style="text-align:center;"><div class="eyebrow">FAQ</div><h2 class="sec-title">자주 묻는 질문</h2></div><div class="faq-list"><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">구매 후 어떻게 프로그램을 받을 수 있나요?</div><div class="faq-a">결제 완료 후 이메일로 라이선스 키, 프로그램 다운로드 링크, 사용설명서 링크가 발송됩니다. 라이선스 키는 한 번만 입력하면 이후 자동으로 활성화됩니다. Windows 전용 프로그램입니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">몇 대의 PC에서 사용할 수 있나요?</div><div class="faq-a">각 프로그램당 1대의 PC에서 사용할 수 있습니다. 기기 초기화를 통해 기기를 변경할 수 있습니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">프로그램을 동시에 사용해도 되나요?</div><div class="faq-a">프로그램별로 동시 사용이 가능합니다. 다만 API 키가 중복된 경우 충돌을 막기 위해 순차적으로 사용하시길 권장합니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">API 비용은 어떻게 되나요?</div><div class="faq-a">모든 프로그램의 API 사용료는 이용료와 별도이며 본인 API 키 기준으로 발생합니다. 노블아크와 포스티아는 Google 신규 가입 시 제공되는 $300 무료 크레딧을 활용할 수 있습니다(Google 정책 및 조건 적용). VYNKO의 상품 이미지 → 영상 전환 기능은 무료로 제공해 드립니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">이용 기간이 끝나면 어떻게 되나요?</div><div class="faq-a">이용 기간이 만료되면 프로그램 사용이 중단됩니다. 홈페이지에서 재결제하시면 즉시 다시 이용할 수 있습니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">라이선스 키를 잃어버렸어요.</div><div class="faq-a">회원 가입 후 로그인하면 마이페이지에서 구매한 라이선스 키를 다시 확인할 수 있습니다.</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">환불이 가능한가요?</div><div class="faq-a">라이선스 키를 아직 활성화하지 않으셨다면 구매일로부터 7일 이내에 전액 환불이 가능합니다. 라이선스 키를 프로그램에 입력해 활성화한 경우에는 디지털 콘텐츠의 특성상 환불이 어렵습니다(전자상거래 등에서의 소비자보호에 관한 법률 제17조 제2항 준용).</div></div><div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">백테스트 프로그램은 수익을 보장하나요?</div><div class="faq-a">아니요. 매매 아이디어를 과거 데이터로 검증하는 도구이며, 수익이나 승률을 보장하거나 투자를 권유하지 않습니다. 과거 결과는 미래 성과를 보장하지 않습니다.</div></div></div></section>
+
 <!-- COMMUNITY -->
 <section class="sec" id="community" style="padding-top:80px;">
   <div class="reveal" style="text-align:center;">
@@ -587,6 +571,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
     <div class="board-empty">불러오는 중...</div>
   </div>
 </section>
+
 
 <!-- 글쓰기 모달 -->
 <div class="board-modal-overlay" id="writeModal" onclick="if(event.target===this)closeWriteModal()">
@@ -633,37 +618,23 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
   </div>
 </div>
 
-<!-- CTA -->
-<div class="cta-band">
-  <h2>지금 바로 콘텐츠 자동화를 시작하세요</h2>
-  <p>필요한 프로그램만 월 단위로 이용하세요.</p>
-  <a href="#subscription" class="btn-white">요금제 보기</a>
-</div>
 
-<!-- FOOTER -->
-<footer>
+
+<section class="final reveal"><img src="hp/cta-bg.jpg" alt="" onerror="this.remove()"><div>
+  <h2>지금 바로 콘텐츠 자동화를 시작하세요</h2><p>결제 후 즉시 키가 발급되고, 설치부터 사용까지 설명서와 영상으로 안내해 드립니다.</p>
+  <div class="cta-row" style="margin:0"><a class="btn main" href="#pricing">요금제 보기</a><a class="btn line" href="#programs">프로그램 보기</a></div>
+</div></section>
+
+<footer><div class="fwrap">
   <div class="footer-top">
-    <div class="footer-brand">
-      <div class="logo">NOBLE ARC</div>
-      <p>AI 기반 콘텐츠 자동화 솔루션 (유튜브 · 쇼핑쇼츠 · 블로그 · 스레드 · 전자책 · 백테스트)</p>
-    </div>
+    <div class="footer-brand"><div class="logo">NOBLE ARC</div><p>AI 기반 콘텐츠 자동화 솔루션 (유튜브 · 쇼핑쇼츠 · 블로그 · 스레드 · 전자책 · 음악 · 웹소설 · 백테스트)</p></div>
     <div class="footer-links">
-      <div class="footer-col">
-        <h4>제품</h4>
-        <a href="#lineup">프로그램</a>
-        <a href="#subscription">요금제</a>
-      </div>
-      <div class="footer-col">
-        <h4>계정</h4>
-        <a href="#" onclick="openAuthModal('login')">로그인</a>
-        <a href="#" onclick="openAuthModal('signup')">회원가입</a>
-        <a href="#faq">FAQ</a>
-        <a href="https://mail.google.com/mail/?view=cm&to=doedoo291@gmail.com" target="_blank">이메일 문의</a>
-      </div>
+      <div class="footer-col"><h4>제품</h4><a href="#programs">프로그램</a><a href="#pricing">요금제</a><a href="#manuals">사용설명서</a></div>
+      <div class="footer-col"><h4>계정</h4><a href="#" onclick="openAuthModal('login');return false">로그인</a><a href="#" onclick="openAuthModal('signup');return false">회원가입</a><a href="#faq">FAQ</a><a href="https://mail.google.com/mail/?view=cm&to=doedoo291@gmail.com" target="_blank" rel="noopener">이메일 문의</a></div>
     </div>
   </div>
   <div class="footer-bottom">
-    <div>© 2026 NOBLE ARC. All rights reserved. · <a href="/privacy.html" style="color:var(--muted2);text-decoration:underline;">개인정보처리방침</a></div>
+    <div>© 2026 NOBLE ARC. All rights reserved. · <a href="/privacy.html">개인정보처리방침</a></div>
     <div class="footer-biz">
       상호: 노블아크(NobleArc) · 대표: 채정옥 · 사업자등록번호: 451-01-03916<br>
       통신판매업신고: 제 2026-안양동안-0412 호<br>
@@ -671,7 +642,7 @@ footer{background:#fff;border-top:1px solid var(--border);padding:60px 60px 40px
       이메일: doedoo291@gmail.com · 전화: 010-3387-0352 · 전화상담 가능시간 09:00~18:00
     </div>
   </div>
-</footer>
+</div></footer>
 <!-- AUTH MODAL (로그인/회원가입) -->
 <div class="modal" id="authModal">
   <div class="modal-box">
@@ -1407,6 +1378,12 @@ async function submitReply() {
     shape: 'pc',
     supportMultipleDensities: true,
   });
+</script>
+
+<script>
+(function(){var n=document.getElementById('topnav'),b=document.getElementById('navBurger');
+if(!n||!b)return;b.addEventListener('click',function(){n.classList.toggle('open')});
+n.querySelectorAll('.nav-links a').forEach(function(a){a.addEventListener('click',function(){n.classList.remove('open')})});})();
 </script>
 </body>
 </html>
